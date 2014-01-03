@@ -1,0 +1,298 @@
+%% Template Paper ISIT 2013
+%%
+%% October 2012, Stefan M. Moser
+%% based on various earlier templates
+%%
+%% Please note that your paper must be no more than five pages in
+%% the IEEEtran conference style as presented here (including figures,
+%% references, etc.!)
+
+\documentclass[conference,a4paper]{IEEEtran}
+
+%% Conference papers do not typically use \thanks and this command
+%% is locked out in conference mode. If really needed, such as for
+%% the acknowledgment of grants, uncomment the following:
+%\IEEEoverridecommandlockouts
+
+\begin{document}
+
+\sloppy
+
+%% Paper Title
+%% You can use linebreaks \\ within to get better formatting as
+%% desired. 
+\title{ISIT 2013 Paper Template\\Please Capitalize Important Words in Title} 
+
+
+%% Author names and affiliations:
+%%
+%% Avoiding spaces at the end of the author lines is not a problem with
+%% conference papers because we don't use \thanks or \IEEEmembership.
+%%
+%% For several authors with only one affiliation:
+%%
+% \author{
+%   \IEEEauthorblockN{Hui-Ting Chang and Stefan M.~Moser}
+%   \IEEEauthorblockA{Department of Electrical and Computer Engineering\\
+%     National Chiao Tung University (NCTU)\\
+%     Hsinchu, Taiwan\\
+%     Email: \{email-of-hui-ting,email-of-stefan\}@ieee.org} 
+% }
+%%
+%% For up to three affiliations:
+%%
+\author{
+  \IEEEauthorblockN{Stefan M.~Moser}
+  \IEEEauthorblockA{Dep. of Electrical \& Computer Eng.\\
+    National Chiao Tung University\\
+    Hsinchu, Taiwan\\
+    Email: email-of-stefan@ieee.org} 
+  \and
+  \IEEEauthorblockN{Erdal Ar\i{}kan}
+  \IEEEauthorblockA{Dep. of Electrical \& Electronics Eng.\\
+    Bilkent University\\
+    Ankara, Turkey\\
+    Email: email\_erdal@university.edu}
+  \and
+  \IEEEauthorblockN{Elza Erkip}
+  \IEEEauthorblockA{ECE Department\\ 
+    Polytechnic Institute of New York University\\
+    New York, USA\\
+    Email: elza\_s-email-address@ieee.org}
+}
+%%
+%% For over three affiliations, or if they all won't fit within the width
+%% of the page, use this alternative format:
+%%
+% \author{
+%   \IEEEauthorblockN{
+%     Michael Shell\IEEEauthorrefmark{1},
+%     Homer Simpson\IEEEauthorrefmark{2},
+%     James Kirk\IEEEauthorrefmark{3}, 
+%     Montgomery Scott\IEEEauthorrefmark{3} and
+%     Eldon Tyrell\IEEEauthorrefmark{4}}
+%   \IEEEauthorblockA{
+%     \IEEEauthorrefmark{1}School of Electrical and Computer Engineering\\
+%     Georgia Institute of Technology, Atlanta, Georgia 30332--0250\\ 
+%     Email: see http://www.michaelshell.org/contact.html}
+%   \IEEEauthorblockA{
+%     \IEEEauthorrefmark{2}Twentieth Century Fox, Springfield, USA\\
+%     Email: homer@thesimpsons.com}
+%   \IEEEauthorblockA{
+%     \IEEEauthorrefmark{3}Starfleet Academy, San Francisco, California 96678-2391\\
+%     Telephone: (800) 555--1212, Fax: (888) 555--1212}
+%   \IEEEauthorblockA{
+%     \IEEEauthorrefmark{4}Tyrell Inc., 123 Replicant Street, Los Angeles, California 90210--4321}
+% }
+
+
+%% Use for special paper notices
+%\IEEEspecialpapernotice{(Invited Paper)}
+
+
+%% To balance the two columns, you should reduce the text-height of
+%% the last page using the following command:
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%\addtolength{\textheight}{-9.35cm}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% with an appropriate value. This command must be place on the second
+%% last page, i.e., for a one-page abstract here, for a two-page
+%% abstract right after the \maketitle command.
+
+
+%% Create the title:
+\maketitle
+
+%% Abstract: 
+%% For the final version of the accepted paper, please make sure you
+%% remove the comment "THIS PAPER IS ELIGIBLE FOR THE STUDENT PAPER
+%% AWARD."
+%%
+\begin{abstract}
+  This paper provides the instructions for the preparation of paper
+  submissions and of final manuscripts for the Proceedings of ISIT
+  2013.
+\end{abstract}
+
+
+
+\section{Introduction}
+
+The 2013 IEEE International Symposium on Information Theory will be
+held at ICEC Convention Center near Taksim Square at the heart of
+Istanbul, Turkey, from Sunday, July 7 to Friday, July 12, 2013.
+
+
+\section{Submission}
+
+Paper submission is handled online using the EDAS system:
+\begin{center}
+  https://edas.info/newPaper.php?c=13285
+\end{center}
+The papers are restricted in length to \textbf{five pages} in the
+IEEEtran-conference style as presented here (including figures,
+references, etc.).
+
+Each paper must be classified as ``Eligible for student paper award''
+or ``Not eligible for student paper award''. Paper that are selected
+to be eligible for the student paper award should also contain
+\emph{``THIS PAPER IS ELIGIBLE FOR THE STUDENT PAPER AWARD''} as a
+first line in the abstract of the submission. Note that this reference
+must be removed again in the final manuscript!
+
+The deadline for the submission is \textbf{January 27, 2013}.
+
+
+\section{Proceedings}
+
+Accepted papers will be published in full (up to five pages in
+length). A hard-copy book of abstracts will also be distributed at the
+Symposium to serve as a guide to the sessions.
+
+The deadline for the submission of the final camera-ready paper is
+\textbf{May 15, 2013}.  Accepted papers not submitted by that date
+will not appear in the ISIT Proceedings and will not be included in
+the technical program of the ISIT.
+
+
+\section{Preparation of the Paper}
+
+Only electronic submissions in form of a PDF file will be accepted.
+The paper should be formatted in A4-format with sufficient margins at
+the top and the bottom.  We highly encourage the authors to prepare
+their papers with \LaTeX{} using the \LaTeX{} style file
+\verb+IEEEtran.cls+, which can be easily obtained from
+\begin{center}
+  \small
+  http://www.ctan.org/tex-archive/macros/latex/contrib/IEEEtran/
+\end{center}
+and using the \LaTeX{} template file \verb+isit_template.tex+ that
+produced this document and that may be downloaded from the ISIT 2013
+web site
+\begin{center}
+  http://www.isit2013.org/
+\end{center}
+Authors using other means to prepare their manuscripts should attempt
+to duplicate the style of this example as closely as possible.
+
+The style of references (e.g., \cite{shannon1948}), equations,
+figures, tables, etc., should be the same as for the \emph{IEEE
+  Transactions on Information Theory}. Example codes for figures and
+tables can be found in the template file (they are commented out).
+
+%% An example of a floating figure using the graphicx package.
+%% Note that \label must occur AFTER (or within) \caption.
+%% For figures, \caption should occur after the \includegraphics.
+%%
+% \begin{figure}[htbp]
+%   \centering
+%   \includegraphics[width=0.3\textwidth]{myfigure}
+%   % where an .eps filename suffix will be assumed under latex,
+%   % and a .pdf suffix will be assumed for pdflatex
+%   \caption{Simulation results.}
+%   \label{fig:sim}
+% \end{figure}
+
+
+%% An example of a double column floating figure using two subfigures.
+%% (The subfigure.sty package must be loaded for this to work.)  The
+%% subfigure \label commands are set within each subfigure command,
+%% the \label for the overall fgure must come after \caption.  
+%% \hfil must be used as a separator to get equal spacing
+%%
+% \begin{figure*}[htbp]
+%   \centerline{\subfigure[Case I]{\includegraphics[width=2.5in]{subfigcase1}
+%       % where an .eps filename suffix will be assumed under latex,
+%       % and a .pdf suffix will be assumed for pdflatex
+%       \label{fig:first_case}}
+%     \hfil
+%     \subfigure[Case II]{\includegraphics[width=2.5in]{subfigcase2}
+%       % where an .eps filename suffix will be assumed under latex,
+%       % and a .pdf suffix will be assumed for pdflatex
+%       \label{fig:second_case}}}
+%   \caption{Simulation results.}
+%   \label{fig:sim}
+% \end{figure*}
+
+
+%% An example of a floating table. 
+%% Note that, for IEEE style tables, the \caption command should come
+%% BEFORE the table. Table text will default to \footnotesize as IEEE
+%% normally uses this smaller font for tables.  The \label must come
+%% after \caption as always.
+%%
+% \begin{table}[htbp]
+%   % increase table row spacing, adjust to taste
+%   \renewcommand{\arraystretch}{1.3}
+%   \caption{An Example of a Table}
+%   \label{tab:table_example}
+%   \centering
+%   % Some packages, such as MDW tools, offer better commands for making tables
+%   % than the plain LaTeX2e tabular which is used here.
+%   \begin{tabular}{|c||c|}
+%     \hline
+%     One & Two\\
+%     \hline
+%     Three & Four\\
+%     \hline
+%   \end{tabular}
+% \end{table}
+
+
+For proper typesetting of equations, the environment
+\verb+\begin{IEEEeqnarray}+ is highly recommended. A short
+introduction on how to use this tool can be found online at
+\begin{center}
+  http://moser.cm.nctu.edu.tw/manuals.html\#eqlatex
+\end{center}
+
+The affiliation shown for authors should constitute a sufficient
+mailing address for persons who wish to write for more details about
+the paper.
+
+
+\section{Conclusion}
+
+The conclusion goes here. 
+
+For an appendix see comments in the template file.
+
+%% Appendix:
+%% If needed a single appendix is created by
+%\appendix
+%% If several appendices are needed, then the command
+%\appendices
+%% in combination with further \section-commands can be used.
+
+
+
+%% Use \section* for acknowledgement
+\section*{Acknowledgment}
+
+The authors would like to thank various sponsors for supporting 
+their research. 
+
+
+%% References:
+%% We recommend the usage of BibTeX:
+%%
+%\bibliographystyle{IEEEtran}
+%\bibliography{definitions,bibliofile}
+%%
+%% where we here have assume the existence of the files
+%% definitions.bib and bibliofile.bib.
+%% BibTeX documentation can be obtained at:
+%% http://www.ctan.org/tex-archive/biblio/bibtex/contrib/doc/
+%%
+%%
+%%
+%% Or manual references (pay attention to consistency!):
+\begin{thebibliography}{1}
+\bibitem{shannon1948}
+  C.~E. Shannon, ``A mathematical theory of communication,''
+  \emph{Bell System Techn. J.}, vol.~27, pp. 379--423 and 623--656,
+  Jul. and Oct. 1948. 
+\end{thebibliography}
+
+
+\end{document}
