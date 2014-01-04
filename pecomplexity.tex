@@ -871,6 +871,139 @@ methods that sidestep that complexity.
 %%\item Sometimes hard to tell a regime shift has occurred if the transition is chaotic to chaotic. or low period to low period.
 %%\end{enumerate}
 
+\section{New Figures and Tables}
+
+
+
+
+\begin{table}[htdp]
+\caption{ Embedding Parameters for reference if needed. }
+\begin{center}
+\begin{tabular}{|c|c|c|}
+\hline
+&$\tau$ & $m$ \\
+\hline
+gcc & 10& 13\\
+col\_major  &2&12\\
+SVD\_Full &  10  &  12 \\
+SVD\_IPC\_Regime1 & 5 &14  \\
+SVD\_IPC\_Regime2 & 10   &12  \\
+SVD\_IPC\_Regime3 & 2   &9  \\
+SVD\_IPC\_Regime4 &  3  & 11 \\
+SVD\_IPC\_Regime5 &  23  & 10 \\
+SVD\_IPC\_Regime6 &  30  & 12  \\
+\hline
+\end{tabular}
+\end{center}
+\label{default}
+\end{table}%
+
+
+
+
+\begin{table}[htdp]
+\caption{Average nRMSE over 15 runs for each signal and average (?) pe [[Ryan:is this average over all 15 and is this weighted]] at word length 5 and 6 for each signal. }
+\begin{center}
+\begin{tabular}{|c|c|c|c|c|c|}
+\hline
+& Horizon&nRMSE LMA & nRMSE mean & $l=5$& $l=6$\\
+\hline
+gcc &4542&  $0.1407\pm0.0063 $   & $0.1487\pm0.0066$ & - & - \\
+col\_major &14,709&  $0.0252\pm0.0061$   & $0.1975\pm0.0436$ & - & -\\
+ 
+SVD\_Full &22,072&  $0.0323\pm0.0019$  & $ 0.1784\pm0.0040$ & - & -  \\
+SVD\_IPC\_Regime1 &2,158&  $0.1680 \pm 0.0317$  & $0.3517\pm0.5223$ &0.9786 &0.9675  \\
+SVD\_IPC\_Regime2 &6,902& $0.1716 \pm0.0043 $  &$0.1762 \pm0.0012$ &0.8800&0.8493 \\
+SVD\_IPC\_Regime3 &947& $0.0507 \pm 0.0011$   &$0.5413\pm0.0005$  &0.7646&0.7029\\
+SVD\_IPC\_Regime4 &2,929&  $0.1288\pm0.0471$  & $0.2308\pm0.0867$ &0.8735&0.7770\\
+SVD\_IPC\_Regime5 &3,255&  $0.0235\pm0.0022$ & $0.1306\pm0.0003$&0.7281&0.6724 \\
+SVD\_IPC\_Regime6 &5,804&  $0.0196\pm0.0022$  & $0.0508\pm0.0003$ &0.8316&0.7615 \\
+\hline
+\end{tabular}
+\end{center}
+\label{default}
+\end{table}%
+
+
+\begin{figure}[htbp]
+\begin{center}
+\includegraphics[width=\textwidth]{figs/SVD1RegimesColored}\caption{SVD IPC Time Series with Regimes Colored}
+\label{default}
+\end{center}
+\end{figure}
+
+
+
+\begin{figure}[htbp]
+\begin{center}
+\includegraphics[width=\textwidth]{figs/svd_mutuals}\caption{SVD mutuals for full and regimes}
+\label{default}
+\end{center}
+\end{figure}
+
+
+
+\begin{figure}[htbp]
+\begin{center}
+\includegraphics[width=\textwidth]{figs/full}\caption{SVD IPC Full Time Series}
+\label{default}
+\end{center}
+\end{figure}
+
+
+\begin{figure}[htbp]
+\begin{center}
+\includegraphics[width=\textwidth]{figs/regime1}\caption{SVD IPC Regime 1 Time Series}
+\label{default}
+\end{center}
+\end{figure}
+
+
+\begin{figure}[htbp]
+\begin{center}
+\includegraphics[width=\textwidth]{figs/regime2}\caption{SVD IPC Regime 2 Time Series}
+\label{default}
+\end{center}
+\end{figure}
+
+
+%\begin{figure}[htbp]
+%\begin{center}
+%\includegraphics[width=\textwidth]{figs/regime3}\caption{SVD IPC Regime 3 Time Series}
+%\label{default}
+%\end{center}
+%\end{figure}
+
+%\begin{figure}[htbp]
+%\begin{center}
+%\includegraphics[width=\textwidth]{figs/regime4}\caption{SVD IPC Regime 4 Time Series}
+%\label{default}
+%\end{center}
+%\end{figure}
+
+\begin{figure}[htbp]
+\begin{center}
+\includegraphics[width=\textwidth]{figs/regime5}\caption{SVD IPC Regime 5 Time Series}
+\label{default}
+\end{center}
+\end{figure}
+
+\begin{figure}[htbp]
+\begin{center}
+\includegraphics[width=\textwidth]{figs/regime6}\caption{SVD IPC Regime 6 Time Series}
+\label{default}
+\end{center}
+\end{figure}
+
+
+
+
+
+
+
+
+
+
 \section*{Acknowledgment}
 This work was partially supported by NSF grant \#CMMI-1245947 and ARO
 grant \#W911NF-12-1-0288.
