@@ -10,10 +10,23 @@
 \usepackage{amsmath}
 \usepackage{epstopdf}
 \usepackage{amsthm}
+\usepackage{authblk}
 \DeclareGraphicsRule{.tif}{png}{.png}{`convert #1 `dirname #1`/`basename #1 .tif`.png}
 
 \newtheorem*{mydef}{Definition}
 \title{Determinism, Complexity, and Predictability in Computer Performance}
+
+
+\author[1]{Joshua Garland \thanks{joshua.garland@colorado.edu}}
+\author[1]{Ryan James \thanks{ryan.james@colorado.edu}}
+\author[1,2]{Elizabeth Bradley \thanks{lizb@colorado.edu}}
+\affil[1]{Department of Computer Science \\
+  University of Colorado at Boulder \\
+  Colorado, USA
+}
+\affil[2]{Santa Fe Institute \\
+  New Mexico, USA
+}
 
 
 %Version 1
@@ -1109,7 +1122,7 @@ SVD\_IPC\_Regime6 & 5,804   & $0.0196 \pm 0.0022$ & $0.0508 \pm 0.0003$ & $0.810
 This work was partially supported by NSF grant \#CMMI-1245947 and ARO
 grant \#W911NF-12-1-0288.
 
-%\bibliographystyle{}
+\bibliographystyle{unsrt}
 \bibliography{bibliofile}
 
 
