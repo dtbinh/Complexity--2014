@@ -4,10 +4,11 @@
 %\geometry{landscape}                % Activate for for rotated page geometry
 %\usepackage[parfill]{parIEEEabrvskip}    % Activate to begin paragraphs with an empty line rather than an indent
 \usepackage{graphicx}
+\usepackage{caption}
+\usepackage{subcaption}
 \usepackage{amssymb}
 \usepackage{amsmath}
 \usepackage{epstopdf}
-\usepackage{subfigure}
 \usepackage{amsthm}
 \DeclareGraphicsRule{.tif}{png}{.png}{`convert #1 `dirname #1`/`basename #1 .tif`.png}
 
@@ -933,12 +934,62 @@ SVD\_IPC\_Regime6 & 5,804   & $0.0196 \pm 0.0022$ & $0.0508 \pm 0.0003$ & $0.810
 \end{table}%
 
 
+
+
+\begin{figure}
+        \centering
+        \begin{subfigure}{\textwidth}
+                \includegraphics[width=\textwidth]{figs/svdipcfull}
+                \caption{SVD IPC without coloring}
+                \label{fig:gull}
+        \end{subfigure}%
+        \newline
+        ~ %add desired spacing between images, e. g. ~, \quad, \qquad etc.
+          %(or a blank line to force the subfigure onto a new line)
+        \begin{subfigure}[b]{\textwidth}
+                \includegraphics[width=\textwidth]{figs/svdipcregimescolored}
+                \caption{SVD IPC with coloring}
+                \label{fig:svdFullColored}
+        \end{subfigure}
+        ~ %add desired spacing between images, e. g. ~, \quad, \qquad etc.
+          %(or a blank line to force the subfigure onto a new line)
+         \caption{SVD Full Time Series }\label{fig:svdFull}
+\end{figure}
+
+
+
+
+
+\begin{figure}
+        \centering
+        \begin{subfigure}{\textwidth}
+                \includegraphics[width=\textwidth]{figs/colfullts}
+                \caption{col IPC  Full Time Series}
+                \label{fig:gull}
+        \end{subfigure}%
+        \newline
+        ~ %add desired spacing between images, e. g. ~, \quad, \qquad etc.
+          %(or a blank line to force the subfigure onto a new line)
+        \begin{subfigure}[b]{\textwidth}
+                \includegraphics[width=\textwidth]{figs/colshortts}
+                \caption{col IPC  Short Time Series for structure illustration}
+                \label{fig:svdFullColored}
+        \end{subfigure}
+        ~ %add desired spacing between images, e. g. ~, \quad, \qquad etc.
+          %(or a blank line to force the subfigure onto a new line)
+         \caption{col  Time Series }\label{fig:svdFull}
+\end{figure}
+
+
+
 \begin{figure}[htbp]
 \begin{center}
-\includegraphics[width=\textwidth]{figs/SVD1RegimesColored}\caption{SVD IPC Time Series with Regimes Colored}
+\includegraphics[width=\textwidth]{figs/gccfullts}\caption{403.gcc full time series}
 \label{default}
 \end{center}
 \end{figure}
+
+
 
 
 
@@ -951,12 +1002,7 @@ SVD\_IPC\_Regime6 & 5,804   & $0.0196 \pm 0.0022$ & $0.0508 \pm 0.0003$ & $0.810
 
 
 
-\begin{figure}[htbp]
-\begin{center}
-\includegraphics[width=\textwidth]{figs/full}\caption{SVD IPC Full Time Series}
-\label{default}
-\end{center}
-\end{figure}
+
 
 
 \begin{figure}[htbp]
