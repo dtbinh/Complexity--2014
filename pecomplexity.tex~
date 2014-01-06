@@ -927,7 +927,7 @@ SVD\_IPC\_Regime6 &  30  & 12  \\
 \begin{center}
 \begin{tabular}{|c|c|c|c|c|c|}
 \hline
-                  & Horizon & nRMSE LMA           & nRMSE naive          & $l=5$                   & $l=6$                   \\
+                  & Horizon & nRMSE LMA           & nRMSE mean          & $l=5$                   & $l=6$                   \\
 \hline
 gcc               & 4,542   & $0.1407 \pm 0.0063$ & $0.1487 \pm 0.0066$ & $0.950991 \pm 0.001073$ & $0.942964 \pm 0.001256$ \\
 
