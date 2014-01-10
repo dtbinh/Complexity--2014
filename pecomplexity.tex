@@ -478,24 +478,27 @@ series. The weighted permutation entropy is then:
   H_w(n) = - \sum_{\pi \in \mathcal{S}_n} p_w(\pi) \log_2 p_w(\pi)
 \end{align*}
 
-In practice, calculating permutation entropy involves choosing a good value for
-the wordlength $n$. The key consideration here is that the value be large enough
-that forbidden ordinals are discovered, yet small enough that reasonable
-statistics over the ordinals are gathered: e.g., $\displaystyle n =
-\operatornamewithlimits{argmax}_\ell\{T > 100 \ell!\}$, assuming an average of
-100 counts per ordinal. In the literature, $3\le n \le 6$ is a standard choice
----generally without any formal justification. In theory, the permutation
-entropy should reach an asymptote with increasing $n$, but that requires an
-arbitrarily long time series. In practice, what one should do is calculate the
-\emph{persistent} permutation entropy by increasing $n$ until the result
-converges, but data length issues can intrude before that convergence is
-reached.
+In practice, calculating permutation entropy and weighted permutation entropy
+involves choosing a good value for the word length $n$. The primary
+consideration is that the value be large enough that forbidden ordinals are
+discovered, yet small enough that reasonable statistics over the ordinals are
+gathered: e.g.:
+\begin{align*}
+n = \operatornamewithlimits{argmax}_\ell \{ T \gtrapprox 100 \ell! \},
+\end{align*}
+assuming an average of 100 counts per ordinal is sufficient. In the literature,
+$3 \le n \le 6$ is a standard choice --- generally without any formal
+justification. In theory, the permutation entropy should reach an asymptote with
+increasing $n$, but that requires an arbitrarily long time series. In practice,
+what one should do is calculate the \emph{persistent} permutation entropy by
+increasing $n$ until the result converges, but data length issues can intrude
+before that convergence is reached.
 
 
-Table~\ref{tab:pe} shows the permutation entropy results for the
-examples considered in this paper, with the nRMSPE prediction
-accuracies from the previous section included alongside for easy
-comparison.
+% Table~\ref{tab:pe} shows the permutation entropy results for the
+% examples considered in this paper, with the nRMSPE prediction
+% accuracies from the previous section included alongside for easy
+% comparison.
 %
 % \begin{table}[htbp]
 %   % increase table row spacing, adjust to taste
@@ -591,36 +594,37 @@ comparison.
 %%   \end{tabular}
 %% \end{table}
 %
-  \begin{table}[htbp]
-   \caption{Prediction error (in nRMSPE) and permutation entropy (for
-     different wordlengths $n$}
-   \label{tab:pe}
-   \centering
-   \begin{tabular}{|c|c|c|c|c|c|}
-     \hline
-      {\bf cache misses} & error   &$n=4$&$n=5$&$n=6$\\
-     \hline
-     \tt{row\_major}  & 0.0324  &0.6751&0.5458&0.4491\\
-     \hline
-     \tt{col\_major}  & 0.0080  &0.5029&0.4515&0.3955 \\
-     \hline
-     \tt{403.gcc}  & 0.1416  &0.9916&0.9880&0.9835\\
-     \hline
-     \tt{482.sphinx3}  & 0.2032  &0.9913&0.9866&0.9802 \\
-      \hline
-      \hline
-      {\bf insts per cyc} & error   &$n=4$&$n=5$&$n=6$\\
-     \hline
-      \tt{row\_major} & 0.0778  &0.9723&0.9354&0.8876\\
-     \hline
-      \tt{col\_major} & 0.0161   &0.8356&0.7601&0.6880\\
-     \hline
-     \tt{403.gcc} & 0.2033   &0.9862&0.9814&0.9764\\
-     \hline
-     \tt{482.sphinx3} & 0.3670 & 0.9951&0.9914&0.9849 \\
-      \hline
-   \end{tabular}
- \end{table}
+ %  \begin{table}[htbp]
+ %   \caption{Prediction error (in nRMSPE) and permutation entropy (for
+ %     different wordlengths $n$}
+ %   \label{tab:pe}
+ %   \centering
+ %   \begin{tabular}{|c|c|c|c|c|c|}
+ %     \hline
+ %      {\bf cache misses} & error   &$n=4$&$n=5$&$n=6$\\
+ %     \hline
+ %     \tt{row\_major}  & 0.0324  &0.6751&0.5458&0.4491\\
+ %     \hline
+ %     \tt{col\_major}  & 0.0080  &0.5029&0.4515&0.3955 \\
+ %     \hline
+ %     \tt{403.gcc}  & 0.1416  &0.9916&0.9880&0.9835\\
+ %     \hline
+ %     \tt{482.sphinx3}  & 0.2032  &0.9913&0.9866&0.9802 \\
+ %      \hline
+ %      \hline
+ %      {\bf insts per cyc} & error   &$n=4$&$n=5$&$n=6$\\
+ %     \hline
+ %      \tt{row\_major} & 0.0778  &0.9723&0.9354&0.8876\\
+ %     \hline
+ %      \tt{col\_major} & 0.0161   &0.8356&0.7601&0.6880\\
+ %     \hline
+ %     \tt{403.gcc} & 0.2033   &0.9862&0.9814&0.9764\\
+ %     \hline
+ %     \tt{482.sphinx3} & 0.3670 & 0.9951&0.9914&0.9849 \\
+ %      \hline
+ %   \end{tabular}
+ % \end{table}
+
 The relationship between prediction accuracy and the permutation
 entropy (PE) is as we conjectured: performance traces with high
 PE---those whose temporal complexity is high, in the sense that little
