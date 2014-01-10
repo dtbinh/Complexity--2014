@@ -21,6 +21,8 @@
 *.mtc0
 *.nav
 *.nlo
+*.eps
+*.fig
 *.out
 *.pdfsync
 *.ps
