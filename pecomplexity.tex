@@ -475,8 +475,10 @@ probability enhances permutations involved in ``large'' features and demotes
 permutations which are small in amplitude relative to the features of the time
 series. The weighted permutation entropy is then:
 \begin{align*}
-  H_w(n) = - \sum_{\pi \in \mathcal{S}_n} p_w(\pi) \log_2 p_w(\pi)
+  H_w(n) = - \sum_{\pi \in \mathcal{S}_n} p_w(\pi) \log_2 p_w(\pi),
 \end{align*}
+which can also be normalized by dividing by $\log_2(n!)$, and will be in all the
+results of this paper.
 
 In practice, calculating permutation entropy and weighted permutation entropy
 involves choosing a good value for the word length $n$. The primary
@@ -484,7 +486,7 @@ consideration is that the value be large enough that forbidden ordinals are
 discovered, yet small enough that reasonable statistics over the ordinals are
 gathered: e.g.:
 \begin{align*}
-n = \operatornamewithlimits{argmax}_\ell \{ T \gtrapprox 100 \ell! \},
+  n = \operatornamewithlimits{argmax}_\ell \{ T \gtrapprox 100 \ell! \},
 \end{align*}
 assuming an average of 100 counts per ordinal is sufficient. In the literature,
 $3 \le n \le 6$ is a standard choice --- generally without any formal
@@ -625,23 +627,27 @@ before that convergence is reached.
  %   \end{tabular}
  % \end{table}
 
-The relationship between prediction accuracy and the permutation
-entropy (PE) is as we conjectured: performance traces with high
-PE---those whose temporal complexity is high, in the sense that little
-information is being propagated forward in time---are indeed harder to
-predict using the simple deterministic forecast model described in the
-previous section.  The effects of changing $n$ are also interesting:
-using a longer wordlength generally lowers the PE---a natural
-consequence of finite-length data---but the falloff is less rapid in
-some traces than in others, suggesting that those values are closer to
-the theoretical asymptote that exists for perfect data.  The
-persistent PE values of 0.5--0.6 for the {\tt row\_major} and {\tt
-  col\_major} cache-miss traces are consistent with dynamical chaos,
-further corroborating the results of~\cite{mytkowicz09}.  (PE values
-above 0.97 are consistent with white noise.)  Interestingly, the
-processor-load traces for these two microkernels exhibit more temporal
-complexity than the cache-miss traces.  This may be a consequence of
-the lower baseline value of this time series.
+The relationship between prediction accuracy and the weighted permutation
+entropy (WPE) is much as we conjectured: performance traces with high WPE ---
+those whose temporal complexity is high, in the sense that the entropy
+generation per value is approximately equal to the total entropy per value thus
+little information is being propagated forward in time --- are indeed harder to
+predict using the simple deterministic forecast model described in the previous
+section.  The effects of changing the word length $n$ are also interesting:
+using a longer word length generally lowers the WPE --- a natural consequence of
+finite-length data --- but the falloff is less rapid in some traces than in
+others, suggesting that those values are closer to the theoretical asymptote
+that exists for perfect data. The persistent WPE values of 0.5--0.6 for the {\tt
+col\_major} trace are consistent with dynamical chaos, further corroborating the
+results of~\cite{mytkowicz09}.
+
+\begin{figure}[htbp]
+  \centering
+  \includegraphics[width=0.95\textwidth]{figs/prediction_vs_entropy}
+  \caption{The improvement of LMA over na\"{i}ve vs weighted permutation entropy.
+  For each of these, the word length used is $5$.}
+  \label{fig:pred_vs_ent}
+\end{figure}
 
 % In Table~\ref{tab:TCMpe} \& \ref{tab:IPCpe} the behavior of the PEs as
 % they limit to their asymptotic values is observed. A feature of note
@@ -1121,14 +1127,6 @@ SVD\_IPC\_Regime6 & 5,804   & $0.0196 \pm 0.0022$ & $0.0508 \pm 0.0003$ & $0.810
     are regions where the window overlaps regimes. The window size used is
     $5,000 \times 100,000$ instructions and the word length is $4$.}
   \label{fig:wwpe}
-\end{figure}
-
-\begin{figure}[htbp]
-  \centering
-  \includegraphics[width=0.95\textwidth]{figs/prediction_vs_entropy}
-  \caption{The improvement of LMA over na\"{i}ve vs weighted permutation entropy.
-  For each of these, the word length used is $5$.}
-  \label{fig:pred_vs_ent}
 \end{figure}
 
 
