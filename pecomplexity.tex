@@ -921,8 +921,17 @@ methods that sidestep that complexity.
 
 \section{New Figures and Tables}
 
+Possible new error measure 
 
+$$q_t = \frac{e_t}{\frac{1}{n-1}\sum^n_{i=2}|Y_i-Y_{i-1}|}$$
 
+$$MASE = mean(|q_t|)$$
+
+Helpful to remember that $F_i = Y_{i-1}$ for random walk prediction 
+
+``When $MASE<1$, the proposed method gives, on average, smaller errors than the one-step errors from the na\"ive method. If multi-step forecasts are being computed, it is possible to scale by the in- sample MAE[[Mean Absolute Error(mean($|e_t|$)]] computed from multi-step na\"iõve forecasts."
+
+``The errors have been scaled by the one-step in- sample forecast errors from the na\"ive method, and then averaged across all series. So a value of 2 indicates that the out-of-sample forecast errors are, on average, about twice as large as the in-sample one-step forecast errors from the na\"ive method. Because the scaling is based on one-step forecasts, the scaled errors for multi-step forecasts are typically larger than one. "
 
 \begin{table}[htdp]
 \caption{ Embedding Parameters for reference if needed. }
@@ -952,21 +961,21 @@ SVD\_IPC\_Regime6 &  30  & 12  \\
 \begin{table}[htdp]
 \caption{Average nRMSE over 15 runs for each signal and average wpe at word length 5 and 6 for each signal. }
 \begin{center}
-\begin{tabular}{|c|c|c|c|c|c|}
+\begin{tabular}{|c|c|c|c|c|c|c|}
 \hline
-                  & Horizon & nRMSE LMA           & nRMSE na\"{i}ve          & $l=5$                   & $l=6$                   \\
+                  & Horizon & nRMSE LMA           & nRMSE na\"{i}ve           &LMA MASE (ARIMA) & $l=5$                   & $l=6$                   \\
 \hline
-gcc               & 4,542   & $0.1407 \pm 0.0063$ & $0.1487 \pm 0.0066$ & $0.9510 \pm 0.0011$ & $0.9430 \pm 0.0013$ \\
+gcc               & 4,542   & $0.1407 \pm 0.0063$ & $0.1487 \pm 0.0066$ &1.5416(0.929)& $0.9510 \pm 0.0011$ & $0.9430 \pm 0.0013$ \\
 
-col\_major        & 14,709  & $0.0252 \pm 0.0061$ & $0.1975 \pm 0.0436$ & $0.5636 \pm 0.0031$ & $0.5131 \pm 0.0034$ \\
+col\_major        & 14,709  & $0.0252 \pm 0.0061$ & $0.1975 \pm 0.0436$ &0.0519(0.07UF)& $0.5636 \pm 0.0031$ & $0.5131 \pm 0.0034$ \\
 
 %SVD\_Full         & 22,072  & $0.0323 \pm 0.0019$ & $0.1784 \pm 0.0040$ & $0.8765 \pm 0.0044$ & $0.8508 \pm 0.0035$ \\
-SVD\_IPC\_Regime1 & 2,158   & $0.1680 \pm 0.0317$ & $0.3517 \pm 0.5223$ & $0.9761 \pm 0.0084$ & $0.9572 \pm 0.0156$ \\
-SVD\_IPC\_Regime2 & 6,902   & $0.1716 \pm 0.0043$ & $0.1762 \pm 0.0012$ & $0.8760 \pm 0.0052$ & $0.8464 \pm 0.0044$ \\
-SVD\_IPC\_Regime3 & 947     & $0.0507 \pm 0.0011$ & $0.5413 \pm 0.0005$ & $0.7768 \pm 0.0073$ & $0.7157 \pm 0.0056$ \\
-SVD\_IPC\_Regime4 & 2,929   & $0.1288 \pm 0.0471$ & $0.2308 \pm 0.0867$ & $0.9073 \pm 0.0080$ & $0.8246 \pm 0.0077$ \\
-SVD\_IPC\_Regime5 & 3,255   & $0.0235 \pm 0.0022$ & $0.1306 \pm 0.0003$ & $0.7333 \pm 0.0076$ & $0.6776 \pm 0.0068$ \\
-SVD\_IPC\_Regime6 & 5,804   & $0.0196 \pm 0.0022$ & $0.0508 \pm 0.0003$ & $0.8101 \pm 0.0135$ & $0.7475 \pm 0.0106$ \\
+SVD\_IPC\_Regime1 & 2,158   & $0.1680 \pm 0.0317$ & $0.3517 \pm 0.5223$ &0.7954(0.724UF)& $0.9761 \pm 0.0084$ & $0.9572 \pm 0.0156$ \\
+SVD\_IPC\_Regime2 & 6,902   & $0.1716 \pm 0.0043$ & $0.1762 \pm 0.0012$ &1.9990(1.138)             & $0.8760 \pm 0.0052$ & $0.8464 \pm 0.0044$ \\
+SVD\_IPC\_Regime3 & 947     & $0.0507 \pm 0.0011$ & $0.5413 \pm 0.0005$ &1.0089 (1.165215)              & $0.7768 \pm 0.0073$ & $0.7157 \pm 0.0056$ \\
+SVD\_IPC\_Regime4 & 2,929   & $0.1288 \pm 0.0471$ & $0.2308 \pm 0.0867$ &0.8976 (0.840548)           & $0.9073 \pm 0.0080$ & $0.8246 \pm 0.0077$ \\
+SVD\_IPC\_Regime5 & 3,255   & $0.0235 \pm 0.0022$ & $0.1306 \pm 0.0003$ &0.7487 (1.260)& $0.7333 \pm 0.0076$ & $0.6776 \pm 0.0068$ \\
+SVD\_IPC\_Regime6 & 5,804   & $0.0196 \pm 0.0022$ & $0.0508 \pm 0.0003$ &0.7848 (0.7831) & $0.8101 \pm 0.0135$ & $0.7475 \pm 0.0106$ \\
 \hline
 \end{tabular}
 \end{center}
@@ -999,11 +1008,37 @@ SVD\_IPC\_Regime6 & 5,804   & $0.0196 \pm 0.0022$ & $0.0508 \pm 0.0003$ & $0.810
 
 
 
+
+\begin{figure}
+        \centering
+        \begin{subfigure}{\textwidth}
+                \includegraphics[width=\textwidth]{figs/svdregime2prediction}
+                \caption{SVD Regime 2 LMA Prediction}
+                \label{fig:gull}
+        \end{subfigure}%
+        \newline
+        ~ %add desired spacing between images, e. g. ~, \quad, \qquad etc.
+          %(or a blank line to force the subfigure onto a new line)
+        \begin{subfigure}[b]{\textwidth}
+                \includegraphics[width=\textwidth]{figs/svdregime2predictionFULL}
+                \caption{SVD Regime 2 LMA Prediction with Full Time Series}
+                \label{fig:svdFullColored}
+        \end{subfigure}
+        ~ %add desired spacing between images, e. g. ~, \quad, \qquad etc.
+          %(or a blank line to force the subfigure onto a new line)
+         \caption{SVD Regime 2 LMA Prediction Figures }\label{fig:svdregime2prediciton}
+\end{figure}
+
+
+
+
+
+
 \begin{figure}
         \centering
         \begin{subfigure}{\textwidth}
                 \includegraphics[width=\textwidth]{figs/svdPrediction}
-                \caption{SVD LMA Prediction}
+                \caption{SVD Regime 5 LMA Prediction}
                 \label{fig:gull}
         \end{subfigure}%
         \newline
@@ -1011,13 +1046,24 @@ SVD\_IPC\_Regime6 & 5,804   & $0.0196 \pm 0.0022$ & $0.0508 \pm 0.0003$ & $0.810
           %(or a blank line to force the subfigure onto a new line)
         \begin{subfigure}[b]{\textwidth}
                 \includegraphics[width=\textwidth]{figs/svdPredictionFull}
-                \caption{SVD LMA Prediction with Full Time Series}
+                \caption{SVD Regime 5 LMA Prediction with Full Time Series}
                 \label{fig:svdFullColored}
         \end{subfigure}
         ~ %add desired spacing between images, e. g. ~, \quad, \qquad etc.
           %(or a blank line to force the subfigure onto a new line)
-         \caption{SVD LMA Prediction Figures }\label{fig:svdFull}
+         \caption{SVD Regime 5 LMA Prediction Figures }\label{fig:svdregime5prediciton}
 \end{figure}
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -1080,12 +1126,12 @@ SVD\_IPC\_Regime6 & 5,804   & $0.0196 \pm 0.0022$ & $0.0508 \pm 0.0003$ & $0.810
 
 
 
-\begin{figure}[htbp]
-\begin{center}
-\includegraphics[width=\textwidth]{figs/svd_mutuals}\caption{SVD mutuals for full and regimes}
-\label{default}
-\end{center}
-\end{figure}
+%\begin{figure}[htbp]
+%\begin{center}
+%\includegraphics[width=\textwidth]{figs/svd_mutuals}\caption{SVD mutuals for full and %regimes}
+%\label{default}
+%\end{center}
+%\end{figure}
 
 
 
