@@ -475,27 +475,49 @@ probability enhances permutations involved in ``large'' features and demotes
 permutations which are small in amplitude relative to the features of the time
 series. The weighted permutation entropy is then:
 \begin{align*}
-  H_w(n) = - \sum_{\pi \in \mathcal{S}_n} p_w(\pi) \log_2 p_w(\pi)
+  H_w(n) = - \sum_{\pi \in \mathcal{S}_n} p_w(\pi) \log_2 p_w(\pi),
 \end{align*}
+which can also be normalized by dividing by $\log_2(n!)$, and will be in all the
+results of this paper.
 
-In practice, calculating permutation entropy involves choosing a good value for
-the wordlength $n$. The key consideration here is that the value be large enough
-that forbidden ordinals are discovered, yet small enough that reasonable
-statistics over the ordinals are gathered: e.g., $\displaystyle n =
-\operatornamewithlimits{argmax}_\ell\{T > 100 \ell!\}$, assuming an average of
-100 counts per ordinal. In the literature, $3\le n \le 6$ is a standard choice
----generally without any formal justification. In theory, the permutation
-entropy should reach an asymptote with increasing $n$, but that requires an
-arbitrarily long time series. In practice, what one should do is calculate the
-\emph{persistent} permutation entropy by increasing $n$ until the result
-converges, but data length issues can intrude before that convergence is
-reached.
+In practice, calculating permutation entropy and weighted permutation entropy
+involves choosing a good value for the word length $n$. The primary
+consideration is that the value be large enough that forbidden ordinals are
+discovered, yet small enough that reasonable statistics over the ordinals are
+gathered: e.g.:
+\begin{align*}
+  n = \operatornamewithlimits{argmax}_\ell \{ T \gtrapprox 100 \ell! \},
+\end{align*}
+assuming an average of 100 counts per ordinal is sufficient. In the literature,
+$3 \le n \le 6$ is a standard choice --- generally without any formal
+justification. In theory, the permutation entropy should reach an asymptote with
+increasing $n$, but that requires an arbitrarily long time series. In practice,
+what one should do is calculate the \emph{persistent} permutation entropy by
+increasing $n$ until the result converges, but data length issues can intrude
+before that convergence is reached.
+
+The weighted permutation entropy for the {\tt SVD} program is given in
+Fig.~\cite{fig:wwpe}. To generate this image a window of 5,000 values slid over
+the time series. Within each of those windows, the statistics over words of
+length 4 are computed and the WPE is calculated. The gray bands denote regions
+where the 5,000 value window overlapped visually-distinct regimes. It can be
+seen that the behaviors of the weighted permutation entropy vary between
+regimes.
+
+\begin{figure}[htbp]
+  \centering
+  \includegraphics[width=1.0\textwidth]{figs/SVD_wwpe}
+  \caption{The weighted permutation entropy of one run of SVD. The gray bands
+    are regions where the window overlaps regimes. The window size used is
+    $5,000 \times 100,000$ instructions and the word length is $4$.}
+  \label{fig:wwpe}
+\end{figure}
 
 
-Table~\ref{tab:pe} shows the permutation entropy results for the
-examples considered in this paper, with the nRMSPE prediction
-accuracies from the previous section included alongside for easy
-comparison.
+% Table~\ref{tab:pe} shows the permutation entropy results for the
+% examples considered in this paper, with the nRMSPE prediction
+% accuracies from the previous section included alongside for easy
+% comparison.
 %
 % \begin{table}[htbp]
 %   % increase table row spacing, adjust to taste
@@ -591,53 +613,58 @@ comparison.
 %%   \end{tabular}
 %% \end{table}
 %
-  \begin{table}[htbp]
-   \caption{Prediction error (in nRMSPE) and permutation entropy (for
-     different wordlengths $n$}
-   \label{tab:pe}
-   \centering
-   \begin{tabular}{|c|c|c|c|c|c|}
-     \hline
-      {\bf cache misses} & error   &$n=4$&$n=5$&$n=6$\\
-     \hline
-     \tt{row\_major}  & 0.0324  &0.6751&0.5458&0.4491\\
-     \hline
-     \tt{col\_major}  & 0.0080  &0.5029&0.4515&0.3955 \\
-     \hline
-     \tt{403.gcc}  & 0.1416  &0.9916&0.9880&0.9835\\
-     \hline
-     \tt{482.sphinx3}  & 0.2032  &0.9913&0.9866&0.9802 \\
-      \hline
-      \hline
-      {\bf insts per cyc} & error   &$n=4$&$n=5$&$n=6$\\
-     \hline
-      \tt{row\_major} & 0.0778  &0.9723&0.9354&0.8876\\
-     \hline
-      \tt{col\_major} & 0.0161   &0.8356&0.7601&0.6880\\
-     \hline
-     \tt{403.gcc} & 0.2033   &0.9862&0.9814&0.9764\\
-     \hline
-     \tt{482.sphinx3} & 0.3670 & 0.9951&0.9914&0.9849 \\
-      \hline
-   \end{tabular}
- \end{table}
-The relationship between prediction accuracy and the permutation
-entropy (PE) is as we conjectured: performance traces with high
-PE---those whose temporal complexity is high, in the sense that little
-information is being propagated forward in time---are indeed harder to
-predict using the simple deterministic forecast model described in the
-previous section.  The effects of changing $n$ are also interesting:
-using a longer wordlength generally lowers the PE---a natural
-consequence of finite-length data---but the falloff is less rapid in
-some traces than in others, suggesting that those values are closer to
-the theoretical asymptote that exists for perfect data.  The
-persistent PE values of 0.5--0.6 for the {\tt row\_major} and {\tt
-  col\_major} cache-miss traces are consistent with dynamical chaos,
-further corroborating the results of~\cite{mytkowicz09}.  (PE values
-above 0.97 are consistent with white noise.)  Interestingly, the
-processor-load traces for these two microkernels exhibit more temporal
-complexity than the cache-miss traces.  This may be a consequence of
-the lower baseline value of this time series.
+ %  \begin{table}[htbp]
+ %   \caption{Prediction error (in nRMSPE) and permutation entropy (for
+ %     different wordlengths $n$}
+ %   \label{tab:pe}
+ %   \centering
+ %   \begin{tabular}{|c|c|c|c|c|c|}
+ %     \hline
+ %      {\bf cache misses} & error   &$n=4$&$n=5$&$n=6$\\
+ %     \hline
+ %     \tt{row\_major}  & 0.0324  &0.6751&0.5458&0.4491\\
+ %     \hline
+ %     \tt{col\_major}  & 0.0080  &0.5029&0.4515&0.3955 \\
+ %     \hline
+ %     \tt{403.gcc}  & 0.1416  &0.9916&0.9880&0.9835\\
+ %     \hline
+ %     \tt{482.sphinx3}  & 0.2032  &0.9913&0.9866&0.9802 \\
+ %      \hline
+ %      \hline
+ %      {\bf insts per cyc} & error   &$n=4$&$n=5$&$n=6$\\
+ %     \hline
+ %      \tt{row\_major} & 0.0778  &0.9723&0.9354&0.8876\\
+ %     \hline
+ %      \tt{col\_major} & 0.0161   &0.8356&0.7601&0.6880\\
+ %     \hline
+ %     \tt{403.gcc} & 0.2033   &0.9862&0.9814&0.9764\\
+ %     \hline
+ %     \tt{482.sphinx3} & 0.3670 & 0.9951&0.9914&0.9849 \\
+ %      \hline
+ %   \end{tabular}
+ % \end{table}
+
+The relationship between prediction accuracy and the weighted permutation
+entropy (WPE) is much as we conjectured: performance traces with high WPE ---
+those whose temporal complexity is high, in the sense that the entropy
+generation per value is approximately equal to the total entropy per value thus
+little information is being propagated forward in time --- are indeed harder to
+predict using the simple deterministic forecast model described in the previous
+section. See Fig.~\cite{fig:pred_vs_ent} for the distribution. The effects of
+changing the word length $n$ are also interesting: using a longer word length
+generally lowers the WPE --- a natural consequence of finite-length data --- but
+the falloff is less rapid in some traces than in others, suggesting that those
+values are closer to the theoretical asymptote that exists for perfect data. The
+persistent WPE values of 0.5--0.6 for the {\tt col\_major} trace are consistent
+with dynamical chaos, further corroborating the results of~\cite{mytkowicz09}.
+
+\begin{figure}[htbp]
+  \centering
+  \includegraphics[width=1.0\textwidth]{figs/prediction_vs_entropy}
+  \caption{The improvement of LMA over na\"{i}ve vs weighted permutation entropy.
+  For each of these, the word length used is $5$.}
+  \label{fig:pred_vs_ent}
+\end{figure}
 
 % In Table~\ref{tab:TCMpe} \& \ref{tab:IPCpe} the behavior of the PEs as
 % they limit to their asymptotic values is observed. A feature of note
@@ -894,8 +921,17 @@ methods that sidestep that complexity.
 
 \section{New Figures and Tables}
 
+Possible new error measure 
 
+$$q_t = \frac{e_t}{\frac{1}{n-1}\sum^n_{i=2}|Y_i-Y_{i-1}|}$$
 
+$$MASE = mean(|q_t|)$$
+
+Helpful to remember that $F_i = Y_{i-1}$ for random walk prediction 
+
+``When $MASE<1$, the proposed method gives, on average, smaller errors than the one-step errors from the na\"ive method. If multi-step forecasts are being computed, it is possible to scale by the in- sample MAE[[Mean Absolute Error(mean($|e_t|$)]] computed from multi-step na\"iõve forecasts."
+
+``The errors have been scaled by the one-step in- sample forecast errors from the na\"ive method, and then averaged across all series. So a value of 2 indicates that the out-of-sample forecast errors are, on average, about twice as large as the in-sample one-step forecast errors from the na\"ive method. Because the scaling is based on one-step forecasts, the scaled errors for multi-step forecasts are typically larger than one. "
 
 \begin{table}[htdp]
 \caption{ Embedding Parameters for reference if needed. }
@@ -925,21 +961,21 @@ SVD\_IPC\_Regime6 &  30  & 12  \\
 \begin{table}[htdp]
 \caption{Average nRMSE over 15 runs for each signal and average wpe at word length 5 and 6 for each signal. }
 \begin{center}
-\begin{tabular}{|c|c|c|c|c|c|}
+\begin{tabular}{|c|c|c|c|c|c|c|}
 \hline
-                  & Horizon & nRMSE LMA           & nRMSE mean          & $l=5$                   & $l=6$                   \\
+                  & Horizon & nRMSE LMA           & nRMSE na\"{i}ve           &LMA MASE (ARIMA) & $l=5$                   & $l=6$                   \\
 \hline
-gcc               & 4,542   & $0.1407 \pm 0.0063$ & $0.1487 \pm 0.0066$ & $0.950991 \pm 0.001073$ & $0.942964 \pm 0.001256$ \\
+gcc               & 4,542   & $0.1407 \pm 0.0063$ & $0.1487 \pm 0.0066$ &1.5416(0.929)& $0.9510 \pm 0.0011$ & $0.9430 \pm 0.0013$ \\
 
-col\_major        & 14,709  & $0.0252 \pm 0.0061$ & $0.1975 \pm 0.0436$ & $0.563640 \pm 0.003110$ & $0.513101 \pm 0.003365$ \\
+col\_major        & 14,709  & $0.0252 \pm 0.0061$ & $0.1975 \pm 0.0436$ &0.0519(0.07UF/0.5740)& $0.5636 \pm 0.0031$ & $0.5131 \pm 0.0034$ \\
 
-SVD\_Full         & 22,072  & $0.0323 \pm 0.0019$ & $0.1784 \pm 0.0040$ & $0.876517 \pm 0.004354$ & $0.850805 \pm 0.003454$ \\
-SVD\_IPC\_Regime1 & 2,158   & $0.1680 \pm 0.0317$ & $0.3517 \pm 0.5223$ & $0.976109 \pm 0.008359$ & $0.957204 \pm 0.015623$ \\
-SVD\_IPC\_Regime2 & 6,902   & $0.1716 \pm 0.0043$ & $0.1762 \pm 0.0012$ & $0.875984 \pm 0.005161$ & $0.846360 \pm 0.004420$ \\
-SVD\_IPC\_Regime3 & 947     & $0.0507 \pm 0.0011$ & $0.5413 \pm 0.0005$ & $0.776841 \pm 0.007290$ & $0.715747 \pm 0.005605$ \\
-SVD\_IPC\_Regime4 & 2,929   & $0.1288 \pm 0.0471$ & $0.2308 \pm 0.0867$ & $0.907348 \pm 0.008018$ & $0.824626 \pm 0.007707$ \\
-SVD\_IPC\_Regime5 & 3,255   & $0.0235 \pm 0.0022$ & $0.1306 \pm 0.0003$ & $0.733272 \pm 0.007562$ & $0.677575 \pm 0.006792$ \\
-SVD\_IPC\_Regime6 & 5,804   & $0.0196 \pm 0.0022$ & $0.0508 \pm 0.0003$ & $0.810087 \pm 0.013468$ & $0.747545 \pm 0.010607$ \\
+%SVD\_Full         & 22,072  & $0.0323 \pm 0.0019$ & $0.1784 \pm 0.0040$ & $0.8765 \pm 0.0044$ & $0.8508 \pm 0.0035$ \\
+SVD\_IPC\_Regime1 & 2,158   & $0.1680 \pm 0.0317$ & $0.3517 \pm 0.5223$ &0.7954(0.724UF)& $0.9761 \pm 0.0084$ & $0.9572 \pm 0.0156$ \\
+SVD\_IPC\_Regime2 & 6,902   & $0.1716 \pm 0.0043$ & $0.1762 \pm 0.0012$ &1.9990(1.138)             & $0.8760 \pm 0.0052$ & $0.8464 \pm 0.0044$ \\
+SVD\_IPC\_Regime3 & 947     & $0.0507 \pm 0.0011$ & $0.5413 \pm 0.0005$ &1.0089 (1.165215)              & $0.7768 \pm 0.0073$ & $0.7157 \pm 0.0056$ \\
+SVD\_IPC\_Regime4 & 2,929   & $0.1288 \pm 0.0471$ & $0.2308 \pm 0.0867$ &0.8976 (0.840548)           & $0.9073 \pm 0.0080$ & $0.8246 \pm 0.0077$ \\
+SVD\_IPC\_Regime5 & 3,255   & $0.0235 \pm 0.0022$ & $0.1306 \pm 0.0003$ &0.7487 (1.260)& $0.7333 \pm 0.0076$ & $0.6776 \pm 0.0068$ \\
+SVD\_IPC\_Regime6 & 5,804   & $0.0196 \pm 0.0022$ & $0.0508 \pm 0.0003$ &0.7848 (0.7831) & $0.8101 \pm 0.0135$ & $0.7475 \pm 0.0106$ \\
 \hline
 \end{tabular}
 \end{center}
@@ -972,11 +1008,37 @@ SVD\_IPC\_Regime6 & 5,804   & $0.0196 \pm 0.0022$ & $0.0508 \pm 0.0003$ & $0.810
 
 
 
+
+\begin{figure}
+        \centering
+        \begin{subfigure}{\textwidth}
+                \includegraphics[width=\textwidth]{figs/svdregime2prediction}
+                \caption{SVD Regime 2 LMA Prediction}
+                \label{fig:gull}
+        \end{subfigure}%
+        \newline
+        ~ %add desired spacing between images, e. g. ~, \quad, \qquad etc.
+          %(or a blank line to force the subfigure onto a new line)
+        \begin{subfigure}[b]{\textwidth}
+                \includegraphics[width=\textwidth]{figs/svdregime2predictionFULL}
+                \caption{SVD Regime 2 LMA Prediction with Full Time Series}
+                \label{fig:svdFullColored}
+        \end{subfigure}
+        ~ %add desired spacing between images, e. g. ~, \quad, \qquad etc.
+          %(or a blank line to force the subfigure onto a new line)
+         \caption{SVD Regime 2 LMA Prediction Figures }\label{fig:svdregime2prediciton}
+\end{figure}
+
+
+
+
+
+
 \begin{figure}
         \centering
         \begin{subfigure}{\textwidth}
                 \includegraphics[width=\textwidth]{figs/svdPrediction}
-                \caption{SVD LMA Prediction}
+                \caption{SVD Regime 5 LMA Prediction}
                 \label{fig:gull}
         \end{subfigure}%
         \newline
@@ -984,13 +1046,24 @@ SVD\_IPC\_Regime6 & 5,804   & $0.0196 \pm 0.0022$ & $0.0508 \pm 0.0003$ & $0.810
           %(or a blank line to force the subfigure onto a new line)
         \begin{subfigure}[b]{\textwidth}
                 \includegraphics[width=\textwidth]{figs/svdPredictionFull}
-                \caption{SVD LMA Prediction with Full Time Series}
+                \caption{SVD Regime 5 LMA Prediction with Full Time Series}
                 \label{fig:svdFullColored}
         \end{subfigure}
         ~ %add desired spacing between images, e. g. ~, \quad, \qquad etc.
           %(or a blank line to force the subfigure onto a new line)
-         \caption{SVD LMA Prediction Figures }\label{fig:svdFull}
+         \caption{SVD Regime 5 LMA Prediction Figures }\label{fig:svdregime5prediciton}
 \end{figure}
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -1053,12 +1126,12 @@ SVD\_IPC\_Regime6 & 5,804   & $0.0196 \pm 0.0022$ & $0.0508 \pm 0.0003$ & $0.810
 
 
 
-\begin{figure}[htbp]
-\begin{center}
-\includegraphics[width=\textwidth]{figs/svd_mutuals}\caption{SVD mutuals for full and regimes}
-\label{default}
-\end{center}
-\end{figure}
+%\begin{figure}[htbp]
+%\begin{center}
+%\includegraphics[width=\textwidth]{figs/svd_mutuals}\caption{SVD mutuals for full and %regimes}
+%\label{default}
+%\end{center}
+%\end{figure}
 
 
 
@@ -1108,8 +1181,6 @@ SVD\_IPC\_Regime6 & 5,804   & $0.0196 \pm 0.0022$ & $0.0508 \pm 0.0003$ & $0.810
 \label{default}
 \end{center}
 \end{figure}
-
-
 
 
 
