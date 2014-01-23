@@ -996,26 +996,50 @@ SVD\_IPC\_Regime6 & 5,804   & $0.0196 \pm 0.0022$ & $0.0508 \pm 0.0003$ &0.7848 
 \begin{table}[htdp]
 \caption{Average MASE over 15 runs for each signal and average wpe at word length 5 and 6 for each signal. }
 \begin{center}
-\begin{tabular}{|c|c|c|c|c|c|c|}
+\begin{tabular}{|c|c|c|c|c|c|}
 \hline
-                  & Horizon & MASE LMA           & MASE ARIMA &MASE na\"{i}ve & $l=5$  & $l=6$ \\
+                   & MASE LMA    & MASE ARIMA &MASE na\"{i}ve & $l=5$  & $l=6$ \\
 \hline
-gcc               & 4,542   & $ \pm $ & $ \pm $ & $\pm$& $0.9510 \pm 0.0011$ & $0.9430 \pm 0.0013$ \\
+gcc                  & $1.9856 \pm $ & $1.7525 \pm $ &1.7904 $\pm$& $0.9510 \pm 0.0011$ & $0.9430 \pm 0.0013$ \\
 
-col\_major        & 14,709   & $ \pm $ & $ \pm $ & $\pm$& $0.5636 \pm 0.0031$ & $0.5131 \pm 0.0034$ \\
+col\_major           & $ 0.0587\pm $ & $0.9936 \pm $ & $0.5713\pm$& $0.5636 \pm 0.0031$ & $0.5131 \pm 0.0034$ \\
 
-SVD\_IPC\_Regime1 & 2,158    & $ \pm $ & $ \pm $ & $\pm$& $0.9761 \pm 0.0084$ & $0.9572 \pm 0.0156$ \\
-SVD\_IPC\_Regime2 & 6,902    & $ \pm $ & $ \pm $ & $\pm$& $0.8760 \pm 0.0052$ & $0.8464 \pm 0.0044$ \\
-SVD\_IPC\_Regime3 & 947      & $ \pm $ & $ \pm $ & $\pm$& $0.7768 \pm 0.0073$ & $0.7157 \pm 0.0056$ \\
-SVD\_IPC\_Regime4 & 2,929    & $ \pm $ & $ \pm $ & $\pm$&$0.9073 \pm 0.0080$ & $0.8246 \pm 0.0077$ \\
-SVD\_IPC\_Regime5 & 3,255    & $ \pm $ & $ \pm $ & $\pm$& $0.7333 \pm 0.0076$ & $0.6776 \pm 0.0068$ \\
-SVD\_IPC\_Regime6 & 5,804    & $ \pm $ & $ \pm $ & $\pm$& $0.8101 \pm 0.0135$ & $0.7475 \pm 0.0106$ \\
+SVD\_IPC\_Regime1     & $ \pm $ & $ \pm $ & $\pm$& $0.9761 \pm 0.0084$ & $0.9572 \pm 0.0156$ \\
+SVD\_IPC\_Regime2     & $ 2.3753\pm $ & $0.7268 \pm $ & $3.1064\pm$& $0.8760 \pm 0.0052$ & $0.8464 \pm 0.0044$ \\
+SVD\_IPC\_Regime3       & $ \pm $ & $ \pm $ & $\pm$& $0.7768 \pm 0.0073$ & $0.7157 \pm 0.0056$ \\
+SVD\_IPC\_Regime4     & $ \pm $ & $ \pm $ & $\pm$&$0.9073 \pm 0.0080$ & $0.8246 \pm 0.0077$ \\
+SVD\_IPC\_Regime5     & $4.9079 \pm $ & $2.3366 \pm $ & $21.0372\pm$& $0.7333 \pm 0.0076$ & $0.6776 \pm 0.0068$ \\
+SVD\_IPC\_Regime6     & $ \pm $ & $ \pm $ & $\pm$& $0.8101 \pm 0.0135$ & $0.7475 \pm 0.0106$ \\
 \hline
 \end{tabular}
 \end{center}
 \label{default}
 \end{table}%
 
+
+
+\begin{table}[htdp]
+\caption{Average MASE2 over 15 runs for each signal and average wpe at word length 5 and 6 for each signal. }
+\begin{center}
+\begin{tabular}{|c|c|c|c|c|c|}
+\hline
+                   & MASE2 LMA    & MASE2 ARIMA &MASE2 na\"{i}ve & $l=5$  & $l=6$ \\
+\hline
+gcc                  & $11.8393\pm $ & $10.4496 \pm $ & $10.6751\pm$& $0.9510 \pm 0.0011$ & $0.9430 \pm 0.0013$ \\
+
+col\_major           & $ 0.5536\pm $ & $9.3720 \pm $ & $5.3885\pm$& $0.5636 \pm 0.0031$ & $0.5131 \pm 0.0034$ \\
+
+SVD\_IPC\_Regime1     & $ \pm $ & $ \pm $ & $\pm$& $0.9761 \pm 0.0084$ & $0.9572 \pm 0.0156$ \\
+SVD\_IPC\_Regime2     & $20.9603 \pm $ & $35.8543 \pm $ & $27.4119\pm$& $0.8760 \pm 0.0052$ & $0.8464 \pm 0.0044$ \\
+SVD\_IPC\_Regime3       & $ \pm $ & $ \pm $ & $\pm$& $0.7768 \pm 0.0073$ & $0.7157 \pm 0.0056$ \\
+SVD\_IPC\_Regime4     & $ \pm $ & $ \pm $ & $\pm$&$0.9073 \pm 0.0080$ & $0.8246 \pm 0.0077$ \\
+SVD\_IPC\_Regime5     & $295.1263 \pm $ & $146.9037 \pm $ & $1265\pm$& $0.7333 \pm 0.0076$ & $0.6776 \pm 0.0068$ \\
+SVD\_IPC\_Regime6    & $ \pm $ & $ \pm $ & $\pm$& $0.8101 \pm 0.0135$ & $0.7475 \pm 0.0106$ \\
+\hline
+\end{tabular}
+\end{center}
+\label{default}
+\end{table}%
 
 
 
