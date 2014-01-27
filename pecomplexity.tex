@@ -658,6 +658,16 @@ values are closer to the theoretical asymptote that exists for perfect data. The
 persistent WPE values of 0.5--0.6 for the {\tt col\_major} trace are consistent
 with dynamical chaos, further corroborating the results of~\cite{mytkowicz09}.
 
+In figure~\ref{fig:lma_pred_vs_ent} we directly compare the performance of LMA
+to the value of the weighted permutation entropy for all runs of each program
+under consideration. Largely, the data supports our hypothesized relationship
+between prediction and WPE, namely that they are proportional. {\tt SVD} regime
+1 bucks this trend a bit, having a larger WPE than might be expected from how
+well its predictions are. We believe that this simply due to a limitation of the
+WPE, namely that in the absence of any large features, as all the other regimes
+have, the WPE falls back to the standard PE which the noisy behavior drives
+toward 1.0.
+
 \begin{figure}[htbp]
   \centering
   \includegraphics[width=1.0\textwidth]{figs/LMA_prediction_vs_entropy}
@@ -681,6 +691,11 @@ with dynamical chaos, further corroborating the results of~\cite{mytkowicz09}.
   permutation entropy. For each of these, the word length used is $5$.}
   \label{fig:pred_vs_ent}
 \end{figure}
+
+Figure~\ref{fig:lma_vs_arima} demonstrates that the LMA prediction algorithm is
+better suited to the dynamics exhibited in the computer traces considered here,
+except for the 1$^\text{st}$ regime of the {\tt SVD} program. There ARIMA
+performs slightly better.
 
 \begin{figure}[htbp]
   \centering
