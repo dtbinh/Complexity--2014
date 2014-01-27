@@ -660,10 +660,34 @@ with dynamical chaos, further corroborating the results of~\cite{mytkowicz09}.
 
 \begin{figure}[htbp]
   \centering
+  \includegraphics[width=1.0\textwidth]{figs/LMA_prediction_vs_entropy}
+  \caption{The MASE of LMA vs weighted permutation entropy. For each of these,
+  the word length used is $5$.}
+  \label{fig:lma_pred_vs_ent}
+\end{figure}
+
+\begin{figure}[htbp]
+  \centering
+  \includegraphics[width=1.0\textwidth]{figs/ARIMA_prediction_vs_entropy}
+  \caption{The MASE of ARIMA vs weighted permutation entropy. For each of these,
+  the word length used is $5$.}
+  \label{fig:arima_pred_vs_ent}
+\end{figure}
+
+\begin{figure}[htbp]
+  \centering
   \includegraphics[width=1.0\textwidth]{figs/prediction_vs_entropy}
-  \caption{The improvement of LMA over na\"{i}ve vs weighted permutation entropy.
-  For each of these, the word length used is $5$.}
+  \caption{The best MASE among all runs and prediction methods vs weighted
+  permutation entropy. For each of these, the word length used is $5$.}
   \label{fig:pred_vs_ent}
+\end{figure}
+
+\begin{figure}[htbp]
+  \centering
+  \includegraphics[width=1.0\textwidth]{figs/LMA_vs_ARIMA}
+  \caption{The MASE values for LMA against ARIMA. The dashed line is the
+  identity.}
+  \label{fig:lma_vs_arima}
 \end{figure}
 
 % In Table~\ref{tab:TCMpe} \& \ref{tab:IPCpe} the behavior of the PEs as
@@ -921,13 +945,13 @@ methods that sidestep that complexity.
 
 \section{New Figures and Tables}
 
-Possible new error measure 
+Possible new error measure
 
 $$q_t = \frac{e_t}{\frac{1}{n-1}\sum^n_{i=2}|Y_i-Y_{i-1}|}$$
 
 $$MASE = mean(|q_t|)$$
 
-Helpful to remember that $F_i = Y_{i-1}$ for random walk prediction 
+Helpful to remember that $F_i = Y_{i-1}$ for random walk prediction
 
 ``When $MASE<1$, the proposed method gives, on average, smaller errors than the one-step errors from the na\"ive method. If multi-step forecasts are being computed, it is possible to scale by the in- sample MAE[[Mean Absolute Error(mean($|e_t|$)]] computed from multi-step na\"iõve forecasts."
 
