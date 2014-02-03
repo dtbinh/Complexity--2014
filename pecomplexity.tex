@@ -662,7 +662,9 @@ drives toward 1.0.
   \centering
   \includegraphics[width=1.0\textwidth]{figs/prediction_vs_entropy}
   \caption{The best MASE among all runs and prediction methods vs weighted
-  permutation entropy. For each of these, the word length used is $6$.}
+  permutation entropy. For each of these, the word length used is $6$. The
+  dashed line is a least-squares linear fit of all the points except for {\tt
+  SVD$_1$} which we have excluded for reasons explained in the text.}
   \label{fig:pred_vs_ent}
 \end{figure}
 
@@ -673,7 +675,7 @@ under consideration. The LMA MASE values are largely similar to those of the
 best predictions, primarily because LMA often performed superior to ARIMA and
 the naive method. On the other hand, the ARIMA MASE values are largely
 uncorrelated with WPE values. This however does not contradict our hypothesis,
-it just means that ARIMA is ill-suited to the time series under investigation.
+it just means that ARIMA is ill-suited for the time series under investigation.
 To see this more clearly, consider Figure~\ref{fig:lma_vs_arima}. Since larger
 MASE values constitute worse predictions, ARIMA performed worse than LMA in all
 traces except {\tt SVD$_1$}.
