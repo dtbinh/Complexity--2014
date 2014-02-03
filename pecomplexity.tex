@@ -132,18 +132,18 @@ repeatedly initializes a matrix in column-major order, can produce
 Figure~\ref{fig:cache}, and chaos places fundamental limits on
 predictability.
 %
-\begin{figure}[htbp]
-   \centering
-   \includegraphics[width=0.5\textwidth]{figs/colCacheShort}
-   % where an .eps filename suffix will be assumed under latex,
-   % and a .pdf suffix will be assumed for pdflatex
-   \caption{A small snippet of the L2 cache miss rate of {\tt
-       col\_major}, a three-line C program that repeatedly initializes
-     a matrix in column-major order, running on an Intel Core
-     Duo\textsuperscript{\textregistered}-based machine.  Even this
-     simple program exhibits chaotic performance dynamics.}
-   \label{fig:cache}
- \end{figure}
+% \begin{figure}[htbp]
+%    \centering
+%    \includegraphics[width=0.5\textwidth]{figs/colCacheShort}
+%    % where an .eps filename suffix will be assumed under latex,
+%    % and a .pdf suffix will be assumed for pdflatex
+%    \caption{A small snippet of the L2 cache miss rate of {\tt
+%        col\_major}, a three-line C program that repeatedly initializes
+%      a matrix in column-major order, running on an Intel Core
+%      Duo\textsuperscript{\textregistered}-based machine.  Even this
+%      simple program exhibits chaotic performance dynamics.}
+%    \label{fig:cache}
+%  \end{figure}
 
 The computer systems community has applied a variety of prediction
 strategies to traces like this, most of which employ regression.  An
@@ -234,14 +234,14 @@ $\tau$ \cite{fraser-swinney} and using the false-near(est) neighbor
 method of \cite{KBA92}, with a threshold of 10\%, to estimate $m$.  A
 plot of the data from Figure~\ref{fig:cache}, embedded following this
 procedure, is shown in Figure~\ref{fig:embedding}.
-\begin{figure}
-  \centering
-    \includegraphics[width=0.5\textwidth]{figs/3dcolcache}
-    \caption{A 3D projection of a delay-coordinate embedding of the trace
-from Figure~\ref{fig:cache} with a delay ($\tau$) of 100,000 instructions.
-}
-\label{fig:embedding}
-\end{figure}
+% \begin{figure}
+%   \centering
+%     \includegraphics[width=0.5\textwidth]{figs/3dcolcache}
+%     \caption{A 3D projection of a delay-coordinate embedding of the trace
+% from Figure~\ref{fig:cache} with a delay ($\tau$) of 100,000 instructions.
+% }
+% \label{fig:embedding}
+% \end{figure}
 %% can cut for space if need be:
 The coordinates of each point on this plot are differently delayed
 elements of the \verb|col_major| L2 cache miss rate time series
@@ -497,7 +497,7 @@ increasing $n$ until the result converges, but data length issues can intrude
 before that convergence is reached.
 
 The weighted permutation entropy for the {\tt SVD} program is given in
-Fig.~\cite{fig:wwpe}. To generate this image a window of 5,000 values slid over
+Fig.~\ref{fig:wwpe}. To generate this image a window of 5,000 values slid over
 the time series. Within each of those windows, the statistics over words of
 length 4 are computed and the WPE is calculated. The gray bands denote regions
 where the 5,000 value window overlapped visually-distinct regimes. It can be
@@ -644,66 +644,66 @@ regimes.
  %   \end{tabular}
  % \end{table}
 
+ \section{Results} % (fold)
+ \label{sec:results}
+
 The relationship between prediction accuracy and the weighted permutation
-entropy (WPE) is much as we conjectured: performance traces with high WPE ---
-those whose temporal complexity is high, in the sense that the entropy
-generation per value is approximately equal to the total entropy per value thus
-little information is being propagated forward in time --- are indeed harder to
-predict using the simple deterministic forecast model described in the previous
-section. See Fig.~\cite{fig:pred_vs_ent} for the distribution. The effects of
-changing the word length $n$ are also interesting: using a longer word length
-generally lowers the WPE --- a natural consequence of finite-length data --- but
-the falloff is less rapid in some traces than in others, suggesting that those
-values are closer to the theoretical asymptote that exists for perfect data. The
-persistent WPE values of 0.5--0.6 for the {\tt col\_major} trace are consistent
-with dynamical chaos, further corroborating the results of~\cite{mytkowicz09}.
-
-In figure~\ref{fig:lma_pred_vs_ent} we directly compare the performance of LMA
-to the value of the weighted permutation entropy for all runs of each program
-under consideration. Largely, the data supports our hypothesized relationship
-between prediction and WPE, namely that they are proportional. {\tt SVD} regime
-1 bucks this trend a bit, having a larger WPE than might be expected from how
-well its predictions are. We believe that this simply due to a limitation of the
-WPE, namely that in the absence of any large features, as all the other regimes
-have, the WPE falls back to the standard PE which the noisy behavior drives
-toward 1.0.
-
-\begin{figure}[htbp]
-  \centering
-  \includegraphics[width=1.0\textwidth]{figs/LMA_prediction_vs_entropy}
-  \caption{The MASE of LMA vs weighted permutation entropy. For each of these,
-  the word length used is $5$.}
-  \label{fig:lma_pred_vs_ent}
-\end{figure}
-
-\begin{figure}[htbp]
-  \centering
-  \includegraphics[width=1.0\textwidth]{figs/ARIMA_prediction_vs_entropy}
-  \caption{The MASE of ARIMA vs weighted permutation entropy. For each of these,
-  the word length used is $5$.}
-  \label{fig:arima_pred_vs_ent}
-\end{figure}
+entropy (WPE) is much as we conjectured: performance traces with high WPE are
+indeed harder to predict using the forecasting models described in the prior
+section. Figure~\ref{fig:pred_vs_ent} demonstrates this primary finding, with
+the exception of one outlier whose behavior we can explain. Furthermore, we find
+that the relationship between the two is roughly linear. The single outlier,
+{\tt SVD} regime 1, does not fit the trend due to a weakness in the WPE: namely
+that in the absence of any large features, as all the other regimes have, the
+WPE effectively falls back to the standard PE for which the noisy behavior
+drives toward 1.0.
 
 \begin{figure}[htbp]
   \centering
   \includegraphics[width=1.0\textwidth]{figs/prediction_vs_entropy}
   \caption{The best MASE among all runs and prediction methods vs weighted
-  permutation entropy. For each of these, the word length used is $5$.}
+  permutation entropy. For each of these, the word length used is $6$.}
   \label{fig:pred_vs_ent}
 \end{figure}
 
-Figure~\ref{fig:lma_vs_arima} demonstrates that the LMA prediction algorithm is
-better suited to the dynamics exhibited in the computer traces considered here,
-except for the 1$^\text{st}$ regime of the {\tt SVD} program. There ARIMA
-performs slightly better.
+In Figures~\ref{fig:lma_pred_vs_ent} and \ref{fig:arima_pred_vs_ent} we directly
+compare the performance of the LMA and ARIMA prediction methods (respectively)
+to the value of the weighted permutation entropy for all runs of each program
+under consideration. The LMA MASE values are largely similar to those of the
+best predictions, primarily because LMA often performed superior to ARIMA and
+the naive method. On the other hand, the ARIMA MASE values are largely
+uncorrelated with WPE values. This however does not contradict our hypothesis,
+it just means that ARIMA is ill-suited to the time series under investigation.
+To see this more clearly, consider Figure~\ref{fig:lma_vs_arima}. Since larger
+MASE values constitute worse predictions, ARIMA performed worse than LMA in all
+traces except {\tt SVD$_1$}.
 
 \begin{figure}[htbp]
   \centering
-  \includegraphics[width=1.0\textwidth]{figs/LMA_vs_ARIMA}
-  \caption{The MASE values for LMA against ARIMA. The dashed line is the
-  identity.}
-  \label{fig:lma_vs_arima}
+  \begin{subfigure}{0.5\textwidth}
+    \includegraphics[width=1.0\textwidth]{figs/LMA_prediction_vs_entropy}
+    \caption{The MASE of LMA vs weighted permutation entropy. For each of these,
+    the word length used is $6$.}
+    \label{fig:lma_pred_vs_ent}
+  \end{subfigure}%
+  \begin{subfigure}{0.5\textwidth}
+    \includegraphics[width=1.0\textwidth]{figs/ARIMA_prediction_vs_entropy}
+    \caption{The MASE of ARIMA vs weighted permutation entropy. For each of
+    these, the word length used is $6$.}
+    \label{fig:arima_pred_vs_ent}
+  \end{subfigure}
+  \begin{subfigure}{0.5\textwidth}
+    \includegraphics[width=1.0\textwidth]{figs/LMA_vs_ARIMA}
+    \caption{The MASE values for LMA against ARIMA. The dashed line is the
+    identity, delineating the traces for which either LMA or ARIMA performed
+    better. All traces except those from {\tt SVD$_1$} lie above the line,
+    indicating that LMA is better suited prediction method for the computer
+    traces considered.}
+    \label{fig:lma_vs_arima}
+  \end{subfigure}
 \end{figure}
+
+ % section results (end)
 
 % In Table~\ref{tab:TCMpe} \& \ref{tab:IPCpe} the behavior of the PEs as
 % they limit to their asymptotic values is observed. A feature of note
@@ -718,23 +718,23 @@ performs slightly better.
 
 \section{ Conclusions \& Future Work}\label{sec:conc}
 
-The results presented here suggest that permutation entropy---a
-ordinal calculation of forward information transfer in a time
-series---is an effective metric for predictability of computer
-performance traces. Experimentally, traces with a persistent PE
-$\gtrapprox 0.97$ have a natural level of complexity that may
-overshadow the inherent determinism in the system dynamics, whereas
-traces with PE $\lessapprox 0.7$ seem to be highly predictable (viz.,
-at least an order of magnitude improvement in nRMSPE).
+The results presented here suggest that permutation entropy---a ordinal
+calculation of forward information transfer in a time series---is an effective
+metric for predictability of computer performance traces. Experimentally, traces
+with a persistent PE $\gtrapprox 0.97$ have a natural level of complexity that
+may overshadow the inherent determinism in the system dynamics, whereas traces
+with PE $\lessapprox 0.7$ seem to be highly predictable (viz., at least an order
+of magnitude improvement in nRMSPE).Further, the persistent WPE values of 0.5--
+0.6 for the {\tt col\_major} trace are consistent with dynamical chaos, further
+corroborating the results of~\cite{mytkowicz09}.
 
-If information is the limit, then gathering and using more information
-is an obvious next step.  There is an equally obvious tension here
-between data length and prediction speed: a forecast that requires
-half a second to compute is not useful for the purposes of real-time
-control of a computer system with a MHz clock rate.  Another
-alternative is to sample several system variables simultaneously and
-build multivariate delay-coordinate embeddings.  Existing approaches
-to that are computationally prohibitive
+If information is the limit, then gathering and using more information is an
+obvious next step.  There is an equally obvious tension here between data length
+and prediction speed: a forecast that requires half a second to compute is not
+useful for the purposes of real-time control of a computer system with a MHz
+clock rate.  Another alternative is to sample several system variables
+simultaneously and build multivariate delay-coordinate embeddings.  Existing
+approaches to that are computationally prohibitive
 \cite{cao-multivariate-embedding}.  We are working on alternative
 methods that sidestep that complexity.
 
