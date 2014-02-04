@@ -647,6 +647,11 @@ regimes.
  \section{Results} % (fold)
  \label{sec:results}
 
+
+
+First paragraph: WPE is a good measure of predictability.  Figure:
+best athlete MASE vs. its WPE.
+
 The relationship between prediction accuracy and the weighted permutation
 entropy (WPE) is much as we conjectured: performance traces with high WPE are
 indeed harder to predict using the forecasting models described in the prior
@@ -657,6 +662,32 @@ that the relationship between the two is roughly linear. The single outlier,
 that in the absence of any large features, as all the other regimes have, the
 WPE effectively falls back to the standard PE for which the noisy behavior
 drives toward 1.0.
+
+
+The structure being picked up on by WPE may be linear or nonlinear. When you have a low WPE and a high ARIMA it could be that the structure WPE is picking up is simply nonlinear structure that LMA can handle but ARIMA cannot. So while the ARIMA prediction look realy bad there is plenty of structure present as suggested by WPE and taken advantage of by LMA but since it is nonlinear ARIMA can't take it into account and does bad.
+
+
+\begin{figure}[htbp]
+  \centering
+  \includegraphics[width=1.0\textwidth]{figs/prediction_vs_entropy}
+  \caption{The best MASE among all runs and prediction methods vs weighted
+  permutation entropy. For each of these, the word length used is $6$. The
+  dashed line is a least-squares linear fit of all the points except for {\tt
+  SVD$_1$} which we have excluded for reasons explained in the text.}
+  \label{fig:pred_vs_ent}
+\end{figure}
+
+Second paragraph: full results.  Image: MASE vs. WPE for both LMA \&
+ARIMA.  Points to make: (1) clusters are distributed differently (2)
+clusters are shaped differently---tight or not (3) clusters move
+differently between LMA and ARIMA (4) finally, the diagonal line is
+important.  If you're below it, you could do better.
+
+
+
+
+
+
 
 \begin{figure}[htbp]
   \centering
