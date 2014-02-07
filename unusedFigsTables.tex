@@ -293,6 +293,9 @@ SVD\_IPC\_Regime6 & 5,804   & $0.0196 \pm 0.0022$ & $0.0508 \pm 0.0003$ &0.7848 
 
 
 
+
+
+
 \begin{table}[htdp]
 \caption{Average MASE over 15 runs for each signal and average wpe at word length 5 and 6 for each signal. }
 \begin{center}
@@ -320,6 +323,197 @@ SVD\_IPC\_Regime6     & $ \pm $ & $ \pm $ & $\pm$& $0.8101 \pm 0.0135$ & $0.7475
 \end{table}%
 
 
+\begin{table}[htdp]
+\caption{ Embedding Parameters for reference if needed. }
+\begin{center}
+\begin{tabular}{|c|c|c|}
+\hline
+&$\tau$ & $m$ \\
+\hline
+gcc & 10& 13\\
+col\_major  &2&12\\
+SVD\_Full &  10  &  12 \\
+SVD\_IPC\_Regime1 & 5 &14  \\
+SVD\_IPC\_Regime2 & 10   &12  \\
+SVD\_IPC\_Regime3 & 2   &9  \\
+SVD\_IPC\_Regime4 &  3  & 11 \\
+SVD\_IPC\_Regime5 &  23  & 10 \\
+SVD\_IPC\_Regime6 &  30  & 12  \\
+\hline
+\end{tabular}
+\end{center}
+\label{default}
+\end{table}%
+
+ Table~\ref{tab:pe} shows the permutation entropy results for the
+ examples considered in this paper, with the nRMSPE prediction
+ accuracies from the previous section included alongside for easy
+ comparison.
+
+ \begin{table}[htbp]
+   % increase table row spacing, adjust to taste
+   \renewcommand{\arraystretch}{1.3}
+   \caption{TCM NRMSE and PE NORMS}
+   \label{tab:table_example}
+   \centering
+   % Some packages, such as MDW tools, offer better commands for making tables
+   % than the plain LaTeX2e tabular which is used here.
+   \begin{tabular}{|c|c|c|c|c|c|}
+     \hline
+     TCM & NRMSE & $m=3$  &$m=4$&$m=5$&$m=6$\\
+     \hline
+     \tt{row\_major} & 0.0102 & 0.7900  &0.6751&0.5458&0.4491\\
+     \hline
+     \tt{col\_major} & 0.0055 & 0.6411  &0.5029&0.4515&0.3955 \\
+     \hline
+     \tt{403.gcc} & 0.0865 & 0.9954  &0.9916&0.9880&0.9835\\
+     \hline
+     \tt{482.sphinx3} & 0.1142 & 0.9958  &0.9913&0.9866&0.9802 \\
+      \hline
+   \end{tabular}
+ \end{table}
+
+%  \begin{table}[htbp]
+%   % increase table row spacing, adjust to taste
+%   %\renewcommand{\arraystretch}{1.3}
+%   \caption{Cache-miss rate performance traces: prediction error
+%     (nRMSPE) and permutation entropy}
+%   \label{tab:TCMpe}
+%   \centering
+%   % Some packages, such as MDW tools, offer better commands for making tables
+%   % than the plain LaTeX2e tabular which is used here.
+%   \begin{tabular}{|c|c|c|c|c|c|}
+%     \hline
+%      & nRMSE   &$n=4$&$n=5$&$n=6$\\
+%     \hline
+%     \tt{row\_major}  & 0.0324  &0.6751&0.5458&0.4491\\
+%     \hline
+%     \tt{col\_major}  & 0.0080  &0.5029&0.4515&0.3955 \\
+%     \hline
+%     \tt{403.gcc}  & 0.1416  &0.9916&0.9880&0.9835\\
+%     \hline
+%     \tt{482.sphinx3}  & 0.2032  &0.9913&0.9866&0.9802 \\
+%      \hline
+%   \end{tabular}
+% \end{table}
+
+ \begin{table}[htbp]
+   % increase table row spacing, adjust to taste
+   \renewcommand{\arraystretch}{1.3}
+   \caption{IPC NRMSE and PE NORMS}
+   \label{tab:table_example}
+   \centering
+   % Some packages, such as MDW tools, offer better commands for making tables
+   % than the plain LaTeX2e tabular which is used here.
+   \begin{tabular}{|c|c|c|c|c|c|}
+     \hline
+     ipc & NRMSE & $n=3$  &$n=4$&$n=5$&$n=6$\\
+     \hline
+      \tt{row\_major} & 0.0095 & 0.9912  &0.9723&0.9354&0.8876\\
+     \hline
+      \tt{col\_major} & 0.0071 & 0.9428  &0.8356&0.7601&0.6880\\
+     \hline
+     \tt{403.gcc} & 0.1805 & 0.9918  &0.9862&0.9814&0.9764\\
+     \hline
+     \tt{482.sphinx3} & 0.2946 & 0.9978  &0.9951&0.9914&0.9849 \\
+      \hline
+   \end{tabular}
+ \end{table}
+
+%  \begin{table}[htbp]
+%   % increase table row spacing, adjust to taste
+%   %\renewcommand{\arraystretch}{1.1}
+%   \caption{Processor load performance traces: prediction error
+%     (nRMSPE) and permutation entropy}
+%   \label{tab:IPCpe}
+%   \centering
+%   % Some packages, such as MDW tools, offer better commands for making tables
+%   % than the plain LaTeX2e tabular which is used here.
+%   \begin{tabular}{|c|c|c|c|c|}
+%     \hline
+%      & nRMSPE   &$n=4$&$n=5$&$n=6$\\
+%     \hline
+%      \tt{row\_major} & 0.0778  &0.9723&0.9354&0.8876\\
+%     \hline
+%      \tt{col\_major} & 0.0161   &0.8356&0.7601&0.6880\\
+%     \hline
+%     \tt{403.gcc} & 0.2033   &0.9862&0.9814&0.9764\\
+%     \hline
+%     \tt{482.sphinx3} & 0.3670 & 0.9951&0.9914&0.9849 \\
+%      \hline
+%   \end{tabular}
+% \end{table}
+
+ %  \begin{table}[htbp]
+ %   \caption{Prediction error (in nRMSPE) and permutation entropy (for
+ %     different wordlengths $n$}
+ %   \label{tab:pe}
+ %   \centering
+ %   \begin{tabular}{|c|c|c|c|c|c|}
+ %     \hline
+ %      {\bf cache misses} & error   &$n=4$&$n=5$&$n=6$\\
+ %     \hline
+ %     \tt{row\_major}  & 0.0324  &0.6751&0.5458&0.4491\\
+ %     \hline
+ %     \tt{col\_major}  & 0.0080  &0.5029&0.4515&0.3955 \\
+ %     \hline
+ %     \tt{403.gcc}  & 0.1416  &0.9916&0.9880&0.9835\\
+ %     \hline
+ %     \tt{482.sphinx3}  & 0.2032  &0.9913&0.9866&0.9802 \\
+ %      \hline
+ %      \hline
+ %      {\bf insts per cyc} & error   &$n=4$&$n=5$&$n=6$\\
+ %     \hline
+ %      \tt{row\_major} & 0.0778  &0.9723&0.9354&0.8876\\
+ %     \hline
+ %      \tt{col\_major} & 0.0161   &0.8356&0.7601&0.6880\\
+ %     \hline
+ %     \tt{403.gcc} & 0.2033   &0.9862&0.9814&0.9764\\
+ %     \hline
+ %     \tt{482.sphinx3} & 0.3670 & 0.9951&0.9914&0.9849 \\
+ %      \hline
+ %   \end{tabular}
+ % \end{table}
+
+
+  \begin{table}[htbp]
+   % increase table row spacing, adjust to taste
+   \renewcommand{\arraystretch}{1.3}
+   \caption{Normalized root mean squared error (nRMSE) of 4000-point
+     predictions of memory \& processor performance from different
+     programs.}
+   \label{tab:PredError}
+   \centering
+   % Some packages, such as MDW tools, offer better commands for making tables
+   % than the plain LaTeX2e tabular which is used here.
+%   \begin{tabular}{|c|c|c|c|c|c|}
+%     \hline
+%      & cache misses NRMSE & IPC NRMSE \\
+%     \hline
+%     \tt{row\_major}  & 0.0102  & 0.0095 \\
+%          \hline
+%     \tt{col\_major}  &0.0055& 0.0071 \\
+%     \hline
+%     \tt{403.gcc}  & 0.0865& 0.1805 \\
+%          \hline
+%     \tt{482.sphinx3} & 0.1142& 0.2946 \\
+%      \hline
+%   \end{tabular}
+% \end{table}
+   \begin{tabular}{|c|c|c|c|c|c|}
+     \hline
+      & cache miss rate & instrs per cycle \\
+     \hline
+     \tt{row\_major}  & 0.0324  & 0.0778 \\
+          \hline
+     \tt{col\_major}  &0.0080& 0.0161 \\
+     \hline
+     \tt{403.gcc}  & 0.1416& 0.2033 \\
+          \hline
+     \tt{482.sphinx3} & 0.2032& 0.3670 \\
+      \hline
+   \end{tabular}
+ \end{table}
 
 
 
@@ -496,5 +690,28 @@ The biggest disadvantage for us in using permutation entropy is selection of par
 %\item Currently numerically expensive although the literature disagrees. Think this might just be my implementation. Need to read the numerics section of the PE book.
 %\item Sometimes hard to tell a regime shift has occurred if the transition is chaotic to chaotic. or low period to low period.
 %\end{enumerate}
+
+%[[Joshua: It may be interesting to look at the PE as a function of
+%prediction horizon. It is known to me that certain start and end
+%locations in the prediction strategy result in different prediction
+%accuracy. Is it the case that when the algorithm tanks it is also the
+%case that PE of the **TEST**(the 10\% we cut off )is high? This may
+%be a great way to illustrate the concept if it works... OR maybe do
+%complexity of forward path in embedding space?]]  some notes about
+%this looking at row Cache 1000 very good RMSPE 21.4167 m = 3 4 5 6
+%1.4192 2.1286 2.5942 2.9230 row Cache 2000 very good RMSPE 19.0990 m
+%= 3 4 5 6 1.4145 2.1305 2.5825 2.9095 so even better row Cache 2010
+%RMSPE 19.9716 m = 3 4 5 6 1.4149 2.1311 2.5830 2.9096 row Cache 1990
+%RMSPE 19.1465 So prediction Horizons ranked in order of best RMSPE
+%RMSPE L 3 4 5 6 1st 19.0990 2000 1.4145 2.1305 2.5825 2.9095 2nd
+%19.1465 1990 1.4151 2.1293 2.5803 2.9067 3rd 19.9716 2010 1.4149
+%2.1311 2.5830 2.9096 3rd 21.4167 1000 1.4192 2.1286 2.5942 2.9230
+%ipcgcc m = 3 pe = 1.7770 penorm = 0.9918 m= 4 pe = 3.1341 penorm =
+%0.9862 m = 5 pe = 4.6985 penorm = 0.9814 m=6 pe = 6.4242 penorm =
+%0.9764 m=7 pe = 8.2450 penorm = 0.9671 >> [pe penorm] =
+%permCalc(gcc100TCM,5,1) pe = 4.7299 penorm = 0.9880 >> [pe penorm] =
+%permCalc(gcc100TCM,6,1) pe = 6.4707 penorm = 0.9835
+
+
 
 \end{document}  

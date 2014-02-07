@@ -10,6 +10,11 @@
 \usepackage{amsmath}
 \usepackage{epstopdf}
 \usepackage{amsthm}
+\newcommand{\gcc}{{\tt 403.gcc}~}
+\newcommand{\svd}{{\tt dgesdd}~}
+\newcommand{\row}{{\tt row\_major}~}
+\newcommand{\col}{{\tt col\_major}~}
+
 \usepackage{authblk}
 \DeclareGraphicsRule{.tif}{png}{.png}{`convert #1 `dirname #1`/`basename #1 .tif`.png}
 
@@ -324,44 +329,7 @@ $$nRMSE = \frac{RMSE}{X_{max,obs}-X_{min,obs}}$$
 %
 % The smaller the nRMSE, obviously, the more accurate the prediction.
 
-  \begin{table}[htbp]
-   % increase table row spacing, adjust to taste
-   \renewcommand{\arraystretch}{1.3}
-   \caption{Normalized root mean squared error (nRMSE) of 4000-point
-     predictions of memory \& processor performance from different
-     programs.}
-   \label{tab:PredError}
-   \centering
-   % Some packages, such as MDW tools, offer better commands for making tables
-   % than the plain LaTeX2e tabular which is used here.
-%   \begin{tabular}{|c|c|c|c|c|c|}
-%     \hline
-%      & cache misses NRMSE & IPC NRMSE \\
-%     \hline
-%     \tt{row\_major}  & 0.0102  & 0.0095 \\
-%          \hline
-%     \tt{col\_major}  &0.0055& 0.0071 \\
-%     \hline
-%     \tt{403.gcc}  & 0.0865& 0.1805 \\
-%          \hline
-%     \tt{482.sphinx3} & 0.1142& 0.2946 \\
-%      \hline
-%   \end{tabular}
-% \end{table}
-   \begin{tabular}{|c|c|c|c|c|c|}
-     \hline
-      & cache miss rate & instrs per cycle \\
-     \hline
-     \tt{row\_major}  & 0.0324  & 0.0778 \\
-          \hline
-     \tt{col\_major}  &0.0080& 0.0161 \\
-     \hline
-     \tt{403.gcc}  & 0.1416& 0.2033 \\
-          \hline
-     \tt{482.sphinx3} & 0.2032& 0.3670 \\
-      \hline
-   \end{tabular}
- \end{table}
+
 
 The results in Table~\ref{tab:PredError} show a clear distinction
 between the two microkernels, whose future behavior can be
@@ -497,215 +465,125 @@ the time series. Within each of those windows, the statistics over words of
 length 4 are computed and the WPE is calculated. The gray bands denote regions
 where the 5,000 value window overlapped visually-distinct regimes. It can be
 seen that the behaviors of the weighted permutation entropy vary between
-regimes.
+regimes. [[I think here it would be good to add a paragraph explaining the windowed WPE was used for regime choices on SVD...emphasizing  that over a time series permutation entropy fluctuates illustrating within a single time series differnet levels of complexity and predictability exist. Maybe point at some of the predicting predictability papers.]]
 
 \begin{figure}[htbp]
   \centering
   \includegraphics[width=1.0\textwidth]{figs/SVD_wwpe}
-  \caption{The weighted permutation entropy of one run of SVD. The gray bands
+  \caption{[[Joshua: I think adding the colored SVD trace to this would be good or putting it above this figure]]The weighted permutation entropy of one run of SVD. The gray bands
     are regions where the window overlaps regimes. The window size used is
     $5,000 \times 100,000$ instructions and the word length is $4$.}
   \label{fig:wwpe}
 \end{figure}
 
 
-% Table~\ref{tab:pe} shows the permutation entropy results for the
-% examples considered in this paper, with the nRMSPE prediction
-% accuracies from the previous section included alongside for easy
-% comparison.
-%
-% \begin{table}[htbp]
-%   % increase table row spacing, adjust to taste
-%   \renewcommand{\arraystretch}{1.3}
-%   \caption{TCM NRMSE and PE NORMS}
-%   \label{tab:table_example}
-%   \centering
-   % Some packages, such as MDW tools, offer better commands for making tables
-   % than the plain LaTeX2e tabular which is used here.
-%   \begin{tabular}{|c|c|c|c|c|c|}
-%     \hline
-%     TCM & NRMSE & $m=3$  &$m=4$&$m=5$&$m=6$\\
-%     \hline
-%     \tt{row\_major} & 0.0102 & 0.7900  &0.6751&0.5458&0.4491\\
-%     \hline
-%     \tt{col\_major} & 0.0055 & 0.6411  &0.5029&0.4515&0.3955 \\
-%     \hline
-%     \tt{403.gcc} & 0.0865 & 0.9954  &0.9916&0.9880&0.9835\\
-%     \hline
-%     \tt{482.sphinx3} & 0.1142 & 0.9958  &0.9913&0.9866&0.9802 \\
-%      \hline
-%   \end{tabular}
-% \end{table}
-%
-%%  \begin{table}[htbp]
-%%   % increase table row spacing, adjust to taste
-%%   %\renewcommand{\arraystretch}{1.3}
-%%   \caption{Cache-miss rate performance traces: prediction error
-%%     (nRMSPE) and permutation entropy}
-%%   \label{tab:TCMpe}
-%%   \centering
-%%   % Some packages, such as MDW tools, offer better commands for making tables
-%%   % than the plain LaTeX2e tabular which is used here.
-%%   \begin{tabular}{|c|c|c|c|c|c|}
-%%     \hline
-%%      & nRMSE   &$n=4$&$n=5$&$n=6$\\
-%%     \hline
-%%     \tt{row\_major}  & 0.0324  &0.6751&0.5458&0.4491\\
-%%     \hline
-%%     \tt{col\_major}  & 0.0080  &0.5029&0.4515&0.3955 \\
-%%     \hline
-%%     \tt{403.gcc}  & 0.1416  &0.9916&0.9880&0.9835\\
-%%     \hline
-%%     \tt{482.sphinx3}  & 0.2032  &0.9913&0.9866&0.9802 \\
-%%      \hline
-%%   \end{tabular}
-%% \end{table}
-%
-% \begin{table}[htbp]
-%   % increase table row spacing, adjust to taste
-%   \renewcommand{\arraystretch}{1.3}
-%   \caption{IPC NRMSE and PE NORMS}
-%   \label{tab:table_example}
-%   \centering
-%   % Some packages, such as MDW tools, offer better commands for making tables
-%   % than the plain LaTeX2e tabular which is used here.
-%   \begin{tabular}{|c|c|c|c|c|c|}
-%     \hline
-%     ipc & NRMSE & $n=3$  &$n=4$&$n=5$&$n=6$\\
-%     \hline
-%      \tt{row\_major} & 0.0095 & 0.9912  &0.9723&0.9354&0.8876\\
-%     \hline
-%      \tt{col\_major} & 0.0071 & 0.9428  &0.8356&0.7601&0.6880\\
-%     \hline
-%     \tt{403.gcc} & 0.1805 & 0.9918  &0.9862&0.9814&0.9764\\
-%     \hline
-%     \tt{482.sphinx3} & 0.2946 & 0.9978  &0.9951&0.9914&0.9849 \\
-%      \hline
-%   \end{tabular}
-% \end{table}
-%
-%%  \begin{table}[htbp]
-%%   % increase table row spacing, adjust to taste
-%%   %\renewcommand{\arraystretch}{1.1}
-%%   \caption{Processor load performance traces: prediction error
-%%     (nRMSPE) and permutation entropy}
-%%   \label{tab:IPCpe}
-%%   \centering
-%%   % Some packages, such as MDW tools, offer better commands for making tables
-%%   % than the plain LaTeX2e tabular which is used here.
-%%   \begin{tabular}{|c|c|c|c|c|}
-%%     \hline
-%%      & nRMSPE   &$n=4$&$n=5$&$n=6$\\
-%%     \hline
-%%      \tt{row\_major} & 0.0778  &0.9723&0.9354&0.8876\\
-%%     \hline
-%%      \tt{col\_major} & 0.0161   &0.8356&0.7601&0.6880\\
-%%     \hline
-%%     \tt{403.gcc} & 0.2033   &0.9862&0.9814&0.9764\\
-%%     \hline
-%%     \tt{482.sphinx3} & 0.3670 & 0.9951&0.9914&0.9849 \\
-%%      \hline
-%%   \end{tabular}
-%% \end{table}
-%
- %  \begin{table}[htbp]
- %   \caption{Prediction error (in nRMSPE) and permutation entropy (for
- %     different wordlengths $n$}
- %   \label{tab:pe}
- %   \centering
- %   \begin{tabular}{|c|c|c|c|c|c|}
- %     \hline
- %      {\bf cache misses} & error   &$n=4$&$n=5$&$n=6$\\
- %     \hline
- %     \tt{row\_major}  & 0.0324  &0.6751&0.5458&0.4491\\
- %     \hline
- %     \tt{col\_major}  & 0.0080  &0.5029&0.4515&0.3955 \\
- %     \hline
- %     \tt{403.gcc}  & 0.1416  &0.9916&0.9880&0.9835\\
- %     \hline
- %     \tt{482.sphinx3}  & 0.2032  &0.9913&0.9866&0.9802 \\
- %      \hline
- %      \hline
- %      {\bf insts per cyc} & error   &$n=4$&$n=5$&$n=6$\\
- %     \hline
- %      \tt{row\_major} & 0.0778  &0.9723&0.9354&0.8876\\
- %     \hline
- %      \tt{col\_major} & 0.0161   &0.8356&0.7601&0.6880\\
- %     \hline
- %     \tt{403.gcc} & 0.2033   &0.9862&0.9814&0.9764\\
- %     \hline
- %     \tt{482.sphinx3} & 0.3670 & 0.9951&0.9914&0.9849 \\
- %      \hline
- %   \end{tabular}
- % \end{table}
+
 
  \section{Results} % (fold)
  \label{sec:results}
 
 
+%\item Introduce MASE and explain why random walk isn't *that* naive
 
-First paragraph: WPE is a good measure of predictability.  Figure:
-best athlete MASE vs. its WPE.
+%We calculated a figure of merit for each prediction method as follows.
 
-The relationship between prediction accuracy and the weighted permutation
-entropy (WPE) is much as we conjectured: performance traces with high WPE are
-indeed harder to predict using the forecasting models described in the prior
-section. Figure~\ref{fig:pred_vs_ent} demonstrates this primary finding, with
-the exception of one outlier whose behavior we can explain. Furthermore, we find
-that the relationship between the two is roughly linear. The single outlier,
-{\tt SVD} regime 1, does not fit the trend due to a weakness in the WPE: namely
+%As a figure of merit we calculate the Mean Absolute Squared Error (MASE) for each forecast. 
+
+In order to analyze correctness of each prediction we split each time series into two pieces: the first 90\% refereed to as the ``learning/training" signal, $\{X_{i,obs}\}_{i=1}^{i=n}$ and the last 10\% known as the ``test/correct" signal $\{c_j\}_{j=n+1}^{k+n+1}$. The learning signal is used to build the initial models (e.g., LMA,ARIMA,na\"ive) as described in Section \ref{sec:compModel}. The test signal is used both to test the forecasts and to refit the models after forecasting. In particular, using the models we perform $k$ 1-step predictions $\{p_j\}_{j=n+1}^{k+n+1}$, after each prediction we append the training signal with the the next point in the correct signal. We would like to note that this rebuilding occurs due to a problem with ARIMA models converging to a mean prediction if too long of a prediction horizon is used, this is not a handicap of either LMA or na\"ive. 
+
+In order to compare the resulting forecasts we calculate the Mean Absolute Squared Error (MASE)\cite{MASE} between the true and predicted signals:
+
+$$MASE = \sum_{j=n+1}^{k+n+1}\frac{|c_j-p_j| }{\frac{k}{n-1}\sum^n_{i=2}|X_{i,obs}-X_{i-1,obs}|}$$
+
+The scaling term here:
+
+
+$$s=\frac{1}{n-1}\sum^n_{i=2}|X_{i,obs}-X_{i,obs}|$$ 
+is the average in-sample forecast error for a random walk prediction $(p_j=c_{j-1})$. This error method was introduced in \cite{MASE} as a ``generally applicable measurement of forecast accuracy without the problems seen in the other measurements." The major advantage of MASE is that it allows fair comparison across methods, prediction horizons and varying signal scales. A $MASE<1$ means that the prediction method gives, on average, smaller errors than the 1-step errors from the random walk forecast strategy. Analogously, a $MASE>1$ means that the prediction method did worse, on average than the 1-step errors from the random walk forecast strategy. In Table \ref{tab:error} we provide the distribution of MASEs for 15 runs of each of the 8 signals across the 3 prediction forecast methods. For comparison Table \ref{tab:error} also has weighted permutation 
+
+
+%``The errors have been scaled by the one-step in- sample forecast errors from the na\"ive method, and then averaged across all series. So a value of 2 indicates that the out-of-sample forecast errors are, on average, about twice as large as the in-sample one-step forecast errors from the na\"ive method. Because the scaling is based on one-step forecasts, the scaled errors for multi-step forecasts are typically larger than one. "
+
+
+
+
+
+\begin{table}[htdp]
+\caption{Average MASE for 1-step predictions at a 10\% prediction horizon over 15 runs for each signal and average wpe at word length 5 and 6 for each signal. }
+\begin{center}
+\begin{tabular}{|c|c|c|c|c|c|}
+\hline
+                   & MASE LMA    & MASE ARIMA &MASE na\"{i}ve & $l=5$  & $l=6$ \\
+\hline
+\gcc                  & $ 1.5296\pm 0.0214$ & $1.8366 \pm0.0157 $ & $1.7970\pm0.0095$& $0.9510 \pm 0.0011$ & $0.9430 \pm 0.0013$ \\
+
+\col           & $ 0.0500 \pm0.0018  $ & $0.5989  \pm 0.2114 $ & $0.5707\pm0.0017$& $0.5636 \pm 0.0031$ & $0.5131 \pm 0.0034$ \\
+
+\svd Reg. 1     & $ 0.8273\pm 0.0755$ & $ 0.7141\pm 0.0745 $ & $2.6763\pm4.3282$& $0.9761 \pm 0.0084$ & $0.9572 \pm 0.0156$ \\
+\svd Reg. 2     & $1.2789 \pm0.0196 $ & $2.1626 \pm0.0265 $ &  $3.0543\pm0.0404$ &  $0.8760 \pm 0.0052$ & $0.8464 \pm0.0044$ \\
+\svd Reg. 3       & $0.6192 \pm0.0209 $ & $0.7129 \pm 0.0096 $ & $31.3857\pm 0.2820$ & $0.7768 \pm 0.0073$ & $0.7157 \pm 0.0056$ \\
+\svd Reg. 4     & $ 0.7789\pm0.0358 $ & $0.9787 \pm0.0321 $ & $2.6613\pm0.0739$                          &$0.9073 \pm 0.0080$ & $0.8246 \pm 0.0077$ \\
+\svd Reg. 5     & $ 0.7177\pm 0.0483 $ & $2.3700  \pm 0.0505 $ & $20.8703 \pm 0.1915$& $0.7333 \pm 0.0076$ & $0.6776 \pm 0.0068$ \\
+\svd Reg. 6     & $ 0.7393\pm 0.0682 $ & $ 1.4379\pm 0.0609$ & $2.1967\pm0.0830$& $0.8101 \pm 0.0135$ & $0.7475 \pm 0.0106$ \\
+\hline
+\end{tabular}
+\end{center}
+\label{tab:error}
+\end{table}%
+
+
+
+
+
+%This is then used as a scaling term in the following way:
+
+%$$qt = \frac{e_t}{\frac{1}{n-1}\}sum^n_{i=2}|X_{i,obs}-X_{i-1,obs}|$$
+
+%$$MASE = \frac{\frac{\sum_{j=n+1}^{k+n+1} |c_j-p_j| }{k}}{\sum^n_{i=2}|X_{i,obs}-X_{i,obs}|}$$
+
+
+%and is comprised of the first 90\% of the time series, the learning signal is what we build the initial forecast models with. The second piece is called the test  the  back the last 10\% of each signal. Built the initial forecast model for each signal. We then perform an in-sample random walk forecast at every point in the training  
+
+
+%Possible new error measure
+
+
+%$$MASE = mean(|q_t|)$$
+
+%Helpful to remember that $F_i = Y_{i-1}$ for random walk prediction
+
+
+%``The errors have been scaled by the one-step in- sample forecast errors from the na\"ive method, and then averaged across all series. So a value of 2 indicates that the out-of-sample forecast errors are, on average, about twice as large as the in-sample one-step forecast errors from the na\"ive method. Because the scaling is based on one-step forecasts, the scaled errors for multi-step forecasts are typically larger than one. "
+
+
+
+
+
+%\item Paragraph on how to interpret MASE
+\begin{enumerate}
+
+
+\item First paragraph: WPE is a good measure of predictability.  Figure:
+best athlete MASE vs. its WPE. 
+
+As can be seen in Table \ref{tab:error} the relationship between prediction accuracy and the weighted permutation entropy (WPE) is much as we conjectured: performance traces with high WPE are
+indeed harder to predict using the forecasting models described in Section \ref{sec:compModel}. Figure~\ref{fig:pred_vs_ent} demonstrates this primary finding, with
+the exception of one outlier whose behavior we can explain. In Figure~\ref{fig:pred_vs_ent} we plot the best prediction (i.e., the lowest MASE over methods on that signal) for each of the 8 signals.  
+\begin{figure}[htbp]
+  \centering
+  \includegraphics[width=0.75\textwidth]{figs/prediction_vs_entropy}
+  \caption{The best MASE among all runs and prediction methods vs weighted
+  permutation entropy. For each of these, the word length used is $6$. The
+  dashed line is a least-squares linear fit of all the points except for {\tt
+  SVD$_1$} which we have excluded for reasons explained in the text.}
+  \label{fig:pred_vs_ent}
+\end{figure}
+We find that the relationship between the two is roughly linear. The single outlier, \svd regime 1, does not fit the trend due to a weakness in the WPE: namely
 that in the absence of any large features, as all the other regimes have, the
 WPE effectively falls back to the standard PE for which the noisy behavior
 drives toward 1.0.
 
-
-The structure being picked up on by WPE may be linear or nonlinear. When you have a low WPE and a high ARIMA it could be that the structure WPE is picking up is simply nonlinear structure that LMA can handle but ARIMA cannot. So while the ARIMA prediction look realy bad there is plenty of structure present as suggested by WPE and taken advantage of by LMA but since it is nonlinear ARIMA can't take it into account and does bad.
-
-
-\begin{figure}[htbp]
-  \centering
-  \includegraphics[width=1.0\textwidth]{figs/prediction_vs_entropy}
-  \caption{The best MASE among all runs and prediction methods vs weighted
-  permutation entropy. For each of these, the word length used is $6$. The
-  dashed line is a least-squares linear fit of all the points except for {\tt
-  SVD$_1$} which we have excluded for reasons explained in the text.}
-  \label{fig:pred_vs_ent}
-\end{figure}
-
-Second paragraph: full results.  Image: MASE vs. WPE for both LMA \&
-ARIMA.  Points to make: (1) clusters are distributed differently (2)
-clusters are shaped differently---tight or not (3) clusters move
-differently between LMA and ARIMA (4) finally, the diagonal line is
-important.  If you're below it, you could do better.
-
-
-
-
-
-
-
-\begin{figure}[htbp]
-  \centering
-  \includegraphics[width=1.0\textwidth]{figs/prediction_vs_entropy}
-  \caption{The best MASE among all runs and prediction methods vs weighted
-  permutation entropy. For each of these, the word length used is $6$. The
-  dashed line is a least-squares linear fit of all the points except for {\tt
-  SVD$_1$} which we have excluded for reasons explained in the text.}
-  \label{fig:pred_vs_ent}
-\end{figure}
-
-In Figures~\ref{fig:lma_pred_vs_ent} and \ref{fig:arima_pred_vs_ent} we directly
-compare the performance of the LMA and ARIMA prediction methods (respectively)
-to the value of the weighted permutation entropy for all runs of each program
-under consideration. The LMA MASE values are largely similar to those of the
-best predictions, primarily because LMA often performed superior to ARIMA and
-the naive method. On the other hand, the ARIMA MASE values are largely
-uncorrelated with WPE values. This however does not contradict our hypothesis,
-it just means that ARIMA is ill-suited for the time series under investigation.
-To see this more clearly, consider Figure~\ref{fig:lma_vs_arima}. Since larger
-MASE values constitute worse predictions, ARIMA performed worse than LMA in all
-traces except {\tt SVD$_1$}.
-
+This primary finding: ``Signals that are more complex are harder to predict." At first glance this finding may seem incredibly trivial, of course a complex signal is harder to predict than a trivial one, but this is \emph{not} the core result here as we will elucidate now with Figure \ref{fig:lma_vs_arima}.
 \begin{figure}[htbp]
   \centering
   \begin{subfigure}{0.5\textwidth}
@@ -720,16 +598,60 @@ traces except {\tt SVD$_1$}.
     these, the word length used is $6$.}
     \label{fig:arima_pred_vs_ent}
   \end{subfigure}
-  \begin{subfigure}{0.5\textwidth}
-    \includegraphics[width=1.0\textwidth]{figs/LMA_vs_ARIMA}
+  %\begin{subfigure}{0.5\textwidth}
+  %  \includegraphics[width=1.0\textwidth]{figs/LMA_vs_ARIMA}
     \caption{The MASE values for LMA against ARIMA. The dashed line is the
     identity, delineating the traces for which either LMA or ARIMA performed
     better. All traces except those from {\tt SVD$_1$} lie above the line,
     indicating that LMA is better suited prediction method for the computer
-    traces considered.}
-    \label{fig:lma_vs_arima}
-  \end{subfigure}
-\end{figure}
+   traces considered.}\label{fig:lma_vs_arima}
+   
+  %\end{subfigure}
+\end{figure} 
+
+
+\item Talk about structure analysis. Just because there is forward infromation transfer, does not mean that linear predictors can get at this. 
+\item For this show a figure of (a) ARIMA vs MASE (b) LMA vs MASE in a side by side plot. 
+\item  full results.  Image: MASE vs. WPE for both LMA \&
+ARIMA.  Points to make: 
+\begin{enumerate}
+\item clusters are distributed differently
+\item clusters are shaped differently---tight or not 
+\item clusters move
+differently between LMA and ARIMA 
+\item finally, the diagonal line is
+important.  If you're below it, you could do better.
+
+\end{enumerate}
+\end{enumerate}
+
+
+In Figures~\ref{fig:lma_pred_vs_ent} and \ref{fig:arima_pred_vs_ent} we directly
+compare the performance of the LMA and ARIMA prediction methods (respectively)
+to the value of the weighted permutation entropy for all runs of each program
+under consideration. The LMA MASE values are largely similar to those of the
+best predictions, primarily because LMA often performed superior to ARIMA and
+the naive method. On the other hand, the ARIMA MASE values are largely
+uncorrelated with WPE values. The fact that ARIMA is uncorrelated with WPE is in large part one of the major findings of this work. More specifically, say we tried to predict an arbitrary noisy real-valued time series with an ``out-of-the-box" prediction strategy like ARIMA as is proposed as a good strategy in \cite{ARIMA-autofit} and say you got inconsistent and bad forecasts, (i.e., perform worse than the na\"ive random walk strategy ($MASE>1$). How do we know if the prediction strategy is not adequte for the prediction task or if the signal is simply too complex to predict. If a signal is too complex and little forward information transfer is present we may not be able to do better than the random walk, in which case we should not kill ourselves over finding a more complicated prediction strategy. However, if we measure the complexity to be low, $WPE<0.85$ we can most likely do much better than the random walk and should search for more adequate prediction strategies. For example, consider \col (the blue +s in Figure \ref{fig:lma_vs_arima}). If we use the out-of-the-box ARIMA from \cite{ARIMA-autofit} we get MASE ranging from 0.5 all the way to 1.0. That is we may think that the best we can do is twice as good as random-walk but sometimes we only do as well as random walk. In which case the random walk prediction strategy is probably your best bet as it is so simple and produces very similar error. However, if we calculate WPE we see that \col has a WPE of $0.5131\pm 0.0034$. This incredibly low entropy implies a great deal of deterministic structure that we can utilize for prediction, even though this did not appear to be the case with ARIMA. In fact using LMA on this signal we get an average MASE of $0.05\pm0.0018$, an error that is on-average 20 times better than the random walk forecast. Alternatively, we can look at the other end of the spectrum at \gcc. This signal has a WPE of $0.9430\pm0.0013$ and each prediction method we applied was significantly out performed by a simple random walk (the best strategy in the case of structurless time series. Since \gcc has such little structure according to WPE it is safe to assume that he best strategy will be random walk and that contining to search for a more accurate prediction strategy will most likely be a fruitless process. 
+
+
+
+
+This however does not contradict our hypothesis,
+it just means that ARIMA is ill-suited for the time series under investigation.
+To see this more clearly, consider Figure~\ref{fig:lma_vs_arima}. Since larger
+MASE values constitute worse predictions, ARIMA performed worse than LMA in all
+traces except {\tt SVD$_1$}.
+
+
+
+The structure being picked up on by WPE may be linear or nonlinear. When you have a low WPE and a high ARIMA it could be that the structure WPE is picking up is simply nonlinear structure tha-1t LMA can handle but ARIMA cannot. So while the ARIMA prediction look realy bad there is plenty of structure present as suggested by WPE and taken advantage of by LMA but since it is nonlinear ARIMA can't take it into account and does bad.
+
+
+
+
+
+
 
  % section results (end)
 
@@ -791,26 +713,6 @@ methods that sidestep that complexity.
 
 
 
-%[[Joshua: It may be interesting to look at the PE as a function of
-%prediction horizon. It is known to me that certain start and end
-%locations in the prediction strategy result in different prediction
-%accuracy. Is it the case that when the algorithm tanks it is also the
-%case that PE of the **TEST**(the 10\% we cut off )is high? This may
-%be a great way to illustrate the concept if it works... OR maybe do
-%complexity of forward path in embedding space?]]  some notes about
-%this looking at row Cache 1000 very good RMSPE 21.4167 m = 3 4 5 6
-%1.4192 2.1286 2.5942 2.9230 row Cache 2000 very good RMSPE 19.0990 m
-%= 3 4 5 6 1.4145 2.1305 2.5825 2.9095 so even better row Cache 2010
-%RMSPE 19.9716 m = 3 4 5 6 1.4149 2.1311 2.5830 2.9096 row Cache 1990
-%RMSPE 19.1465 So prediction Horizons ranked in order of best RMSPE
-%RMSPE L 3 4 5 6 1st 19.0990 2000 1.4145 2.1305 2.5825 2.9095 2nd
-%19.1465 1990 1.4151 2.1293 2.5803 2.9067 3rd 19.9716 2010 1.4149
-%2.1311 2.5830 2.9096 3rd 21.4167 1000 1.4192 2.1286 2.5942 2.9230
-%ipcgcc m = 3 pe = 1.7770 penorm = 0.9918 m= 4 pe = 3.1341 penorm =
-%0.9862 m = 5 pe = 4.6985 penorm = 0.9814 m=6 pe = 6.4242 penorm =
-%0.9764 m=7 pe = 8.2450 penorm = 0.9671 >> [pe penorm] =
-%permCalc(gcc100TCM,5,1) pe = 4.7299 penorm = 0.9880 >> [pe penorm] =
-%permCalc(gcc100TCM,6,1) pe = 6.4707 penorm = 0.9835
 
 
 
@@ -818,41 +720,6 @@ methods that sidestep that complexity.
 
 \section{New Figures and Tables}
 
-Possible new error measure
-
-$$q_t = \frac{e_t}{\frac{1}{n-1}\sum^n_{i=2}|Y_i-Y_{i-1}|}$$
-
-$$MASE = mean(|q_t|)$$
-
-Helpful to remember that $F_i = Y_{i-1}$ for random walk prediction
-
-``When $MASE<1$, the proposed method gives, on average, smaller errors than the one-step errors from the na\"ive method. If multi-step forecasts are being computed, it is possible to scale by the in- sample MAE[[Mean Absolute Error(mean($|e_t|$)]] computed from multi-step na\"iõve forecasts."
-
-``The errors have been scaled by the one-step in- sample forecast errors from the na\"ive method, and then averaged across all series. So a value of 2 indicates that the out-of-sample forecast errors are, on average, about twice as large as the in-sample one-step forecast errors from the na\"ive method. Because the scaling is based on one-step forecasts, the scaled errors for multi-step forecasts are typically larger than one. "
-
-We use this error measure with $n$ at the start of the predicted chunk.
-
-\begin{table}[htdp]
-\caption{ Embedding Parameters for reference if needed. }
-\begin{center}
-\begin{tabular}{|c|c|c|}
-\hline
-&$\tau$ & $m$ \\
-\hline
-gcc & 10& 13\\
-col\_major  &2&12\\
-SVD\_Full &  10  &  12 \\
-SVD\_IPC\_Regime1 & 5 &14  \\
-SVD\_IPC\_Regime2 & 10   &12  \\
-SVD\_IPC\_Regime3 & 2   &9  \\
-SVD\_IPC\_Regime4 &  3  & 11 \\
-SVD\_IPC\_Regime5 &  23  & 10 \\
-SVD\_IPC\_Regime6 &  30  & 12  \\
-\hline
-\end{tabular}
-\end{center}
-\label{default}
-\end{table}%
 
 
 
@@ -862,28 +729,6 @@ SVD\_IPC\_Regime6 &  30  & 12  \\
 
 
 
-\begin{table}[htdp]
-\caption{Average MASE for 1-step predictions at a 10\% prediction horizon over 15 runs for each signal and average wpe at word length 5 and 6 for each signal. }
-\begin{center}
-\begin{tabular}{|c|c|c|c|c|c|}
-\hline
-                   & MASE LMA    & MASE ARIMA &MASE na\"{i}ve & $l=5$  & $l=6$ \\
-\hline
-gcc                  & $ 1.5296\pm 0.0214$ & $1.8366 \pm0.0157 $ & $1.7970\pm0.0095$& $0.9510 \pm 0.0011$ & $0.9430 \pm 0.0013$ \\
-
-col\_major           & $ 0.0500 \pm0.0018  $ & $0.5989  \pm 0.2114 $ & $0.5707\pm0.0017$& $0.5636 \pm 0.0031$ & $0.5131 \pm 0.0034$ \\
-
-SVD\_IPC\_Regime1     & $ 0.8273\pm 0.0755$ & $ 0.7141\pm 0.0745 $ & $2.6763\pm4.3282$& $0.9761 \pm 0.0084$ & $0.9572 \pm 0.0156$ \\
-SVD\_IPC\_Regime2     & $1.2789 \pm0.0196 $ & $2.1626 \pm0.0265 $ &  $3.0543\pm0.0404$ &  $0.8760 \pm 0.0052$ & $0.8464 \pm0.0044$ \\
-SVD\_IPC\_Regime3       & $0.6192 \pm0.0209 $ & $0.7129 \pm 0.0096 $ & $31.3857\pm 0.2820$ & $0.7768 \pm 0.0073$ & $0.7157 \pm 0.0056$ \\
-SVD\_IPC\_Regime4     & $ 0.7789\pm0.0358 $ & $0.9787 \pm0.0321 $ & $2.6613\pm0.0739$                          &$0.9073 \pm 0.0080$ & $0.8246 \pm 0.0077$ \\
-SVD\_IPC\_Regime5     & $ 0.7177\pm 0.0483 $ & $2.3700  \pm 0.0505 $ & $20.8703 \pm 0.1915$& $0.7333 \pm 0.0076$ & $0.6776 \pm 0.0068$ \\
-SVD\_IPC\_Regime6     & $ 0.7393\pm 0.0682 $ & $ 1.4379\pm 0.0609$ & $2.1967\pm0.0830$& $0.8101 \pm 0.0135$ & $0.7475 \pm 0.0106$ \\
-\hline
-\end{tabular}
-\end{center}
-\label{default}
-\end{table}%
 
 
 
