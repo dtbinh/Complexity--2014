@@ -128,11 +128,16 @@ Quantifying structured complexity and its role in predictability: With applicati
 %\end{it}
 Things to add to introduction
 \begin{enumerate}
-\item Differnt kinds of complexity exist in time series and this makes choosing prediction models difficult 
-\item When deterministic structure even complex structure exists that structure can be utilized for prediction. 
-\item For noisy real-valued time series distinguishing randomness (WN,RW) complexity from structured nonlinear / chaotic /high period / high dimensional etc complexity is often impossible. 
+\item Different kinds of complexity exist in time series and this makes choosing prediction models difficult 
+\subitem NOTE: RW and chaos are both complex. One is predictable and one is not.
 
 \item Make an argument that Computer Performance is a great testing ground as it omits signals that completely cover the spectrum of complexity \col \dots \gcc
+
+\item When deterministic structure even complex structure exists that structure can be utilized for prediction. 
+\item For noisy real-valued time series distinguishing randomness (WN,RW) complexity from structured nonlinear / chaotic /high period / high dimensional etc complexity is (until now) very hard. 
+\subitem for this provide predictions of \gcc and \col side by side and discuss "How can we tell if we did a bad job because the method is inadequate vs the signal being too complex. Lead this into is it possible to tell if there exists structure in a time series to know if we should find a better model or not. Maybe even having 4 predictions. top being ARIMA of the above signals and bottom being LMA of the above signals. Show that one improved and one did not. Is it that we used the wrong method to predict or is it that we simply can't predict the signal better than a random walk due to high levels of internal signal complexity.
+
+
 
 \item Introduce the two main contributions of the paper which are outlined at the begining of the results section
 
@@ -247,15 +252,20 @@ not violate the Rice-Shapiro theorem.
 % implications in regard to our conjecture, and consider future areas of
 % research.
 
+
+
+
 \section{Modeling Computer Performance}\label{sec:compModel}
 
-To Add to this section:
+Section outline:
 
 \begin{enumerate}
-\item Description of ARIMA
+\item Experimental methods (how we collect the time series and what the times series are
+\item Description of DCE and parameter estimation  
+\item Description of auto ARIMA 
+\subitem (this should be limited and explain it is meant to be out of the box) point at the paper for auto arima for more details.
 \item Description of the two naive methods (random walk and mean), make sure to explain that these methods are naive and simple but not necessarily bad.
-
-\item Maybe add a section talking about evaluation methods i.e., MASE, this text is currently written and just sitting at the begining of the results. 
+\item Add a section talking about evaluation methods i.e., MASE, this text is currently written and just sitting at the beginning of the results. 
 
 \end{enumerate}
 
