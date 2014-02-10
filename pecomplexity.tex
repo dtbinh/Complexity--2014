@@ -134,7 +134,7 @@ speed is scaled back).  Computer performance traces are, however, very
 complex.  Even a simple ``microkernel,'' like a three-line loop that
 repeatedly initializes a matrix in column-major order, can produce
 {\sl chaotic} performance traces \cite{mytkowicz09}, as shown in
-Figure~\ref{fig:cache}, and chaos places fundamental limits on
+Figure~\ref{fig:col-ts}, and chaos places fundamental limits on
 predictability.
 %
 % \begin{figure}[htbp]
@@ -149,6 +149,24 @@ predictability.
 %      simple program exhibits chaotic performance dynamics.}
 %    \label{fig:cache}
 %  \end{figure}
+
+\begin{figure}[htbp]
+  \centering
+  \begin{subfigure}[t]{0.475\textwidth}
+    \includegraphics[width=0.95\textwidth]{figs/colshortts}
+    \caption{A short segment of the instructions executed per CPU clock cycle
+    (IPC) during the execution of \col. Each point is the IPC during a 100,000
+    cycle period. There is a great deal of periodicity in this time series.}
+    \label{fig:col-ts}
+  \end{subfigure}%
+  \begin{subfigure}[t]{0.475\textwidth}
+    \includegraphics[width=0.95\textwidth]{figs/gccfullts}
+    \caption{The full IPC time series during the execution of \gcc. This time
+    series has very little structure.}
+    \label{fig:gcc-ts}
+  \end{subfigure}
+  \label{fig:sample-ts}
+\end{figure}
 
 The computer systems community has applied a variety of prediction
 strategies to traces like this, most of which employ regression.  An
