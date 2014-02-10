@@ -10,6 +10,11 @@
 \usepackage{amsmath}
 \usepackage{epstopdf}
 \usepackage{amsthm}
+
+\usepackage{pifont} % check and x marks
+\newcommand{\cmark}{\ding{51}}
+\newcommand{\xmark}{\ding{55}}
+
 \newcommand{\gcc}{{\tt 403.gcc}~}
 \newcommand{\svd}{{\tt dgesdd}~}
 \newcommand{\row}{{\tt row\_major}~}
@@ -139,7 +144,11 @@ speed is scaled back).  Computer performance traces are, however, very
 complex.  Even a simple ``microkernel,'' like a three-line loop that
 repeatedly initializes a matrix in column-major order, can produce
 {\sl chaotic} performance traces \cite{mytkowicz09}, as shown in
+<<<<<<< HEAD
 Figure~\ref{fig:ipc}, and chaos places fundamental limits on
+=======
+Figure~\ref{fig:col-ts}, and chaos places fundamental limits on
+>>>>>>> b6ecceb4339c2479d69ae08921a8948565d90006
 predictability.
 %
  \begin{figure}[htbp]
@@ -153,6 +162,24 @@ predictability.
       simple program exhibits chaotic performance dynamics.}
    \label{fig:ipc}
   \end{figure}
+
+\begin{figure}[htbp]
+  \centering
+  \begin{subfigure}[t]{0.475\textwidth}
+    \includegraphics[width=0.95\textwidth]{figs/colshortts}
+    \caption{A short segment of the instructions executed per CPU clock cycle
+    (IPC) during the execution of \col. Each point is the IPC during a 100,000
+    cycle period. There is a great deal of periodicity in this time series.}
+    \label{fig:col-ts}
+  \end{subfigure}%
+  \begin{subfigure}[t]{0.475\textwidth}
+    \includegraphics[width=0.95\textwidth]{figs/gccfullts}
+    \caption{The full IPC time series during the execution of \gcc. This time
+    series has very little structure.}
+    \label{fig:gcc-ts}
+  \end{subfigure}
+  \label{fig:sample-ts}
+\end{figure}
 
 The computer systems community has applied a variety of prediction
 strategies to traces like this, most of which employ regression.  An
@@ -540,13 +567,31 @@ regimes. [[I think here it would be good to add a paragraph explaining the windo
  \section{Results} % (fold)
  \label{sec:results}
 
+\begin{enumerate}
+\item \cmark~Introduce MASE.
+\item \cmark~WPE is a good measure of predictability.  Figure: best athlete MASE vs.
+its WPE.
+\item \cmark~Talk about structure analysis. Just because there is forward information
+transfer, does not mean that linear predictors can get at this.
+\item For this show a figure of (a) ARIMA vs MASE (b) LMA vs MASE in a side by
+side plot.
+\item full results.  Image: MASE vs. WPE for both LMA \& ARIMA.  Points to make:
+\begin{enumerate}
+\item \cmark~clusters are distributed differently
+\item \cmark~clusters are shaped differently---tight or not
+\item \cmark~clusters move differently between LMA and ARIMA
+\item finally, the diagonal line is important. If you're below it, you could do
+better.
+\end{enumerate}
+\end{enumerate}
 
 %\item Introduce MASE and explain why random walk isn't *that* naive
 %\item Paragraph on how to interpret MASE
 
 
-%As a figure of merit we calculate the Mean Absolute Squared Error (MASE) for each forecast. 
+%As a figure of merit we calculate the Mean Absolute Squared Error (MASE) for each forecast.
 
+<<<<<<< HEAD
 In order to analyze correctness of each prediction we split each time series into two pieces: the first 90\% referred to as the ``learning" or ``training" signal, $\{X_{i,obs}\}_{i=1}^{n}$ and the last 10\% known as the ``test" or ``correct" signal $\{c_j\}_{j=n+1}^{k+n+1}$. The learning signal is used to train an initial model (e.g., LMA or ARIMA) as described in Section \ref{sec:compModel}. The test signal is used both to assess the models forecasting accuracy and for any refitting that may be necessary. In particular, we perform $k$ 1-step predictions, after each 1-step prediction we append the training signal with the next point in the correct signal $c_j$, refit the model taking into account the new system measurement and perform another prediction. This is repeated $k$ times to obtain $\{p_j\}_{j=n+1}^{k+n+1}$.\footnote{We would like to note that this rebuilding occurs due to a problem with ARIMA models converging to a mean prediction if too long of a prediction horizon is used, this is not a handicap of either LMA or na\"ive.}
 
 As a figure of merit we calculate the Mean Absolute Squared Error (MASE)\cite{MASE} between the true and predicted signals: 
@@ -555,11 +600,58 @@ $$MASE = \sum_{j=n+1}^{k+n+1}\frac{|c_j-p_j| }{\frac{k}{n-1}\sum^n_{i=2}|X_{i,ob
 The scaling term for MASE:
 $$\frac{1}{n-1}\sum^n_{i=2}|X_{i,obs}-X_{i-1,obs}|$$ 
 is the average in-sample forecast error for a random walk prediction $(p_i=X_{i-1,obs})$. This error method was introduced in \cite{MASE} as a ``generally applicable measurement of forecast accuracy without the problems seen in the other measurements." The major advantage of MASE is that it allows fair comparison across methods, prediction horizons and varying signal scales. When a forecast results in a $MASE<1$ this means that the prediction method gave, on average, smaller errors than the 1-step errors from the in-sample random walk forecast strategy. Analogously, $MASE>1$ means that the prediction method did worse, on average than the 1-step errors for the in-sample random walk forecast strategy. In Table \ref{tab:error} we provide the distribution [[Joshua: Ryan, Is this the right word? we give mean $\pm$ std. dev but some have very skewed right tails]]  of MASEs for each of the 8 signals and 3 prediction strategies, these are averaged over 15 runs of each type (signal + method). For comparison Table \ref{tab:error} also has the distribution of weighted permutation entropies for work lengths of $l=5$ and $l=6$.
+=======
+In order to analyze correctness of each prediction we split each time series
+into two pieces: the first 90\% refereed to as the ``learning/training" signal,
+$\{X_{i,obs}\}_{i=1}^{i=n}$ and the last 10\% known as the ``test/correct"
+signal $\{c_j\}_{j=n+1}^{k+n+1}$. The learning signal is used to build the
+initial models (e.g., LMA, ARIMA, na\"ive) as described in Section
+\ref{sec:compModel}. The test signal is used both to test the forecasts and to
+refit the models after forecasting. In particular, using the models we perform
+$k$ 1-step predictions $\{p_j\}_{j=n+1}^{k+n+1}$, after each prediction we
+append the training signal with the the next point in the correct signal. We
+would like to note that this rebuilding occurs due to a problem with ARIMA
+models converging to a mean prediction if too long of a prediction horizon is
+used, this is not a handicap of either LMA or na\"ive.
+
+In order to compare the resulting forecasts we calculate the Mean Absolute
+Squared Error (MASE)\cite{MASE} between the true and predicted signals:
+
+\begin{align*}
+  \textrm{MASE} = \sum_{j=n+1}^{k+n+1}\frac{|c_j-p_j| }{\frac{k}{n-1}\sum^n_{i=2}|X_{i,obs}-X_{i-1,obs}|}
+\end{align*}
+
+The scaling term here:
+
+
+$$s=\frac{1}{n-1}\sum^n_{i=2}|X_{i,obs}-X_{i,obs}|$$ is the average in-sample
+forecast error for a random walk prediction $(p_j=c_{j-1})$. This error method
+was introduced in \cite{MASE} as a ``generally applicable measurement of
+forecast accuracy without the problems seen in the other measurements." The
+major advantage of MASE is that it allows fair comparison across methods,
+prediction horizons and varying signal scales. A $\textrm{MASE}<1$ means that
+the prediction method gives, on average, smaller errors than the 1-step errors
+from the random walk forecast strategy. Analogously, a $\textrm{MASE}>1$ means
+that the prediction method did worse, on average, than the 1-step errors from the
+random walk forecast strategy. In Table \ref{tab:error} we provide the
+distribution of MASEs for 15 runs of each of the 8 signals across the 3
+prediction forecast methods. For comparison Table \ref{tab:error} also has
+weighted permutation
+
+
+%``The errors have been scaled by the one-step in- sample forecast errors from the na\"ive method, and then averaged across all series. So a value of 2 indicates that the out-of-sample forecast errors are, on average, about twice as large as the in-sample one-step forecast errors from the na\"ive method. Because the scaling is based on one-step forecasts, the scaled errors for multi-step forecasts are typically larger than one. "
+
+
+>>>>>>> b6ecceb4339c2479d69ae08921a8948565d90006
 
 
 
 \begin{table}[htdp]
+<<<<<<< HEAD
 \caption{MASE distributions for 1-step predictions at a 10\% prediction horizon over 15 runs for each signal and average wpe at word length 5 and 6 for each signal.[[Joshua:Maybe delete $l=5$ as we don't use it in any figures]] }
+=======
+\caption{Average MASE for 1-step predictions at a 10\% prediction horizon over 15 runs for each signal and average WPE at word length 5 and 6 for each signal. }
+>>>>>>> b6ecceb4339c2479d69ae08921a8948565d90006
 \begin{center}
 \begin{tabular}{|c|c|c|c|c|c|}
 \hline
@@ -585,12 +677,48 @@ is the average in-sample forecast error for a random walk prediction $(p_i=X_{i-
 
 
 
+<<<<<<< HEAD
 %\item First paragraph: WPE is a good measure of predictability.  Figure:
 %best athlete MASE vs. its WPE. 
 
 As can be seen in Table \ref{tab:error} the relationship between prediction accuracy and the weighted permutation entropy (WPE) is much as we conjectured: performance traces with high WPE are
 indeed harder to predict using the forecasting models described in Section \ref{sec:compModel}. Figure~\ref{fig:pred_vs_ent} demonstrates this primary finding, with
 the exception of one outlier whose behavior we will explain. In Figure~\ref{fig:pred_vs_ent} we plot the best prediction (i.e., the lowest MASE over all 3 methods over all runs of that program) for each of the 8 signals.  
+=======
+%This is then used as a scaling term in the following way:
+
+%$$qt = \frac{e_t}{\frac{1}{n-1}\}sum^n_{i=2}|X_{i,obs}-X_{i-1,obs}|$$
+
+%$$MASE = \frac{\frac{\sum_{j=n+1}^{k+n+1} |c_j-p_j| }{k}}{\sum^n_{i=2}|X_{i,obs}-X_{i,obs}|}$$
+
+
+%and is comprised of the first 90\% of the time series, the learning signal is what we build the initial forecast models with. The second piece is called the test  the  back the last 10\% of each signal. Built the initial forecast model for each signal. We then perform an in-sample random walk forecast at every point in the training
+
+
+%Possible new error measure
+
+
+%$$MASE = mean(|q_t|)$$
+
+%Helpful to remember that $F_i = Y_{i-1}$ for random walk prediction
+
+
+%``The errors have been scaled by the one-step in- sample forecast errors from the na\"ive method, and then averaged across all series. So a value of 2 indicates that the out-of-sample forecast errors are, on average, about twice as large as the in-sample one-step forecast errors from the na\"ive method. Because the scaling is based on one-step forecasts, the scaled errors for multi-step forecasts are typically larger than one. "
+
+
+
+
+
+
+As can be seen in Table \ref{tab:error} the relationship between prediction
+accuracy and the weighted permutation entropy (WPE) is much as we conjectured:
+performance traces with high WPE are indeed harder to predict using the
+forecasting models described in Section \ref{sec:compModel}.
+Figure~\ref{fig:pred_vs_wpe} demonstrates this primary finding, with the
+exception of one outlier whose behavior we can explain. In
+Figure~\ref{fig:pred_vs_wpe} we plot the best prediction (i.e., the lowest MASE
+over methods on that signal) for each of the 8 signals.
+>>>>>>> b6ecceb4339c2479d69ae08921a8948565d90006
 \begin{figure}[htbp]
   \centering
   \includegraphics[width=0.75\textwidth]{figs/prediction_vs_entropy}
@@ -598,13 +726,15 @@ the exception of one outlier whose behavior we will explain. In Figure~\ref{fig:
   permutation entropy. For each of these, the word length used is $6$. The
   dashed line is a least-squares linear fit of all the points except for {\tt
   SVD$_1$} which we have excluded for reasons explained in the text.}
-  \label{fig:pred_vs_ent}
+  \label{fig:pred_vs_wpe}
 \end{figure}
-We find that the relationship between the two is roughly linear. The single outlier, \svd regime 1, does not fit the trend due to a weakness in the WPE: namely
-that in the absence of any large features, as all the other regimes have, the
-WPE effectively falls back to the standard PE for which the noisy behavior
+We find that the relationship between the two is roughly linear. The single
+outlier, \svd regime 1, does not fit the trend due to a weakness in the WPE:
+namely that in the absence of any large features, as all the other regimes have,
+the WPE effectively falls back to the standard PE which the noisy behavior
 drives toward 1.0.
 
+<<<<<<< HEAD
 It may be tempting to paraphrase this primary finding as: ``Signals that are more complex are harder to predict.", but this truly misses the impact of this work. A more correct statement would be ``Time series which exhibit structure-less complexity are harder to predict for any model which uses structure as it's information processor. " [[I don't like this at all]] 
 
 \begin{itemize}
@@ -698,6 +828,103 @@ Figure \ref{fig:lma_vs_arima} also elucidates another fact: usable predictive st
 %important.  If you're below it, you could do better.
 
 %\end{itemize}
+=======
+This primary finding: ``Signals that are more complex are harder to predict." At
+first glance this finding may seem incredibly trivial, of course a complex
+signal is harder to predict than a trivial one, but this is \emph{not} the core
+result here as we will elucidate now with Figure \ref{fig:predictions_vs_wpe}.
+\begin{figure}[htbp]
+  \centering
+  \begin{subfigure}[t]{0.5\textwidth}
+    \includegraphics[width=1.0\textwidth]{figs/LMA_prediction_vs_entropy}
+    \caption{The MASE of LMA vs weighted permutation entropy. For each of these,
+    the word length used is $6$. Prediction error vs WPE values largely fall
+    near the fit from Fig.~\ref{fig:pred_vs_wpe} indicating that LMA is a near-
+    optimal prediction method for this data.}
+    \label{fig:lma_pred_vs_wpe}
+  \end{subfigure}%
+  \begin{subfigure}[t]{0.5\textwidth}
+    \includegraphics[width=1.0\textwidth]{figs/ARIMA_prediction_vs_entropy}
+    \caption{The MASE of ARIMA vs weighted permutation entropy. For each of
+    these, the word length used is $6$. Prediction error vs WPE values for many
+    of the traces fall far to the right of the fit from
+    Fig.~\ref{fig:pred_vs_wpe} indicating that ARIMA is a poor choice to predict
+    this data.}
+    \label{fig:arima_pred_vs_wpe}
+  \end{subfigure}
+  % \begin{subfigure}{0.5\textwidth}
+  %   \includegraphics[width=1.0\textwidth]{figs/LMA_vs_ARIMA}
+  %   \caption{The MASE values for LMA against ARIMA. The dashed line is the
+  %   identity, delineating the traces for which either LMA or ARIMA performed
+  %   better. All traces except those from {\tt SVD$_1$} lie above the line,
+  %   indicating that LMA is better suited prediction method for the computer
+  %  traces considered.}\label{fig:lma_vs_arima}
+  % \end{subfigure}
+  \label{fig:predictions_vs_wpe}
+\end{figure}
+
+
+In Figures~\ref{fig:lma_pred_vs_wpe} and \ref{fig:arima_pred_vs_wpe} we directly
+compare the performance of the LMA and ARIMA prediction methods (respectively)
+to the value of the weighted permutation entropy for all runs of each program
+under consideration. The LMA MASE values are largely similar to those of the
+best predictions, primarily because LMA often performed superior to ARIMA and
+the naive method. On the other hand, the ARIMA MASE values are largely
+uncorrelated with WPE values. The fact that ARIMA is uncorrelated with WPE is in
+large part one of the major findings of this work. More specifically, say we
+tried to predict an arbitrary noisy real-valued time series with an ``out-of-
+the-box" prediction strategy like ARIMA as proposed in \cite{ARIMA-autofit}, and
+say you got inconsistent and bad forecasts, (i.e., perform worse than the
+na\"ive random walk strategy (MASE$>1$). How do we determine if the prediction
+strategy is not adequate for the prediction task, or if the signal is simply too
+complex to predict. If a signal is too complex and little forward information
+transfer is present we may simply not be possible to do better than the random
+walk, in which case we should not worry ourselves over finding a more
+complicated prediction strategy. However if we measure the complexity to be low,
+$\textrm{WPE}<0.85$ (see Fig.~\ref{fig:pred_vs_wpe}), we can likely do better
+than the random walk and should search for more adequate prediction strategies.
+
+By way of example, consider \col (the blue +s in
+Figure~\ref{fig:predictions_vs_wpe}). If we use the out-of-the-box ARIMA method
+from \cite{ARIMA-autofit} we get MASE values ranging from $\sim0.5$ to
+$\sim1.0$. From that information we may assume that the best predictions that
+can be done are twice as good as random-walk, and in some cases predictions will
+only do as well as random-walk. In the latter such cases, the random-walk
+prediction strategy is probably the best bet as it is so simple and produces
+very similar error. However, if we calculate the WPE we see that \col has a WPE
+of $0.5131 \pm 0.0034$. This incredibly low entropy implies a great deal of
+deterministic structure which can be utilize for prediction, even though this
+did not appear to be the case with ARIMA. In fact using LMA on this signal we
+get an average MASE value of $0.05\pm0.0018$, an error that is on average 20
+times better than the random walk forecast, and 10 times better than the best
+ARIMA forcast, with little variance. Alternatively, we can look at the other end
+of the spectrum: \gcc. This signal has a WPE of $0.9430\pm0.0013$ and each
+prediction method we applied was significantly out performed by a simple random
+walk (the best strategy in the case of structureless time series). Since \gcc
+has such little structure according to WPE it is safe to assume that he best
+strategy will be random walk and that continuing to search for a more accurate
+prediction strategy will likely be a fruitless process.
+
+The WPE is sensitive to both linear and nonlinear structure. When you have a low
+WPE and a high ARIMA it could be that the structure WPE is picking up is simply
+nonlinear structure that LMA can handle but ARIMA cannot. So while the ARIMA
+prediction look really bad there is plenty of structure present as suggested by
+WPE and taken advantage of by LMA but since it is nonlinear ARIMA can't take it
+into account and does bad.
+
+Other noteworthy features of the LMA and ARIMA results are the cluster locations
+and distributions. The WPE values of each run any particular program tend to
+have little variance, leading to the clusters in
+Figures~\ref{fig:arima_pred_vs_wpe}, \ref{fig:lma_pred_vs_wpe} to be fairly
+constrained in the $y$ direction. For most traces, the LMA and ARIMA variance is
+low too, resulting is small, tight clusters. The ARIMA MASE values of the \col
+traces, however, have a large variance resulting in the spread seen in
+Fig~\ref{fig:arima_pred_vs_wpe}. Not only are the MASE values of that cluster
+bad, in that other predictors vastly outperform it, but they are inconsistent.
+Furthermore, since LMA can predict nonlinear behavior while ARIMA can not, we
+see that the clusters in Fig.~\ref{fig:arima_pred_vs_wpe} are mostly further to
+the right than those in Fig.~\ref{fig:lma_pred_vs_wpe}.
+>>>>>>> b6ecceb4339c2479d69ae08921a8948565d90006
 
 
 %This however does not contradict our hypothesis,
