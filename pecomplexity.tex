@@ -637,16 +637,21 @@ signal is harder to predict than a trivial one, but this is \emph{not} the core
 result here as we will elucidate now with Figure \ref{fig:predictions_vs_wpe}.
 \begin{figure}[htbp]
   \centering
-  \begin{subfigure}{0.5\textwidth}
+  \begin{subfigure}[t]{0.5\textwidth}
     \includegraphics[width=1.0\textwidth]{figs/LMA_prediction_vs_entropy}
     \caption{The MASE of LMA vs weighted permutation entropy. For each of these,
-    the word length used is $6$.}
+    the word length used is $6$. Prediction error vs WPE values largely fall
+    near the fit from Fig.~\ref{fig:pred_vs_wpe} indicating that LMA is a near-
+    optimal prediction method for this data.}
     \label{fig:lma_pred_vs_wpe}
   \end{subfigure}%
-  \begin{subfigure}{0.5\textwidth}
+  \begin{subfigure}[t]{0.5\textwidth}
     \includegraphics[width=1.0\textwidth]{figs/ARIMA_prediction_vs_entropy}
     \caption{The MASE of ARIMA vs weighted permutation entropy. For each of
-    these, the word length used is $6$.}
+    these, the word length used is $6$. Prediction error vs WPE values for many
+    of the traces fall far to the right of the fit from
+    Fig.~\ref{fig:pred_vs_wpe} indicating that ARIMA is a poor choice to predict
+    this data.}
     \label{fig:arima_pred_vs_wpe}
   \end{subfigure}
   % \begin{subfigure}{0.5\textwidth}
