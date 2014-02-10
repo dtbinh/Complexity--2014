@@ -10,6 +10,11 @@
 \usepackage{amsmath}
 \usepackage{epstopdf}
 \usepackage{amsthm}
+
+\usepackage{pifont} % check and x marks
+\newcommand{\cmark}{\ding{51}}
+\newcommand{\xmark}{\ding{55}}
+
 \newcommand{\gcc}{{\tt 403.gcc}~}
 \newcommand{\svd}{{\tt dgesdd}~}
 \newcommand{\row}{{\tt row\_major}~}
@@ -500,6 +505,23 @@ regimes. [[I think here it would be good to add a paragraph explaining the windo
  \section{Results} % (fold)
  \label{sec:results}
 
+\begin{enumerate}
+\item \cmark~Introduce MASE.
+\item \cmark~WPE is a good measure of predictability.  Figure: best athlete MASE vs.
+its WPE.
+\item \cmark~Talk about structure analysis. Just because there is forward information
+transfer, does not mean that linear predictors can get at this.
+\item For this show a figure of (a) ARIMA vs MASE (b) LMA vs MASE in a side by
+side plot.
+\item full results.  Image: MASE vs. WPE for both LMA \& ARIMA.  Points to make:
+\begin{enumerate}
+\item \cmark~clusters are distributed differently
+\item \cmark~clusters are shaped differently---tight or not
+\item \cmark~clusters move differently between LMA and ARIMA
+\item finally, the diagonal line is important. If you're below it, you could do
+better.
+\end{enumerate}
+\end{enumerate}
 
 %\item Introduce MASE and explain why random walk isn't *that* naive
 
@@ -535,13 +557,14 @@ forecast error for a random walk prediction $(p_j=c_{j-1})$. This error method
 was introduced in \cite{MASE} as a ``generally applicable measurement of
 forecast accuracy without the problems seen in the other measurements." The
 major advantage of MASE is that it allows fair comparison across methods,
-prediction horizons and varying signal scales. A $MASE<1$ means that the
-prediction method gives, on average, smaller errors than the 1-step errors from
-the random walk forecast strategy. Analogously, a $MASE>1$ means that the
-prediction method did worse, on average than the 1-step errors from the random
-walk forecast strategy. In Table \ref{tab:error} we provide the distribution of
-MASEs for 15 runs of each of the 8 signals across the 3 prediction forecast
-methods. For comparison Table \ref{tab:error} also has weighted permutation
+prediction horizons and varying signal scales. A $\textrm{MASE}<1$ means that
+the prediction method gives, on average, smaller errors than the 1-step errors
+from the random walk forecast strategy. Analogously, a $\textrm{MASE}>1$ means
+that the prediction method did worse, on average, than the 1-step errors from the
+random walk forecast strategy. In Table \ref{tab:error} we provide the
+distribution of MASEs for 15 runs of each of the 8 signals across the 3
+prediction forecast methods. For comparison Table \ref{tab:error} also has
+weighted permutation
 
 
 %``The errors have been scaled by the one-step in- sample forecast errors from the na\"ive method, and then averaged across all series. So a value of 2 indicates that the out-of-sample forecast errors are, on average, about twice as large as the in-sample one-step forecast errors from the na\"ive method. Because the scaling is based on one-step forecasts, the scaled errors for multi-step forecasts are typically larger than one. "
@@ -601,12 +624,6 @@ methods. For comparison Table \ref{tab:error} also has weighted permutation
 
 
 
-%\item Paragraph on how to interpret MASE
-\begin{enumerate}
-
-
-\item First paragraph: WPE is a good measure of predictability.  Figure:
-best athlete MASE vs. its WPE.
 
 As can be seen in Table \ref{tab:error} the relationship between prediction
 accuracy and the weighted permutation entropy (WPE) is much as we conjectured:
@@ -666,22 +683,6 @@ result here as we will elucidate now with Figure \ref{fig:predictions_vs_wpe}.
 \end{figure}
 
 
-\item Talk about structure analysis. Just because there is forward information
-transfer, does not mean that linear predictors can get at this.
-\item For this show a figure of (a) ARIMA vs MASE (b) LMA vs MASE in a side by
-side plot.
-\item full results.  Image: MASE vs. WPE for both LMA \& ARIMA.  Points to make:
-\begin{enumerate}
-\item clusters are distributed differently
-\item clusters are shaped differently---tight or not
-\item clusters move differently between LMA and ARIMA
-\item finally, the diagonal line is important. If you're below it, you could do
-better.
-
-\end{enumerate}
-\end{enumerate}
-
-
 In Figures~\ref{fig:lma_pred_vs_wpe} and \ref{fig:arima_pred_vs_wpe} we directly
 compare the performance of the LMA and ARIMA prediction methods (respectively)
 to the value of the weighted permutation entropy for all runs of each program
@@ -723,7 +724,25 @@ has such little structure according to WPE it is safe to assume that he best
 strategy will be random walk and that continuing to search for a more accurate
 prediction strategy will likely be a fruitless process.
 
+The WPE is sensitive to both linear and nonlinear structure. When you have a low
+WPE and a high ARIMA it could be that the structure WPE is picking up is simply
+nonlinear structure that LMA can handle but ARIMA cannot. So while the ARIMA
+prediction look really bad there is plenty of structure present as suggested by
+WPE and taken advantage of by LMA but since it is nonlinear ARIMA can't take it
+into account and does bad.
 
+Other noteworthy features of the LMA and ARIMA results are the cluster locations
+and distributions. The WPE values of each run any particular program tend to
+have little variance, leading to the clusters in
+Figures~\ref{fig:arima_pred_vs_wpe}, \ref{fig:lma_pred_vs_wpe} to be fairly
+constrained in the $y$ direction. For most traces, the LMA and ARIMA variance is
+low too, resulting is small, tight clusters. The ARIMA MASE values of the \col
+traces, however, have a large variance resulting in the spread seen in
+Fig~\ref{fig:arima_pred_vs_wpe}. Not only are the MASE values of that cluster
+bad, in that other predictors vastly outperform it, but they are inconsistent.
+Furthermore, since LMA can predict nonlinear behavior while ARIMA can not, we
+see that the clusters in Fig.~\ref{fig:arima_pred_vs_wpe} are mostly further to
+the right than those in Fig.~\ref{fig:lma_pred_vs_wpe}.
 
 
 This however does not contradict our hypothesis,
@@ -734,12 +753,6 @@ traces except {\tt SVD$_1$}.
 
 
 
-The WPE is sensitive to both linear and nonlinear structure. When you have a low
-WPE and a high ARIMA it could be that the structure WPE is picking up is simply
-nonlinear structure that LMA can handle but ARIMA cannot. So while the ARIMA
-prediction look really bad there is plenty of structure present as suggested by
-WPE and taken advantage of by LMA but since it is nonlinear ARIMA can't take it
-into account and does bad.
 
 
 
