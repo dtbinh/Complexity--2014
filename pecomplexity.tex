@@ -563,13 +563,15 @@ regimes. [[I think here it would be good to add a paragraph explaining the windo
  \section{Results} % (fold)
  \label{sec:results}
 
+
+OUTLINE:
 \begin{enumerate}
 \item \cmark~Introduce MASE.
 \item \cmark~WPE is a good measure of predictability.  Figure: best athlete MASE vs.
 its WPE.
 \item \cmark~Talk about structure analysis. Just because there is forward information
 transfer, does not mean that linear predictors can get at this.
-\item For this show a figure of (a) ARIMA vs MASE (b) LMA vs MASE in a side by
+\subitem \cmark~For this show a figure of (a) ARIMA vs MASE (b) LMA vs MASE in a side by
 side plot.
 \item full results.  Image: MASE vs. WPE for both LMA \& ARIMA.  Points to make:
 \begin{enumerate}
@@ -580,6 +582,25 @@ side plot.
 better.
 \end{enumerate}
 \end{enumerate}
+
+In this section we will validate the two key findings of this work:
+
+[[Rephrase these]]
+\begin{enumerate}
+
+\item The existence of complex structure in a noisy real-valued time series is quantifiable and this type of complexity is directly correlated with predictability
+
+\item The way structure/information/complexity is processed internally by a given process plays a role in predictability.
+
+ 
+\end{enumerate}
+
+
+
+
+
+
+
 
 %\item Introduce MASE and explain why random walk isn't *that* naive
 %\item Paragraph on how to interpret MASE
@@ -735,9 +756,6 @@ walk (the best strategy in the case of structureless time series). Since \gcc
 has such little structure according to WPE it is safe to assume that he best
 strategy will be random walk and that continuing to search for a more accurate
 prediction strategy will likely be a fruitless process.
-
-This seems to support that time series with low to moderate complexity ($0\le WPE \le 0.85$) can be predicted more efficiently than a na\"ive random walk \emph{and} that complexity can be qualitatively measured for a real-valued noisy time series using WPE. This will allow practitioners to stop spinning their wheels in the case of signals who are simply better predicted with a simple strategy like random walk. 
-
 
 This seems to support that time series with low to moderate complexity ($0\le WPE \le 0.85$) can be predicted more efficiently than a na\"ive random walk \emph{and} that complexity can be qualitatively measured for a real-valued noisy time series using WPE. This will allow practitioners to stop spinning their wheels in the case of signals who are simply better predicted with a simple strategy like random walk. 
 
