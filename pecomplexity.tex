@@ -118,7 +118,7 @@ Quantifying structured complexity and its role in predictability: With applicati
   those values against the prediction success.
 \end{abstract}
 
-\section{Introduction}
+\section{Introduction}\label{sec:intro}
 %\begin{it}
 %Paragraph on computer performance, including citations to Todd paper
 %and summary of the results that indicate that they're deterministic
@@ -195,6 +195,43 @@ predictability.
   \label{fig:sample-ts}
 \end{figure}
 
+
+
+
+\begin{figure}[htbp]
+  \centering
+       
+  \begin{subfigure}{0.5\textwidth}
+    \includegraphics[width=\textwidth]{figs/gccARIMAForecast}
+    \caption{\gcc ARIMA }
+    \label{fig:gccARIMA}
+  \end{subfigure}%
+    \begin{subfigure}{0.5\textwidth}
+    \includegraphics[width=\textwidth]{figs/gccLMAForecast}
+    \caption{\gcc LMA}
+    \label{fig:gccLMA}
+  \end{subfigure}
+  \\
+  \begin{subfigure}{0.49\textwidth}
+    \includegraphics[width=\textwidth]{figs/colARIMAForecast}
+    \caption{\col ARIMA}
+    \label{fig:colARIMA}
+  \end{subfigure}
+    \begin{subfigure}{0.49\textwidth}
+    \includegraphics[width=\textwidth]{figs/colLMAForecast}
+    \caption{\col LMA}
+    \label{fig:colLMA}
+  \end{subfigure}
+  %\begin{subfigure}{0.5\textwidth}
+  %  \includegraphics[width=1.0\textwidth]{figs/LMA_vs_ARIMA}
+   \caption{
+For each of these, we plot the predicted value $p_n$ against the correct value $c_n$. On this type of plot a perfect prediction lies exactly on the diagonal, that is the line $p_n = c_n$, e.g., \ref{fig:colLMA} is a near perfect prediction where-as \ref{fig:gccARIMA} is a very poor prediction. }\label{fig:gcc_vs_col}  
+  %\end{subfigure}
+\end{figure} 
+
+
+
+
 The computer systems community has applied a variety of prediction
 strategies to traces like this, most of which employ regression.  An
 appealing alternative builds on the recently established fact that
@@ -255,7 +292,7 @@ not violate the Rice-Shapiro theorem.
 
 
 
-\section{Modeling Computer Performance}\label{sec:compModel}
+\section{Experimental Methods and Modelling}\label{sec:compModel}
 
 Section outline:
 
@@ -272,7 +309,7 @@ Section outline:
 
 
 % took out for space
-% \subsection{Reconstructing hidden dynamics}
+ \subsection{Reconstructing hidden dynamics}
 
 Delay-coordinate embedding allows one to reconstruct a system's full
 state-space dynamics from a \emph{single} scalar time-series
@@ -330,7 +367,7 @@ determinism\footnote{A deeper analysis of
 structure can also be used to build a forecast model.
 
 % took out for space
-% \subsection{LMA: Using dynamics in forecasting}
+ \subsection{LMA: Using dynamics in forecasting}
 
 Given a nonlinear model of a deterministic dynamical system in the
 form of a delay-coordinate embedding like Figure~\ref{fig:embedding},
@@ -420,6 +457,43 @@ machine make them effectively impossible to predict.
 
 %% [[If space: Add a segue sentence: next section uses permutation
 %% entropy to explore that conjecture.]]
+
+\subsection{Comparing Prediction Accuracy}
+In order to analyze correctness of each prediction we split each time series into two pieces: the first 90\% referred to as the ``learning" or ``training" signal, $\{X_{i,obs}\}_{i=1}^{n}$ and the last 10\% known as the ``test" or ``correct" signal $\{c_j\}_{j=n+1}^{k+n+1}$. The learning signal is used to train an initial model (e.g., LMA or ARIMA) as described in Section \ref{sec:compModel}. The test signal is used both to assess the models forecasting accuracy and for any refitting that may be necessary. In particular, we perform $k$ 1-step predictions, after each 1-step prediction we append the training signal with the next point in the correct signal $c_j$, refit the model taking into account the new system measurement and perform another prediction. This is repeated $k$ times to obtain $\{p_j\}_{j=n+1}^{k+n+1}$.\footnote{We would like to note that this rebuilding occurs due to a problem with ARIMA models converging to a mean prediction if too long of a prediction horizon is used, this is not a handicap of either LMA or na\"ive.}
+
+As a figure of merit we calculate the Mean Absolute Squared Error (MASE)\cite{MASE} between the true and predicted signals: 
+%In order to compare the resulting forecasts we calculate the Mean Absolute Squared Error (MASE)\cite{MASE} between the true and predicted signals:
+$$MASE = \sum_{j=n+1}^{k+n+1}\frac{|c_j-p_j| }{\frac{k}{n-1}\sum^n_{i=2}|X_{i,obs}-X_{i-1,obs}|}$$
+The scaling term for MASE:
+$$\frac{1}{n-1}\sum^n_{i=2}|X_{i,obs}-X_{i-1,obs}|$$ 
+is the average in-sample forecast error for a random walk prediction $(p_i=X_{i-1,obs})$. This error method was introduced in \cite{MASE} as a ``generally applicable measurement of forecast accuracy without the problems seen in the other measurements." The major advantage of MASE is that it allows fair comparison across methods, prediction horizons and varying signal scales. When a forecast results in a $MASE<1$ this means that the prediction method gave, on average, smaller errors than the 1-step errors from the in-sample random walk forecast strategy. Analogously, $MASE>1$ means that the prediction method did worse, on average than the 1-step errors for the in-sample random walk forecast strategy. In Table \ref{tab:error} we provide the distribution [[Joshua: Ryan, Is this the right word? we give mean $\pm$ std. dev but some have very skewed right tails]]  of MASEs for each of the 8 signals and 3 prediction strategies, these are averaged over 15 runs of each type (signal + method). For comparison Table \ref{tab:error} also has the distribution of weighted permutation entropies for word lengths of $l=5$ and $l=6$.
+
+
+\begin{table}[htdp]
+\caption{MASE distributions for 1-step predictions at a 10\% prediction horizon over 15 runs for each signal and average wpe at word length 5 and 6 for each signal.[[Joshua:Maybe delete $l=5$ as we don't use it in any figures, also if we leave this (before the next section we need to point forward to the next section for PE or remove it from this table]] }
+\begin{center}
+\begin{tabular}{|c|c|c|c|c|c|}
+\hline
+                   & MASE LMA    & MASE ARIMA &MASE na\"{i}ve & $l=5$  & $l=6$ \\
+\hline
+\gcc                  & $ 1.5296\pm 0.0214$ & $1.8366 \pm0.0157 $ & $1.7970\pm0.0095$& $0.9510 \pm 0.0011$ & $0.9430 \pm 0.0013$ \\
+
+\col           & $ 0.0500 \pm0.0018  $ & $0.5989  \pm 0.2114 $ & $0.5707\pm0.0017$& $0.5636 \pm 0.0031$ & $0.5131 \pm 0.0034$ \\
+
+\svd Reg. 1     & $ 0.8273\pm 0.0755$ & $ 0.7141\pm 0.0745 $ & $2.6763\pm4.3282$& $0.9761 \pm 0.0084$ & $0.9572 \pm 0.0156$ \\
+\svd Reg. 2     & $1.2789 \pm0.0196 $ & $2.1626 \pm0.0265 $ &  $3.0543\pm0.0404$ &  $0.8760 \pm 0.0052$ & $0.8464 \pm0.0044$ \\
+\svd Reg. 3       & $0.6192 \pm0.0209 $ & $0.7129 \pm 0.0096 $ & $31.3857\pm 0.2820$ & $0.7768 \pm 0.0073$ & $0.7157 \pm 0.0056$ \\
+\svd Reg. 4     & $ 0.7789\pm0.0358 $ & $0.9787 \pm0.0321 $ & $2.6613\pm0.0739$                          &$0.9073 \pm 0.0080$ & $0.8246 \pm 0.0077$ \\
+\svd Reg. 5     & $ 0.7177\pm 0.0483 $ & $2.3700  \pm 0.0505 $ & $20.8703 \pm 0.1915$& $0.7333 \pm 0.0076$ & $0.6776 \pm 0.0068$ \\
+\svd Reg. 6     & $ 0.7393\pm 0.0682 $ & $ 1.4379\pm 0.0609$ & $2.1967\pm0.0830$& $0.8101 \pm 0.0135$ & $0.7475 \pm 0.0106$ \\
+\hline
+\end{tabular}
+\end{center}
+\label{tab:error}
+\end{table}%
+
+
+
 
 \section{Measuring Complexity}\label{sec:meaComplex}
 
@@ -563,8 +637,8 @@ regimes. [[I think here it would be good to add a paragraph explaining the windo
     \label{fig:svd_ts}
   \end{subfigure}%
   %\\
-  \begin{subfigure}{0.3\textwidth}
-    \includegraphics[width=0.3\textwidth]{figs/SVD_wwpe}
+  \begin{subfigure}{\textwidth}
+    \includegraphics[width=\textwidth]{figs/SVD_wwpe}
     \caption{The MASE of ARIMA vs weighted permutation entropy. }
     \label{fig:svd_wwpe}
   \end{subfigure}
@@ -583,7 +657,7 @@ regimes. [[I think here it would be good to add a paragraph explaining the windo
 
 
 
- \section{Results} % (fold)
+ \section{Validation of Primary Findings} % (fold)
  \label{sec:results}
 
 
@@ -606,9 +680,9 @@ better.
 \end{enumerate}
 \end{enumerate}
 
-In this section we will validate the two key findings of this work:
+As we stated in Section \ref{sec:intro} we intend to show two primary contributions of this work: 
 
-[[Rephrase these]]
+[[Joshua: Probably need to rephrase these]]
 \begin{enumerate}
 
 \item The existence of predictable structure in noisy real-valued time series is quantifiable by WPE and as a result WPE is correlated with prediction accuracy (MASE)  
@@ -618,6 +692,8 @@ In this section we will validate the two key findings of this work:
 %\item The existence of complex structure in a noisy real-valued time series is quantifiable and this type of complexity is directly correlated with predictability
 
 \item The way structure/information/complexity is processed internally by a given process plays a crucial role in predictability.
+
+
 \subitem We will have shown that the existence whether linear or nonlinear is picked up on with WPE but this point gets at whether the prediction model can use the structure or not (linear can't use nonlinear structure). The right to left shifts in \col and some of the \svd regimes and the lack of shift in \gcc illustrate this nicely.
 
 \subitem This is the linear vs nonliear vs random we see with the right to left shifts with lower complexity time series. 
@@ -625,6 +701,12 @@ In this section we will validate the two key findings of this work:
  
 \end{enumerate}
 
+ In this section we will validate these two key findings.
+
+
+%This portion should justify the following claim%%%%%%%%%%%%%%%%%%%%%%
+%\item The existence of predictable structure in noisy real-valued time series is quantifiable by WPE and as a result WPE is correlated with prediction accuracy (MASE)  
+%%%%%%%%%%%%%%%%%%%%%%%%%
 
 
 
@@ -632,49 +714,27 @@ In this section we will validate the two key findings of this work:
 
 
 
-%\item Introduce MASE and explain why random walk isn't *that* naive
-%\item Paragraph on how to interpret MASE
-
-
-%As a figure of merit we calculate the Mean Absolute Squared Error (MASE) for each forecast.
-
-In order to analyze correctness of each prediction we split each time series into two pieces: the first 90\% referred to as the ``learning" or ``training" signal, $\{X_{i,obs}\}_{i=1}^{n}$ and the last 10\% known as the ``test" or ``correct" signal $\{c_j\}_{j=n+1}^{k+n+1}$. The learning signal is used to train an initial model (e.g., LMA or ARIMA) as described in Section \ref{sec:compModel}. The test signal is used both to assess the models forecasting accuracy and for any refitting that may be necessary. In particular, we perform $k$ 1-step predictions, after each 1-step prediction we append the training signal with the next point in the correct signal $c_j$, refit the model taking into account the new system measurement and perform another prediction. This is repeated $k$ times to obtain $\{p_j\}_{j=n+1}^{k+n+1}$.\footnote{We would like to note that this rebuilding occurs due to a problem with ARIMA models converging to a mean prediction if too long of a prediction horizon is used, this is not a handicap of either LMA or na\"ive.}
-
-As a figure of merit we calculate the Mean Absolute Squared Error (MASE)\cite{MASE} between the true and predicted signals: 
-%In order to compare the resulting forecasts we calculate the Mean Absolute Squared Error (MASE)\cite{MASE} between the true and predicted signals:
-$$MASE = \sum_{j=n+1}^{k+n+1}\frac{|c_j-p_j| }{\frac{k}{n-1}\sum^n_{i=2}|X_{i,obs}-X_{i-1,obs}|}$$
-The scaling term for MASE:
-$$\frac{1}{n-1}\sum^n_{i=2}|X_{i,obs}-X_{i-1,obs}|$$ 
-is the average in-sample forecast error for a random walk prediction $(p_i=X_{i-1,obs})$. This error method was introduced in \cite{MASE} as a ``generally applicable measurement of forecast accuracy without the problems seen in the other measurements." The major advantage of MASE is that it allows fair comparison across methods, prediction horizons and varying signal scales. When a forecast results in a $MASE<1$ this means that the prediction method gave, on average, smaller errors than the 1-step errors from the in-sample random walk forecast strategy. Analogously, $MASE>1$ means that the prediction method did worse, on average than the 1-step errors for the in-sample random walk forecast strategy. In Table \ref{tab:error} we provide the distribution [[Joshua: Ryan, Is this the right word? we give mean $\pm$ std. dev but some have very skewed right tails]]  of MASEs for each of the 8 signals and 3 prediction strategies, these are averaged over 15 runs of each type (signal + method). For comparison Table \ref{tab:error} also has the distribution of weighted permutation entropies for word lengths of $l=5$ and $l=6$.
 
 
 
 
-\begin{table}[htdp]
-\caption{MASE distributions for 1-step predictions at a 10\% prediction horizon over 15 runs for each signal and average wpe at word length 5 and 6 for each signal.[[Joshua:Maybe delete $l=5$ as we don't use it in any figures]] }
-\begin{center}
-\begin{tabular}{|c|c|c|c|c|c|}
-\hline
-                   & MASE LMA    & MASE ARIMA &MASE na\"{i}ve & $l=5$  & $l=6$ \\
-\hline
-\gcc                  & $ 1.5296\pm 0.0214$ & $1.8366 \pm0.0157 $ & $1.7970\pm0.0095$& $0.9510 \pm 0.0011$ & $0.9430 \pm 0.0013$ \\
-
-\col           & $ 0.0500 \pm0.0018  $ & $0.5989  \pm 0.2114 $ & $0.5707\pm0.0017$& $0.5636 \pm 0.0031$ & $0.5131 \pm 0.0034$ \\
-
-\svd Reg. 1     & $ 0.8273\pm 0.0755$ & $ 0.7141\pm 0.0745 $ & $2.6763\pm4.3282$& $0.9761 \pm 0.0084$ & $0.9572 \pm 0.0156$ \\
-\svd Reg. 2     & $1.2789 \pm0.0196 $ & $2.1626 \pm0.0265 $ &  $3.0543\pm0.0404$ &  $0.8760 \pm 0.0052$ & $0.8464 \pm0.0044$ \\
-\svd Reg. 3       & $0.6192 \pm0.0209 $ & $0.7129 \pm 0.0096 $ & $31.3857\pm 0.2820$ & $0.7768 \pm 0.0073$ & $0.7157 \pm 0.0056$ \\
-\svd Reg. 4     & $ 0.7789\pm0.0358 $ & $0.9787 \pm0.0321 $ & $2.6613\pm0.0739$                          &$0.9073 \pm 0.0080$ & $0.8246 \pm 0.0077$ \\
-\svd Reg. 5     & $ 0.7177\pm 0.0483 $ & $2.3700  \pm 0.0505 $ & $20.8703 \pm 0.1915$& $0.7333 \pm 0.0076$ & $0.6776 \pm 0.0068$ \\
-\svd Reg. 6     & $ 0.7393\pm 0.0682 $ & $ 1.4379\pm 0.0609$ & $2.1967\pm0.0830$& $0.8101 \pm 0.0135$ & $0.7475 \pm 0.0106$ \\
-\hline
-\end{tabular}
-\end{center}
-\label{tab:error}
-\end{table}%
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+%This portion should justify the following claim%%%%%%%%%%%%%%%%%%%%%%
+%\item The way structure/information/complexity is processed internally by a given process plays a crucial role in predictability.
+%%%%%%%%%%%%%%%%%%%%%%%%%
 
 
 %\item First paragraph: WPE is a good measure of predictability.  Figure:
