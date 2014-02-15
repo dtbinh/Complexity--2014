@@ -743,7 +743,7 @@ In this section we validate the two key primary findings of this work which we i
 
 %\item Quantifying structured and unstructured complexity is nontrivial in the case of real-valued noisy time series but WPE does this. [[talk about again here but justify in information theory section]]
 
-As we discussed in Section \ref{sec:meaComplex} distinguishing structured from unstructured complexity in the case of real-valued time series is non trivial, i.e., distinguishing when a complex signal omits predictable structure and when the signal is effectively random is very non-trivial. As described in Section \ref{sec:intro}, for a practitioner this can be frustrating because it can be nearly impossible to find the source of faulty predictions: Is it simply that we need to use a more ideal (possibly more advanced) predictor or is it the case that the time series is simply so complex that using a simple (yet inconsistent) forecast strategy such as random walk is the best we can do. Fortunately, weighted permutation entropy (WPE) allows us to make this distinction for noisy real-valued time series. 
+As we discussed in Section \ref{sec:meaComplex} distinguishing structured from unstructured complexity in the case of real-valued time series is non trivial, i.e., distinguishing when a complex signal omits predictable structure and when the signal is effectively random is not a trivial task. As described in Section \ref{sec:intro}, for a practitioner this can be frustrating because it can be nearly impossible to find the source of faulty predictions: Is it simply that we need to use a more ideal (possibly more advanced) predictor or is it the case that the time series is simply so complex that using a simple (yet inconsistent) forecast strategy such as random walk is the best we can do. Fortunately, weighted permutation entropy (WPE) allows us to make this distinction for noisy real-valued time series. 
 
 In Figure~\ref{fig:pred_vs_wpe} we plot the best prediction (i.e., the lowest MASE over all 3 methods\footnote{LMA,ARIMA,na\"ive} over all 15 runs of that program) for each of the 8 programs under investigation. 
 \begin{figure}[htbp]
@@ -784,48 +784,36 @@ Maybe even more conniving than a low complexity signal like \col is a moderately
 
 Finally, we consider the most complex program: \gcc. The complexity of \gcc is $0.94 \pm 0.001$. This implies that almost no predictive structure exists in this structure. Recall that a WPE $\approx 1$ are similar in complexity to white noise or a random walk process as they do not transmit any information from past to future. This would mean that the WPE of $>0.95$ would suggest little to no predictive structure exists and that the signal is simply too complex. In this case it should be safe to assume that a random walk forecast would be (on-average) superior to forecast methods which required structure or information to intelligently predict the next time step. This is in fact what we see, with each prediction scheme we used we see a MASE which implies (on-average) 1.5-1.8 times worse predictions that performing a simple random walk forecast. 
 
-There is a single outlier in this study which is \svdone. This signal has a WPE of $0.95 \pm 0.02$ and both LMA and ARIMA do slightly better than random walk ($0.82 \pm 0.08$ and $0.7141 \pm 0.07$ respectively). The na\"ive method did significantly worse than random walk and was highly inconsistent with an average MASE of 2.67 but a standard deviation of 4.33 due to the massive right tail this distribution exhibited in reaction to wildly inconsistent forecasts. We do not believe this outlier is really a problem but it does bring about a potential weaknesses of this method. MASE is scaled by a random walk forecast which can be very inconsistent in the case of drastic signal changes which occur on a regular basis, e.g., a signal which oscillates from the top to the bottom of the signals scale at every time click. Random walk is then off by the scale of the signal at every forecast, since guessing the last step will be exactly out of phase with the new forecast. A signal like this would normally cause a very low WPE much like \col and a very high Random Walk error resulting in low MASE for methods that can take into account this structure. With \svdone
+There is a single outlier in this study which is \svdone. This signal has a WPE of $0.95 \pm 0.02$ and both LMA and ARIMA do slightly better than random walk ($0.82 \pm 0.08$ and $0.7141 \pm 0.07$ respectively). The na\"ive method did significantly worse than random walk and was highly inconsistent with an average MASE of 2.67 but a standard deviation of 4.33 due to the massive right tail this distribution exhibited in reaction to wildly inconsistent forecasts. We do not believe this outlier is really a problem but it does bring about a potential weaknesses of this method. MASE is scaled by a random walk forecast which can be very inconsistent in the case of drastic signal changes which occur on a regular basis, e.g., a signal which oscillates from the top to the bottom of the signals scale at every time click. In this case a random walk forecast would have error with magnitude of the scale of the signal at every forecast, since guessing the last step will be exactly out of phase with the new forecast. A signal like this would normally cause a very low WPE much like \col and a very high Random Walk error resulting in low MASE for methods that can take into account this structure like ARIMA or LMA. 
+
+To understand why this causes \svdone to be an outlier we examine Figure \ref{fig:svdone-ts} in more detail. This is a small snippet of the time series of \svdone to illustrate the strucutre of this signal. We provide a small snippet because the full time series is so dense the visual loses the structure.
+\begin{figure}[htbp]
+  \centering
+    \includegraphics[width=\textwidth]{figs/svdonets2}
+\caption{ For each of these, the word length used is $6$. The MASE values for LMA against ARIMA. The dashed line is the identity, delineating the traces for which either LMA or ARIMA performed better. All traces except those from \svd$_1$ lie above the line, indicating that LMA is better suited prediction method for the computer traces considered.}\label{fig:svdone-ts}  
+\end{figure} 
+As can be seen in Figure \ref{fig:svdone-ts},\svdone has a highly unstructured small band which is about 0.05 instructions per cycle wide. Approximately 80\% of the signal exists within this band of noise, this causes the WPE to be driven up as many words are being omitted by this band of the signal. The remaining 20\% of the signal are drops in instructions per cycle away from this band, ranging in size from 0.1 to 0.6 instructions per cycle\footnote{Some of the large drops are not shown for the sake of clarity of the smaller scale}. These drastic drops seem to happen every 5-7 points but the drop locations are inconsistent as well as the drops magnitude (ranging from 0.1-0.6 instructions per cycle). As discussed in Section \ref{sec:RWMethod} drops of this fashion are the bane of random walk forecasting. At every one of these drops a random walk predictor would produce two forecasts with an error 2-12 times the magnitude of the original signal, i.e., about 40\% of the time the random walk forecast would predict with error 2-12 times the magnitude of the signals true width. This inconsistency in random walk would cause cause random walk error to be high and as a result MASE scores to be artificially low. The combination of a band of noise with a high number of random drops that this signal exhibits is a weakness of this method which cause this one outlier. 
 
 
- 
-
-
-%\item \gcc appears visually very complex, *and* according to WPE this complexity is unstructured. And a constant, linear and nonlinear prediction strategy all fail. We should be able to conclude that guessing random values is the best we can do as is shown by MASE [[Use in this section]]
-
-%\item \also do \svd$_5$
-
-%\item \col is also complex (can even be chaotic/ point to CHAOS paper) but the complexity is structured according to WPE and as such that complexity is usable for prediction [[use in this section]]
-
-
-
-
+This seems to support that time series with low to moderate complexity ($0\le WPE \le 0.85$) can be predicted more efficiently than a na\"ive random walk \emph{and} that complexity can be qualitatively measured for a real-valued noisy time series using WPE. This will allow practitioners to stop spinning their wheels in the case of signals who are simply better predicted with a simple strategy like random walk. 
 
 
 
 
+%We find that the relationship between the two is roughly %linear. The single
+%outlier, \svd regime 1, does not fit the trend due to a %weakness in the WPE:
+%namely that in the absence of any large features, as all the %other regimes have,
+%the WPE effectively falls back to the standard PE which the %noisy behavior
+%drives toward 1.0.
+
+
+
+%It may be tempting to paraphrase this primary finding as: ``Signals that are more complex are harder to predict.", but this truly misses the impact of this work. A more correct statement would be ``Time series which exhibit structure-less complexity are harder to predict for any model which uses structure as it's information processor. " [[I don't like this at all]] 
 
 
 
 
-
-
-
-
-
-We find that the relationship between the two is roughly linear. The single
-outlier, \svd regime 1, does not fit the trend due to a weakness in the WPE:
-namely that in the absence of any large features, as all the other regimes have,
-the WPE effectively falls back to the standard PE which the noisy behavior
-drives toward 1.0.
-
-
-
-It may be tempting to paraphrase this primary finding as: ``Signals that are more complex are harder to predict.", but this truly misses the impact of this work. A more correct statement would be ``Time series which exhibit structure-less complexity are harder to predict for any model which uses structure as it's information processor. " [[I don't like this at all]] 
-
-
-
-
-Of course a complex signal is harder to predict than a trivial one, but this is \emph{not} the core contribution of this work as we will elucidate with Figure \ref{fig:lma_vs_arima}. [[Joshua: This is not really true ... at least by these definitions because it doesn't really explain "hard to predict" ...Make sure we make it clear WPE not only tells you when there is strucure to use but also what kinds of complexity are usable. e.g., white noise and deterministic chaos are both complex but one is predictable. The kind of complexity is important. Talk about chaos and random walk being complex but from a predictive standpoint that complexity spectrum is important **AND** quantifiable by WPE ]]
+%Of course a complex signal is harder to predict than a trivial one, but this is \emph{not} the core contribution of this work as we will elucidate with Figure \ref{fig:lma_vs_arima}. [[Joshua: This is not really true ... at least by these definitions because it doesn't really explain "hard to predict" ...Make sure we make it clear WPE not only tells you when there is strucure to use but also what kinds of complexity are usable. e.g., white noise and deterministic chaos are both complex but one is predictable. The kind of complexity is important. Talk about chaos and random walk being complex but from a predictive standpoint that complexity spectrum is important **AND** quantifiable by WPE ]]
 
 
 
@@ -861,7 +849,6 @@ has such little structure according to WPE it is safe to assume that he best
 strategy will be random walk and that continuing to search for a more accurate
 prediction strategy will likely be a fruitless process.
 
-This seems to support that time series with low to moderate complexity ($0\le WPE \le 0.85$) can be predicted more efficiently than a na\"ive random walk \emph{and} that complexity can be qualitatively measured for a real-valued noisy time series using WPE. This will allow practitioners to stop spinning their wheels in the case of signals who are simply better predicted with a simple strategy like random walk. 
 
 
 
