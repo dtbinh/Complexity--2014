@@ -17,6 +17,14 @@
 
 \newcommand{\gcc}{{\tt 403.gcc}~}
 \newcommand{\svd}{{\tt dgesdd}~}
+\newcommand{\svdone}{{\tt dgesdd}$_1$~}
+\newcommand{\svdtwo}{{\tt dgesdd$_2$}~}
+\newcommand{\svdthree}{{\tt dgesdd$_3$}~}
+\newcommand{\svdfour}{{\tt dgesdd$_4$}~}
+\newcommand{\svdfive}{{\tt dgesdd$_5$}~}
+\newcommand{\svdsix}{{\tt dgesdd$_6$}~}
+
+
 \newcommand{\row}{{\tt row\_major}~}
 \newcommand{\col}{{\tt col\_major}~}
 
@@ -495,7 +503,7 @@ is the average in-sample forecast error for a random walk prediction $(p_i=X_{i-
 
 
 
-\section{Measuring Complexity}\label{sec:meaComplex}
+\section{Measuring Structural Complexity}\label{sec:meaComplex}
 
 For the purposes of this paper, one can view entropy as a measure of complexity
 and predictability in a time series.  A high-entropy time series is almost
@@ -772,9 +780,14 @@ For each of these, the word length used is $6$. The MASE values for LMA against 
 
 We will start with the lowest complexity program: \col. Conceptually this program is very simple but due to computer design choices this program can result in highly complex even chaotic time series traces, see \cite{toddchaos}. If we forecast this signal using an out-of-the-box linear forecaster (ARIMA) or an out-of-the-box constant predictor we receive MASE ($0.59 \pm 0.21$ and $0.57 \pm$ 0.001 respectively) which suggest that on average we can only predict this signal twice as well as the simple random walk prediction. This would suggest that there is some predictive structure present but not that much. However, if we quantify the predictive structure present in this signal using WPE we see that this signal is highly structured with a WPE of ($0.51 \pm 0.003$.) The existence of structured which we quantified with WPE implies that an ideal predictor capable of using this signals information should be able to predict this signal much better than the random walk due to the high amount of predictive strucutre or equivalently the low complexity. This is in fact the case. \col is a complex signal, i.e., chaotic, but it is complex in a structured way. Using a prediction technique that can process nonlinear information yields forecasts with a MASE of $0.05 \pm 0.001$, this is a prediction 20 times more accurate than a random walk forecast. The existence of predictve structure as quantified by WPE could be precisely the information needed to continue searching for an ideal predictor like LMA. 
 
-Maybe even more conniving than a low complexity signal like \col is a moderately complex signal like \svd$_5$. This signal omits a WPE of $0.677 \pm 0.006$, this is a significantly higher complexity than \col but still implies the exsitence of a great deal of predictive structure. However, this increase in complexity is enough to really throw off the constant and linear prediction strategies. The MASE scores for ARIMA and na\"ive imply 2.5 and 20 times worse prediction than using a simple random walk forecast. This may be discouragin to someone using an out of the box predictor that the signal is too complex to predict. However by \emph{knowing} that there exists predictable strucutre in this signal we can try to use a more advanced technique, in particular LMA. If we do this we get forecasts which score 1.5 times better than the random walk. Showing that this usable structure (althought hidden to the linear and constant method) was quantifiable by WPE.
+Maybe even more conniving than a low complexity signal like \col is a moderately complex signal like \svdfive. This signal omits a WPE of $0.677 \pm 0.006$, this is a significantly higher complexity than \col but still implies the existence of a great deal of predictive structure. However, this increase in complexity is enough to really throw off the constant and linear prediction strategies. The MASE scores for ARIMA and na\"ive imply 2.5 and 20 times worse prediction than using a simple random walk forecast. This may be discouraging to someone using an out-of-the-box predictor that the signal is too complex to predict. However by \emph{knowing} that there exists predictable  in this signal we can try to use a more advanced technique, in particular LMA. If we do this we get forecasts which score 1.5 times better than the random walk. Showing that this usable structure (although hidden to the linear and constant method) was quantifiable by WPE.
 
-Finally, we consider the most complex program: \gcc.
+Finally, we consider the most complex program: \gcc. The complexity of \gcc is $0.94 \pm 0.001$. This implies that almost no predictive structure exists in this structure. Recall that a WPE $\approx 1$ are similar in complexity to white noise or a random walk process as they do not transmit any information from past to future. This would mean that the WPE of $>0.95$ would suggest little to no predictive structure exists and that the signal is simply too complex. In this case it should be safe to assume that a random walk forecast would be (on-average) superior to forecast methods which required structure or information to intelligently predict the next time step. This is in fact what we see, with each prediction scheme we used we see a MASE which implies (on-average) 1.5-1.8 times worse predictions that performing a simple random walk forecast. 
+
+There is a single outlier in this study which is \svdone. This signal has a WPE of $0.95 \pm 0.02$ and both LMA and ARIMA do slightly better than random walk ($0.82 \pm 0.08$ and $0.7141 \pm 0.07$ respectively). The na\"ive method did significantly worse than random walk and was highly inconsistent with an average MASE of 2.67 but a standard deviation of 4.33 due to the massive right tail this distribution exhibited in reaction to wildly inconsistent forecasts. We do not believe this outlier is really a problem but it does bring about a potential weaknesses of this method. MASE is scaled by a random walk forecast which can be very inconsistent in the case of drastic signal changes which occur on a regular basis, e.g., a signal which oscillates from the top to the bottom of the signals scale at every time click. Random walk is then off by the scale of the signal at every forecast, since guessing the last step will be exactly out of phase with the new forecast. A signal like this would normally cause a very low WPE much like \col and a very high Random Walk error resulting in low MASE for methods that can take into account this structure. With \svdone
+
+
+ 
 
 
 %\item \gcc appears visually very complex, *and* according to WPE this complexity is unstructured. And a constant, linear and nonlinear prediction strategy all fail. We should be able to conclude that guessing random values is the best we can do as is shown by MASE [[Use in this section]]
