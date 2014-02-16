@@ -106,12 +106,12 @@ Quantifying structured complexity and its role in predictability: With applicati
 
 
 \begin{abstract}
-  Computers are deterministic dynamical systems \cite{mytkowicz09}.
+[[Joshua: Needs to be rewritten to be more general and use computers as the application not the focus]]  Computers are deterministic dynamical systems \cite{mytkowicz09}.
   Among other things, that implies that one should be able to use
   deterministic forecast rules to predict aspects of their behavior.
   That statement is sometimes---but not always---true. The memory and
   processor loads of some simple programs are easy to predict, for
-  example, but those of more-complex programs like {\tt gcc} are not.
+  example, but those of more-complex programs like \gcc are not.
 %%%%%%%%%%%%%%%%%%%%%%
 %% I had to change all the \verb|blah| entries because they caused
 %% latex to barf if they were in figure captions.  Odd bug.
@@ -133,12 +133,11 @@ BRAINSTORMING
 \item Complexity need not be hard to predict (can point at the simple predictions paper) [[move to introduction]]
 \item random walk for example is best predicted by guess what just happend[[move to introduction]]
 \item The kind of complexity present matters, i.e., that is whether the complexity is structured or not.[[use here and mention in intro]] 
-\item Quantifying structured and unstructured complexity is nontrivial in the case of real-valued noisy time series but WPE does this. [[talk about again here but justify in information theory section]]
-%\item Maybe plot a big chunk of \col and a big chunk of \gcc together and show that they both look complex. 
 
-\item \gcc appears visually very complex, *and* according to WPE this complexity is unstructured. And a constant, linear and nonlinear prediction strategy all fail. We should be able to conclude that guessing random values is the best we can do as is shown by MASE [[Use in this section]]
 
-\item \col is also complex (can even be chaotic/ point to CHAOS paper) but the complexity is structured according to WPE and as such that complexity is usable for prediction [[use in this section]]
+
+
+
 
 \item \col brings about the point nicely that some prediction strategies cannot utilize the processes internal information transfer method. That is a nonlinear internal information transfer system cannot be predicted effectively with a linear strategy. This gives a practitioner leverage on when to give up and when to keep working. [[use in this section as bridge to next section]]
 
@@ -527,7 +526,9 @@ is the average in-sample forecast error for a random walk prediction $(p_i=X_{i-
 THINGS TO DO
 \begin{enumerate}
 \item rewrite for consistency in notation. For example, some parts of the paper call word length $l$ and some call it $n$.
+
 \item make sure it is clear and we justify that detecting and characterizing structural complexity is hard for real-valued noisy time series.
+\item Quantifying structured and unstructured complexity is nontrivial in the case of real-valued noisy time series but WPE does this. [[talk about again here but justify in information theory section]]
 \item justify and explain the regime split in \svd 
 \end{enumerate}
 
@@ -863,7 +864,10 @@ the right than those in Figure~\ref{fig:lma_pred_vs_ent}.
 
 \section{ Conclusions \& Future Work}\label{sec:conc}
 
-[[Joshua: These need to be rewritten to conclude and address this paper...]]
+\begin{enumerate}
+\item  This need to be rewritten to conclude and address this paper...
+\end{enumerate}
+
 
 
 The results presented here suggest that permutation entropy---a ordinal
