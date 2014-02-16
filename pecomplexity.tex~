@@ -132,18 +132,18 @@ repeatedly initializes a matrix in column-major order, can produce
 Figure~\ref{fig:cache}, and chaos places fundamental limits on
 predictability.
 %
-\begin{figure}[htbp]
-   \centering
-   \includegraphics[width=0.5\textwidth]{figs/colCacheShort}
-   % where an .eps filename suffix will be assumed under latex,
-   % and a .pdf suffix will be assumed for pdflatex
-   \caption{A small snippet of the L2 cache miss rate of {\tt
-       col\_major}, a three-line C program that repeatedly initializes
-     a matrix in column-major order, running on an Intel Core
-     Duo\textsuperscript{\textregistered}-based machine.  Even this
-     simple program exhibits chaotic performance dynamics.}
-   \label{fig:cache}
- \end{figure}
+% \begin{figure}[htbp]
+%    \centering
+%    \includegraphics[width=0.5\textwidth]{figs/colCacheShort}
+%    % where an .eps filename suffix will be assumed under latex,
+%    % and a .pdf suffix will be assumed for pdflatex
+%    \caption{A small snippet of the L2 cache miss rate of {\tt
+%        col\_major}, a three-line C program that repeatedly initializes
+%      a matrix in column-major order, running on an Intel Core
+%      Duo\textsuperscript{\textregistered}-based machine.  Even this
+%      simple program exhibits chaotic performance dynamics.}
+%    \label{fig:cache}
+%  \end{figure}
 
 The computer systems community has applied a variety of prediction
 strategies to traces like this, most of which employ regression.  An
@@ -234,14 +234,14 @@ $\tau$ \cite{fraser-swinney} and using the false-near(est) neighbor
 method of \cite{KBA92}, with a threshold of 10\%, to estimate $m$.  A
 plot of the data from Figure~\ref{fig:cache}, embedded following this
 procedure, is shown in Figure~\ref{fig:embedding}.
-\begin{figure}
-  \centering
-    \includegraphics[width=0.5\textwidth]{figs/3dcolcache}
-    \caption{A 3D projection of a delay-coordinate embedding of the trace
-from Figure~\ref{fig:cache} with a delay ($\tau$) of 100,000 instructions.
-}
-\label{fig:embedding}
-\end{figure}
+% \begin{figure}
+%   \centering
+%     \includegraphics[width=0.5\textwidth]{figs/3dcolcache}
+%     \caption{A 3D projection of a delay-coordinate embedding of the trace
+% from Figure~\ref{fig:cache} with a delay ($\tau$) of 100,000 instructions.
+% }
+% \label{fig:embedding}
+% \end{figure}
 %% can cut for space if need be:
 The coordinates of each point on this plot are differently delayed
 elements of the \verb|col_major| L2 cache miss rate time series
@@ -497,7 +497,7 @@ increasing $n$ until the result converges, but data length issues can intrude
 before that convergence is reached.
 
 The weighted permutation entropy for the {\tt SVD} program is given in
-Fig.~\cite{fig:wwpe}. To generate this image a window of 5,000 values slid over
+Fig.~\ref{fig:wwpe}. To generate this image a window of 5,000 values slid over
 the time series. Within each of those windows, the statistics over words of
 length 4 are computed and the WPE is calculated. The gray bands denote regions
 where the 5,000 value window overlapped visually-distinct regimes. It can be
@@ -644,27 +644,68 @@ regimes.
  %   \end{tabular}
  % \end{table}
 
+ \section{Results} % (fold)
+ \label{sec:results}
+
 The relationship between prediction accuracy and the weighted permutation
-entropy (WPE) is much as we conjectured: performance traces with high WPE ---
-those whose temporal complexity is high, in the sense that the entropy
-generation per value is approximately equal to the total entropy per value thus
-little information is being propagated forward in time --- are indeed harder to
-predict using the simple deterministic forecast model described in the previous
-section. See Fig.~\cite{fig:pred_vs_ent} for the distribution. The effects of
-changing the word length $n$ are also interesting: using a longer word length
-generally lowers the WPE --- a natural consequence of finite-length data --- but
-the falloff is less rapid in some traces than in others, suggesting that those
-values are closer to the theoretical asymptote that exists for perfect data. The
-persistent WPE values of 0.5--0.6 for the {\tt col\_major} trace are consistent
-with dynamical chaos, further corroborating the results of~\cite{mytkowicz09}.
+entropy (WPE) is much as we conjectured: performance traces with high WPE are
+indeed harder to predict using the forecasting models described in the prior
+section. Figure~\ref{fig:pred_vs_ent} demonstrates this primary finding, with
+the exception of one outlier whose behavior we can explain. Furthermore, we find
+that the relationship between the two is roughly linear. The single outlier,
+{\tt SVD} regime 1, does not fit the trend due to a weakness in the WPE: namely
+that in the absence of any large features, as all the other regimes have, the
+WPE effectively falls back to the standard PE for which the noisy behavior
+drives toward 1.0.
 
 \begin{figure}[htbp]
   \centering
   \includegraphics[width=1.0\textwidth]{figs/prediction_vs_entropy}
-  \caption{The improvement of LMA over na\"{i}ve vs weighted permutation entropy.
-  For each of these, the word length used is $5$.}
+  \caption{The best MASE among all runs and prediction methods vs weighted
+  permutation entropy. For each of these, the word length used is $6$. The
+  dashed line is a least-squares linear fit of all the points except for {\tt
+  SVD$_1$} which we have excluded for reasons explained in the text.}
   \label{fig:pred_vs_ent}
 \end{figure}
+
+In Figures~\ref{fig:lma_pred_vs_ent} and \ref{fig:arima_pred_vs_ent} we directly
+compare the performance of the LMA and ARIMA prediction methods (respectively)
+to the value of the weighted permutation entropy for all runs of each program
+under consideration. The LMA MASE values are largely similar to those of the
+best predictions, primarily because LMA often performed superior to ARIMA and
+the naive method. On the other hand, the ARIMA MASE values are largely
+uncorrelated with WPE values. This however does not contradict our hypothesis,
+it just means that ARIMA is ill-suited for the time series under investigation.
+To see this more clearly, consider Figure~\ref{fig:lma_vs_arima}. Since larger
+MASE values constitute worse predictions, ARIMA performed worse than LMA in all
+traces except {\tt SVD$_1$}.
+
+\begin{figure}[htbp]
+  \centering
+  \begin{subfigure}{0.5\textwidth}
+    \includegraphics[width=1.0\textwidth]{figs/LMA_prediction_vs_entropy}
+    \caption{The MASE of LMA vs weighted permutation entropy. For each of these,
+    the word length used is $6$.}
+    \label{fig:lma_pred_vs_ent}
+  \end{subfigure}%
+  \begin{subfigure}{0.5\textwidth}
+    \includegraphics[width=1.0\textwidth]{figs/ARIMA_prediction_vs_entropy}
+    \caption{The MASE of ARIMA vs weighted permutation entropy. For each of
+    these, the word length used is $6$.}
+    \label{fig:arima_pred_vs_ent}
+  \end{subfigure}
+  \begin{subfigure}{0.5\textwidth}
+    \includegraphics[width=1.0\textwidth]{figs/LMA_vs_ARIMA}
+    \caption{The MASE values for LMA against ARIMA. The dashed line is the
+    identity, delineating the traces for which either LMA or ARIMA performed
+    better. All traces except those from {\tt SVD$_1$} lie above the line,
+    indicating that LMA is better suited prediction method for the computer
+    traces considered.}
+    \label{fig:lma_vs_arima}
+  \end{subfigure}
+\end{figure}
+
+ % section results (end)
 
 % In Table~\ref{tab:TCMpe} \& \ref{tab:IPCpe} the behavior of the PEs as
 % they limit to their asymptotic values is observed. A feature of note
@@ -679,23 +720,23 @@ with dynamical chaos, further corroborating the results of~\cite{mytkowicz09}.
 
 \section{ Conclusions \& Future Work}\label{sec:conc}
 
-The results presented here suggest that permutation entropy---a
-ordinal calculation of forward information transfer in a time
-series---is an effective metric for predictability of computer
-performance traces. Experimentally, traces with a persistent PE
-$\gtrapprox 0.97$ have a natural level of complexity that may
-overshadow the inherent determinism in the system dynamics, whereas
-traces with PE $\lessapprox 0.7$ seem to be highly predictable (viz.,
-at least an order of magnitude improvement in nRMSPE).
+The results presented here suggest that permutation entropy---a ordinal
+calculation of forward information transfer in a time series---is an effective
+metric for predictability of computer performance traces. Experimentally, traces
+with a persistent PE $\gtrapprox 0.97$ have a natural level of complexity that
+may overshadow the inherent determinism in the system dynamics, whereas traces
+with PE $\lessapprox 0.7$ seem to be highly predictable (viz., at least an order
+of magnitude improvement in nRMSPE).Further, the persistent WPE values of 0.5--
+0.6 for the {\tt col\_major} trace are consistent with dynamical chaos, further
+corroborating the results of~\cite{mytkowicz09}.
 
-If information is the limit, then gathering and using more information
-is an obvious next step.  There is an equally obvious tension here
-between data length and prediction speed: a forecast that requires
-half a second to compute is not useful for the purposes of real-time
-control of a computer system with a MHz clock rate.  Another
-alternative is to sample several system variables simultaneously and
-build multivariate delay-coordinate embeddings.  Existing approaches
-to that are computationally prohibitive
+If information is the limit, then gathering and using more information is an
+obvious next step.  There is an equally obvious tension here between data length
+and prediction speed: a forecast that requires half a second to compute is not
+useful for the purposes of real-time control of a computer system with a MHz
+clock rate.  Another alternative is to sample several system variables
+simultaneously and build multivariate delay-coordinate embeddings.  Existing
+approaches to that are computationally prohibitive
 \cite{cao-multivariate-embedding}.  We are working on alternative
 methods that sidestep that complexity.
 
@@ -921,17 +962,19 @@ methods that sidestep that complexity.
 
 \section{New Figures and Tables}
 
-Possible new error measure 
+Possible new error measure
 
 $$q_t = \frac{e_t}{\frac{1}{n-1}\sum^n_{i=2}|Y_i-Y_{i-1}|}$$
 
 $$MASE = mean(|q_t|)$$
 
-Helpful to remember that $F_i = Y_{i-1}$ for random walk prediction 
+Helpful to remember that $F_i = Y_{i-1}$ for random walk prediction
 
 ``When $MASE<1$, the proposed method gives, on average, smaller errors than the one-step errors from the na\"ive method. If multi-step forecasts are being computed, it is possible to scale by the in- sample MAE[[Mean Absolute Error(mean($|e_t|$)]] computed from multi-step na\"iõve forecasts."
 
 ``The errors have been scaled by the one-step in- sample forecast errors from the na\"ive method, and then averaged across all series. So a value of 2 indicates that the out-of-sample forecast errors are, on average, about twice as large as the in-sample one-step forecast errors from the na\"ive method. Because the scaling is based on one-step forecasts, the scaled errors for multi-step forecasts are typically larger than one. "
+
+We use this error measure with $n$ at the start of the predicted chunk.
 
 \begin{table}[htdp]
 \caption{ Embedding Parameters for reference if needed. }
@@ -961,26 +1004,149 @@ SVD\_IPC\_Regime6 &  30  & 12  \\
 \begin{table}[htdp]
 \caption{Average nRMSE over 15 runs for each signal and average wpe at word length 5 and 6 for each signal. }
 \begin{center}
-\begin{tabular}{|c|c|c|c|c|c|c|}
+\begin{tabular}{|c|c|c|c|c|}
 \hline
-                  & Horizon & nRMSE LMA           & nRMSE na\"{i}ve           &LMA MASE (ARIMA) & $l=5$                   & $l=6$                   \\
+                   & nRMSE LMA           & nRMSE na\"{i}ve   & $l=5$                   & $l=6$                   \\
 \hline
-gcc               & 4,542   & $0.1407 \pm 0.0063$ & $0.1487 \pm 0.0066$ &1.5416(0.929)& $0.9510 \pm 0.0011$ & $0.9430 \pm 0.0013$ \\
+gcc                  & $0.1407 \pm 0.0063$ & $0.1487 \pm 0.0066$ & $0.9510 \pm 0.0011$ & $0.9430 \pm 0.0013$ \\
 
-col\_major        & 14,709  & $0.0252 \pm 0.0061$ & $0.1975 \pm 0.0436$ &0.0519(0.07UF/0.5740)& $0.5636 \pm 0.0031$ & $0.5131 \pm 0.0034$ \\
+col\_major          & $0.0252 \pm 0.0061$ & $0.1975 \pm 0.0436$ & $0.5636 \pm 0.0031$ & $0.5131 \pm 0.0034$ \\
 
-%SVD\_Full         & 22,072  & $0.0323 \pm 0.0019$ & $0.1784 \pm 0.0040$ & $0.8765 \pm 0.0044$ & $0.8508 \pm 0.0035$ \\
-SVD\_IPC\_Regime1 & 2,158   & $0.1680 \pm 0.0317$ & $0.3517 \pm 0.5223$ &0.7954(0.724UF)& $0.9761 \pm 0.0084$ & $0.9572 \pm 0.0156$ \\
-SVD\_IPC\_Regime2 & 6,902   & $0.1716 \pm 0.0043$ & $0.1762 \pm 0.0012$ &1.9990(1.138)             & $0.8760 \pm 0.0052$ & $0.8464 \pm 0.0044$ \\
-SVD\_IPC\_Regime3 & 947     & $0.0507 \pm 0.0011$ & $0.5413 \pm 0.0005$ &1.0089 (1.165215)              & $0.7768 \pm 0.0073$ & $0.7157 \pm 0.0056$ \\
-SVD\_IPC\_Regime4 & 2,929   & $0.1288 \pm 0.0471$ & $0.2308 \pm 0.0867$ &0.8976 (0.840548)           & $0.9073 \pm 0.0080$ & $0.8246 \pm 0.0077$ \\
-SVD\_IPC\_Regime5 & 3,255   & $0.0235 \pm 0.0022$ & $0.1306 \pm 0.0003$ &0.7487 (1.260)& $0.7333 \pm 0.0076$ & $0.6776 \pm 0.0068$ \\
-SVD\_IPC\_Regime6 & 5,804   & $0.0196 \pm 0.0022$ & $0.0508 \pm 0.0003$ &0.7848 (0.7831) & $0.8101 \pm 0.0135$ & $0.7475 \pm 0.0106$ \\
+SVD\_IPC\_Regime1    & $0.1680 \pm 0.0317$ & $0.3517 \pm 0.5223$ & $0.9761 \pm 0.0084$ & $0.9572 \pm 0.0156$ \\
+SVD\_IPC\_Regime2    & $0.1716 \pm 0.0043$ & $0.1762 \pm 0.0012$ & $0.8760 \pm 0.0052$ & $0.8464 \pm 0.0044$ \\
+SVD\_IPC\_Regime3      & $0.0507 \pm 0.0011$ & $0.5413 \pm 0.0005$ & $0.7768 \pm 0.0073$ & $0.7157 \pm 0.0056$ \\
+SVD\_IPC\_Regime4    & $0.1288 \pm 0.0471$ & $0.2308 \pm 0.0867$ & $0.9073 \pm 0.0080$ & $0.8246 \pm 0.0077$ \\
+SVD\_IPC\_Regime5    & $0.0235 \pm 0.0022$ & $0.1306 \pm 0.0003$& $0.7333 \pm 0.0076$ & $0.6776 \pm 0.0068$ \\
+SVD\_IPC\_Regime6    & $0.0196 \pm 0.0022$ & $0.0508 \pm 0.0003$ & $0.8101 \pm 0.0135$ & $0.7475 \pm 0.0106$ \\
 \hline
 \end{tabular}
 \end{center}
 \label{default}
 \end{table}%
+
+
+
+
+
+
+\begin{table}[htdp]
+\caption{Average MASE for 1-step predictions at a 10\% prediction horizon over 15 runs for each signal and average wpe at word length 5 and 6 for each signal. }
+\begin{center}
+\begin{tabular}{|c|c|c|c|c|c|}
+\hline
+                   & MASE LMA    & MASE ARIMA &MASE na\"{i}ve & $l=5$  & $l=6$ \\
+\hline
+gcc                  & $ 1.5296\pm 0.0214$ & $1.8366 \pm0.0157 $ & $1.7970\pm0.0095$& $0.9510 \pm 0.0011$ & $0.9430 \pm 0.0013$ \\
+
+col\_major           & $ 0.0500 \pm0.0018  $ & $0.5989  \pm 0.2114 $ & $0.5707\pm0.0017$& $0.5636 \pm 0.0031$ & $0.5131 \pm 0.0034$ \\
+
+SVD\_IPC\_Regime1     & $ 0.8273\pm 0.0755$ & $ 0.7141\pm 0.0745 $ & $2.6763\pm4.3282$& $0.9761 \pm 0.0084$ & $0.9572 \pm 0.0156$ \\
+SVD\_IPC\_Regime2     & $1.2789 \pm0.0196 $ & $2.1626 \pm0.0265 $ &  $3.0543\pm0.0404$ &  $0.8760 \pm 0.0052$ & $0.8464 \pm0.0044$ \\
+SVD\_IPC\_Regime3       & $0.6192 \pm0.0209 $ & $0.7129 \pm 0.0096 $ & $31.3857\pm 0.2820$ & $0.7768 \pm 0.0073$ & $0.7157 \pm 0.0056$ \\
+SVD\_IPC\_Regime4     & $ 0.7789\pm0.0358 $ & $0.9787 \pm0.0321 $ & $2.6613\pm0.0739$                          &$0.9073 \pm 0.0080$ & $0.8246 \pm 0.0077$ \\
+SVD\_IPC\_Regime5     & $ 0.7177\pm 0.0483 $ & $2.3700  \pm 0.0505 $ & $20.8703 \pm 0.1915$& $0.7333 \pm 0.0076$ & $0.6776 \pm 0.0068$ \\
+SVD\_IPC\_Regime6     & $ 0.7393\pm 0.0682 $ & $ 1.4379\pm 0.0609$ & $2.1967\pm0.0830$& $0.8101 \pm 0.0135$ & $0.7475 \pm 0.0106$ \\
+\hline
+\end{tabular}
+\end{center}
+\label{default}
+\end{table}%
+
+
+
+
+
+%
+%
+%\begin{table}[htdp]
+%\caption{Average nRMSE over 15 runs for each signal and average wpe at word length 5 and 6 for each signal. }
+%\begin{center}
+%\begin{tabular}{|c|c|c|c|c|c|c|}
+%\hline
+%                  & Horizon & nRMSE LMA           & nRMSE na\"{i}ve           &LMA MASE (ARIMA) & $l=5$                   & $l=6$                   \\
+%\hline
+%gcc               & 4,542   & $0.1407 \pm 0.0063$ & $0.1487 \pm 0.0066$ &1.5416(0.929)& $0.9510 \pm 0.0011$ & $0.9430 \pm 0.0013$ \\
+%
+%col\_major        & 14,709  & $0.0252 \pm 0.0061$ & $0.1975 \pm 0.0436$ &0.0519(0.07UF/0.5740/0.9936)& $0.5636 \pm 0.0031$ & $0.5131 \pm 0.0034$ \\
+%
+%%SVD\_Full         & 22,072  & $0.0323 \pm 0.0019$ & $0.1784 \pm 0.0040$ & $0.8765 \pm 0.0044$ & $0.8508 \pm 0.0035$ \\
+%SVD\_IPC\_Regime1 & 2,158   & $0.1680 \pm 0.0317$ & $0.3517 \pm 0.5223$ &0.7954(0.724UF)& $0.9761 \pm 0.0084$ & $0.9572 \pm 0.0156$ \\
+%SVD\_IPC\_Regime2 & 6,902   & $0.1716 \pm 0.0043$ & $0.1762 \pm 0.0012$ &1.9990(1.138)             & $0.8760 \pm 0.0052$ & $0.8464 \pm 0.0044$ \\
+%SVD\_IPC\_Regime3 & 947     & $0.0507 \pm 0.0011$ & $0.5413 \pm 0.0005$ &1.0089 (1.165215)              & $0.7768 \pm 0.0073$ & $0.7157 \pm 0.0056$ \\
+%SVD\_IPC\_Regime4 & 2,929   & $0.1288 \pm 0.0471$ & $0.2308 \pm 0.0867$ &0.8976 (0.840548)           & $0.9073 \pm 0.0080$ & $0.8246 \pm 0.0077$ \\
+%SVD\_IPC\_Regime5 & 3,255   & $0.0235 \pm 0.0022$ & $0.1306 \pm 0.0003$ &0.7487 (1.260/2.3446)& $0.7333 \pm 0.0076$ & $0.6776 \pm 0.0068$ \\
+%SVD\_IPC\_Regime6 & 5,804   & $0.0196 \pm 0.0022$ & $0.0508 \pm 0.0003$ &0.7848 (0.7831) & $0.8101 \pm 0.0135$ & $0.7475 \pm 0.0106$ \\
+%\hline
+%\end{tabular}
+%\end{center}
+%\label{default}
+%\end{table}%
+
+
+
+
+
+
+
+
+
+%
+%
+%\begin{table}[htdp]
+%\caption{Average MASE over 15 runs for each signal and average wpe at word length 5 and 6 for each signal. }
+%\begin{center}
+%\begin{tabular}{|c|c|c|c|c|c|}
+%\hline
+%                   & MASE LMA    & MASE ARIMA &MASE na\"{i}ve & $l=5$  & $l=6$ \\
+%\hline
+%gcc                  & $1.9856 \pm $ & $1.7525 \pm $ &1.7904 $\pm$& $0.9510 \pm 0.0011$ & $0.9430 \pm 0.0013$ \\
+%
+%col\_major           & $ 0.0587\pm $ & $0.9936 \pm $ & $0.5713\pm$& $0.5636 \pm 0.0031$ & $0.5131 \pm 0.0034$ \\
+%
+%
+%
+%
+%SVD\_IPC\_Regime1     & $ \pm $ & $ \pm $ & $\pm$& $0.9761 \pm 0.0084$ & $0.9572 \pm 0.0156$ \\
+%SVD\_IPC\_Regime2     & $ 2.3753\pm $ & $0.7268 \pm $ & $3.1064\pm$& $0.8760 \pm 0.0052$ & $0.8464 \pm 0.0044$ \\
+%SVD\_IPC\_Regime3       & $ \pm $ & $ \pm $ & $\pm$& $0.7768 \pm 0.0073$ & $0.7157 \pm 0.0056$ \\
+%SVD\_IPC\_Regime4     & $ \pm $ & $ \pm $ & $\pm$&$0.9073 \pm 0.0080$ & $0.8246 \pm 0.0077$ \\
+%SVD\_IPC\_Regime5     & $4.9079 \pm $ & $2.3366 \pm $ & $21.0372\pm$& $0.7333 \pm 0.0076$ & $0.6776 \pm 0.0068$ \\
+%SVD\_IPC\_Regime6     & $ \pm $ & $ \pm $ & $\pm$& $0.8101 \pm 0.0135$ & $0.7475 \pm 0.0106$ \\
+%\hline
+%\end{tabular}
+%\end{center}
+%\label{default}
+%\end{table}%
+%
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

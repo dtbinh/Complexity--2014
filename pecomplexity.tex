@@ -647,6 +647,9 @@ regimes.
  \section{Results} % (fold)
  \label{sec:results}
 
+First paragraph: WPE is a good measure of predictability.  Figure:
+best athlete MASE vs. its WPE.
+
 The relationship between prediction accuracy and the weighted permutation
 entropy (WPE) is much as we conjectured: performance traces with high WPE are
 indeed harder to predict using the forecasting models described in the prior
@@ -668,17 +671,11 @@ drives toward 1.0.
   \label{fig:pred_vs_ent}
 \end{figure}
 
-In Figures~\ref{fig:lma_pred_vs_ent} and \ref{fig:arima_pred_vs_ent} we directly
-compare the performance of the LMA and ARIMA prediction methods (respectively)
-to the value of the weighted permutation entropy for all runs of each program
-under consideration. The LMA MASE values are largely similar to those of the
-best predictions, primarily because LMA often performed superior to ARIMA and
-the naive method. On the other hand, the ARIMA MASE values are largely
-uncorrelated with WPE values. This however does not contradict our hypothesis,
-it just means that ARIMA is ill-suited for the time series under investigation.
-To see this more clearly, consider Figure~\ref{fig:lma_vs_arima}. Since larger
-MASE values constitute worse predictions, ARIMA performed worse than LMA in all
-traces except {\tt SVD$_1$}.
+Second paragraph: full results.  Image: MASE vs. WPE for both LMA \&
+ARIMA.  Points to make: (1) clusters are distributed differently (2)
+clusters are shaped differently---tight or not (3) clusters move
+differently between LMA and ARIMA (4) finally, the diagonal line is
+important.  If you're below it, you could do better.
 
 \begin{figure}[htbp]
   \centering
@@ -704,6 +701,21 @@ traces except {\tt SVD$_1$}.
     \label{fig:lma_vs_arima}
   \end{subfigure}
 \end{figure}
+
+In Figures~\ref{fig:lma_pred_vs_ent} and \ref{fig:arima_pred_vs_ent}
+we directly compare the performance of the LMA and ARIMA prediction
+methods (respectively) to the value of the weighted permutation
+entropy for all runs of each program under consideration. The LMA MASE
+values are largely similar to those of the best predictions, primarily
+because LMA often performed superior to ARIMA and the naive method. On
+the other hand, the ARIMA MASE values are largely uncorrelated with
+WPE values. This however does not contradict our hypothesis, it just
+means that ARIMA is ill-suited for the time series under
+investigation.  To see this more clearly, consider
+Figure~\ref{fig:lma_vs_arima}. Since larger MASE values constitute
+worse predictions, ARIMA performed worse than LMA in all traces except
+{\tt SVD$_1$}.
+
 
  % section results (end)
 
