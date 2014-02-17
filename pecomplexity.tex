@@ -250,7 +250,7 @@ predictability.
   \end{subfigure}
   %\begin{subfigure}{0.5\textwidth}
   %  \includegraphics[width=1.0\textwidth]{figs/LMA_vs_ARIMA}
-   \caption{
+   \caption{[[move this to after the 3 forecast have been described and add the same plot for mean prediction]] 
 For each of these, we plot the predicted value $p_n$ against the correct value $c_n$. On this type of plot a perfect prediction lies exactly on the diagonal, that is the line $p_n = c_n$, e.g., \ref{fig:colLMA} is a near perfect prediction where-as \ref{fig:gccARIMA} is a very poor prediction. }\label{fig:gcc_vs_col}  
   %\end{subfigure}
 \end{figure} 
@@ -318,8 +318,20 @@ not violate the Rice-Shapiro theorem.
 
 
 
-\section{Experimental Methods and Modelling}\label{sec:compModel}
+\section{Experimental Methods }
 
+This should be HPM PAPI, which programs we model
+
+Include traces of full \col and \gcc
+
+\section{MODELING}
+\label{sec:compModel}
+
+\subsection{LMA}
+\subsection{ARIMA}
+\subsection{Naive: Random Walk and mean}
+\subsection{Prediction Accuracy}
+MASE
 Section outline:
 
 \begin{enumerate}
@@ -496,7 +508,7 @@ is the average in-sample forecast error for a random walk prediction $(p_i=X_{i-
 
 
 \begin{table}[htdp]
-\caption{MASE distributions for 1-step predictions at a 10\% prediction horizon over 15 runs for each signal and average wpe at word length 5 and 6 for each signal.[[Joshua:Maybe delete $l=5$ as we don't use it in any figures, also if we leave this (before the next section we need to point forward to the next section for PE or remove it from this table]] }
+\caption{[[Move this table to results, and cherry pick a few examples of \gcc and \col to put in the text and chop of $l=5$]] MASE distributions for 1-step predictions at a 10\% prediction horizon over 15 runs for each signal and average wpe at word length 5 and 6 for each signal.[[Joshua:Maybe delete $l=5$ as we don't use it in any figures, also if we leave this (before the next section we need to point forward to the next section for PE or remove it from this table]] }
 \begin{center}
 \begin{tabular}{|c|c|c|c|c|c|}
 \hline
