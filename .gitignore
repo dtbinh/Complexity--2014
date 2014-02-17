@@ -22,9 +22,12 @@
 *.nav
 *.nlo
 *.eps
+figs//Matlab-figs/*
+unused-figs/*
 *.fig
 *.out
 *.pdfsync
+pecomplexity.pdf
 *.ps
 *.snm
 *.synctex.gz
