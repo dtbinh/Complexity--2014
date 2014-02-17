@@ -11,6 +11,7 @@
 *.gls
 *.idx
 *.ilg
+*.swp
 *.ind
 *.ist
 *.lof
