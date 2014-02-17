@@ -648,6 +648,180 @@ where the 5,000 value window overlapped visually-distinct regimes. It can be
 seen that the behaviors of the weighted permutation entropy vary between
 regimes. [[I think here it would be good to add a paragraph explaining the windowed WPE was used for regime choices on SVD...emphasizing  that over a time series permutation entropy fluctuates illustrating within a single time series different levels of complexity and predictability exist. Maybe point at some of the predicting predictability papers.]]
 
+<<<<<<< HEAD
+\begin{figure}[htbp]
+  \centering
+  \includegraphics[width=1.0\textwidth]{figs/SVD_wwpe}
+  \caption{The weighted permutation entropy of one run of SVD. The gray bands
+    are regions where the window overlaps regimes. The window size used is
+    $5,000 \times 100,000$ instructions and the word length is $4$.}
+  \label{fig:wwpe}
+\end{figure}
+
+
+% Table~\ref{tab:pe} shows the permutation entropy results for the
+% examples considered in this paper, with the nRMSPE prediction
+% accuracies from the previous section included alongside for easy
+% comparison.
+%
+% \begin{table}[htbp]
+%   % increase table row spacing, adjust to taste
+%   \renewcommand{\arraystretch}{1.3}
+%   \caption{TCM NRMSE and PE NORMS}
+%   \label{tab:table_example}
+%   \centering
+   % Some packages, such as MDW tools, offer better commands for making tables
+   % than the plain LaTeX2e tabular which is used here.
+%   \begin{tabular}{|c|c|c|c|c|c|}
+%     \hline
+%     TCM & NRMSE & $m=3$  &$m=4$&$m=5$&$m=6$\\
+%     \hline
+%     \tt{row\_major} & 0.0102 & 0.7900  &0.6751&0.5458&0.4491\\
+%     \hline
+%     \tt{col\_major} & 0.0055 & 0.6411  &0.5029&0.4515&0.3955 \\
+%     \hline
+%     \tt{403.gcc} & 0.0865 & 0.9954  &0.9916&0.9880&0.9835\\
+%     \hline
+%     \tt{482.sphinx3} & 0.1142 & 0.9958  &0.9913&0.9866&0.9802 \\
+%      \hline
+%   \end{tabular}
+% \end{table}
+%
+%%  \begin{table}[htbp]
+%%   % increase table row spacing, adjust to taste
+%%   %\renewcommand{\arraystretch}{1.3}
+%%   \caption{Cache-miss rate performance traces: prediction error
+%%     (nRMSPE) and permutation entropy}
+%%   \label{tab:TCMpe}
+%%   \centering
+%%   % Some packages, such as MDW tools, offer better commands for making tables
+%%   % than the plain LaTeX2e tabular which is used here.
+%%   \begin{tabular}{|c|c|c|c|c|c|}
+%%     \hline
+%%      & nRMSE   &$n=4$&$n=5$&$n=6$\\
+%%     \hline
+%%     \tt{row\_major}  & 0.0324  &0.6751&0.5458&0.4491\\
+%%     \hline
+%%     \tt{col\_major}  & 0.0080  &0.5029&0.4515&0.3955 \\
+%%     \hline
+%%     \tt{403.gcc}  & 0.1416  &0.9916&0.9880&0.9835\\
+%%     \hline
+%%     \tt{482.sphinx3}  & 0.2032  &0.9913&0.9866&0.9802 \\
+%%      \hline
+%%   \end{tabular}
+%% \end{table}
+%
+% \begin{table}[htbp]
+%   % increase table row spacing, adjust to taste
+%   \renewcommand{\arraystretch}{1.3}
+%   \caption{IPC NRMSE and PE NORMS}
+%   \label{tab:table_example}
+%   \centering
+%   % Some packages, such as MDW tools, offer better commands for making tables
+%   % than the plain LaTeX2e tabular which is used here.
+%   \begin{tabular}{|c|c|c|c|c|c|}
+%     \hline
+%     ipc & NRMSE & $n=3$  &$n=4$&$n=5$&$n=6$\\
+%     \hline
+%      \tt{row\_major} & 0.0095 & 0.9912  &0.9723&0.9354&0.8876\\
+%     \hline
+%      \tt{col\_major} & 0.0071 & 0.9428  &0.8356&0.7601&0.6880\\
+%     \hline
+%     \tt{403.gcc} & 0.1805 & 0.9918  &0.9862&0.9814&0.9764\\
+%     \hline
+%     \tt{482.sphinx3} & 0.2946 & 0.9978  &0.9951&0.9914&0.9849 \\
+%      \hline
+%   \end{tabular}
+% \end{table}
+%
+%%  \begin{table}[htbp]
+%%   % increase table row spacing, adjust to taste
+%%   %\renewcommand{\arraystretch}{1.1}
+%%   \caption{Processor load performance traces: prediction error
+%%     (nRMSPE) and permutation entropy}
+%%   \label{tab:IPCpe}
+%%   \centering
+%%   % Some packages, such as MDW tools, offer better commands for making tables
+%%   % than the plain LaTeX2e tabular which is used here.
+%%   \begin{tabular}{|c|c|c|c|c|}
+%%     \hline
+%%      & nRMSPE   &$n=4$&$n=5$&$n=6$\\
+%%     \hline
+%%      \tt{row\_major} & 0.0778  &0.9723&0.9354&0.8876\\
+%%     \hline
+%%      \tt{col\_major} & 0.0161   &0.8356&0.7601&0.6880\\
+%%     \hline
+%%     \tt{403.gcc} & 0.2033   &0.9862&0.9814&0.9764\\
+%%     \hline
+%%     \tt{482.sphinx3} & 0.3670 & 0.9951&0.9914&0.9849 \\
+%%      \hline
+%%   \end{tabular}
+%% \end{table}
+%
+ %  \begin{table}[htbp]
+ %   \caption{Prediction error (in nRMSPE) and permutation entropy (for
+ %     different wordlengths $n$}
+ %   \label{tab:pe}
+ %   \centering
+ %   \begin{tabular}{|c|c|c|c|c|c|}
+ %     \hline
+ %      {\bf cache misses} & error   &$n=4$&$n=5$&$n=6$\\
+ %     \hline
+ %     \tt{row\_major}  & 0.0324  &0.6751&0.5458&0.4491\\
+ %     \hline
+ %     \tt{col\_major}  & 0.0080  &0.5029&0.4515&0.3955 \\
+ %     \hline
+ %     \tt{403.gcc}  & 0.1416  &0.9916&0.9880&0.9835\\
+ %     \hline
+ %     \tt{482.sphinx3}  & 0.2032  &0.9913&0.9866&0.9802 \\
+ %      \hline
+ %      \hline
+ %      {\bf insts per cyc} & error   &$n=4$&$n=5$&$n=6$\\
+ %     \hline
+ %      \tt{row\_major} & 0.0778  &0.9723&0.9354&0.8876\\
+ %     \hline
+ %      \tt{col\_major} & 0.0161   &0.8356&0.7601&0.6880\\
+ %     \hline
+ %     \tt{403.gcc} & 0.2033   &0.9862&0.9814&0.9764\\
+ %     \hline
+ %     \tt{482.sphinx3} & 0.3670 & 0.9951&0.9914&0.9849 \\
+ %      \hline
+ %   \end{tabular}
+ % \end{table}
+
+ \section{Results} % (fold)
+ \label{sec:results}
+
+First paragraph: WPE is a good measure of predictability.  Figure:
+best athlete MASE vs. its WPE.
+
+The relationship between prediction accuracy and the weighted permutation
+entropy (WPE) is much as we conjectured: performance traces with high WPE are
+indeed harder to predict using the forecasting models described in the prior
+section. Figure~\ref{fig:pred_vs_ent} demonstrates this primary finding, with
+the exception of one outlier whose behavior we can explain. Furthermore, we find
+that the relationship between the two is roughly linear. The single outlier,
+{\tt SVD} regime 1, does not fit the trend due to a weakness in the WPE: namely
+that in the absence of any large features, as all the other regimes have, the
+WPE effectively falls back to the standard PE for which the noisy behavior
+drives toward 1.0.
+
+\begin{figure}[htbp]
+  \centering
+  \includegraphics[width=1.0\textwidth]{figs/prediction_vs_entropy}
+  \caption{The best MASE among all runs and prediction methods vs weighted
+  permutation entropy. For each of these, the word length used is $6$. The
+  dashed line is a least-squares linear fit of all the points except for {\tt
+  SVD$_1$} which we have excluded for reasons explained in the text.}
+  \label{fig:pred_vs_ent}
+\end{figure}
+
+Second paragraph: full results.  Image: MASE vs. WPE for both LMA \&
+ARIMA.  Points to make: (1) clusters are distributed differently (2)
+clusters are shaped differently---tight or not (3) clusters move
+differently between LMA and ARIMA (4) finally, the diagonal line is
+important.  If you're below it, you could do better.
+=======
 %\begin{figure}[htbp]
 %  \centering
 %  \includegraphics[width=1.0\textwidth]{figs/SVD_wwpe}
@@ -657,6 +831,7 @@ regimes. [[I think here it would be good to add a paragraph explaining the windo
 %  \label{fig:wwpe}
 %\end{figure}
 
+>>>>>>> 3df466ead4717840388f1a956427ebed58a5b5f3
 
 %%FIGURE INTENT
 %This figure shows that entropy changs over time with the signal as well as why the regimes for \svd were chosen. 
@@ -679,6 +854,82 @@ regimes. [[I think here it would be good to add a paragraph explaining the windo
     5,000 $\times$ 100,000 instructions and the word length is $4$.[[Joshua:why is $l=4$ and not 5,6 like the rest of the paper?]]For reference the instructions per cycle of \svd are plotted as a ghost behind this plot. Each color on the ghosted time series corresonds to the different regimes as selected by rapid shifts in WPE. From left to right each change in color represents a change in regime for 6 regimes in total.}\label{fig:wwpe}
 \end{figure}
 
+<<<<<<< HEAD
+In Figures~\ref{fig:lma_pred_vs_ent} and \ref{fig:arima_pred_vs_ent}
+we directly compare the performance of the LMA and ARIMA prediction
+methods (respectively) to the value of the weighted permutation
+entropy for all runs of each program under consideration. The LMA MASE
+values are largely similar to those of the best predictions, primarily
+because LMA often performed superior to ARIMA and the naive method. On
+the other hand, the ARIMA MASE values are largely uncorrelated with
+WPE values. This however does not contradict our hypothesis, it just
+means that ARIMA is ill-suited for the time series under
+investigation.  To see this more clearly, consider
+Figure~\ref{fig:lma_vs_arima}. Since larger MASE values constitute
+worse predictions, ARIMA performed worse than LMA in all traces except
+{\tt SVD$_1$}.
+
+
+ % section results (end)
+
+% In Table~\ref{tab:TCMpe} \& \ref{tab:IPCpe} the behavior of the PEs as
+% they limit to their asymptotic values is observed. A feature of note
+% is that some of the signals drop off and some do not.  For example at
+% $m=4$ {\tt col\_major} is at 0.8356, a fairly high entropy, however as
+% $m$ is increased to 6 the PE plummets to 0.6880: a value consistent
+% with a chaotic time series. Notice this also corresponds to a very low
+% nRMSE. In contrast, consider the permutation entropy of the processor
+% load of {\tt 482.sphinx3}: with $m=4$ it is 0.9951 and only drops to
+% 0.9849 at $m=6$. This is consistent with the signal also having the
+% highest nRMSE.
+
+\section{ Conclusions \& Future Work}\label{sec:conc}
+
+The results presented here suggest that permutation entropy---a ordinal
+calculation of forward information transfer in a time series---is an effective
+metric for predictability of computer performance traces. Experimentally, traces
+with a persistent PE $\gtrapprox 0.97$ have a natural level of complexity that
+may overshadow the inherent determinism in the system dynamics, whereas traces
+with PE $\lessapprox 0.7$ seem to be highly predictable (viz., at least an order
+of magnitude improvement in nRMSPE).Further, the persistent WPE values of 0.5--
+0.6 for the {\tt col\_major} trace are consistent with dynamical chaos, further
+corroborating the results of~\cite{mytkowicz09}.
+
+If information is the limit, then gathering and using more information is an
+obvious next step.  There is an equally obvious tension here between data length
+and prediction speed: a forecast that requires half a second to compute is not
+useful for the purposes of real-time control of a computer system with a MHz
+clock rate.  Another alternative is to sample several system variables
+simultaneously and build multivariate delay-coordinate embeddings.  Existing
+approaches to that are computationally prohibitive
+\cite{cao-multivariate-embedding}.  We are working on alternative
+methods that sidestep that complexity.
+
+%%This use of permutaiotn entropy is a useful application of information
+%%theory to computer performance modeling because it gives you a simple
+%%and fast way to decide whether building a model and trying to forecast
+%%the future is worthwhile or if guessing the mean is just as effective.
+%%End with a sentence tying back to power management and world peace.
+
+
+%\begin{it}
+%Summarize the results.
+
+%Paragraphs on the issues that come up, including one about the "amount
+%of info" one: if one could sample more variables, for instance, one
+%might be able to do a better job of predicting more-complex traces.
+%Segue to some handwaving about multivariable LMA models; tie this back
+%to the "computers are NLD systems" stuff in the intro.  This is a real
+%challenge; current approaches to this modelling problem have the major
+%issue of taking way too long to build.  And that's a big issue if
+%you're trying not just to classify, but to predict.  In a system that
+%runs at MHz speeds, a prediction that takes milliseconds to compute is
+%not useful.
+%\end{it}
+
+
+=======
+>>>>>>> 3df466ead4717840388f1a956427ebed58a5b5f3
 
 
 
