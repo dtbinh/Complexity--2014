@@ -1,0 +1,50 @@
+\section{ Conclusions \& Future Work}\label{sec:conc}
+
+\begin{enumerate}
+\item  This need to be rewritten to conclude and address this paper...
+\end{enumerate}
+
+
+
+The results presented here suggest that permutation entropy---a ordinal
+calculation of forward information transfer in a time series---is an effective
+metric for predictability of computer performance traces. Experimentally, traces
+with a persistent PE $\gtrapprox 0.97$ have a natural level of complexity that
+may overshadow the inherent determinism in the system dynamics, whereas traces
+with PE $\lessapprox 0.7$ seem to be highly predictable (viz., at least an order
+of magnitude improvement in nRMSPE).Further, the persistent WPE values of 0.5--
+0.6 for the {\tt col\_major} trace are consistent with dynamical chaos, further
+corroborating the results of~\cite{mytkowicz09}.
+
+If information is the limit, then gathering and using more information is an
+obvious next step.  There is an equally obvious tension here between data length
+and prediction speed: a forecast that requires half a second to compute is not
+useful for the purposes of real-time control of a computer system with a MHz
+clock rate.  Another alternative is to sample several system variables
+simultaneously and build multivariate delay-coordinate embeddings.  Existing
+approaches to that are computationally prohibitive
+\cite{cao-multivariate-embedding}.  We are working on alternative
+methods that sidestep that complexity.
+
+%%This use of permutaiotn entropy is a useful application of information
+%%theory to computer performance modeling because it gives you a simple
+%%and fast way to decide whether building a model and trying to forecast
+%%the future is worthwhile or if guessing the mean is just as effective.
+%%End with a sentence tying back to power management and world peace.
+
+
+%\begin{it}
+%Summarize the results.
+
+%Paragraphs on the issues that come up, including one about the "amount
+%of info" one: if one could sample more variables, for instance, one
+%might be able to do a better job of predicting more-complex traces.
+%Segue to some handwaving about multivariable LMA models; tie this back
+%to the "computers are NLD systems" stuff in the intro.  This is a real
+%challenge; current approaches to this modelling problem have the major
+%issue of taking way too long to build.  And that's a big issue if
+%you're trying not just to classify, but to predict.  In a system that
+%runs at MHz speeds, a prediction that takes milliseconds to compute is
+%not useful.
+%\end{it}
+

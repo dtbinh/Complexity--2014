@@ -1,0 +1,142 @@
+\section{Introduction}\label{sec:intro}
+
+BRAINSTORMING 
+\begin{itemize}
+\item Complexity need not be hard to predict (can point at the simple predictions paper) [[move to introduction]]
+\item random walk for example is best predicted by guess what just happend[[move to introduction]]
+\item The kind of complexity present matters, i.e., that is whether the complexity is structured or not.[[use here and mention in intro]] 
+
+
+
+
+
+
+\item \col brings about the point nicely that some prediction strategies cannot utilize the processes internal information transfer method. That is a nonlinear internal information transfer system cannot be predicted effectively with a linear strategy. This gives a practitioner leverage on when to give up and when to keep working. [[use in this section as bridge to next section]]
+
+\end{itemize}
+
+
+
+%\begin{it}
+%Paragraph on computer performance, including citations to Todd paper
+%and summary of the results that indicate that they're deterministic
+%nonlinear dynamical systems.  Given that, we should be able to
+%predict.  What benefits would accrue if we could do so: power mgmt,
+%end world hunger [[this is my primary goal everyday :)]], etc.
+%\end{it}
+Things to add to introduction
+\begin{enumerate}
+\item Different kinds of complexity exist in time series and this makes choosing prediction models difficult 
+\subitem NOTE: RW and chaos are both complex. One is predictable and one is not.
+
+\item Make an argument that Computer Performance is a great testing ground as it omits signals that completely cover the spectrum of complexity \col \dots \gcc
+
+\item When deterministic structure even complex structure exists that structure can be utilized for prediction. 
+\item For noisy real-valued time series distinguishing randomness (WN,RW) complexity from structured nonlinear / chaotic /high period / high dimensional etc complexity is (until now) very hard. 
+\subitem for this provide predictions of \gcc and \col side by side and discuss "How can we tell if we did a bad job because the method is inadequate vs the signal being too complex. Lead this into is it possible to tell if there exists structure in a time series to know if we should find a better model or not. Maybe even having 4 predictions. top being ARIMA of the above signals and bottom being LMA of the above signals. Show that one improved and one did not. Is it that we used the wrong method to predict or is it that we simply can't predict the signal better than a random walk due to high levels of internal signal complexity.
+
+
+
+\item Introduce the two main contributions of the paper which are outlined at the begining of the results section
+
+\end{enumerate}
+
+
+
+Computers are among the most complex engineered artifacts in current
+use.  Modern microprocessor chips contain multiple processing units
+and multi-layer memories, for instance, and they use complicated
+hardware/software strategies to move data and threads of computation
+across those resources.  These features---along with all the others
+that go into the design of these chips---make the patterns of their
+processor loads and memory accesses highly complex and hard to
+predict.  Accurate forecasts of these quantities, if one could
+construct them, could be used to improve computer design.  If one
+could predict that a particular computational thread would be bogged
+down for the next 0.6 seconds waiting for data from main memory, for
+instance, one could save power by putting that thread on hold for that
+time period (e.g., by migrating it to a processing unit whose clock
+speed is scaled back).  Computer performance traces are, however, very
+complex.  Even a simple ``microkernel,'' like a three-line loop that
+repeatedly initializes a matrix in column-major order, can produce
+{\sl chaotic} performance traces \cite{mytkowicz09}, as shown in
+Figure~\ref{fig:col-ts}, and chaos places fundamental limits on
+predictability.
+%
+ \begin{figure}[htbp]
+    \centering
+    \includegraphics[width=\textwidth]{figs/colshortts}
+    % where an .eps filename suffix will be assumed under latex,
+    % and a .pdf suffix will be assumed for pdflatex
+    \caption{A small snippet of the instructions per cycle(ipc) of {\tt
+        \col}, a three-line C program that repeatedly initializes
+      a matrix in column-major order, running on an Intel i7\textsuperscript{\textregistered}-based machine.  Even this
+      simple program exhibits chaotic performance dynamics.}
+   \label{fig:ipc}
+  \end{figure}
+
+
+
+
+
+
+
+
+
+The computer systems community has applied a variety of prediction
+strategies to traces like this, most of which employ regression.  An
+appealing alternative builds on the recently established fact that
+computers can be effectively modeled as deterministic nonlinear
+dynamical systems \cite{mytkowicz09}.  This result implies the
+existence of a deterministic forecast rule for those dynamics.  In
+particular, one can use \emph{delay-coordinate embedding} to
+reconstruct the underlying dynamics of computer performance, then use
+the resulting model to forecast the future values of computer
+performance metrics such as memory or processor loads
+\cite{josh-ida2011}.  In the case of simple microkernels like the one
+that produced the trace in Figure~\ref{fig:ipc}, this deterministic
+modeling and forecast strategy works very well.  In more-complicated
+programs, however, such as speech recognition software or compilers,
+this forecast strategy---as well as the traditional methods---break
+down quickly.
+
+This paper is a first step in understanding when, why, and how
+deterministic forecast strategies fail when they are applied to
+deterministic systems.  We focus here on the specific example of
+computer performance.  We conjecture that the complexity of traces
+from these systems---which results from the inherent dimension,
+non-linearity, and non-stationarity of the dynamics, as well as from
+measurement issues like noise, aggregation, and finite data
+length---can make those deterministic signals \emph{effectively}
+unpredictable.  We argue that \emph{permutation entropy}
+\cite{bandt2002per}, a method for measuring the entropy of a
+real-valued-finite-length time series through ordinal analysis, is an
+effective way to explore that conjecture.  We study four
+examples---two simple microkernels and two complex programs from the
+SPEC benchmark suite---running on different Intel-based machines.  For
+each program, we calculate the permutation entropy of the processor
+load (instructions per cycle) and memory-use efficiency (cache-miss
+rates), then compare that to the prediction accuracy attainable for
+that trace using a simple deterministic model.
+
+% paragraph to appease the theoretician in me
+It is worth taking a moment to consider the theoretical possibility of
+this task. We are not attempting to predict the state of the CPU at an
+arbitrary point in the future --- this, at least with perfect
+accuracy, would be tantamount to solving the halting problem. What we
+are attempting is to predict aspects or functions of the running of
+the CPU: instructions executed per second, cache misses per 100,000
+instructions, and similar statistics. Prediction of these quantities
+at some finite time in the future, even with perfect accuracy, does
+not violate the Rice-Shapiro theorem.
+
+% The rest of the paper is organized as follows.
+% Section~\ref{sec:compModel} describes the experimental setup, as well
+% as the nonlinear modeling and forecast strategies.  In
+% Section~\ref{sec:meaComplex}, we review permutation entropy, calculate
+% its value for a number of different computer performance traces, and
+% compare the results to the prediction accuracy.  In
+% Section~\ref{sec:conc}, we discuss these results and their
+% implications in regard to our conjecture, and consider future areas of
+% research.
+
