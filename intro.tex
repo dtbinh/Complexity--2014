@@ -55,7 +55,33 @@ Things to add to introduction
 \item Introduce the two main contributions of the paper which are outlined at the begining of the results section
 
 \end{enumerate}
+\noindent ***NOTES END HERE****
 
+\noindent ****SECTION START****
+
+
+Complicated time series are ubiquitous in modern scientific research. 
+%Characterizing and forecasting the future behavior of these observed systems is a vastly researched area with many open questions. 
+Every observed time series, complicated or not, exists on a spectrum of \emph{complexity}\footnote{An approx of (blah ) entropy which we make more rigorous in blah}. On the low end of that spectrum are time series that exhibit perfect predictive structure, i.e, signals whose future value are perfectly predicted by knowledge of past values from some ``ideal" model. In particular, there is a an underlying process that generates and transmits information from the past to the future in a perfectly predictable fashion. Some examples of this are constant or low-period signals. On the opposite end of this spectrum are signals which are ``fully complex", i.e., the underlying generating process creates information so rapidly that no information at all is transmitted from the past to the future. Some examples, of this are white noise or random walk processes. With signals on this side of the spectrum, knowledge of the past gives absolutely no insight into the future, \emph{regardless} of the chosen model.  In the middle of this spectrum are where complicated \emph{and} forecast-able signals exist, e.g., deterministic chaotic trajectories, high period signals with some level of noise on top. With time-series in this portion of the spectrum, enough information is being transmitted from the past to the future that given the \emph{ideal} model we could predict the future of the observed system with high accuracy. Unfortunately, as a corollary of the undecidability of the halting problem: there cannot exist \emph{one} universally ideal forecasting scheme for even completely noise-free deterministic time series, let alone an arbitrary time series.
+[[Rephrase, below here but this is the idea...]]
+ So given a complicated noisy real-valued time series from an observed system, is it possible to reliably quantify where on this spectrum of the time series exists. In particular, can we characterize when a time series is predictable without making further assumptions about the system and only knowing possibly noisy real-valued measurements?
+
+
+One such question is: when little or nothing is known about the underlying system's generating process (e.g., linear, nonlinear, deterministic, stochastic, stationary, non-stationary etc.) how can we infer from the time series itself if the signal is too complex to forecast? That is, when is a complicated time series too complex to forecast? It is well known that every complicated real
+
+
+
+
+
+
+
+
+[[Introduce limitations and direction]]
+
+For the purposes of this paper we focus on real-valued (possibly) noisy scalar time series which we appear complicated, i.e., they exhibit interesting behavior, e.g., not periodic, strictly monotonic, or constant. We make no assumptions about the generating process's properties,(e.g., linear, nonlinear, deterministic, stochastic, stationary, non-stationary etc.) and we attempt to measure empirically the complexity level of the time series.  For the purposes of this paper we define complexity as a particular approximation of Shannon \emph{entropy} [[Ryan is this right or is it Renyi?]], which we define rigorously in Section \ref{sec:meaComplex}. We then attempt to correlate the empirically estimated complexity with the forecast success of several different forecasting schema. 
+
+
+[[Introduce and make it clear why we choose comp. perf. as test bed.]]
 
 
 Computers are among the most complex engineered artifacts in current

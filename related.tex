@@ -1,0 +1,24 @@
+\section{Related Work}
+
+Attempting to model and characterize predictability is a very old problem which arguably began with Yule in 1927 when he invented AR and many attempts to quantify predicatbility have followed including ....
+
+Entropy though Generating partitions 
+works **if** you have generating parition but not if you don't
+
+Redundancy (details in SFI forecasting), relies heavily on either estimating the generating partiion which is hard to do *and* estimating the positive lyap spectrum which is hard to do for noisy systems and impossible for systems that are not deterministic. 
+
+DVS plots, gives pros and cons in (SFI prediction book)
+
+predicting local predictive capacity (radial basis functions stuff, trying to predict error bounds on next forecast based on ensemble uncertainty) but does not aggregate tell you at what level the time series exhibits complexity only locally predictive structure, this actualy gets at the interesting point that different regions of a time series may exhibit differnt levels of complexity which we will illustrate with \svd
+
+Distrubtion of error. For many methods, if your error is not normally distributed this signals that there is stil more predictve structure to that could be used by for example a larger order ARMA process. But if error is normally distributed, this suggests that you have used up all the predictive structure that **that** model can use, this doesn't quantify if preidctuce structure exists that isn't being used by this process. For example, nonlinear structure which is ignored by a linear predictor. 
+
+
+But this method is differnt becasue it uses no assumption about the underlying model, does not require generating partitions, is applicable to noisy real-valued time series. 
+
+
+Maybe talk about ``
+wpe has been applied to predicting irregularities in brain wave data but no on one has examined it's correlation with predictive structure. "
+but kind of puts the cart before the horse
+
+
