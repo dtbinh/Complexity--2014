@@ -1,10 +1,4 @@
-<<<<<<< HEAD
 \section{Modeling}
-\label{sec:compModel}
-
-=======
-\section{Modeling}\label{sec:model}
->>>>>>> FETCH_HEAD
 Section outline:
 
 \begin{enumerate}
@@ -16,6 +10,8 @@ Section outline:
 \item\cmark Add a section talking about evaluation methods i.e., MASE, this text is currently written and just sitting at the beginning of the results. 
 
 \end{enumerate}
+
+\label{sec:compModel}
 
 \subsection{Lorenz Method of Analogues (LMA)}
 TODO:
