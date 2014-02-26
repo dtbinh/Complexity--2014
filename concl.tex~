@@ -4,21 +4,6 @@
 \item  This need to be rewritten to conclude and address this paper...
 \end{enumerate}
 
-Moved the following two paragraphs here from the results section,
-since they're more general.  But there's a lot of repeated material
-that will obviously need to get compressed and streamlined.
-
-These results support that time series with low to moderate complexity
-($0\le WPE \le 0.85$) can be predicted more efficiently than a na\"ive
-random walk \emph{and} that complexity can be qualitatively measured
-for a real-valued noisy time series using WPE. This will allow
-practitioners to stop spinning their wheels in the case of signals who
-are simply better predicted with a simple strategy like random
-walk. The analysis of these results illuminates an interesting point:
-The way structure, information and complexity are processed by a
-generating process plays a crucial role in the success of a given
-prediction scheme.
-
 As we discussed in Section \ref{sec:meaComplex} distinguishing
 structured from unstructured complexity in the case of real-valued
 time series is non trivial, i.e., distinguishing when a complex signal
