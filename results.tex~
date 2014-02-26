@@ -1,4 +1,3 @@
-
  \section{Predictability, Complexity, and Permutation Entropy} % (fold)
  \label{sec:results}
 % I changed the title of this section because there are lots of
@@ -44,10 +43,10 @@ conjectures introduced in Section \ref{sec:intro}, namely:
 
 \begin{enumerate}
 
-\item That the weighted permutation entropy (WPE) of a noisy
+\item that the weighted permutation entropy (WPE) of a noisy
   real-valued time series is correlated with prediction
-  accuracy---i.e., that the predictable structure in time-series data
-  can be quantified by WPE.
+  accuracy---i.e., that the predictable structure in a time-series
+  data set can be quantified by its WPE.
 
 %\subitem [[Simply reminders not to be included]]WPE can quantify when
 %a noisy real-valued time series is predictable.[[I am unsatisfied
@@ -60,8 +59,9 @@ conjectures introduced in Section \ref{sec:intro}, namely:
 %series is quantifiable and this type of complexity is directly
 %correlated with predictability
 
-\item That the way information is processed internally by the system
-  is correlated with the effectiveness of a given predictor.
+\item that the way information is processed internally by a dynamical
+  system is correlated with the effectiveness of a given predictor on
+  time-series data from that system
 
 %\subitem [[Simply reminders not to be included]]We will have shown
 %that the existence whether linear or nonlinear is picked up on with
@@ -93,207 +93,220 @@ conjectures introduced in Section \ref{sec:intro}, namely:
 %this. [[talk about again here but justify in information theory
 %section]]
 
-The experiments below involve three different prediction methods (LMA,
-ARIMA, na\"ive) applied to time-series data from eight different
-dynamical systems: {\tt col\_major}, {\tt 403.gcc}, and the six
-different regimes of the {\tt dgesdd} signal in Figure~\ref{fig:wwpe}.
-We also calculated the WPE of each time series.  The objective of
-these experiments was to explore how prediction accuracy is related to
-WPE, and how that relationship depends on the dynamics and the method.
-In order to assess the run-to-run variability of these results, we
-repeated all calculations on 15 separate trials: i.e., 15 different
-runs of each program.  Figure~\ref{fig:pred_vs_wpe} shows the {\sl
-  best} of these 45 predictions for each dynamical system (i.e., the
-lowest MASE value over all 15 trials and all three methods).
+The experiments below involve the three different prediction methods
+described in Section~\ref{sec:compModel}---na\"ive, ARIMA, and
+LMA---applied to time-series data from eight different dynamical
+systems: {\tt col\_major}, {\tt 403.gcc}, and the six different
+regimes of the {\tt dgesdd} signal in Figure~\ref{fig:wwpe}.  The
+objective of these experiments was to explore how prediction accuracy
+is related to WPE, and how that relationship depends on the dynamics
+and the prediction method.  Working from the first 90\% of each
+signal, we generated a {\color{red} [[one step?]]}  prediction of the
+last 10\% of that signal using each of the methods, then calculated
+the MASE value of those predictions.  We also calculated the WPE of
+each time series, as described in Section~\ref{sec:meaComplex}, using
+a wordlength of four {\color{red}[[Justify.]]}.  In order to assess
+the run-to-run variability of these results, we repeated all of these
+calculations on 15 separate trials: i.e., 15 different runs of each
+program.  Figure~\ref{fig:wpe_vs_mase_best} shows the {\sl best} of
+these 45 predictions for each dynamical system: i.e., the lowest error
+over all 15 trials and all three methods for each program.  The WPE is
+plotted against the corresponding MASE value in order to bring out the
+correlation between these two quantities.
 \begin{figure}[htbp]
   \centering
-  \includegraphics[width=0.75\textwidth]{figs/prediction_vs_entropy}
-  \caption{MASE error of the best prediction of each dynamical system
-    (across all trials and all prediction methods) vs. weighted
-    permutation entropy calculated with a word length of 6.  The
-    dashed line is a least-squares linear fit of all the points except
-    for {\tt dgesdd$_1$} which we have excluded for reasons explained
-    in the text.}
-  \label{fig:pred_vs_wpe}
+  \includegraphics[width=0.6\textwidth]{figs/prediction_vs_entropy}
+  \caption{Weighted permutation entropy {\color{red} [[is this of the
+          same trace that generated the best prediction?  or the
+          average of all traces of that system?]]}  of each dynamical
+    system vs. mean absolute squared error (MASE) of the best
+    prediction for that system.
+% 
+% (across all trials and all prediction methods) 
+% 
+The dashed line is a least-squares linear fit of all the points except
+{\tt dgesdd$_1$}, which we have excluded for reasons explained in the
+text.}
+  \label{fig:wpe_vs_mase_best}
 \end{figure}
-This best-case prediction error for each program is roughly
-proportional to the weighted permutation entropy, which is consistent
-with our first conjecture.  The three methods used here were chosen to
-span the space of standard prediction strategies, but they do not, of
-course, cover that space exhaustively.  Our goal here is an empirical
-assessment of predictability and complexity, not formal results about
-a ``best'' predictor for a given time series.  There may be other
-methods that produce lower MASE values than those in
-Figure~\ref{fig:pred_vs_wpe}, but the lack of points in the upper-left
-and lower-right quadrants of this plot strongly suggests that the
-underlying predictability of a time series is inversely proportional
-to its WPE.  
 
-The rest of this section describes our experiments in more detail,
-including the measures taken to assure meaningful comparisons across
-methods, trials, and programs, the meaning of the dashed line in the
-figure, and the rationale for the construction of that line (e.g., why
-{\tt dgesdd$_1$} was excluded from the fit).  
+The best-case prediction error for each of these eight dynamical
+systems is roughly proportional to the weighted permutation entropy,
+which is consistent with our first conjecture.  The dashed line in the
+figure, a linear least-squares fit to these best-case errors---with
+the exception of {\tt dgesdd$_5$}, for reasons described
+below---captures this rough proportionality.  This is not a formal
+result.  The three methods used here were chosen to span the space of
+standard prediction strategies, but they do not, of course, cover that
+space exhaustively.  Our goal here is an empirical assessment of
+predictability and complexity, not formal results about a ``best''
+predictor for a given time series.  There may be other methods that
+produce lower MASE values than those in
+Figure~\ref{fig:wpe_vs_mase_best}, but the sparseness of the points in
+the upper-left and lower-right quadrants of this plot strongly
+suggests that the underlying predictability of a time series is
+inversely correlated with its WPE.  The rest of this section describes
+our results in more detail, including the measures taken to assure
+meaningful comparisons across methods, trials, and programs, and
+elaborates on the meaning of the dashed line in the figure.
 
-Though the \col program is very simple, its dynamics are actually
-quite complicated, as discussed in Section~\ref{sec:what}
-\cite{mytkowicz09}.  Recall from the right-hand column of
-Figure~\ref{fig:what} that the naive and ARIMA prediction methods
-perform poorly on this signal (MASE values $0.57 \pm$ 0.001 and $0.59
-\pm 0.21$, respectively).  That is, the errors produced by these
-methods are a little over half as large as the errors produced by the
-random-walk method, which simply uses the current value as the
-prediction.  [[This would suggest that there is some predictive
-    structure present but not that much.]] [[Why?  How to quantify \&
-    justify ``some'' and ``not much''?]]  However, the WPE value for
-time series from \col runs is $0.51 \pm 0.003$: i.e., [[that half of
-    the signal is structure?]].  This disparity---a WPE value that
-suggests high forward information transfer in the signal, but low MASE
-values for the predictions---is telling.  It says that the methods
-aren't leveraging that information very well.  And that's not
-surprising, really.  The dynamics of \col are complicated, but they're
-not unstructured.  This signal is nonlinear, deterministic, and
-chaotic.  If you use a prediction technique that uses a nonlinear
-model (LMA) you get a MASE of $0.05 \pm 0.001$---i.e., 20 times more
-accurate than a random walk forecast.  From a practitioner's
-standpoint, what this means is that the WPE tells you that you could
-do better, and that you should keep looking.
-
-Maybe even more convincing than a low complexity signal like \col is a
-moderately complex signal like \svdfive. This signal omits a WPE of
-$0.677 \pm 0.006$, this is a significantly higher complexity than \col
-but still implies the existence of a great deal of predictive
-structure. However, this increase in complexity is enough to really
-throw off the constant and linear prediction strategies. The MASE
-scores for ARIMA and na\"ive imply 2.5 and 20 times worse prediction
-than using a simple random walk forecast. This may be discouraging to
-someone using an out-of-the-box predictor that the signal is too
-complex to predict. However by \emph{knowing} that there exists
-predictable in this signal we can try to use a more advanced
-technique, in particular LMA. If we do this we get forecasts which
-score 1.5 times better than the random walk. Showing that this usable
-structure (although hidden to the linear and constant method) was
-quantifiable by WPE.
-
-Finally, we consider the most complex program: \gcc. The complexity of
-\gcc is $0.94 \pm 0.001$. This implies that almost no predictive
-structure exists in this structure. Recall that a WPE $\approx 1$ are
-similar in complexity to white noise or a random walk process as they
-do not transmit any information from past to future. This would mean
-that the WPE of $>0.95$ would suggest little to no predictive
-structure exists and that the signal is simply too complex. In this
-case it should be safe to assume that a random walk forecast would be
-(on-average) superior to forecast methods which required structure or
-information to intelligently predict the next time step. This is in
-fact what we see, with each prediction scheme we used we see a MASE
-which implies (on-average) 1.5-1.8 times worse predictions that
-performing a simple random walk forecast.
-
-Present and discuss the table.
-\begin{table}[h]
-\caption{MASE distributions for 1-step predictions at a 10\% prediction horizon over 15 runs for each signal and average wpe at word length 6 for each signal.}
-\begin{center}
-\begin{tabular}{|c|c|c|c|c|}
-\hline
-                   & MASE LMA    & MASE ARIMA &MASE na\"{i}ve   & $l=6$ \\
-\hline
-\gcc                  & $ 1.5296\pm 0.0214$ & $1.8366 \pm0.0157 $ & $0.9510 \pm 0.0011$ & $0.9430 \pm 0.0013$ \\
-
-\col           & $ 0.0500 \pm0.0018  $ & $0.5989  \pm 0.2114 $ & $0.5707\pm0.0017$&  $0.5131 \pm 0.0034$ \\
-
-\svd Reg. 1     & $ 0.8273\pm 0.0755$ & $ 0.7141\pm 0.0745 $ & $2.6763\pm4.3282$&  $0.9572 \pm 0.0156$ \\
-\svd Reg. 2     & $1.2789 \pm0.0196 $ & $2.1626 \pm0.0265 $ &  $3.0543\pm0.0404$ &   $0.8464 \pm0.0044$ \\
-\svd Reg. 3       & $0.6192 \pm0.0209 $ & $0.7129 \pm 0.0096 $ & $31.3857\pm 0.2820$ &  $0.7157 \pm 0.0056$ \\
-\svd Reg. 4     & $ 0.7789\pm0.0358 $ & $0.9787 \pm0.0321 $ & $2.6613\pm0.0739$ & $0.8246 \pm 0.0077$ \\
-\svd Reg. 5     & $ 0.7177\pm 0.0483 $ & $2.3700  \pm 0.0505 $ & $20.8703 \pm 0.1915$&  $0.6776 \pm 0.0068$ \\
-\svd Reg. 6     & $ 0.7393\pm 0.0682 $ & $ 1.4379\pm 0.0609$ & $2.1967\pm0.0830$&  $0.7475 \pm 0.0106$ \\
-\hline
-\end{tabular}
-\end{center}
-\label{tab:error}
-\end{table}%
-
-Figures~\ref{fig:lma_vs_arima} and \ref{fig:arima_pred_vs_ent} plot
-the MASE of LMA and ARIMA (respectively) against the weighted
-permutation entropy of each of the 15 runs of all 8 programs.
-\begin{figure}[h]
+Figure~\ref{fig:wpe_vs_mase_all} shows WPE vs. MASE plots for all 360
+experiments.
+\begin{figure}
   \centering
-       
-  \begin{subfigure}{0.5\textwidth}
-    \includegraphics[width=\textwidth]{figs/LMA_prediction_vs_entropy}
-    \caption{The MASE of LMA vs weighted permutation entropy. }
-    \label{fig:lma_pred_vs_ent}
-  \end{subfigure}%
-  \begin{subfigure}{0.5\textwidth}
-    \includegraphics[width=\textwidth]{figs/ARIMA_prediction_vs_entropy}
-    \caption{The MASE of ARIMA vs weighted permutation entropy. }
-    \label{fig:arima_pred_vs_ent}
-  \end{subfigure}
-\caption{For each of these, the word length used is $6$. The MASE
-  values for LMA against ARIMA. The dashed line is the identity,
-  delineating the traces for which either LMA or ARIMA performed
-  better. All traces except those from \svd$_1$ lie above the line,
-  indicating that LMA is better suited prediction method for the
-  computer traces considered.}\label{fig:lma_vs_arima}
+    \includegraphics[width=0.6\textwidth]{figs/ARIMA_prediction_vs_entropy}
+    \includegraphics[width=0.6\textwidth]{figs/ARIMA_prediction_vs_entropy}
+    \includegraphics[width=0.6\textwidth]{figs/LMA_prediction_vs_entropy}
+\caption{WPE vs. MASE for all trials, methods, and dynamical systems.
+  \svdone, \svdthree, and \svdfive are omitted from the top plot for
+  scale reasons; their MASE scores are $2.6763\pm4.3282$, $31.3857\pm
+  0.2820$, and $20.8703 \pm 0.1915$ respectively.  {\color{red}Need
+    plot for naive---on same scale, but excluding SVD 1, 3, and 5}.
+  The dashed line is the same as in the previous figure [[doublecheck
+      this with Ryan]].  Numerical values, including means and
+  standard deviations of the errors, can be found in
+  Table~\ref{tab:error} in the appendix.
+% 
+%  [[All traces except those from \svd$_1$ lie above the line,
+%      indicating that LMA is better suited prediction method for the
+%      computer traces considered.]]  [[This comes {\bf long} before the
+%      associated discussion in the text, and it's not what this figure
+%      is trying to show here.]]
+% 
+}
+    \label{fig:wpe_vs_mase_all}
 \end{figure} 
-Discuss the shapes and positions of the clusters.  Talk about \svdone.
+There are 15 points in each cluster, one for each trial\footnote{A
+  trial involves collecting a time series from the corresponding
+  dynamical system, predicting the last 10\% of that time series, and
+  calculating the MASE score.}.  (The points in
+Figure~\ref{fig:wpe_vs_mase_best} are the leftmost points in any of
+the three clusters for the corresponding dynamical system.)  Most of
+the clusters are quite tight---with a few exceptions that are
+described in more detail later in this section.  The spatial
+distribution of the clusters is quite different in the three plots:
+LMA is tight around the dashed line, whereas naive and ARIMA are
+[[fill in when get the third image]].  This is a geometric validation
+of the second conjecture in this paper, as described in the following
+paragraphs.
 
-There is a single outlier in this study which is \svdone. This signal
-has a WPE of $0.95 \pm 0.02$ and both LMA and ARIMA do slightly better
-than random walk ($0.82 \pm 0.08$ and $0.7141 \pm 0.07$
-respectively). The na\"ive method did significantly worse than random
-walk and was highly inconsistent with an average MASE of 2.67 but a
-standard deviation of 4.33 due to the massive right tail this
-distribution exhibited in reaction to wildly inconsistent
-forecasts. We do not believe this outlier is really a problem but it
-does bring about a potential weaknesses of this method. MASE is scaled
-by a random walk forecast which can be very inconsistent in the case
-of drastic signal changes which occur on a regular basis, e.g., a
-signal which oscillates from the top to the bottom of the signals
-scale at every time click. In this case a random walk forecast would
-have error with magnitude of the scale of the signal at every
-forecast, since guessing the last step will be exactly out of phase
-with the new forecast. A signal like this would normally cause a very
-low WPE much like \col and a very high Random Walk error resulting in
-low MASE for methods that can take into account this structure like
-ARIMA or LMA.
+Though \col is a very simple program, its dynamics are actually quite
+complicated, as discussed in Section~\ref{sec:intro}.  Recall from the
+right-hand column of Figure~\ref{fig:gcc_vs_col} that the naive and
+ARIMA prediction methods perform poorly on this signal (MASE values
+$0.57 \pm$ 0.001 and $0.59 \pm 0.21$, respectively).  That is, the
+errors produced by these methods are a little over half as large as
+the errors produced by the random-walk method, which simply uses the
+current value as the prediction.  {\color{red} [[This would suggest
+      that there is some predictive structure present but not that
+      much.]] [[Why?  How to quantify \& justify ``some'' and ``not
+      much''?]]}  However, the WPE value for the \col trials is $0.51
+\pm 0.003$: i.e., {\color{red} [[that half of the signal is
+      structure?]]}.  This disparity---WPE values that suggest a high
+rate of forward information transfer in the signal, but predictions
+with low MASE scores---manifests geometrically in the top two images
+in Figure~\ref{fig:wpe_vs_mase_all}, where the \col clusters are far
+to the right of the dashed line.  This is important; it says that the
+methods aren't leveraging that information very well.  This is not
+surprising, really.  The dynamics of \col may be complicated, but
+they're not unstructured.  This signal is nonlinear, deterministic,
+and chaotic.  Indeed, if you use a prediction technique that uses a
+nonlinear model (LMA) you get a MASE of $0.05 \pm 0.001$---i.e., 20
+times more accurate than a random-walk forecast.  Note the position of
+the \col cluster in the bottom image in
+Figure~\ref{fig:wpe_vs_mase_all}: much closer to the dashed line.
+From a practitioner's standpoint, what this means is that being below
+that line tells you that there really IS usable structure in the time
+series, that you could do better, and that you should use a better
+method.
 
-To understand why this causes \svdone to be an outlier we examine
-Figure \ref{fig:svdone-ts} in more detail. This is a small snippet of
-the time series of \svdone to illustrate the strucutre of this
-signal. We provide a small snippet as opposed to the full time series
-simply for visual clarity.
+The WPE of \svdfive ($0.677 \pm 0.006$) is higher than that of {\tt
+  col\_major}.  This indicates that the forward rate of information
+transfer is lower in this dynamical system, but that time-series data
+from this system still contain a {\color{red} [[significant]]} amount
+of structure that can, in theory, be leveraged to predict those
+dynamics.  However, the effectiveness of any prediction strategy will
+depend on how well it leverages the available information.
+% 
+% (This is the basis for the second conjecture above.)  
+% 
+This issue becomes apparent in the case of \svdfive, as is clear from
+the positions of the corresponding clusters in
+Figure~\ref{fig:wpe_vs_mase_all}.  The naive and ARIMA prediction
+strategies in the top two plots produce MASE scores of $2.3700 \pm
+0.0505 $ and $20.8703 \pm 0.1915$, respectively: that is, 2.37 and
+20.87 {\color{red} [[times worse is this right, given the wording that
+      was below saying that a MASE score of 0.7 meant 1.5 times
+      better?]]}  than a simple random walk forecast of the same
+signals.  {\color{red} [[I think we should discuss this more.  It's
+      way bigger than anything else except \svdthree.]]}  Again, the
+positions of the ARIMA and LMA clusters---significantly below and to
+the right of the dashed line---should suggest to a practitioner that
+there is more structure in this signal than the method is able to
+leverage, so s/he can do better and should try a different prediction
+method.  In this case, the LMA method produces a MASE score of $
+0.7177\pm 0.0483 $ and a cluster of results on the WPE-MASE plot that
+is much closer to the dashed line.  This validates our second
+conjecture: the naive and ARIMA prediction methods, which use constant
+and linear models, respectively, cannot capture or reproduce the way
+in which the \svdfive dynamical system processes information, but the
+nonlinear LMA method can.
+
+The WPE of \gcc is much higher: $0.94 \pm 0.001$.  This dynamical
+system transmits very little information forward in time and provides
+very little structure for prediction methods to work with.  In cases
+like this, {\color{red} [[it can be shown that?]] a random-walk
+  forecast is ?optimal?, on the average.  What we see: naive does the
+  best, then LMA, then ARIMA.  Naive actually beats random walk; what
+  to say about that?  What to say about LMA beating ARIMA?}
+
+\svdone behaves very differently than the other seven dynamical
+systems in this study: though its WPE is very high ($0.95 \pm 0.02$),
+two of the three prediction methods (LMA and ARIMA) do quite well:
+$0.82 \pm 0.08$ and $0.7141 \pm 0.07$ MASE scores, respectively.
+Accordingly, the clusters of \svdone points in the bottom two images
+in Figure~\ref{fig:wpe_vs_mase_all} are well above the trend followed
+by the other seven clusters.  Also, the MASE scores of the predictions
+produced by the na\"ive method are highly inconsistent: $2.67 \pm
+4.33$.  All of these effects, we believe, are artifacts of the way
+MASE is calculated.  Recall that MASE scores are scaled relative to a
+random walk forecast, which uses the current value as the prediction.
+This strategy works very badly on signals with frequent, large, rapid
+transitions.  Consider a signal that oscillates from one end of its
+range to the other at every step.  A signal like this will have a low
+WPE, much like \col.  However, a random-walk forecast of this signal
+will be 180 degrees out of phase with the true continuation.  Since
+random-walk error appears in the denominator of the MASE score, this
+effect can shift points leftwards on a WPE vs. MASE plot, and that is
+exactly why the \svdone clusters for ARIMA and LMA are above the
+dashed line in Figure~\ref{fig:wpe_vs_mase_all}.  The \svdone time
+series, which is shown in Figure~\ref{fig:svdone-ts},
 \begin{figure}[htbp]
   \centering
     \includegraphics[width=\textwidth]{figs/svdonets2}
-\caption{ For each of these, the word length used is $6$. The MASE
-  values for LMA against ARIMA. The dashed line is the identity,
-  delineating the traces for which either LMA or ARIMA performed
-  better. All traces except those from \svd$_1$ lie above the line,
-  indicating that LMA is better suited prediction method for the
-  computer traces considered.}\label{fig:svdone-ts}
+\caption{A small portion of the \svdone time series}\label{fig:svdone-ts}
 \end{figure} 
-As can be seen in Figure \ref{fig:svdone-ts}, \svdone has a highly
-unstructured small band on top, which is approximately 0.05
-instructions per cycle wide. Approximately 80\% of the signal exists
-within this band of noise, this causes the WPE to be driven up as many
-words are being omitted by this band of the signal. The remaining 20\%
-of the signal are drops in instructions per cycle away from this band,
-ranging in size from 0.1 to 0.6 instructions per cycle\footnote{Some
-  of the large drops are not shown for the sake of clarity of the
-  smaller scale}. These drastic drops seem to happen every 5-7 points
-but the drop locations are inconsistent as well as the drops magnitude
-(ranging from 0.1-0.6 instructions per cycle). As discussed in Section
-\ref{sec:RWMethod} drops of this fashion are the bane of random walk
-forecasting. At every one of these drops a random walk predictor would
-produce two forecasts with an error 2-12 times the magnitude of the
-smaller band, i.e., about 40\% of the time the random walk forecast
-would predict with error 2-12 times the magnitude of the scale
-exhibited by $\approx$80\% of the signal. This inconsistency in random
-walk would cause cause random walk error to be high and as a result
-MASE scores to be artificially low. The combination of a band of noise
-with a high number of random drops is a weakness of this method which
-is present in \svdone and as a result makes this signal an outlier.
+is not quite to the level of the worst-case signal described above,
+but it poses a serious challenge to random-walk prediction.  It is
+dominated by a white-noise regime (between 1.86 and 1.88 on the
+vertical scale in the Figure), punctuated by short excursions above
+1.9.  In the former regime, which makes up more than 80\% of the
+signal, there are frequent dips to 1.82 and occasional larger dips
+below 1.8.  These single-point dips are the bane of random walk
+forecasting.  In this particular case, roughly 40\% of the forecasted
+points are off by the width of the associated dip, which skews the
+associated MASE scores.  For this reason, we view \svdone as an
+outlier and thus exclude it from the fit calculation of the dashed
+line in Figure~\ref{fig:wpe_vs_mase_best}.
+
+{\color{red} What to say about the naive method here?}
+
+{\color{red} What to say about the huge MASE values of \svdthree (and
+  \svdfive, if we didn't discuss it above)?}
+
+{\color{red} \col also does something funny: clustered in LMA but
+  spread out in ARIMA.  Discuss?  There's a bit of this below, but
+  probably not enough.}
 
 [[Joshua: I am not sure if this paragraph is strong enough or even
     worth having]]These results support that time series with low to
