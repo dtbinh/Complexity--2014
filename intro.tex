@@ -1,17 +1,17 @@
 \section{Introduction}\label{sec:intro}
 
 
-Notes on wording 
+%Notes on wording 
 
- If we define entropy as complexity in the paper (as we do currently) we could say that every signal complicated or not has a balance between temporal/predictive structure and complexity (entropy). So for example, a chaotic signal and a random walk signal are both "complicated" they exhibit interesting behavior (they aren't monotonic, periodic, constant etc.) but one of them is far more complex and less predictable than the other , e.g.,  a random walk or gcc for example is complicated *and* highly complex (very high entropy) where as col is also complicated but not as complex as it exhibits a great deal of predictive structure (low entropy).
+% If we define entropy as complexity in the paper (as we do currently) we could say that every signal complicated or not has a balance between temporal/predictive structure and complexity (entropy). So for example, a chaotic signal and a random walk signal are both "complicated" they exhibit interesting behavior (they aren't monotonic, periodic, constant etc.) but one of them is far more complex and less predictable than the other , e.g.,  a random walk or gcc for example is complicated *and* highly complex (very high entropy) where as col is also complicated but not as complex as it exhibits a great deal of predictive structure (low entropy).
 
-An interesting contribution here is that examining a complicated signal (i.e., something that has interesting behavior, not periodic, monotonic, constant etc) of noisy real-valued entries, it is hard to determine a priori (without WPE) where in the spectrum of temporal structure and complexity the signal lies. Is it completely complex and have little to no predictive structure e.g., gcc or is it balanced in complexity and structure like a chaotic signal e.g., col.
+%An interesting contribution here is that examining a complicated signal (i.e., something that has interesting behavior, not periodic, monotonic, constant etc) of noisy real-valued entries, it is hard to determine a priori (without WPE) where in the spectrum of temporal structure and complexity the signal lies. Is it completely complex and have little to no predictive structure e.g., gcc or is it balanced in complexity and structure like a chaotic signal e.g., col.
 
-One potential issue here is that apparently information theorists say that completely random signals are void of complexity. So Saying that a random walk signal (i.e., a signal with high entropy) is complex may cause some issues. HOWEVER, if we define complexity as entropy I don't think this is an issue. 
+%One potential issue here is that apparently information %theorists say that completely random signals are void of complexity. So Saying that a random walk signal (i.e., a signal with high entropy) is complex may cause some issues. HOWEVER, if we define complexity as entropy I don't think this is an issue. 
 
-Ryan does this seem reasonable? Is this an accurate synopsis of our discussion. Please feel free to add to it. Liz do you think making this distinction between "Complicated" and "Complex" would be useful for the readers understanding and dissemination of this topic?
+%Ryan does this seem reasonable? Is this an accurate synopsis of our discussion. Please feel free to add to it. Liz do you think making this distinction between "Complicated" and "Complex" would be useful for the readers understanding and dissemination of this topic?
 
-This would suggest changing the title to something a long the lines of "Decoding Complicated Time Series: The balance between complexity and temporal structure and the implications for predictability "
+%This would suggest changing the title to something a long the lines of "Decoding Complicated Time Series: The balance between complexity and temporal structure and the implications for predictability "
 
 
 
@@ -64,11 +64,17 @@ Complicated time series are ubiquitous in modern scientific research.
 %Characterizing and forecasting the future behavior of these observed systems is a vastly researched area with many open questions. 
 Every observed time series, complicated or not, exists on a spectrum of \emph{complexity}\footnote{An approx of (blah ) entropy which we make more rigorous in blah}. On the low end of that spectrum are time series that exhibit perfect predictive structure, i.e, signals whose future value are perfectly predicted by knowledge of past values from some ``ideal" model. In particular, there is a an underlying process that generates and transmits information from the past to the future in a perfectly predictable fashion. Some examples of this are constant or low-period signals. On the opposite end of this spectrum are signals which are ``fully complex", i.e., the underlying generating process creates information so rapidly that no information at all is transmitted from the past to the future. Some examples, of this are white noise or random walk processes. With signals on this side of the spectrum, knowledge of the past gives absolutely no insight into the future, \emph{regardless} of the chosen model.  In the middle of this spectrum are where complicated \emph{and} forecast-able signals exist, e.g., deterministic chaotic trajectories, high period signals with some level of noise on top. With time series in this portion of the spectrum, enough information is being transmitted from the past to the future that given the \emph{ideal} model the future of the observed system could be forecast with high accuracy. 
 
-Unfortunately, as a corollary of the undecidability of the halting problem: there cannot exist \emph{one} universally ideal forecasting scheme for even completely noise-free deterministic time series\cite{sfi-prediction}, let alone an arbitrary time series. This naturally leads to an important and hard question: given a complicated real-valued time series, is it possible to reliably quantify where on this spectrum the time series lies? i.e., when little or nothing is known about the underlying system's generating process (e.g., linear, nonlinear, deterministic, stochastic, stationary, non-stationary etc.) how can we infer from the time series itself if the signal is too \emph{complex} to forecast?
+Unfortunately, as a corollary of the undecidability of the halting problem: there cannot exist \emph{one} universally ideal forecasting scheme for even completely noise-free deterministic time series\cite{sfi-prediction}, let alone an arbitrary time series. This naturally leads to an important and hard question: given a complicated real-valued time series, is it possible to reliably quantify where on this spectrum the time series lies? That is, when little or nothing is known about the underlying system's generating process (e.g., linear, nonlinear, deterministic, stochastic, stationary, non-stationary etc.) how can we infer from a noisy real-valued time series if the signal is too \emph{complex} to forecast?
 
 
 
-To answer this question and for the purposes of this paper we focus on real-valued (possibly) noisy scalar time series which appear \emph{complicated}, i.e., they exhibit interesting behavior, for instance, not of low period, strictly monotonic, or constant. We make no assumptions about the generating process's properties,(e.g., linear, nonlinear, deterministic, stochastic, stationary, non-stationary, etc.) and we attempt to measure empirically where on the previously mentioned spectrum of \emph{complexity} the time series exists. For the remainder of this paper we define complexity as a particular approximation of Shannon \emph{entropy} [[Ryan is this right or is it Renyi?]], which we define and explain rigorously in Section \ref{sec:meaComplex}.  To validate these claims we model the time series using a variety of forecasting models which we introduce in Section \ref{sec:model}. We then compare the empirically estimated \emph{complexity} with the accuracy of each forecast method. Which results in two primary findings:
+
+
+
+To answer this question and for the purposes of this paper we focus on real-valued (possibly) noisy scalar time series which appear \emph{complicated}, i.e., they exhibit interesting behavior, for instance, not of low period, strictly monotonic, or constant. We make no assumptions about the generating process's properties,(e.g., linear, nonlinear, deterministic, stochastic, stationary, non-stationary, etc.) and we attempt to measure empirically where on the previously mentioned spectrum of \emph{complexity} the time series exists.
+We argue that \emph{permutation entropy}
+\cite{bandt2002per}, a method for measuring the entropy of a
+real-valued-finite-length noisy time series through ordinal analysis, is an effective way to explore that conjecture. For the purposes of this paper we define complexity as \emph{permutation entropy}, which we define and explain rigorously in Section \ref{sec:meaComplex}.  To validate these claims we model the time series using a variety of forecasting models which we introduce in Section \ref{sec:model}. We then compare the empirically estimated \emph{complexity} with the accuracy of each forecast method. Which results in two primary findings:
 
 
 \begin{enumerate}
@@ -85,8 +91,8 @@ To answer this question and for the purposes of this paper we focus on real-valu
 
 
 %[[Introduce and make it clear why we choose comp. perf. as test bed.]]
-
-The ideal test bed for this purpose are computer performance traces. Computers are among the most complex engineered artifacts in current
+[[Move this up]]
+To explore this conjecture we require a test bed for generating a broad array of time series to analyze which covers the full spectrum of complexity. We argue that the ideal test bed for this purpose is computer performance. Computers are among the most complex engineered artifacts in current
 use.  Modern microprocessor chips contain multiple processing units
 and multi-layer memories, for instance, and they use complicated
 hardware/software strategies to move data and threads of computation
