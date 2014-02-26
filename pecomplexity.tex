@@ -6,7 +6,6 @@
 \usepackage{graphicx}
 \usepackage{caption}
 \usepackage{subcaption}
-\usepackage{color}
 \usepackage{amssymb}
 \usepackage{amsmath}
 \usepackage{epstopdf}
@@ -35,7 +34,7 @@
 \newtheorem*{mydef}{Definition}
 \title{Determinism, Complexity, and Predictability in Computer Performance\\
 Quantifying structured complexity and its role in predictability: With applications to predicting computer performance.
-\\ {\color{green}Quantifying Predictability through Structural Complexity}
+\\ Quantifying Predictability through Structural Complexity
 \\ Quantifying Predictability using Structural Complexity 
 \\Decoding Predictability in Complicated Real-Valued Time Series: The balance between complexity and temporal structure
 \\Decoding Complicated Time Series: The balance between complexity and temporal structure and the implications for predictability
@@ -143,30 +142,7 @@ Quantifying structured complexity and its role in predictability: With applicati
 
 \input{concl.tex}
 
-\section{Appendix}
 
-\begin{table}[h]
-\begin{center}
-\begin{tabular}{|c|c|c|c|c|}
-\hline
-                   & MASE LMA    & MASE ARIMA &MASE na\"{i}ve   & $l=6$ \\
-\hline
-\gcc                  & $ 1.5296\pm 0.0214$ & $1.8366 \pm0.0157 $ & $0.9510 \pm 0.0011$ & $0.9430 \pm 0.0013$ \\
-
-\col           & $ 0.0500 \pm0.0018  $ & $0.5989  \pm 0.2114 $ & $0.5707\pm0.0017$&  $0.5131 \pm 0.0034$ \\
-
-\svdone     & $ 0.8273\pm 0.0755$ & $ 0.7141\pm 0.0745 $ & $2.6763\pm4.3282$&  $0.9572 \pm 0.0156$ \\
-\svdtwo     & $1.2789 \pm0.0196 $ & $2.1626 \pm0.0265 $ &  $3.0543\pm0.0404$ &   $0.8464 \pm0.0044$ \\
-\svdthree       & $0.6192 \pm0.0209 $ & $0.7129 \pm 0.0096 $ & $31.3857\pm 0.2820$ &  $0.7157 \pm 0.0056$ \\
-\svdfour     & $ 0.7789\pm0.0358 $ & $0.9787 \pm0.0321 $ & $2.6613\pm0.0739$ & $0.8246 \pm 0.0077$ \\
-\svdfive     & $ 0.7177\pm 0.0483 $ & $2.3700  \pm 0.0505 $ & $20.8703 \pm 0.1915$&  $0.6776 \pm 0.0068$ \\
-\svdsix     & $ 0.7393\pm 0.0682 $ & $ 1.4379\pm 0.0609$ & $2.1967\pm0.0830$&  $0.7475 \pm 0.0106$ \\
-\hline
-\end{tabular}
-\end{center}
-\caption{Detailed MASE scores}
-\label{tab:error}
-\end{table}%
 
 
 
