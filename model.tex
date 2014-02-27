@@ -1,13 +1,5 @@
-<<<<<<< HEAD
 \section{Modeling}\label{sec:model}
-=======
-<<<<<<< HEAD
-\section{Modeling}
-\label{sec:compModel}
 
-\section{Modeling}
-
->>>>>>> aa0da17e55aece4b9f08f9eec10d8d7e6e3c29f0
 Section outline:
 
 \begin{enumerate}
@@ -163,38 +155,39 @@ machine make them effectively impossible to predict.
 
 \begin{figure}[htbp]
   \centering
+      \begin{subfigure}{0.49\textwidth}
+    \includegraphics[width=\textwidth]{figs/colMeanForecast}
+    \caption{\col na\"ive }
+    \label{fig:gccMEAN}
+  \end{subfigure}%
    \begin{subfigure}{0.49\textwidth}
     \includegraphics[width=\textwidth]{figs/gccMeanForecast}
     \caption{\gcc na\"ive }
     \label{fig:gccMEAN}
   \end{subfigure}%      
-     \begin{subfigure}{0.49\textwidth}
-    \includegraphics[width=\textwidth]{figs/colMeanForecast}
-    \caption{\col na\"ive }
-    \label{fig:gccMEAN}
-  \end{subfigure}%    
   \\
+    \begin{subfigure}{0.49\textwidth}
+    \includegraphics[width=\textwidth]{figs/colARIMAForecast}
+    \caption{\col ARIMA}
+    \label{fig:colARIMA}
+  \end{subfigure}
   \begin{subfigure}{0.49\textwidth}
     \includegraphics[width=\textwidth]{figs/gccARIMAForecast}
     \caption{\gcc ARIMA }
     \label{fig:gccARIMA}
   \end{subfigure}%
-  \begin{subfigure}{0.49\textwidth}
-    \includegraphics[width=\textwidth]{figs/colARIMAForecast}
-    \caption{\col ARIMA}
-    \label{fig:colARIMA}
-  \end{subfigure}
   \\
+      \begin{subfigure}{0.49\textwidth}
+    \includegraphics[width=\textwidth]{figs/colLMAForecast}
+    \caption{\col LMA}
+    \label{fig:colLMA}
+  \end{subfigure}
       \begin{subfigure}{0.49\textwidth}
     \includegraphics[width=\textwidth]{figs/gccLMAForecast}
     \caption{\gcc LMA}
     \label{fig:gccLMA}
   \end{subfigure}  
-    \begin{subfigure}{0.49\textwidth}
-    \includegraphics[width=\textwidth]{figs/colLMAForecast}
-    \caption{\col LMA}
-    \label{fig:colLMA}
-  \end{subfigure}
+
 
   
   %\begin{subfigure}{0.5\textwidth}
