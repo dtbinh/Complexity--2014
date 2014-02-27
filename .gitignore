@@ -29,7 +29,6 @@ unused-figs/*
 *.out
 *.pdfsync
 pecomplexity.pdf
-pecomplexity.pdf
 *.ps
 *.snm
 *.synctex.gz
