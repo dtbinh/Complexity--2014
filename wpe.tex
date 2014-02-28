@@ -140,7 +140,6 @@ regimes. [[I think here it would be good to add a paragraph explaining the windo
 %%%%%%%%%%%%%%%%%
 \begin{figure}[htbp]
   \centering
-         
   %\begin{subfigure}{0.3\textwidth}
   %  \includegraphics[width=0.3\textwidth]{figs/svdipcregimescolored.png}
   %  \caption{The instructions per cycle of \svd. Each color corresonds to the different regimes as selected by rapid shifts in WPE, as seen in Figure \ref{fig:svd_wwpe}. From left to right each change in color represents a change in regime for 6 regimes in total. }
@@ -149,26 +148,19 @@ regimes. [[I think here it would be good to add a paragraph explaining the windo
   %\\
  % \begin{subfigure}{\textwidth}
 
-Liz commented this image out temporarily so that her mac doesn't hang
-when she scrolls past p12
-
-%%    \includegraphics[width=\textwidth]{figs/SVD_wwpe}
+%Liz commented this image out temporarily so that her mac doesn't hang
+%when she scrolls past p12
+    \includegraphics[width=\textwidth]{figs/SVD_wwpe}
     %\caption{The MASE of ARIMA vs weighted permutation entropy. }
-  \caption{ [Joshua: I think adding the colored SVD trace to this
-      would be good or putting it above this figure but need to figure
-      how to line them up properly. Also we need to label that the
-      numbers on the bottom of WPE are regimes not
-      instructions...]]The weighted permutation entropy of one run of
+  \caption{The weighted permutation entropy of one run of
   SVD. The gray bands are regions where the window overlaps
   regimes. The window size used is 5,000 $\times$ 100,000 instructions
-  and the word length is $4$.[[Joshua:why is $l=4$ and not 5,6 like
-      the rest of the paper?]]For reference the instructions per cycle
+  and the word length is $6$. {\color{red} make sure this is actually updated to 6} For reference the instructions per cycle
   of \svd are plotted as a ghost behind this plot. Each color on the
   ghosted time series corresonds to the different regimes as selected
   by rapid shifts in WPE. From left to right each change in color
   represents a change in regime for 6 regimes in
-  total.}
-\label{fig:wwpe}
+  total.}\label{fig:wwpe}
 \end{figure}
 
 
