@@ -1,18 +1,40 @@
 \section{Modeling}\label{sec:model}
 
+
 Section outline:
 
 \begin{enumerate}
-
+\item \cmark section intro
+\item \cmark fix order from simplest to most complex
 \item Description of DCE and parameter estimation  
 \item Description of auto ARIMA 
 \subitem (this should be limited and explain it is meant to be out of the box) point at the paper for auto arima for more details.
-\item Description of the two naive methods (random walk and mean), make sure to explain that these methods are naive and simple but not necessarily bad.
+\item \cmark Description of the two naive methods (random walk and mean), make sure to explain that these methods are naive and simple but not necessarily bad.
 \item\cmark Add a section talking about evaluation methods i.e., MASE, this text is currently written and just sitting at the beginning of the results. 
 
 \end{enumerate}
 
-\subsection{Lorenz Method of Analogues (LMA)}
+In this section we describe the four different forecasting schema used in this study. In Section \ref{sec:simple} we outline two primitive strategies which often out perform sophisticated prediction strategies in the case of highly complex signals. In Section \ref{sec:arima} we describe Autoregressive integrated moving-average (ARIMA) a commonly used linear forecasting scheme. In Section \ref{sec:lma} we describe a simple nonlinear deterministic forecasting scheme, Lorenz Method of Analogous (LMA) for capturing and exploiting nonlinear dynamics present in a time series. And finally in Section \ref{sec:accuracy} we discuss the error metric we use to evaluate each models predictive accuracy.
+
+
+
+\subsection{Primitive Strategies to combat complexity: Random Walk and \naive}\label{sec:simple}
+In this section we cover two very simple forecast models: Random Walk and \naive. With a Random Walk predictor to forecast at time $i$ we simply use the last observed measurement, i.e., $p_i = X_{i-1,obs}$. The \naive prediction strategy is to forecast the rolling average up to that point. i.e., the prediction $p_i$ is simply the average of all observed points up to that point: $$p_i = \sum_{j=1}^{i-1}\frac{X_{j,obs}}{i-1}$$.
+
+While both of these methods are simplistic they are not without merit. When time series possess very little predictive structure,i.e., they exist on the very top of the complexity spectrum these two methods can sometimes be \emph{on-average} very good choices for a forecasting method, as we will see in our results. An example is forecasting currency exchange rates. In \cite{rwMeese,rwCCE} the authors show that various econometric techniques and prediction models fail to consistently outperform Random Walk predictions in forecasting various exchange rates. This is the case because these signals are volatile, noisy and possess very little information structure but they don't \emph{on-average} vary a great deal. That is the day-to-day exchange rates \emph{on-average} don't vary very much so guessing the last known exchange rate is often a very good approximation to the new exchange rate. [[Not a huge fan of this wording.]] The Na\"ive forecasting scheme can be a great prediction strategy if the time series has very little forward information structure, adheres to a unimodal distribution and has very little variance. In this circumstance, forecasting the mean will on average get you in the ball park of the forecast without taking into account the lack of structure. The \naive forecasting scheme can be thought of as a filtering mechanism which compresses a signal onto a single point, effectively filtering out both complexity and structure. However, if very little predictive structure is present in a signal then this filtering mechanism effectively mitigates the complexity.     
+
+While the simplicity of these methods is advantageous when a signal is mostly complexity, i.e., that is the time series exists on the high side of the complexity spectrum, the methods can be inconsistent in their forecasting ability as a consequence of not being dynamic or taking into account the distribution or structure of the time series. Both of these methods fail spectacularly in two specific circumstances that lie on the fringes of their strengths. Fortunately, they somewhat parallel each other, i.e., the weakness of Random Walk and \naive are covered by the other primitive method. The situation in which Random Walk fails is when a time series changes drastically on a regular basis. The simplest example of this would be a period 2 time series which alternated between 0 and 1 at each time step. At every time step Random Walk would preciesly predict out of phase, and as a result would accrue an error of 1 at every time step ($|p_i-X_{i,obs}|=1$. In comparison, the \naive method would forecast 0.5 at each time step and would thus accrue and error of 0.5 at every step. So on-average \naive would do twice as well as Random Walk, and as you could imagine a dynamic method would captured this periodicity  and exploited this predictive structure could do much much better, such a method is introduced in Section \ref{sec:lma}. 
+
+The \naive forecast fails when you have a signal which shifts between two or more regimes on a regular basis and the regimes are separated by a significant amount. In this case the \naive forecast will predict between the multiple regimes at every time step eventually accruing massive error. To see how Random Walk can cover this weakness imagine a time series which switches between more than one regime but stays in each regime for several time steps, this behaviour can be seen in some portions of the \svd trace seen in Figure \ref{fig:ts}. Random walk in this case could react to the regime shift within one time step, switch to the new Regime and begin forecasting nicely, where as \naive would just continue to predict between the modes of the multimodal distribution resulting in poor forecasting accuracy all of the time. 
+
+So clearly these primitive methods have their downfalls, but it is important to keep in mind that when a time series exists on the top of the complexity spectrum they have little predictive structure to exploit and often a primitive method like Random Walk or \naive will consistently out perform methods which rely on predictive structure. This is explored further in Section \ref{sec:accuracy} and \ref{sec:results}
+
+
+\subsection{Autoregressive-integrated-moving average(ARIMA)}\label{sec:arima}
+
+
+
+\subsection{Lorenz Method of Analogues (LMA)}\label{sec:lma}
 TODO:
 \begin{enumerate}
 \item update examples
@@ -148,8 +170,10 @@ machine make them effectively impossible to predict.
 
 %\subsection{Comparing Prediction Accuracy}
 
-\subsection{Autoregressive-integrated-moving average(ARIMA)}
-\subsection{Naive: Random Walk and na\"ive}
+
+
+
+
 \subsection{Prediction Accuracy: Mean Absolute Scaled Error (MASE)}
 \label{sec:accuracy}
 
@@ -198,7 +222,7 @@ For each of these, we plot the predicted value $p_n$ against the correct value $
 \end{figure} 
 In order to analyze correctness of each prediction we split each time series into two pieces: the first 90\% referred to as the ``learning" or ``training" signal, $\{X_{i,obs}\}_{i=1}^{n}$ and the last 10\% known as the ``test" or ``correct" signal $\{c_j\}_{j=n+1}^{k+n+1}$. The learning signal is used to train an initial model (e.g., LMA or ARIMA) as described in Section \ref{sec:compModel}. The test signal is used both to assess the models forecasting accuracy and for any refitting that may be necessary. In particular, we perform $k$ 1-step predictions, after each 1-step prediction\footnote{We would like to note that this rebuilding occurs due to a problem with ARIMA models converging to a mean prediction if too long of a prediction horizon is used, this is not a handicap of either LMA or na\"ive.} we append the training signal with the next point in the correct signal $c_j$, refit the model taking into account the new system measurement and perform another prediction. This is repeated $k$ times to obtain $\{p_j\}_{j=n+1}^{k+n+1}$.
 
-As a figure of merit we calculate the Mean Absolute Squared Error (MASE)\cite{MASE} between the true and predicted signals: 
+As a figure of merit we calculate the Mean Absolute Scaled Error (MASE)\cite{MASE} between the true and predicted signals: 
 %In order to compare the resulting forecasts we calculate the Mean Absolute Squared Error (MASE)\cite{MASE} between the true and predicted signals:
 $$MASE = \sum_{j=n+1}^{k+n+1}\frac{|c_j-p_j| }{\frac{k}{n-1}\sum^n_{i=2}|X_{i,obs}-X_{i-1,obs}|}$$
 The scaling term for MASE:
