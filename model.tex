@@ -19,7 +19,7 @@ In this section we describe the four different forecasting schema used in this s
 
 
 \subsection{Primitive Strategies to combat complexity: Random Walk and \naive}\label{sec:simple}
-In this section we cover two very simple forecast models: Random Walk and \naive. With a Random Walk predictor to forecast at time $i$ we simply use the last observed measurement, i.e., $p_i = X_{i-1,obs}$. The \naive prediction strategy is to forecast the rolling average up to that point. i.e., the prediction $p_i$ is simply the average of all observed points up to that point: $$p_i = \sum_{j=1}^{i-1}\frac{X_{j,obs}}{i-1}$$.
+In this section we cover two very simple forecast models: Random Walk and \naive. With a Random Walk predictor to forecast at time $i$ we simply use the last observed measurement: $$p_i = X_{i-1,obs}$$. The \naive prediction strategy is to forecast the rolling average up to that point. i.e., the prediction $p_i$ is simply the average of all observed points up to that point: $$p_i = \sum_{j=1}^{i-1}\frac{X_{j,obs}}{i-1}$$.
 
 While both of these methods are simplistic they are not without merit. When time series possess very little predictive structure,i.e., they exist on the very top of the complexity spectrum these two methods can sometimes be \emph{on-average} very good choices for a forecasting method, as we will see in our results. An example is forecasting currency exchange rates. In \cite{rwMeese,rwCCE} the authors show that various econometric techniques and prediction models fail to consistently outperform Random Walk predictions in forecasting various exchange rates. This is the case because these signals are volatile, noisy and possess very little information structure but they don't \emph{on-average} vary a great deal. That is the day-to-day exchange rates \emph{on-average} don't vary very much so guessing the last known exchange rate is often a very good approximation to the new exchange rate. [[Not a huge fan of this wording.]] The Na\"ive forecasting scheme can be a great prediction strategy if the time series has very little forward information structure, adheres to a unimodal distribution and has very little variance. In this circumstance, forecasting the mean will on average get you in the ball park of the forecast without taking into account the lack of structure. The \naive forecasting scheme can be thought of as a filtering mechanism which compresses a signal onto a single point, effectively filtering out both complexity and structure. However, if very little predictive structure is present in a signal then this filtering mechanism effectively mitigates the complexity.     
 
@@ -30,17 +30,31 @@ The \naive forecast fails when you have a signal which shifts between two or mor
 So clearly these primitive methods have their downfalls, but it is important to keep in mind that when a time series exists on the top of the complexity spectrum they have little predictive structure to exploit and often a primitive method like Random Walk or \naive will consistently out perform methods which rely on predictive structure. This is explored further in Section \ref{sec:accuracy} and \ref{sec:results}
 
 
-\subsection{Autoregressive-integrated-moving average(ARIMA)}\label{sec:arima}
+\subsection{Seasonal Autoregressive-integrated-moving average(ARIMA)}\label{sec:arima}
+\begin{enumerate}
+\item introduce method abstractly and practically, common method basically fitting a hyperplane to data removing seasonality and filtering for noise
+\item define rigorously, all the backshift operator garbage
 
+$$\Phi(B^m)\phi(B)(1-B^m)^D(1-B)^dX_i = c + \Theta(B^m)\theta(B)\epsilon_i$$
 
+$$B^mX_i  = X_{i-m}$$
+\item discuss that this method needs linear structure to work correctly
+\item maybe talk about 
+\end{enumerate}
+
+For this \cite{davislinearts}
+
+When there is evidence a generating process exhibits predictive structure an obvious strategy would be to fit a hyperplane to the dataset and then use this hyperplane to forecast new data points. This is a very old technique stemming back to Yule in 1927\cite{weigend93} with his invention of autoregressive forecasting, which forecasts the next time step through a weighted average of the past $p$ time-steps, i.e., $$p_i = \phi(B)X_{i,obs}.$$ Here $\phi(B)$ is a polynomial of degree $p$ and $B$ is the backshift operator, i.e., $$B^mX_i  = X_{i-m,obs}.$$
+To improve this method further, especially in the presence of noisy data would be to allow for some wiggle room by adding a moving average of white noise to the model: $\theta(B)\epsilon_i$, where $\theta(B)$ is a polynomial of degree $q$ and $\{\epsilon_i\}\sim WN(0,\sigma^2)$. Finally if there is evidence of non-stationarity an initial differencing (integrated) is applied as an attempt to remove that non-stationarity: $(1-B^d)X_i$. Combining these three give us a nonseasonal  ARIMA$(p,d,q)$ model:  $$\phi(B)(1-B)^dX_i = \theta(B)\epsilon_i.$$ Where $p$, $d$ and $q$ correspond to the orders of the autoregressive, integrated and moving average models respectively. If periodic structure is present a seasonal ARIMA$(p,d,q)(P,D,Q)_m$ is often used and is defined by:$$\Phi(B^m)\phi(B)(1-B^m)^D(1-B)^dX_i = \Theta(B^m)\theta(B)\epsilon_i.$$ Here $\Phi$ and $\Theta$ are polynomials of degree P and Q respectively, and $m$ is the seasonal frequency. Forecasting is then done in two steps, first the integrated step is performed to remove non-stationarity. $$\hat{X_i} = (1-B^m)^D(1-B)^d X_{i,obs}$$. Then forecasts are made by evaluating $$\Phi(B^m)\phi(B)\hat{X_i} = \Theta(B^m)\theta(B)\epsilon_i.$$
+
+There is a vast amount of theory and literature on constructing, fitting and forecasting with this class of models. However, this is not the focus of this paper and  we refer the reader to \cite{davislinearts} for an in-depth exploration. In this paper, we intend to explore how predictive accuracy of several different forecasting schema correlates with signal complexity. As such, we use ARIMA$(p,d,q)(P,D,Q)_m$ (or simply ARIMA) models as an out of the box black box linear forecasting scheme. To do this we use an automated fitting and forecasting techniques described in \cite{autoARIMA}. This technique automatically selects model and differencing orders: $p, d, q, P, D, Q$ and $m$ as well as fitting the corresponding polynomials to the time series. Hyndman and Khandakar use unit root tests to select differencing orders, $d$ and $D$. In particular, they use a combination of  
+KPSS unit-root tests \cite{KPSSunit} and their own extension of Canova-Hansen test \cite{Canova1995}. To do model order selection they use the Akaike information criterion (AIC) \cite{akaike1974} conditioned on the maximized likelihood of the  model fitted to the differenced data, $(1-B^m)^D(1-B)^d X_{i,obs}$ \cite{autoARIMA}. For more detail on this fitting process see \cite{autoARIMA}.
+
+ARIMA forecasting is a time tested modelling process which uses a global linear fit and adjustments for seasonality, non-stationarity and noise. If a generating process fits into one of these categories then this model is a great short term predictor. If information is instead being transmitted in a nonlinear way this global linear fit falls apart. One other weakness of this method is that if long prediction horizons are used the forecast is guaranteed to converge to the mean after some number of predictions. For this reason, we limit all methods to doing multiple 1-step predictions as to not handicap this method. 
 
 \subsection{Lorenz Method of Analogues (LMA)}\label{sec:lma}
 TODO:
-\begin{enumerate}
-\item update examples
-\item remove section on RMSE
-\item update figures
-\end{enumerate}
+
 
 
  \subsubsection{Reconstructing hidden dynamics}
@@ -57,7 +71,7 @@ Takens~\cite{takens} formally proves that the delay-coordinate map
 \[
 F(\tau,m)(x) = ([x(t) ~ x(t+\tau) ~ \dots ~x(t+m\tau)])
 \]
-from a $d$-dimensional smooth compact manifold $M$ to ${Re}^{2d+1}$,
+from a $d$-dimensional smooth compact manifold $M$ to $\mathbb{R}^{2d+1}$,
 where $t$ is time, is a diffeomorphism on $M$---in other words, that
 the reconstructed dynamics and the true (hidden) dynamics have the
 same topology.
