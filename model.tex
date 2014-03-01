@@ -30,16 +30,16 @@ The \naive forecast fails when you have a signal which shifts between two or mor
 So clearly these primitive methods have their downfalls, but it is important to keep in mind that when a time series exists on the top of the complexity spectrum they have little predictive structure to exploit and often a primitive method like Random Walk or \naive will consistently out perform methods which rely on predictive structure. This is explored further in Section \ref{sec:accuracy} and \ref{sec:results}
 
 
-\subsection{Seasonal Autoregressive-integrated-moving average(ARIMA)}\label{sec:arima}
+\subsection{Linear Forecasting: Seasonal Autoregressive-integrated-moving average(ARIMA)}\label{sec:arima}
 \begin{enumerate}
-\item introduce method abstractly and practically, common method basically fitting a hyperplane to data removing seasonality and filtering for noise
-\item define rigorously, all the backshift operator garbage
+\item\cmark introduce method abstractly and practically, common method basically fitting a hyperplane to data removing seasonality and filtering for noise
+\item\cmark define rigorously, all the backshift operator garbage
 
 $$\Phi(B^m)\phi(B)(1-B^m)^D(1-B)^dX_i = c + \Theta(B^m)\theta(B)\epsilon_i$$
 
 $$B^mX_i  = X_{i-m}$$
-\item discuss that this method needs linear structure to work correctly
-\item maybe talk about 
+\item\cmark discuss that this method needs linear structure to work correctly
+\item \cmark maybe talk about converging to zero and limits on prediction horizon
 \end{enumerate}
 
 For this \cite{davislinearts}
@@ -52,9 +52,9 @@ KPSS unit-root tests \cite{KPSSunit} and their own extension of Canova-Hansen te
 
 ARIMA forecasting is a time tested modelling process which uses a global linear fit and adjustments for seasonality, non-stationarity and noise. If a generating process fits into one of these categories then this model is a great short term predictor. If information is instead being transmitted in a nonlinear way this global linear fit falls apart. One other weakness of this method is that if long prediction horizons are used the forecast is guaranteed to converge to the mean after some number of predictions. For this reason, we limit all methods to doing multiple 1-step predictions as to not handicap this method. 
 
-\subsection{Lorenz Method of Analogues (LMA)}\label{sec:lma}
-TODO:
+\subsection{Nonlinear Forecasting: Lorenz Method of Analogues (LMA)}\label{sec:lma}
 
+When a generating process exhibits deterministic predictive nonlinear structure a common approach is to reconstruct the generating processes dynamics using a technique called delay-coordinate embedding and then use the geometric structure of this reconstruction as a proxy for the information transmission process of the underlying process to predict the future. In this section we discuss the theory and implementation of this forecasting scheme. 
 
 
  \subsubsection{Reconstructing hidden dynamics}
@@ -69,7 +69,7 @@ function---the mapping from the unknown state vector $\vec{X}$ to the
 scalar value $x$ that one is measuring---are both smooth and generic,
 Takens~\cite{takens} formally proves that the delay-coordinate map
 \[
-F(\tau,m)(x) = ([x(t) ~ x(t+\tau) ~ \dots ~x(t+m\tau)])
+F(\tau,m)(X) = ([X_{i+\tau,obs} ~ X_{i+\tau,obs} ~ \dots ~X_{i+m\tau,obs}])
 \]
 from a $d$-dimensional smooth compact manifold $M$ to $\mathbb{R}^{2d+1}$,
 where $t$ is time, is a diffeomorphism on $M$---in other words, that
@@ -79,13 +79,13 @@ same topology.
 This is an extremely powerful result: among other things, it means
 that one can build a formal model of the full system dynamics without
 measuring (or even knowing) every one of its state variables.  This is
-the foundation of the modeling approach that is used in this paper.
+the foundation of this modeling approach.
 The first step in the process is to estimate values for the two free
 parameters in the delay-coordinate map: the delay $\tau$ and the
 dimension $m$.  We follow standard procedures for this, choosing the
 first minimum in the average mutual information as an estimate of
 $\tau$ \cite{fraser-swinney} and using the false-near(est) neighbor
-method of \cite{KBA92}, with a threshold of 10\%, to estimate $m$.  A
+method of \cite{KBA92}.  A
 plot of the data from Figure~\ref{fig:ipc}, embedded following this
 procedure, is shown in Figure~\ref{fig:embedding}.
 
@@ -93,7 +93,7 @@ procedure, is shown in Figure~\ref{fig:embedding}.
  \begin{figure}
    \centering
      \includegraphics[width=\textwidth]{figs/colipc3d.png}
-     \caption{[[Joshua:Perhaps add a similar graphic of \gcc to show contrast]]A 3D projection of a delay-coordinate embedding of the trace
+     \caption{[[{\color{red}Joshua:Perhaps add a similar graphic of \gcc to show contrast}{\color{green}agreed I will work on this}]]A 3D projection of a delay-coordinate embedding of the trace
  from Figure~\ref{fig:ipc} with a delay ($\tau$) of 100,000 instructions.
  }
  \label{fig:embedding}
@@ -102,21 +102,18 @@ procedure, is shown in Figure~\ref{fig:embedding}.
 
 %% can cut for space if need be:
 The coordinates of each point on this plot are differently delayed
-elements of the \col L2 cache miss rate time series
-$y(t)$: that is, $y(t)$ on the first axis, $y(t+\tau)$ on the second,
-$y(t+2\tau)$ on the third, and so on.
-%% ...down to here.
+elements of the \col instructions per cycle time series
+$X_{i,obs}$: that is, $X_{i,obs}$ on the first axis, $X_{i+\tau,obs}$ on the second,
+$X_{i+2\tau,obs}$ on the third, and so on.
 Structure in these kinds of plots---clearly visible in
 Figure~\ref{fig:embedding}---is an indication of
-determinism\footnote{A deeper analysis of
-  Figure~\ref{fig:embedding}---as alluded to on the previous
-  page---supports that diagnosis, confirming the presence of a chaotic
-  attractor in these cache-miss dynamics, with largest Lyapunov
-  exponent $\lambda_1 = 8000 \pm 200$ instructions, embedded in a
-  12-dimensional reconstruction space \cite{mytkowicz09}.}.  That
-structure can also be used to build a forecast model.
-
-% took out for space
+determinism%\footnote{A deeper analysis of
+  %Figure~\ref{fig:embedding}---as alluded to on the previous
+  %page---supports that diagnosis, confirming the presence of a chaotic
+  %attractor in these cache-miss dynamics, with largest Lyapunov
+  %exponent $\lambda_1 = 8000 \pm 200$ instructions, embedded in a
+  %12-dimensional reconstruction space \cite{mytkowicz09}.}
+  .  That structure can be used to build a forecast model.
  \subsubsection{LMA: Using dynamics in forecasting}
 
 Given a nonlinear model of a deterministic dynamical system in the
@@ -124,60 +121,44 @@ form of a delay-coordinate embedding like Figure~\ref{fig:embedding},
 one can build deterministic forecast algorithms by capturing and
 exploiting the geometry of the embedding.  Many techniques have been
 developed by the dynamical systems community for this purpose
-(e.g.,~\cite{casdagli-eubank92,weigend-book}).  Perhaps the most straightforward
+(e.g.,~\cite{weigend-book,casdagli-eubank92,Smith199250}).  Perhaps the most straightforward
 is the ``Lorenz method of analogues'' (LMA), which is essentially
 nearest-neighbor prediction in the embedded state
 space~\cite{lorenz-analogues}.  Even this simple algorithm---which
 builds predictions by finding the nearest neighbor in the embedded
 space of the given point, then taking that neighbor's path as the
 forecast---works quite well on the trace in Figure~\ref{fig:ipc}, as
-shown in Figure~\ref{fig:cachePredTS}.
+shown in Figure~\ref{fig:lmacol}.
 %
-%\begin{figure}[htbp]
-%  \centering
-%    \includegraphics[width=0.5\textwidth]{figs/%colCachePredTS}
-%    \caption{A forecast of the last 4,000 points of the %signal in
-%      Figure~\ref{fig:ipc} using an LMA-based strategy on the
-%      embedding in Figure~\ref{fig:embedding}.  Red circles %and blue
-%      $\times$s are the true and predicted values, %respectively;
-%      vertical bars show where these values differ. }
-%\label{fig:cachePredTS}
-%\end{figure}
+\begin{figure}[htbp]
+  \centering
+   \includegraphics[width=\textwidth]{figs/colPredShortTS}
+    \caption{A forecast of the last 4,000 points of the signal in
+      Figure~\ref{fig:ipc} using an LMA-based strategy on the
+      embedding in Figure~\ref{fig:embedding}.  Red circles and blue
+      $\times$s are the true and predicted values, respectively;
+      vertical bars show where these values differ.}
+\label{fig:lmacol}
+\end{figure}
 %
 On the other hand, if we use the same approach to forecast the
-processor load\footnote{Instructions per cycle, or IPC} of the {\tt
-  482.sphinx3} program from the SPEC cpu2006 benchmark suite, running
-on an Intel i7\textsuperscript{\textregistered}-based machine, the
-prediction is far less accurate; see Figure~\ref{fig:predsphinx}.
-%
-%\begin{figure}[htbp]
-%  \centering
-%    \includegraphics[width=0.5\textwidth]{figs/%sphinxPredicTS}
-%     \caption{An LMA-based forecast of the last 4,000 points %of a
-%       processor-load performance trace from the {\tt %482.sphinx3}
-%       benchmark.  Red circles and blue $\times$s are the %true and
-%       predicted values, respectively; vertical bars show %where these
-%       values differ.}
-%\label{fig:predsphinx}
-%\end{figure}
+processor load (ipc) of the \gcc program from the SPEC cpu2006 benchmark suite, the
+prediction is far less accurate; see Figure~\ref{fig:lmagcc}.
 
-%Table~\ref{tab:PredError} presents detailed results about the prediction accuracy of this algorithm on four different examples: the {\tt col\_major} and {\tt 482.sphinx3} programs in Figures~\ref{fig:cachePredTS} and~\ref{fig:predsphinx}, as well as another simple microkernel that initializes the same matrix as {\tt col\_major}, but in row-major order, and another complex program ({\tt 403.gcc}) from the SPEC cpu2006 benchmark suite.  Both microkernels were run on the Intel Core Duo\textsuperscript{\textregistered} machine; both SPEC benchmarks were run on the Intel i7\textsuperscript{\textregistered} machine.  We calculated a figure of merit for each prediction as follows.  We held back the last $k$ elements\footnote{Several different prediction   horizons were analyzed in our experiment; the results reported in this paper are for $k$=4000} of the $N$ points in each measured time series, built the forecast model by embedding the first $N-k$ points, used that embedding and the LMA method to predict the next $k$ points, then computed the Root Mean Squared Error (RMSE) between the true and predicted signals: $$RMSE = \sqrt{\frac{\sum_{i=1}^k(c_i-\hat{p_i})^2}{k}}$$ To compare the success of predictions across signals with different units, we normalized RMSE as follows: $$nRMSE = \frac{RMSE}{X_{max,obs}-X_{min,obs}}$$
-%
-% The smaller the nRMSE, obviously, the more accurate the prediction.
+\begin{figure}[htbp]
+  \centering
+    \includegraphics[width=\textwidth]{figs/colPredShortTS}
+     \caption{{\color{red} [[actually need to generate this figure]]}An LMA-based forecast of the last 4,000 points of a
+       processor-load performance trace from the \gcc
+       benchmark.  Red circles and blue $\times$s are the true and
+       predicted values, respectively; vertical bars show where these
+       values differ.}
+\label{fig:lmagcc}
+\end{figure}
 
-
-
-%The results in Table~\ref{tab:PredError} show a clear distinction between the two microkernels, whose future behavior can be predicted effectively using this simple deterministic modeling strategy, and the more-complex SPEC benchmarks, for which this prediction strategy does not work nearly as well.
-% Removed for space
-% For both processor load (IPC) and memory usage (cache-miss rate),
-% forecasts for {\tt 482.sphinx3} and {\tt 403.gcc} are much worse than
-% for \verb|col_major| or \verb|row_major|.
-%
-This begs the question: If these traces all come from deterministic
+This gets at the utility of the contribution of this paper: If these traces both come from deterministic
 systems---computers---then why are they not equally predictable?  Our
-conjecture is that the sheer complexity of the dynamics of the SPEC
-benchmarks running on the Intel i7\textsuperscript{\textregistered}
-machine make them effectively impossible to predict.
+conjecture is that while they come from similar systems \gcc produces processor load traces on the top of the complexity spectrum whereas \col produces processor loads with complexity in the mid to low region of the complexity spectrum. If this is the case then \gcc might be much better predicted using a method like Random Walk or \naive which can effectively predict in the presence of complexity. This is explored more rigorously in the results Section of this paper (Section \ref{sec:results}. So that we don't have to compare the forecast accuarcy by visual comparing the predictions we calculate a figure of merit to compare the predictions. 
 
 %% [[If space: Add a segue sentence: next section uses permutation
 %% entropy to explore that conjecture.]]
