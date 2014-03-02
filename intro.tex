@@ -142,7 +142,7 @@ programs, however, such as numerical software or compilers,
 this forecast strategy---as well as the traditional methods---break
 down some of the time, but work fine others.
 
-This paper is a first step in understanding when, why, and how
+{\color{red} ARIMA is not deterministic due to MA so we need to change this, actually need to change this entire paragraph} This paper is a first step in understanding when, why, and how
 deterministic forecast strategies fail when they are applied to
 deterministic systems.  We focus here on the specific example of
 computer performance but believe the results apply to a much broader class of time series.  We conjecture that the complexity of traces
@@ -153,7 +153,7 @@ length---can make those deterministic signals \emph{effectively}
 unpredictable.  We argue that \emph{permutation entropy}
 \cite{bandt2002per}, a method for measuring the entropy of a
 real-valued-finite-length time series through ordinal analysis, is an
-effective way to explore that conjecture.  We study three
+effective way to explore that conjecture.  {\color{red} Probably remove this and move as it is in the experimental methods or point to that section for more details}We study three
 examples---a simple microkernel and two complex programs: one from the
 SPEC 2006CPU benchmark suite, and one from LAPACK---running on an Intel i7-based machine.  For
 each program, we calculate the permutation entropy of the processor

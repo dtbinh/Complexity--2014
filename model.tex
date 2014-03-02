@@ -7,8 +7,7 @@ Section outline:
 \item \cmark section intro
 \item \cmark fix order from simplest to most complex
 \item Description of DCE and parameter estimation  
-\item Description of auto ARIMA 
-\subitem (this should be limited and explain it is meant to be out of the box) point at the paper for auto arima for more details.
+\item\cmark Description of auto ARIMA 
 \item \cmark Description of the two naive methods (random walk and mean), make sure to explain that these methods are naive and simple but not necessarily bad.
 \item\cmark Add a section talking about evaluation methods i.e., MASE, this text is currently written and just sitting at the beginning of the results. 
 
@@ -19,11 +18,11 @@ In this section we describe the four different forecasting schema used in this s
 
 
 \subsection{Primitive Strategies to combat complexity: Random Walk and \naive}\label{sec:simple}
-In this section we cover two very simple forecast models: Random Walk and \naive. With a Random Walk predictor to forecast at time $i$ we simply use the last observed measurement: $$p_i = X_{i-1,obs}$$. The \naive prediction strategy is to forecast the rolling average up to that point. i.e., the prediction $p_i$ is simply the average of all observed points up to that point: $$p_i = \sum_{j=1}^{i-1}\frac{X_{j,obs}}{i-1}$$.
+In this section we cover two very simple forecast models: Random Walk and \naive. With a Random Walk predictor to forecast at time $i$ we simply use the last observed measurement: $$p_i = X_{i-1,obs}$$. The \naive  prediction strategy is to forecast the rolling average up to that point. i.e., the prediction $p_i$ is simply the average of all observed points up to that point: $$p_i = \sum_{j=1}^{i-1}\frac{X_{j,obs}}{i-1}$$.
 
 While both of these methods are simplistic they are not without merit. When time series possess very little predictive structure,i.e., they exist on the very top of the complexity spectrum these two methods can sometimes be \emph{on-average} very good choices for a forecasting method, as we will see in our results. An example is forecasting currency exchange rates. In \cite{rwMeese,rwCCE} the authors show that various econometric techniques and prediction models fail to consistently outperform Random Walk predictions in forecasting various exchange rates. This is the case because these signals are volatile, noisy and possess very little information structure but they don't \emph{on-average} vary a great deal. That is the day-to-day exchange rates \emph{on-average} don't vary very much so guessing the last known exchange rate is often a very good approximation to the new exchange rate. [[Not a huge fan of this wording.]] The Na\"ive forecasting scheme can be a great prediction strategy if the time series has very little forward information structure, adheres to a unimodal distribution and has very little variance. In this circumstance, forecasting the mean will on average get you in the ball park of the forecast without taking into account the lack of structure. The \naive forecasting scheme can be thought of as a filtering mechanism which compresses a signal onto a single point, effectively filtering out both complexity and structure. However, if very little predictive structure is present in a signal then this filtering mechanism effectively mitigates the complexity.     
 
-While the simplicity of these methods is advantageous when a signal is mostly complexity, i.e., that is the time series exists on the high side of the complexity spectrum, the methods can be inconsistent in their forecasting ability as a consequence of not being dynamic or taking into account the distribution or structure of the time series. Both of these methods fail spectacularly in two specific circumstances that lie on the fringes of their strengths. Fortunately, they somewhat parallel each other, i.e., the weakness of Random Walk and \naive are covered by the other primitive method. The situation in which Random Walk fails is when a time series changes drastically on a regular basis. The simplest example of this would be a period 2 time series which alternated between 0 and 1 at each time step. At every time step Random Walk would preciesly predict out of phase, and as a result would accrue an error of 1 at every time step ($|p_i-X_{i,obs}|=1$. In comparison, the \naive method would forecast 0.5 at each time step and would thus accrue and error of 0.5 at every step. So on-average \naive would do twice as well as Random Walk, and as you could imagine a dynamic method would captured this periodicity  and exploited this predictive structure could do much much better, such a method is introduced in Section \ref{sec:lma}. 
+While the simplicity of these methods is advantageous on average when a time series exists on the high side of the complexity spectrum, their simplicity can also be a disadvantage and cause the methods to be inconsistent in their forecasting ability as a consequence of not being dynamic or taking into account the distribution or structure of the time series. Both of these methods fail spectacularly in two specific circumstances that lie on the fringes of their strengths. Fortunately, they somewhat parallel each other, i.e., the weakness of Random Walk and \naive are covered by the other primitive method. The situation in which Random Walk fails is when a time series changes drastically on a regular basis. The simplest example of this would be a period 2 time series which alternated between 0 and 1 at each time step. At every time step Random Walk would precisely predict out of phase, and as a result would accrue an error of 1 at every time step ($|p_i-X_{i,obs}|=1$. In comparison, the \naive method would forecast 0.5 at each time step and would thus accrue and error of 0.5 at every step. So on-average \naive would do twice as well as Random Walk, and as you could imagine a dynamic method would captured this periodicity  and exploited this predictive structure could do much much better, such a method is introduced in Section \ref{sec:lma}. 
 
 The \naive forecast fails when you have a signal which shifts between two or more regimes on a regular basis and the regimes are separated by a significant amount. In this case the \naive forecast will predict between the multiple regimes at every time step eventually accruing massive error. To see how Random Walk can cover this weakness imagine a time series which switches between more than one regime but stays in each regime for several time steps, this behaviour can be seen in some portions of the \svd trace seen in Figure \ref{fig:ts}. Random walk in this case could react to the regime shift within one time step, switch to the new Regime and begin forecasting nicely, where as \naive would just continue to predict between the modes of the multimodal distribution resulting in poor forecasting accuracy all of the time. 
 
@@ -42,7 +41,7 @@ $$B^mX_i  = X_{i-m}$$
 \item \cmark maybe talk about converging to zero and limits on prediction horizon
 \end{enumerate}
 
-For this \cite{davislinearts}
+%For this \cite{davislinearts}
 
 When there is evidence a generating process exhibits predictive structure an obvious strategy would be to fit a hyperplane to the dataset and then use this hyperplane to forecast new data points. This is a very old technique stemming back to Yule in 1927\cite{weigend93} with his invention of autoregressive forecasting, which forecasts the next time step through a weighted average of the past $p$ time-steps, i.e., $$p_i = \phi(B)X_{i,obs}.$$ Here $\phi(B)$ is a polynomial of degree $p$ and $B$ is the backshift operator, i.e., $$B^mX_i  = X_{i-m,obs}.$$
 To improve this method further, especially in the presence of noisy data would be to allow for some wiggle room by adding a moving average of white noise to the model: $\theta(B)\epsilon_i$, where $\theta(B)$ is a polynomial of degree $q$ and $\{\epsilon_i\}\sim WN(0,\sigma^2)$. Finally if there is evidence of non-stationarity an initial differencing (integrated) is applied as an attempt to remove that non-stationarity: $(1-B^d)X_i$. Combining these three give us a nonseasonal  ARIMA$(p,d,q)$ model:  $$\phi(B)(1-B)^dX_i = \theta(B)\epsilon_i.$$ Where $p$, $d$ and $q$ correspond to the orders of the autoregressive, integrated and moving average models respectively. If periodic structure is present a seasonal ARIMA$(p,d,q)(P,D,Q)_m$ is often used and is defined by:$$\Phi(B^m)\phi(B)(1-B^m)^D(1-B)^dX_i = \Theta(B^m)\theta(B)\epsilon_i.$$ Here $\Phi$ and $\Theta$ are polynomials of degree P and Q respectively, and $m$ is the seasonal frequency. Forecasting is then done in two steps, first the integrated step is performed to remove non-stationarity. $$\hat{X_i} = (1-B^m)^D(1-B)^d X_{i,obs}$$. Then forecasts are made by evaluating $$\Phi(B^m)\phi(B)\hat{X_i} = \Theta(B^m)\theta(B)\epsilon_i.$$
@@ -92,7 +91,18 @@ procedure, is shown in Figure~\ref{fig:embedding}.
 
  \begin{figure}
    \centering
-     \includegraphics[width=\textwidth]{figs/colipc3d.png}
+\begin{subfigure}{0.49\textwidth}
+    \includegraphics[width=\textwidth]{figs/colipc3d.png}
+    \caption{\col }
+    \label{fig:colEmbedding}
+  \end{subfigure}%   
+  \begin{subfigure}{0.49\textwidth}
+    \includegraphics[width=\textwidth]{figs/colipc3d.png}
+    \caption{\gcc}
+    \label{fig:gccEmbedding}
+  \end{subfigure}%  
+   
+     %\includegraphics[width=\textwidth]{figs/colipc3d.png}
      \caption{[[{\color{red}Joshua:Perhaps add a similar graphic of \gcc to show contrast}{\color{green}agreed I will work on this}]]A 3D projection of a delay-coordinate embedding of the trace
  from Figure~\ref{fig:ipc} with a delay ($\tau$) of 100,000 instructions.
  }
