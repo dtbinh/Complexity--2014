@@ -16,7 +16,7 @@ The time-series data for these experiments was collected on an Intel Core\textsu
 kernel.  This Nehalem chip has eight cores running at 3.40GHz and a cache size
 of 8192 KB.  We studied three example programs---a simple microkernel(\col) and two complex programs: one from the
 SPEC 2006CPU benchmark suite(\gcc), and one from LAPACK(\svd), aggregating and measuring the processor load---instructions per cycle (ipc)---at 100,000-instruction intervals.  To record these measurements,
-we used the {\tt libpfm4}, via PAPI
+we used the {\tt libpfm4}, via PAPI 5.2
 \footnote{Performance Application Programming Interface}\cite{papi-website}, which we have instrumented to stop program execution every 100,00-instructions and read the contents of the CPU's onboard hardware performance monitors (HPMs). HPMs are specialty registers built for this purpose. Obviously using a system to measure itself can cause interference but due diligence was put into monitoring the generating process of these time series without interfering with it in a significant way. For an in-depth explanation of this custom-measurement infrastructure as well as discussion on choice of interrupt rate see 
 \cite{zach-IDA10,mytkowicz09,todd-phd}.
 
@@ -26,10 +26,17 @@ we used the {\tt libpfm4}, via PAPI
 We study three example programs---a simple microkernel(\col) and two complex programs: one from the
 SPEC 2006CPU benchmark suite(\gcc), and one from LAPACK(\svd).
 \subsubsection{\col}
-\col is a simple three-line C program that repeatedly initializes the top half of matrix in column-major order. While this is a very simple program it has been shown to exhibit very complicated behavior. In fact, in \cite{chaos} it was shown 
+\col is a simple three-line C program that repeatedly initializes the upper triangle of a  2048 X 2048 matrix in column-major order. While this is a very simple program it has been shown to produce time series with very complicated behavior. In fact, in \cite{mytkowicz09} it was shown that time series generated from this simple program can exhibit everything from periodic to deterministic chaos.  A time series of the processor load of this program is shown in Figure \ref{fig:gcc-ts}.
 \subsubsection{\gcc}
 
+\gcc is a benchmark program which is part of the SPEC CPU2006 benchmark suite \cite{spec}. This program is written by Richard Stallman and is based on Version 3.2 of gcc. This benchmark essentially runs as a compiler with many of its optimization flags enabled, compiling a series of input files and generating x86-64 assembly code files intended for execution on AMD Opteron processors. This program is more typical of programs that are used every day, as opposed to the simple micro-kernel, \col. A time series of the processor load of this program is shown in Figure \ref{fig:gcc-ts}.
+
+
+
 \subsubsection{\svd}
+
+\svd is a Fortran program which calcualtes teh singular value decomposition (SVD) of a rectangular $M$ by $N$  real-valued matrix which need not contain specail structure such as symmetric, positive definite etc. We give this program as input a 750 x 1000 matrix of randomly generated entries\footnote{It should be noted that multiple randomly generated matrices were investigated but no measurable effect was present in the resulting time series.}. A time series of the processor load of this program is shown in Figure \ref{fig:svd-ts-colored}.
+
 \svd brings up a very interesting point: systems change over time. While it is clear in Figure \ref{fig:sample-ts} (a) and (b) that a single system is being observed, it also appears \emph{visually} that the complexity of these two time series is consistent over time, i.e., while they are both complicated they don't appear to increase or decrease in complexity over the range of the program. \svd (seen in Figure \ref{fig:svd-ts-colored}) is different however, at least visually. Figure \ref{fig:svd-ts-colored} is a single trace of \svd from start to finish, however as time progresses it is clear that something drastically changes in the underlying generating process and the structure of the time series is visually very different from section to section. This is caused by the code of \svd moving between different subroutines. We call these changes in \svd dynamics  \emph{\svd regimes} and we have colored each of the six regimes different colors in Figure \ref{fig:svd-ts-colored}. The advantage to splitting \svd into these regimes is to explore how complexity and predictability evolve over time for a system in drift. In Section \ref{sec:wpeRegime} we explore and validate the choice of these visually selected regime windows extending techniques from \cite{cao2004det}. The purpose of this paper is not to rigorously explore regime detection but to explore quantifying complexity of a time series. As such, making this split simply serves as providing 90 unique time series\footnote{Six Regimes with 15 individual runs each.} to explore. For notational convience we refer to these signals as {\tt dgesdd$_i$} with $i \in \{1\dots6\}$ where $i$ corresponds to a regime of \svd. The regimes are labeled from left to right. 
 
 
