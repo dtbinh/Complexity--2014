@@ -1,4 +1,4 @@
-\section{Introduction}\label{sec:intro}
+\section{Introduction {\color{blue} EDITABLE}}\label{sec:intro}
 
 %****NOTES START HERE****
 
@@ -47,20 +47,19 @@
 
 
 Complicated time series are ubiquitous in modern scientific research. 
-%Characterizing and forecasting the future behavior of these observed systems is a vastly researched area with many open questions. 
-Every observed time series, complicated or not, exists on a spectrum of \emph{complexity}\footnote{An approx of (blah ) entropy which we make more rigorous in blah}. On the low end of that spectrum are time series that exhibit perfect predictive structure, i.e, signals whose future value are perfectly predicted by knowledge of past values from some ``ideal" model. In particular, there is a an underlying process that generates and transmits information from the past to the future in a perfectly predictable fashion. Some examples of this are constant or low-period signals. On the opposite end of this spectrum are signals which are ``fully complex", i.e., the underlying generating process creates information so rapidly that no information at all is transmitted from the past to the future. Some examples, of this are white noise or random walk processes. With signals on this side of the spectrum, knowledge of the past gives absolutely no insight into the future, \emph{regardless} of the chosen model.  In the middle of this spectrum are where complicated \emph{and} interesting---from a modeling perspective---signals exist, e.g., observations of a deterministic chaotic trajectory, high period signals with some level of noise on top, etc. With time series in this portion of the spectrum, enough information is being transmitted from the past to the future that given the \emph{ideal} model the future of the observed system could be forecast with high accuracy. 
+Every observed time series, complicated or not, exists on a spectrum of \emph{complexity}. On the low end of that spectrum are time series that exhibit perfect predictive structure, i.e, signals whose future value are perfectly predicted by knowledge of past values from some ``ideal" model. In particular, there is a an underlying process that generates and transmits information from the past to the future in a perfectly predictable fashion. Some examples of this are constant or low-period signals. On the opposite end of this spectrum are signals which are ``fully complex", i.e., the underlying generating process creates information so rapidly that no information at all is transmitted from the past to the future. Some examples, of this are white noise or random walk processes. With signals on this side of the spectrum, knowledge of the past gives absolutely no insight into the future, \emph{regardless} of the chosen model.  In the middle of this spectrum are where complicated \emph{and} interesting---from a modeling perspective---signals exist, e.g., observations of a deterministic chaotic trajectory, high period signals with some level of noise on top, etc. With time series in this portion of the spectrum, enough information is being transmitted from the past to the future that given the \emph{ideal} model the future of the observed system could be forecast with high accuracy. 
 
-Unfortunately, as a corollary of the undecidability of the halting problem: there cannot exist \emph{one} universally ideal forecasting scheme for even completely noise-free deterministic time series\cite{weigend-book}, let alone an arbitrary time series. This naturally leads to an important and hard question: given a complicated real-valued time series, is it possible to reliably quantify where on this spectrum the time series lies? i.e, when little or nothing is known about the underlying system's generating process (e.g., linear, nonlinear, deterministic, stochastic, stationary, non-stationary etc.) can it be inferred without a model if the signal is too \emph{complex} to effectively forecast using a prediction strategy based on predictive structure (temporal forward information transfer)? We define this spectrum as well as what is meant by low, medium and high rigorously in Section \ref{sec:meaComplex}.
+Unfortunately, as a corollary of the undecidability of the halting problem: there cannot exist \emph{one} universally ideal forecasting scheme for even completely noise-free deterministic time series\cite{weigend-book}, let alone an arbitrary time series. This naturally leads to an important and hard question: given a complicated real-valued time series, does their exist a forecast model for that time series that can utilize the information being transmitted from past to future (if such information exists)? A first step in answering this question is to answer: is it possible to reliably quantify where on the spectrum of complexity the time series lies? i.e, when little or nothing is known about the underlying system's generating process (e.g., linear, nonlinear, deterministic, stochastic, stationary, non-stationary etc.) can it be inferred without a model if the signal is too \emph{complex} to effectively forecast using a prediction strategy based on predictive structure (temporal forward information transfer)? We rigorously define this \emph{complexity spectrum} as well as what is meant by \emph{low, medium and high} in Section \ref{sec:meaComplex}.
 
 
 To answer this question and for the purposes of this paper we focus on real-valued (possibly) noisy scalar time series which appear \emph{complicated}, i.e., they exhibit interesting behavior, for instance, not of low period, strictly monotonic, or constant. We make no assumptions about the generating process's properties,(e.g., linear, nonlinear, deterministic, stochastic, stationary, non-stationary, etc.) and we attempt to measure empirically where on the previously mentioned spectrum of \emph{complexity} the time series exists.
 We argue that an extension of \emph{permutation entropy}
-\cite{bandt2002per}---a method for approximating the entropy of a real-valued-finite-length-noisy time series through ordinal analysis---is an effective way to explore that conjecture. In light of this, for the purposes of this paper we define \emph{complexity} as an approximation of Shannon \emph{entropy}, which we define and explain rigorously in Section \ref{sec:meaComplex}. In this fashion a random walk time series (which exhibits high entropy) is purely complex, where as a periodic signal (which exhibits low entorpy) has low complexity.
+\cite{bandt2002per}---a method for approximating the entropy of a real-valued-finite-length-noisy time series through ordinal analysis---is an effective way to explore that conjecture. In light of this, for the purposes of this paper we define \emph{complexity} as an approximation of Shannon \emph{entropy}, which we define and explain rigorously in Section \ref{sec:meaComplex}. In this fashion a random walk time series (which exhibits high entropy) is purely complex, where as a periodic signal (which exhibits low entorpy) has low complexity. {\color{blue} Ryan: Insert your sentence here, Something like We are not the first people to attempt to quantify complexity of time series with entropy(citations) However, these methods rely on binning which is bad because of biasing (citations) which we explain further in Section \ref{sec:related}.}
 
 
 %[[Introduce and make it clear why we choose comp. perf. as test bed.]]
 
-To explore this conjecture we require a test bed for generating a broad array of time series to analyze which covers the full spectrum of complexity. We argue that the ideal test bed for this purpose are computer performances, e.g., the processor efficiency during the execution of a particular program. Computers are among the most complex engineered artifacts in current
+To explore this conjecture we require a test bed for generating a broad array of time series which cover the full spectrum of complexity. We argue that the ideal test bed for this purpose are computer performance traces, e.g., the processor efficiency during the execution of a particular program. Computers are among the most complex engineered artifacts in current
 use.  Modern microprocessor chips contain multiple processing units
 and multi-layer memories, for instance, and they use complicated
 hardware/software strategies to move data and threads of computation
@@ -79,7 +78,7 @@ processor efficiency highly complicated.
 As a result computer performance traces are very
 complicated and range across the entire spectrum of complexity, making this an ideal test bed.  Even a simple ``microkernel," like a three-line loop that
 repeatedly initializes the upper triangle of a matrix in column-major order, can produce everything from periodic to
-{\sl chaotic} performance traces \cite{mytkowicz09}, depending on the architecture running the software. Such a performance trace is shown in
+chaotic performance traces \cite{mytkowicz09}, depending on the architecture running the software. Such a performance trace is shown in
 Figure~\ref{fig:ipc}.%, and chaos places fundamental limits on predictability.
 %
  \begin{figure}[htbp]
@@ -92,7 +91,7 @@ Figure~\ref{fig:ipc}.%, and chaos places fundamental limits on predictability.
    \label{fig:ipc}
   \end{figure}
 %
-More interesting programs, e.g., compilers and numerical solvers, produce time series which exist throughout the spectrum of complexity: from completely predictable to completely unstructured. In addition, some performance traces even exhibit interesting regime changes as a program switches between varying subroutines. With a single system (computer performance) capable of producing complicated time series that vary so greatly in complexity (periodic to noise), it would be invaluable to known a priori if a trace contained enough predictive structure to build a  forecast model based on structure before time and effort was spent on trying to model and forecast it. 
+More interesting programs, e.g., compilers and numerical solvers, produce time series which exist throughout the spectrum of complexity: from completely predictable to completely unstructured,i.e., low to high complexity[[Just trying to reinforce the wording in the readers mind]]. In addition, some performance traces even exhibit interesting regime changes as a program switches between varying subroutines. With a single system (computer performance) capable of producing complicated time series that vary so greatly in complexity (periodic to noise), it would be invaluable to known a priori if a trace contained enough predictive structure to build a  forecast model based on structure before time and effort was spent searching for an ideal model. 
 
 %The computer systems community has applied a variety of prediction
 %strategies to traces like this, most of which employ regression.  An
@@ -118,14 +117,12 @@ More interesting programs, e.g., compilers and numerical solvers, produce time s
 
 
 
-This paper provides insight into when, why, and how forecast strategies fail when they are applied to complicated time series by empirically estimating their inherent complexity. We focus here on the specific example of
+This paper provides insight into when, why, and how forecast strategies fail when they are applied to complicated time series by empirically estimating their inherent complexity. [[Liz, do you think here would be better for the sentence about we are not the first, or is above where I asked Ryan to insert it ok? I worry it would muddy the water of this synopsis paragraph.]] We focus here on the specific example of
 computer performance but believe the results apply to a much broader class of time series. We conjecture that the complexity of traces
 from these systems---which results from the inherent dimension,
 non-linearity, and non-stationarity, as well as from
 measurement issues like noise, aggregation, and finite data
-length---is \emph{empirically quantifiable}. 
-
-To validate this conjecture we model 120 different performance traces using a variety of forecasting models which we introduce in Section \ref{sec:model}. We then compare the empirically estimated \emph{complexity} with the accuracy of each forecast method. Which results in two primary findings:
+length---is \emph{empirically quantifiable}. To validate this conjecture we model 120 different performance traces using a variety of forecasting models which we introduce in Section \ref{sec:model}. We then compare the empirically estimated \emph{complexity} with the accuracy of each forecast method. Which results in two primary findings:
 
 
 \begin{enumerate}
@@ -153,12 +150,11 @@ this task. We are not attempting to predict the state of the CPU at an
 arbitrary point in the future --- this, at least with perfect
 accuracy, would be tantamount to solving the halting problem. What we
 are attempting is to predict aspects or functions of the running of
-the CPU: instructions executed per second, cache misses per 100,000
-instructions, and similar statistics. Prediction of these quantities
+the CPU, e.g., processor efficiency and similar statistics. Prediction of these quantities
 at some finite time in the future, even with perfect accuracy, does
-not violate the Rice-Shapiro theorem.
+not violate the Rice-Shapiro{\color{blue}[[Ryan: Do you have a citation for this theorem, also should we give a brief sentence explaining what this theorem is?]]} theorem.
 
- The rest of the paper is organized as follows: Section~\ref{related} discusses similar methods and how this method is different. Section~\ref{sec:methods} explains the experimental setup and explains in depth the programs observed to generate each time series. Section~\ref{sec:Model} describes the four forecast models we implemented.  In
+ The rest of the paper is organized as follows: Section~\ref{sec:related} discusses similar methods and how this method is different. Section~\ref{sec:methods} explains the experimental setup and explains in depth the programs observed to generate each time series. Section~\ref{sec:model} describes the four forecast models we implemented.  In
  Section~\ref{sec:meaComplex}, we review weighted permutation entropy. In Section~\ref{sec:results} we estimate the complexity of each time series, and
  compare the complexity to the prediction accuracy of several different forecast schema.  In
  Section~\ref{sec:conc}, we discuss these results and their
