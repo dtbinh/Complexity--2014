@@ -53,21 +53,21 @@ KPSS unit-root tests \cite{KPSSunit} and their own extension of Canova-Hansen te
 
 ARIMA forecasting is a time tested modelling process which uses a global linear fit and adjustments for seasonality, non-stationarity and noise. If a generating process fits into this category then this model is a great short term predictor. If information is instead being transmitted in a nonlinear way this global linear fit falls apart. One other weakness of this method is that if long prediction horizons are needed the forecast is guaranteed to converge to the mean after some number of predictions (dependent on model order). For this reason, we limit all methods to doing multiple 1-step predictions as to not handicap this method. 
 
-\subsection{Nonlinear Forecasting: Lorenz Method of Analogues (LMA){\color{red} NOT EDITABLE}}\label{sec:lma}
+\subsection{Nonlinear Forecasting: Lorenz Method of Analogues (LMA){\color{blue} EDITABLE}}\label{sec:lma}
 
-When a generating process exhibits deterministic predictive nonlinear structure a common approach is to reconstruct the generating processes dynamics using a technique called delay-coordinate embedding and then use the geometric structure of this reconstruction as a proxy for the information transmission process of the underlying process to predict the future. In this section we discuss the theory and implementation of this forecasting scheme. 
-
-
- \subsubsection{Reconstructing hidden dynamics {\color{red} NOT EDITABLE}}
+When a generating process exhibits deterministic predictive nonlinear structure a common approach is to reconstruct the generating processes dynamics using a technique called delay-coordinate embedding and then use the geometric structure of this reconstruction as a proxy for the information transmission occurring in the underlying process to predict the future. In this section we discuss the theory and implementation of this forecasting scheme. 
 
 
+ \subsubsection{Reconstructing hidden dynamics {\color{blue} EDITABLE}}
 
-Delay-coordinate embedding allows one to reconstruct a system's full
+
+
+Delay-coordinate embedding allows one to reconstruct a dynamical system's full
 state-space dynamics from a \emph{single} scalar time-series
 measurement---provided that some conditions hold regarding that data.
 Specifically, if the underlying dynamics and the measurement
 function---the mapping from the unknown state vector $\vec{X}$ to the
-scalar value $x$ that one is measuring---are both smooth and generic,
+scalar value $X_{i,obs}$ that one is measuring---are both smooth and generic,
 Takens~\cite{takens} formally proves that the delay-coordinate map
 \[
 F(\tau,m)(X) = ([X_{i+\tau,obs} ~ X_{i+\tau,obs} ~ \dots ~X_{i+m\tau,obs}])
@@ -86,23 +86,29 @@ parameters in the delay-coordinate map: the delay $\tau$ and the
 dimension $m$.  We follow standard procedures for this, choosing the
 first minimum in the average mutual information as an estimate of
 $\tau$ \cite{fraser-swinney} and using the false-near(est) neighbor
-method of \cite{KBA92}.  A
+method of \cite{KBA92} to estimate $m$.  A
 plot of the data from Figure~\ref{fig:ipc}, embedded following this
 procedure, is shown in Figure~\ref{fig:embedding}.
 
 
  \begin{figure}
    \centering
-\begin{subfigure}{0.49\textwidth}
+\begin{subfigure}{0.32\textwidth}
     \includegraphics[width=\textwidth]{figs/colipc3d.png}
     \caption{\col }
     \label{fig:colEmbedding}
   \end{subfigure}%   
-  \begin{subfigure}{0.49\textwidth}
-    \includegraphics[width=\textwidth]{figs/colipc3d.png}
+  \begin{subfigure}{0.32\textwidth}
+    \includegraphics[width=\textwidth]{figs/svd53dipc.png}
+    \caption{\svdfive}
+    \label{fig:svdfiveEmbedding}
+  \end{subfigure}%   
+  \begin{subfigure}{0.32\textwidth}
+    \includegraphics[width=\textwidth]{figs/gcc3dipc.png}
     \caption{\gcc}
     \label{fig:gccEmbedding}
   \end{subfigure}%  
+ 
    
      %\includegraphics[width=\textwidth]{figs/colipc3d.png}
      \caption{[[{\color{red}Joshua:Perhaps add a similar graphic of \gcc to show contrast}{\color{green}agreed I will work on this}]]A 3D projection of a delay-coordinate embedding of the trace
@@ -112,6 +118,8 @@ procedure, is shown in Figure~\ref{fig:embedding}.
  \end{figure}
 
 
+
+[[Update this paragraph if we include the second plot with \gcc]]
 %% can cut for space if need be:
 The coordinates of each point on this plot are differently delayed
 elements of the \col instructions per cycle time series
@@ -125,7 +133,7 @@ determinism%\footnote{A deeper analysis of
   %attractor in these cache-miss dynamics, with largest Lyapunov
   %exponent $\lambda_1 = 8000 \pm 200$ instructions, embedded in a
   %12-dimensional reconstruction space \cite{mytkowicz09}.}
-  .  That structure can be used to build a forecast model.
+  .  That structure can be used to build a forecast model. 
  \subsubsection{LMA: Using dynamics in forecasting {\color{red} NOT EDITABLE}}
 
 Given a nonlinear model of a deterministic dynamical system in the
