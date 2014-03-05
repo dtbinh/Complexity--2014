@@ -70,7 +70,7 @@ function---the mapping from the unknown state vector $\vec{X}$ to the
 scalar value $X_{i,obs}$ that one is measuring---are both smooth and generic,
 Takens~\cite{takens} formally proves that the delay-coordinate map
 \[
-F(\tau,m)(X) = ([X_{i+\tau,obs} ~ X_{i+\tau,obs} ~ \dots ~X_{i+m\tau,obs}])
+F(\tau,m)(\vec{X}) = ([X_{i+\tau,obs} ~ X_{i+\tau,obs} ~ \dots ~X_{i+m\tau,obs}])
 \]
 from a $d$-dimensional smooth compact manifold $M$ to $\mathbb{R}^{2d+1}$,
 where $t$ is time, is a diffeomorphism on $M$---in other words, that
@@ -87,8 +87,8 @@ dimension $m$.  We follow standard procedures for this, choosing the
 first minimum in the average mutual information as an estimate of
 $\tau$ \cite{fraser-swinney} and using the false-near(est) neighbor
 method of \cite{KBA92} to estimate $m$.  A
-plot of the data from Figure~\ref{fig:ipc}, embedded following this
-procedure, is shown in Figure~\ref{fig:embedding}.
+plot of the data from Figures~\ref{fig:col-ts}-\ref{fig:svd-ts-colored}, embedded following this
+procedure, are shown in Figure~\ref{fig:embedding}.
 
 
  \begin{figure}
@@ -97,44 +97,38 @@ procedure, is shown in Figure~\ref{fig:embedding}.
     \includegraphics[width=\textwidth]{figs/colipc3d.png}
     \caption{\col }
     \label{fig:colEmbedding}
-  \end{subfigure}%   
-  \begin{subfigure}{0.32\textwidth}
-    \includegraphics[width=\textwidth]{figs/svd53dipc.png}
-    \caption{\svdfive}
-    \label{fig:svdfiveEmbedding}
-  \end{subfigure}%   
-  \begin{subfigure}{0.32\textwidth}
+  \end{subfigure}%  
+    \begin{subfigure}{0.32\textwidth}
     \includegraphics[width=\textwidth]{figs/gcc3dipc.png}
     \caption{\gcc}
     \label{fig:gccEmbedding}
-  \end{subfigure}%  
+  \end{subfigure} 
+  \begin{subfigure}{0.32\textwidth}
+    \includegraphics[width=\textwidth]{figs/svd53dipc2.png}
+    \caption{\svdfive}
+    \label{fig:svdfiveEmbedding}
+  \end{subfigure}%   
+%  
  
    
      %\includegraphics[width=\textwidth]{figs/colipc3d.png}
-     \caption{[[{\color{red}Joshua:Perhaps add a similar graphic of \gcc to show contrast}{\color{green}agreed I will work on this}]]A 3D projection of a delay-coordinate embedding of the trace
- from Figure~\ref{fig:ipc} with a delay ($\tau$) of 100,000 instructions.
+     \caption{A 3D projection of the delay-coordinate embeddings of the traces
+ from: (a) \col seen in Figure~\ref{fig:col-ts} (b)\gcc seen in Figure~\ref{fig:gcc-ts} and (c) \svdfive seen as the fifth regime in Figure~\ref{fig:svd-ts-colored}.
  }
  \label{fig:embedding}
  \end{figure}
 
 
 
-[[Update this paragraph if we include the second plot with \gcc]]
 %% can cut for space if need be:
-The coordinates of each point on this plot are differently delayed
-elements of the \col instructions per cycle time series
+The coordinates of each point in these plots are differently delayed
+elements of the instructions per cycle time series
 $X_{i,obs}$: that is, $X_{i,obs}$ on the first axis, $X_{i+\tau,obs}$ on the second,
 $X_{i+2\tau,obs}$ on the third, and so on.
 Structure in these kinds of plots---clearly visible in
-Figure~\ref{fig:embedding}---is an indication of
-determinism%\footnote{A deeper analysis of
-  %Figure~\ref{fig:embedding}---as alluded to on the previous
-  %page---supports that diagnosis, confirming the presence of a chaotic
-  %attractor in these cache-miss dynamics, with largest Lyapunov
-  %exponent $\lambda_1 = 8000 \pm 200$ instructions, embedded in a
-  %12-dimensional reconstruction space \cite{mytkowicz09}.}
-  .  That structure can be used to build a forecast model. 
- \subsubsection{LMA: Using dynamics in forecasting {\color{red} NOT EDITABLE}}
+Figure~\ref{fig:embedding} (a) is an indication of
+structure in the information transmission process, that can be leveraged for prediction. Where the water becomes muddy is with embedding like those in Figure~\ref{fig:embedding} (b) \& (c). Figure~\ref{fig:embedding} (b) shows little to no structure, this embedding is essentially a noise ball, with an embedding like this we would expect the forecast accuracy that uses this structure to be lacking. However, with Figure~\ref{fig:embedding} (c) more structure is present but the structure is surrounded in noise. Is the structure enough to aid in accurately forecasting the signal? This is a difficult question to answer and one that comes back to the main contributions of this paper. It may be that \gcc has structure but structure that is not amenable by this method, similarly \svdfive clearly has structure but it is obfuscated by noise. By analyzing qualitatively the amount of complexity in these signals we can answer questions like this. If enough predictive structure is present in these embeddings as seen in Figure~\ref{fig:embedding} (a) and possibly in (c), that structure can be used to build a forecast model which we discuss in the next section.
+ \subsubsection{LMA: Using dynamics in forecasting {\color{blue} EDITABLE}}
 
 Given a nonlinear model of a deterministic dynamical system in the
 form of a delay-coordinate embedding like Figure~\ref{fig:embedding},
@@ -148,36 +142,62 @@ space~\cite{lorenz-analogues}.  Even this simple algorithm---which
 builds predictions by finding the nearest neighbor in the embedded
 space of the given point, then taking that neighbor's path as the
 forecast---works quite well on the trace in Figure~\ref{fig:ipc}, as
-shown in Figure~\ref{fig:lmacol}.
+shown in Figure~\ref{fig:lmacol}. Visually distinguishing if Figure~\ref{fig:lmasvdfive} is a good prediction is hard. To more fairly compare these forecasts as well as the forecasts made by the other three prediction strategies we calculate a figure of merit, which we introduce in Section \ref{sec:accuracy}.
 %
-\begin{figure}[htbp]
-  \centering
-   \includegraphics[width=\textwidth]{figs/colPredShortTS}
-    \caption{A forecast of the last 4,000 points of the signal in
-      Figure~\ref{fig:ipc} using an LMA-based strategy on the
-      embedding in Figure~\ref{fig:embedding}.  Red circles and blue
-      $\times$s are the true and predicted values, respectively;
-      vertical bars show where these values differ.}
-\label{fig:lmacol}
-\end{figure}
+\begin{figure}
+   \centering
+\begin{subfigure}{0.32\textwidth}
+    \includegraphics[width=\textwidth]{figs/colPredShortTS}
+    \caption{\col }
+    \label{fig:lmacol}
+  \end{subfigure}%  
+    \begin{subfigure}{0.32\textwidth}
+    \includegraphics[width=\textwidth]{figs/colPredShortTS}
+    \caption{\gcc}
+    \label{fig:lmagcc}
+  \end{subfigure} 
+  \begin{subfigure}{0.32\textwidth}
+    \includegraphics[width=\textwidth]{figs/colPredShortTS}
+    \caption{\svdfive}
+    \label{fig:lmasvdfive}
+  \end{subfigure}% 
+  \caption{{\color{red} [[actually need to generate this figure]]}An LMA-based forecast of
+       processor-efficiency performance trace from the\col ,\gcc and \svdfive generating processes.  Red circles and blue $\times$s are the true and
+       predicted values, respectively; vertical bars show where these
+       values differ.}\label{fig:lmapredictions}
+ \end{figure}
+%
+%\begin{figure}[htbp]
+%  \centering
+%   \includegraphics[width=\textwidth]{figs/colPredShortTS}
+%    \caption{A forecast of the last 4,000 points of the %signal in
+%      Figure~\ref{fig:ipc} using an LMA-based strategy on %the
+%      embedding in Figure~\ref{fig:embedding}.  Red circles %and blue
+%      $\times$s are the true and predicted values, %respectively;
+%      vertical bars show where these values differ.}
+%\label{fig:lmacol}
+%\end{figure}
+%
+%\begin{figure}[htbp]
+%  \centering
+%    \includegraphics[width=\textwidth]{figs/colPredShortTS}
+%     \caption{{\color{red} [[actually need to generate this %figure]]}An LMA-based forecast of the last 4,000 points of a
+%       processor-load performance trace from the \gcc
+%       benchmark.  Red circles and blue $\times$s are the %true and
+%       predicted values, respectively; vertical bars show %where these
+%       values differ.}
+%\label{fig:lmagcc}
+%\end{figure}
 %
 On the other hand, if we use the same approach to forecast the
-processor load (ipc) of the \gcc program from the SPEC cpu2006 benchmark suite, the
+processor efficiency (IPC) of the \gcc time series, the
 prediction is far less accurate; see Figure~\ref{fig:lmagcc}.
 
-\begin{figure}[htbp]
-  \centering
-    \includegraphics[width=\textwidth]{figs/colPredShortTS}
-     \caption{{\color{red} [[actually need to generate this figure]]}An LMA-based forecast of the last 4,000 points of a
-       processor-load performance trace from the \gcc
-       benchmark.  Red circles and blue $\times$s are the true and
-       predicted values, respectively; vertical bars show where these
-       values differ.}
-\label{fig:lmagcc}
-\end{figure}
 
-This gets at the utility of the contribution of this paper: If these traces both come from deterministic
-systems---computers---then why are they not equally predictable?  Our
+
+This gets at the utility of the contribution of this paper: These time series all come from the same system---computers---but they are not equally predictable (at this point by LMA). For a practitioner is it the case that 
+
+  Our
 conjecture is that while they come from similar systems \gcc produces processor load traces on the top of the complexity spectrum whereas \col produces processor loads with complexity in the mid to low region of the complexity spectrum. If this is the case then \gcc might be much better predicted using a method like Random Walk or \naive which can effectively predict in the presence of complexity. This is explored more rigorously in the results Section of this paper (Section \ref{sec:results}. So that we don't have to compare the forecast accuarcy by visual comparing the predictions we calculate a figure of merit to compare the predictions. 
 
 %% [[If space: Add a segue sentence: next section uses permutation
@@ -226,13 +246,10 @@ conjecture is that while they come from similar systems \gcc produces processor 
     \caption{\gcc LMA}
     \label{fig:gccLMA}
   \end{subfigure}  
-
-
-  
   %\begin{subfigure}{0.5\textwidth}
   %  \includegraphics[width=1.0\textwidth]{figs/LMA_vs_ARIMA}
    \caption{
-For each of these, we plot the predicted value $p_n$ against the correct value $c_n$. On this type of plot a perfect prediction lies exactly on the diagonal, that is the line $p_n = c_n$, e.g., \ref{fig:colLMA} is a near perfect prediction where-as \ref{fig:gccARIMA} is a very poor prediction. }\label{fig:gcc_vs_col}  
+{\color{red}[[Joshua: I should probably add \svdfive as it is a persistent example making this figure 9x9.}For each of these, we plot the predicted value $p_n$ against the correct value $c_n$. On this type of plot a perfect prediction lies exactly on the diagonal, that is the line $p_n = c_n$, e.g., \ref{fig:colLMA} is a near perfect prediction where-as \ref{fig:gccARIMA} is a very poor prediction. }\label{fig:gcc_vs_col}  
   %\end{subfigure}
 \end{figure} 
 In order to analyze correctness of each prediction we split each time series into two pieces: the first 90\% referred to as the ``learning" or ``training" signal, $\{X_{i,obs}\}_{i=1}^{n}$ and the last 10\% known as the ``test" or ``correct" signal $\{c_j\}_{j=n+1}^{k+n+1}$. The learning signal is used to train an initial model (e.g., LMA or ARIMA) as described in Section \ref{sec:compModel}. The test signal is used both to assess the models forecasting accuracy and for any refitting that may be necessary. In particular, we perform $k$ 1-step predictions, after each 1-step prediction\footnote{We would like to note that this rebuilding occurs due to a problem with ARIMA models converging to a mean prediction if too long of a prediction horizon is used, this is not a handicap of either LMA or na\"ive.} we append the training signal with the next point in the correct signal $c_j$, refit the model taking into account the new system measurement and perform another prediction. This is repeated $k$ times to obtain $\{p_j\}_{j=n+1}^{k+n+1}$.
