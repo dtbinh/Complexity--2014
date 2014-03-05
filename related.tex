@@ -2,21 +2,19 @@
 
 Attempting to model and characterize predictability is a very old problem which arguably began with Yule in 1927 when he invented AR and many attempts to quantify predicatbility have followed including ....
 
-Entropy though Generating partitions 
-works **if** you have generating parition but not if you don't
-{\color{blue} Ryan: Please insert here the paragraph and citations defaming binning / partitioning and illustrating the difficulty of generating partitions / biasing of this method without generating partitions, along with relevant citations. }
+The ideal method of computing the entropy of a system is via \emph{generating partitions}~\cite{lind95}, a technique which partitions observations into symbols in a way which preserves the underlying dynamics. Unfortunately, outside of one-dimensional unimodal maps and a few select higher dimensional maps, generating partitions are highly non-trivial to compute and often have fractal boundaries~\cite{eisele1999}. Furthermore, the underlying dynamic needs to be known to construct the generating partition. Unfortunately, using any partition (such as those produced by simply binning the data) other than the generation partition induces spurious complexity to the resulting symbolic sequence, thus misrepresenting the entropy of the underlying system~\cite{bollt2001}.
 
 
-Redundancy (details in SFI forecasting), relies heavily on either estimating the generating partiion which is hard to do *and* estimating the positive lyap spectrum which is hard to do for noisy systems and impossible for systems that are not deterministic. 
+Redundancy (details in SFI forecasting), relies heavily on either estimating the generating partiion which is hard to do *and* estimating the positive lyap spectrum which is hard to do for noisy systems and impossible for systems that are not deterministic.
 
 DVS plots, gives pros and cons in (SFI prediction book)
 
 predicting local predictive capacity (radial basis functions stuff, trying to predict error bounds on next forecast based on ensemble uncertainty) but does not aggregate tell you at what level the time series exhibits complexity only locally predictive structure, this actualy gets at the interesting point that different regions of a time series may exhibit differnt levels of complexity which we will illustrate with \svd
 
-Distrubtion of error. For many methods, if your error is not normally distributed this signals that there is stil more predictve structure to that could be used by for example a larger order ARMA process. But if error is normally distributed, this suggests that you have used up all the predictive structure that **that** model can use, this doesn't quantify if preidctuce structure exists that isn't being used by this process. For example, nonlinear structure which is ignored by a linear predictor. 
+Distrubtion of error. For many methods, if your error is not normally distributed this signals that there is stil more predictve structure to that could be used by for example a larger order ARMA process. But if error is normally distributed, this suggests that you have used up all the predictive structure that **that** model can use, this doesn't quantify if preidctuce structure exists that isn't being used by this process. For example, nonlinear structure which is ignored by a linear predictor.
 
 
-But this method is differnt becasue it uses no assumption about the underlying model, does not require generating partitions, is applicable to noisy real-valued time series. 
+But this method is differnt becasue it uses no assumption about the underlying model, does not require generating partitions, is applicable to noisy real-valued time series.
 
 
 Maybe talk about ``
