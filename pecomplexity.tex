@@ -117,11 +117,13 @@ nobibnotes,
 %\title{Manuscript Title}% Force line breaks with \\
 %\thanks{A footnote to the article title}%
 
-\title{Determinism, Complexity, and Predictability in Computer Performance\\
-Quantifying structured complexity and its role in predictability: With applications to predicting computer performance.
-\\ Quantifying Predictability through Structural Complexity \\
+\title{
+%Determinism, Complexity, and Predictability in Computer Performance\\
+%Quantifying structured complexity and its role in predictability: With applications to predicting computer performance.
+%\\ 
 {\color{green}Quantifying Predictability through Structural Complexity} 
-\\ Quantifying Predictability using Structural Complexity 
+%\\ 
+%Quantifying Predictability using Structural Complexity 
 \\Decoding Predictability in Complicated Real-Valued Time Series: The balance between complexity and temporal structure
 \\Decoding Complicated Time Series: The balance between complexity and temporal structure and the implications for predictability
 }
@@ -162,7 +164,7 @@ Quantifying structured complexity and its role in predictability: With applicati
              %  but any date may be explicitly specified
 
 \begin{abstract}
-[[Joshua: Needs to be rewritten to be more general and use computers as the application not the focus, should be done after we have a first draft of the paper]]  Computers are deterministic dynamical systems \cite{mytkowicz09}.
+{\color{green}From the site:It should be about 5\% of the length of the article, but less than 500 words.}[[Joshua: Needs to be rewritten to be more general and use computers as the application not the focus, should be done after we have a first draft of the paper]]  Computers are deterministic dynamical systems \cite{mytkowicz09}.
   Among other things, that implies that one should be able to use
   deterministic forecast rules to predict aspects of their behavior.
   That statement is sometimes---but not always---true. The memory and
@@ -184,20 +186,37 @@ Quantifying structured complexity and its role in predictability: With applicati
 \item[Usage]
 Secondary publications and information retrieval purposes.
 \item[PACS numbers]
-May be entered using the \verb+\pacs{#1}+ command.
+May be entered using the \verb+\pacs{#1}+ \pacs{05.45.Tp} command.
+Time series analysis (nonlinear dynamics) 05.45.Tp
+Information theory, 89.70.-a
+	channel capacity in, 89.70.Kn
+	communication complexity in, 89.70.Hj
+	computational complexity in, 89.70.Eg
+	entropy in, 89.70.Cf
+	general biological information, 87.10.Vg
+	in neuroscience, 87.19.lo
+	
+Nonlinear dynamics, 05.45.-a	
+	
+	89.75.Kd	Patterns (complex systems)	
+	
+	
+Computational Physics	
+95.75.Wx	Time series analysis, time variability
+95.75.Pq	Mathematical procedures and computer techniques
+07.05.-t	Computers in experimental physics
+	
 \item[Structure]
 You may use the \texttt{description} environment to structure your abstract;
 use the optional argument of the \verb+\item+ command to give the category of each item. 
 \end{description}
 \end{abstract}
 
-\pacs{Valid PACS appear here}% PACS, the Physics and Astronomy
+\pacs{Valid PACS appear here 95.75.Wx	}% PACS, the Physics and Astronomy
                              % Classification Scheme.
 %\keywords{Suggested keywords}%Use showkeys class option if keyword
                               %display desired
 \maketitle
-
-
 
 \input{intro.tex}
 \input{related.tex}
