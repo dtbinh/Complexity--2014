@@ -1,4 +1,25 @@
-\documentclass{article}
+\documentclass[%
+ %reprint,
+%superscriptaddress,
+%groupedaddress,
+%unsortedaddress,
+%runinaddress,
+%frontmatterverbose, 
+%preprint,
+%showpacs,preprintnumbers,
+%nofootinbib,
+%nobibnotes,
+%bibnotes,
+ amsmath,amssymb,
+% aps,
+%pra,
+prb,
+%rmp,
+%prstab,
+%prstper,
+%floatfix,
+]{revtex4-1}
+%\documentclass{article}
 \usepackage{geometry}                % See geometry.pdf to learn the layout options. There are lots.
 %\geometry{letterpaper}                   % ... or a4paper or a5paper or ...
 %\geometry{landscape}                % Activate for for rotated page geometry
@@ -6,13 +27,16 @@
 \usepackage{graphicx}
 \usepackage{caption}
 \usepackage{subcaption}
-\usepackage{color}
-\usepackage{amssymb}
-\usepackage{amsmath}
+\usepackage{dcolumn}% Align table columns on decimal point
+\usepackage{bm}% bold math
+%\usepackage{amssymb}
+%\usepackage{amsmath}
 \usepackage{epstopdf}
 \usepackage{amsthm}
 
 \usepackage{pifont} % check and x marks
+\usepackage{color}
+
 \newcommand{\cmark}{\ding{51}}
 \newcommand{\xmark}{\ding{55}}
 
@@ -25,37 +49,31 @@
 \newcommand{\svdfive}{{\tt dgesdd$_5$}~}
 \newcommand{\svdsix}{{\tt dgesdd$_6$}~}
 \newcommand{\naive}{na\"ive}
-
-\parskip=3pt
-
 \newcommand{\row}{{\tt row\_major}~}
 \newcommand{\col}{{\tt col\_major}~}
+%\newcommand{\color{red}}{{\color[rgb]{1,0,0}}}
 
-\usepackage{authblk}
-\DeclareGraphicsRule{.tif}{png}{.png}{`convert #1 `dirname #1`/`basename #1 .tif`.png}
+%\parskip=3pt
+
+
+
+%\usepackage{authblk}
+%\DeclareGraphicsRule{.tif}{png}{.png}{`convert #1 `dirname #1`/`basename #1 .tif`.png}
 
 \newtheorem*{mydef}{Definition}
-\title{Determinism, Complexity, and Predictability in Computer Performance\\
-Quantifying structured complexity and its role in predictability: With applications to predicting computer performance.
-\\ Quantifying Predictability through Structural Complexity \\
-{\color{green}Quantifying Predictability through Structural Complexity} 
-\\ Quantifying Predictability using Structural Complexity 
-\\Decoding Predictability in Complicated Real-Valued Time Series: The balance between complexity and temporal structure
-\\Decoding Complicated Time Series: The balance between complexity and temporal structure and the implications for predictability
-}
 
 
 
-\author[1]{Joshua Garland \thanks{joshua.garland@colorado.edu}}
-\author[1]{Ryan James \thanks{ryan.james@colorado.edu}}
-\author[1,2]{Elizabeth Bradley \thanks{lizb@colorado.edu}}
-\affil[1]{Department of Computer Science\\
-  University of Colorado at Boulder\\
-  Colorado, USA
-}
-\affil[2]{Santa Fe Institute\\
-  New Mexico, USA
-}
+%\author[1]{Joshua Garland %\thanks{joshua.garland@colorado.edu}}
+%\author[1]{Ryan James \thanks{ryan.james@colorado.edu}}
+%\author[1,2]{Elizabeth Bradley \thanks{lizb@colorado.edu}}
+%\affil[1]{Department of Computer Science\\
+%  University of Colorado at Boulder\\
+%  Colorado, USA
+%}
+%\affil[2]{Santa Fe Institute\\
+%  New Mexico, USA
+%}
 
 
 %Version 1
@@ -104,12 +122,55 @@ Quantifying structured complexity and its role in predictability: With applicati
 \begin{document}
 
 
+\preprint{APS/123-QED}
 
-\maketitle
+%\title{Manuscript Title}% Force line breaks with \\
+%\thanks{A footnote to the article title}%
+
+\title{Determinism, Complexity, and Predictability in Computer Performance\\
+Quantifying structured complexity and its role in predictability: With applications to predicting computer performance.
+\\ Quantifying Predictability through Structural Complexity \\
+{\color{green}Quantifying Predictability through Structural Complexity} 
+\\ Quantifying Predictability using Structural Complexity 
+\\Decoding Predictability in Complicated Real-Valued Time Series: The balance between complexity and temporal structure
+\\Decoding Complicated Time Series: The balance between complexity and temporal structure and the implications for predictability
+}
 
 
 
 
+
+
+\author{Ann Author}
+ \altaffiliation[Also at ]{Physics Department, XYZ University.}%Lines break automatically or can be forced with \\
+\author{Second Author}%
+ \email{Second.Author@institution.edu}
+\affiliation{%
+ Authors' institution and/or address\\
+ This line break forced with \textbackslash\textbackslash
+}%
+
+\collaboration{MUSO Collaboration}%\noaffiliation
+
+\author{Charlie Author}
+ \homepage{http://www.Second.institution.edu/~Charlie.Author}
+\affiliation{
+ Second institution and/or address\\
+ This line break forced% with \\
+}%
+\affiliation{
+ Third institution, the second for Charlie Author
+}%
+\author{Delta Author}
+\affiliation{%
+ Authors' institution and/or address\\
+ This line break forced with \textbackslash\textbackslash
+}%
+
+\collaboration{CLEO Collaboration}%\noaffiliation
+
+\date{\today}% It is always \today, today,
+             %  but any date may be explicitly specified
 
 \begin{abstract}
 [[Joshua: Needs to be rewritten to be more general and use computers as the application not the focus, should be done after we have a first draft of the paper]]  Computers are deterministic dynamical systems \cite{mytkowicz09}.
@@ -130,7 +191,22 @@ Quantifying structured complexity and its role in predictability: With applicati
   then calculate the \emph{permutation entropy}---a temporal entropy
   metric that uses ordinal analysis---of those traces and correlate
   those values against the prediction success.
+\begin{description}
+\item[Usage]
+Secondary publications and information retrieval purposes.
+\item[PACS numbers]
+May be entered using the \verb+\pacs{#1}+ command.
+\item[Structure]
+You may use the \texttt{description} environment to structure your abstract;
+use the optional argument of the \verb+\item+ command to give the category of each item. 
+\end{description}
 \end{abstract}
+
+\pacs{Valid PACS appear here}% PACS, the Physics and Astronomy
+                             % Classification Scheme.
+%\keywords{Suggested keywords}%Use showkeys class option if keyword
+                              %display desired
+\maketitle
 
 
 
