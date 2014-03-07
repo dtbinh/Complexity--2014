@@ -129,11 +129,11 @@ $X_{i,obs}$: that is, $X_{i,obs}$ on the first axis, $X_{i+\tau,obs}$ on the sec
 $X_{i+2\tau,obs}$ on the third, and so on.
 Structure in these kinds of plots---clearly visible in
 Figure~\ref{fig:embedding} (a) is an indication of
-structure in the information transmission process, that can be leveraged for prediction. Where the water becomes muddy is with embedding like those in Figure~\ref{fig:embedding} (b) \& (c). Figure~\ref{fig:embedding} (b) shows little to no structure, this embedding is essentially a noise ball, with an embedding like this we would expect the forecast accuracy that uses this structure to be lacking. However, with Figure~\ref{fig:embedding} (c) more structure is present but the structure is surrounded in noise. Is the structure enough to aid in accurately forecasting the signal? This is a difficult question to answer and one that comes back to the main contributions of this paper. It may be that \gcc has structure but structure that is not amenable by this method, similarly \svdfive clearly has structure but it is obfuscated by noise. By analyzing qualitatively the amount of complexity in these signals we can answer questions like this. If enough predictive structure is present in these embeddings as seen in Figure~\ref{fig:embedding} (a) and possibly in (c), that structure can be used to build a forecast model which we discuss in the next section.
+structure in the information transmission process, that can be leveraged for prediction. Where the water becomes muddy is with embedding like those in Figure~\ref{fig:embedding} (b) \& (c). Figure~\ref{fig:embedding} (b) shows little to no structure, this embedding is essentially a noise cloud; with an embedding like this we would expect the forecast accuracy that uses this structure to be lacking. However, with Figure~\ref{fig:embedding} (c) more structure is present but the structure is surrounded in noise. Is the structure enough to aid in accurately forecasting the signal? This is a difficult question to answer and one that comes back to the main contributions of this paper. It may be that \gcc has some redundancy but that structure is not amenable to this method, similarly \svdfive clearly has structure but it is obfuscated by noise. By quantifying the balance between normalized redundancy (predictive structure) and entropy for these real valued time series, we can begin to answer these questions.  If enough (redundancy) predictive structure is present in these embeddings as seen in Figure~\ref{fig:embedding} (a) and possibly in (c), that structure can be used to build a forecast model which we discuss in the next section.
  \subsubsection{LMA: Using dynamics in forecasting {\color{blue} EDITABLE}}
 
 Given a nonlinear model of a deterministic dynamical system in the
-form of a delay-coordinate embedding like Figure~\ref{fig:embedding},
+form of a delay-coordinate embedding like those in Figure~\ref{fig:embedding},
 one can build deterministic forecast algorithms by capturing and
 exploiting the geometry of the embedding.  Many techniques have been
 developed by the dynamical systems community for this purpose
@@ -141,10 +141,79 @@ developed by the dynamical systems community for this purpose
 is the ``Lorenz method of analogues'' (LMA), which is essentially
 nearest-neighbor prediction in the embedded state
 space~\cite{lorenz-analogues}.  Even this simple algorithm---which
-builds predictions by finding the nearest neighbor in the embedded
-space of the given point, then taking that neighbor's path as the
-forecast---works quite well on the trace in Figure~\ref{fig:ipc}, as
-shown in Figure~\ref{fig:lmacol}. Visually distinguishing if Figure~\ref{fig:lmasvdfive} is a good prediction is hard. To more fairly compare these forecasts as well as the forecasts made by the other three prediction strategies we calculate a figure of merit, which we introduce in Section \ref{sec:accuracy}.
+builds predictions by finding the nearest neighbor in the embedded space of the given point, then taking that neighbor's path as the
+forecast provides quite accurate forecasts when a process generates and transmits information in this way. In particular, when an observation in a time series has redundancy in the form of nonlinear structure this forecast scheme should be a great choice. However, since this method is based on near-neighbor prediction in a reconstructed state-space, if a system does not exhibit deterministic structure this method can do quite poorly. {\color{red}[[Joshua:Not a fan of this wording]]}
+%% [[If space: Add a segue sentence: next section uses permutation
+%% entropy to explore that conjecture.]]
+
+%\subsection{Comparing Prediction Accuracy}
+
+
+
+
+
+\subsection{Prediction Accuracy: Mean Absolute Scaled Error (MASE) {\color{red} NOT EDITABLE}}
+\label{sec:accuracy}
+
+
+
+
+
+
+
+\begin{figure}[htbp]
+  \centering
+      \begin{subfigure}{0.48\columnwidth}
+    \includegraphics[width=\columnwidth]{figs/colMeanForecast}
+    \caption{\col na\"ive }
+    \label{fig:gccMEAN}
+  \end{subfigure}%
+   \begin{subfigure}{0.48\columnwidth}
+    \includegraphics[width=\columnwidth]{figs/gccMeanForecast}
+    \caption{\gcc na\"ive }
+    \label{fig:gccMEAN}
+  \end{subfigure}%      
+  \\
+    \begin{subfigure}{0.48\columnwidth}
+    \includegraphics[width=\columnwidth]{figs/colARIMAForecast}
+    \caption{\col ARIMA}
+    \label{fig:colARIMA}
+  \end{subfigure}
+  \begin{subfigure}{0.48\columnwidth}
+    \includegraphics[width=\columnwidth]{figs/gccARIMAForecast}
+    \caption{\gcc ARIMA }
+    \label{fig:gccARIMA}
+  \end{subfigure}%
+  \\
+  
+      \begin{subfigure}{0.48\columnwidth}
+    \includegraphics[width=\columnwidth]{figs/colLMAForecast}
+    \caption{\col LMA}
+    \label{fig:colLMA}
+  \end{subfigure}
+      \begin{subfigure}{0.48\columnwidth}
+    \includegraphics[width=\columnwidth]{figs/gccLMAForecast}
+    \caption{\gcc LMA}
+    \label{fig:gccLMA}
+  \end{subfigure}  
+  %\begin{subfigure}{0.5\textwidth}
+  %  \includegraphics[width=1.0\textwidth]{figs/LMA_vs_ARIMA}
+   \caption{
+{\color{red}[[Joshua: I should probably add \svdfive as it is a persistent example making this figure 9x9.}For each of these, we plot the predicted value $p_n$ against the correct value $c_n$. On this type of plot a perfect prediction lies exactly on the diagonal, that is the line $p_n = c_n$, e.g., \ref{fig:colLMA} is a near perfect prediction where-as \ref{fig:gccARIMA} is a very poor prediction. }\label{fig:gcc_vs_col}  
+  %\end{subfigure}
+\end{figure} 
+In order to analyze correctness of each prediction we split each time series into two pieces: the first 90\% referred to as the ``learning" or ``training" signal, $\{X_{i,obs}\}_{i=1}^{n}$ and the last 10\% known as the ``test" or ``correct" signal $\{c_j\}_{j=n+1}^{k+n+1}$. The learning signal is used to train an initial model (e.g., LMA or ARIMA) as described in Section \ref{sec:model}. The test signal is used both to assess the models forecasting accuracy and for any refitting that may be necessary. In particular, we perform $k$ one-step predictions, after each one-step prediction\footnote{We would like to note that this rebuilding occurs due to a problem with ARIMA models converging to a mean prediction if too long of a prediction horizon is used, this is not a handicap of either LMA or na\"ive.} we append the training signal with the next point in the correct signal $c_j$, refit the model taking into account the new system measurement and perform another prediction. This is repeated $k$ times to obtain $\{p_j\}_{j=n+1}^{k+n+1}$.
+
+As a figure of merit we calculate the Mean Absolute Scaled Error (MASE)\cite{MASE} between the true and predicted signals: 
+%In order to compare the resulting forecasts we calculate the Mean Absolute Squared Error (MASE)\cite{MASE} between the true and predicted signals:
+$$MASE = \sum_{j=n+1}^{k+n+1}\frac{|c_j-p_j| }{\frac{k}{n-1}\sum^n_{i=2}|X_{i,obs}-X_{i-1,obs}|}$$
+The scaling term for MASE:
+$$\frac{1}{n-1}\sum^n_{i=2}|X_{i,obs}-X_{i-1,obs}|$$ 
+is the average in-sample forecast error for a random walk prediction $(p_i=X_{i-1,obs})$. This error method was introduced in \cite{MASE} as a ``generally applicable measurement of forecast accuracy without the problems seen in the other measurements." We chose MASE because it allows for fair comparison across varying methods, prediction horizons and signal scales. When a forecast results in a $MASE<1$ the prediction method produced, on average, smaller errors than the one-step errors from the in-sample random walk forecast strategy. Analogously, $MASE>1$ means that the prediction method did worse, on average than the one-step errors for the in-sample random walk forecast strategy. In Table \ref{tab:error} we provide the distribution {\color{red}[[Joshua: Ryan, Is this the right word? we give mean $\pm$ std. dev but some have very skewed right tails]]}  of MASE errors for each of the eight signals and three prediction strategies, these are averaged over 15 runs of each type (signal + method). [[and cherry pick a few examples of \gcc and \col to put in the text For comparison Table \ref{tab:error} also has the distribution of weighted permutation entropies for word lengths of $l=6$.]]
+
+
+---works quite well on the trace in Figure~\ref{fig:ipc}, as
+shown in Figure~\ref{fig:lmacol}. 
 %
 \begin{figure}
    \centering
@@ -164,7 +233,7 @@ shown in Figure~\ref{fig:lmacol}. Visually distinguishing if Figure~\ref{fig:lma
     \caption{\svdfive}
     \label{fig:lmasvdfive}
   \end{subfigure}% 
-  \caption{{\color{red} [[actually need to generate this figure]]}An LMA-based forecast of
+  \caption{{\color{red} [[If Liz thinks we should include these I actually need to generate this figure]]}An LMA-based forecast of
        processor-efficiency performance trace from the\col ,\gcc and \svdfive generating processes.  Red circles and blue $\times$s are the true and
        predicted values, respectively; vertical bars show where these
        values differ.}\label{fig:lmapredictions}
@@ -195,76 +264,12 @@ shown in Figure~\ref{fig:lmacol}. Visually distinguishing if Figure~\ref{fig:lma
 On the other hand, if we use the same approach to forecast the
 processor efficiency (IPC) of the \gcc time series, the
 prediction is far less accurate; see Figure~\ref{fig:lmagcc}.
-
+Figure~\ref{fig:lmasvdfive} is clearly a better prediction than Figure~\ref{fig:gccLMA} but not nearly as good as the \col forecast.
 
 
 This gets at the utility of the contribution of this paper: These time series all come from the same system---computers---but they are not equally predictable (at this point by LMA). For a practitioner is it the case that 
-
   Our
 conjecture is that while they come from similar systems \gcc produces processor load traces on the top of the complexity spectrum whereas \col produces processor loads with complexity in the mid to low region of the complexity spectrum. If this is the case then \gcc might be much better predicted using a method like Random Walk or \naive which can effectively predict in the presence of complexity. This is explored more rigorously in the results Section of this paper (Section \ref{sec:results}. So that we don't have to compare the forecast accuarcy by visual comparing the predictions we calculate a figure of merit to compare the predictions. 
-
-%% [[If space: Add a segue sentence: next section uses permutation
-%% entropy to explore that conjecture.]]
-
-%\subsection{Comparing Prediction Accuracy}
-
-
-
-
-
-\subsection{Prediction Accuracy: Mean Absolute Scaled Error (MASE) {\color{red} NOT EDITABLE}}
-\label{sec:accuracy}
-
-\begin{figure}[htbp]
-  \centering
-      \begin{subfigure}{0.5\columnwidth}
-    \includegraphics[width=\textwidth]{figs/colMeanForecast}
-    \caption{\col na\"ive }
-    \label{fig:gccMEAN}
-  \end{subfigure}%
-   \begin{subfigure}{0.5\columnwidth}
-    \includegraphics[width=\textwidth]{figs/gccMeanForecast}
-    \caption{\gcc na\"ive }
-    \label{fig:gccMEAN}
-  \end{subfigure}%      
-  \\
-    \begin{subfigure}{0.3\columnwidth}
-    \includegraphics[width=\textwidth]{figs/colARIMAForecast}
-    \caption{\col ARIMA}
-    \label{fig:colARIMA}
-  \end{subfigure}
-  \begin{subfigure}{0.3\columnwidth}
-    \includegraphics[width=\textwidth]{figs/gccARIMAForecast}
-    \caption{\gcc ARIMA }
-    \label{fig:gccARIMA}
-  \end{subfigure}%
-  \\
-      \begin{subfigure}{0.49\textwidth}
-    \includegraphics[width=\textwidth]{figs/colLMAForecast}
-    \caption{\col LMA}
-    \label{fig:colLMA}
-  \end{subfigure}
-      \begin{subfigure}{0.49\textwidth}
-    \includegraphics[width=\textwidth]{figs/gccLMAForecast}
-    \caption{\gcc LMA}
-    \label{fig:gccLMA}
-  \end{subfigure}  
-  %\begin{subfigure}{0.5\textwidth}
-  %  \includegraphics[width=1.0\textwidth]{figs/LMA_vs_ARIMA}
-   \caption{
-{\color{red}[[Joshua: I should probably add \svdfive as it is a persistent example making this figure 9x9.}For each of these, we plot the predicted value $p_n$ against the correct value $c_n$. On this type of plot a perfect prediction lies exactly on the diagonal, that is the line $p_n = c_n$, e.g., \ref{fig:colLMA} is a near perfect prediction where-as \ref{fig:gccARIMA} is a very poor prediction. }\label{fig:gcc_vs_col}  
-  %\end{subfigure}
-\end{figure} 
-In order to analyze correctness of each prediction we split each time series into two pieces: the first 90\% referred to as the ``learning" or ``training" signal, $\{X_{i,obs}\}_{i=1}^{n}$ and the last 10\% known as the ``test" or ``correct" signal $\{c_j\}_{j=n+1}^{k+n+1}$. The learning signal is used to train an initial model (e.g., LMA or ARIMA) as described in Section \ref{sec:compModel}. The test signal is used both to assess the models forecasting accuracy and for any refitting that may be necessary. In particular, we perform $k$ 1-step predictions, after each 1-step prediction\footnote{We would like to note that this rebuilding occurs due to a problem with ARIMA models converging to a mean prediction if too long of a prediction horizon is used, this is not a handicap of either LMA or na\"ive.} we append the training signal with the next point in the correct signal $c_j$, refit the model taking into account the new system measurement and perform another prediction. This is repeated $k$ times to obtain $\{p_j\}_{j=n+1}^{k+n+1}$.
-
-As a figure of merit we calculate the Mean Absolute Scaled Error (MASE)\cite{MASE} between the true and predicted signals: 
-%In order to compare the resulting forecasts we calculate the Mean Absolute Squared Error (MASE)\cite{MASE} between the true and predicted signals:
-$$MASE = \sum_{j=n+1}^{k+n+1}\frac{|c_j-p_j| }{\frac{k}{n-1}\sum^n_{i=2}|X_{i,obs}-X_{i-1,obs}|}$$
-The scaling term for MASE:
-$$\frac{1}{n-1}\sum^n_{i=2}|X_{i,obs}-X_{i-1,obs}|$$ 
-is the average in-sample forecast error for a random walk prediction $(p_i=X_{i-1,obs})$. This error method was introduced in \cite{MASE} as a ``generally applicable measurement of forecast accuracy without the problems seen in the other measurements." The major advantage of MASE is that it allows fair comparison across methods, prediction horizons and varying signal scales. When a forecast results in a $MASE<1$ this means that the prediction method gave, on average, smaller errors than the 1-step errors from the in-sample random walk forecast strategy. Analogously, $MASE>1$ means that the prediction method did worse, on average than the 1-step errors for the in-sample random walk forecast strategy. In Table \ref{tab:error} we provide the distribution [[Joshua: Ryan, Is this the right word? we give mean $\pm$ std. dev but some have very skewed right tails]]  of MASEs for each of the 8 signals and 3 prediction strategies, these are averaged over 15 runs of each type (signal + method). [[and cherry pick a few examples of \gcc and \col to put in the text For comparison Table \ref{tab:error} also has the distribution of weighted permutation entropies for word lengths of $l=6$.]]
-
-
 
 
 
