@@ -152,13 +152,23 @@ forecast, provides accurate forecasts when the generating process is a determini
 
 
 
-\subsection{Prediction Accuracy: Mean Absolute Scaled Error (MASE) {\color{red} NOT EDITABLE}}
+\subsection{Prediction Accuracy: Mean Absolute Scaled Error (MASE) {\color{blue} EDITABLE}}
 \label{sec:accuracy}
 
+In order to analyze correctness of each prediction we split each time series into two pieces: the first 90\% referred to as the ``learning" or ``training" signal, $\{X_{i,obs}\}_{i=1}^{n}$ and the last 10\% known as the ``test" or ``correct" signal $\{c_j\}_{j=n+1}^{k+n+1}$. The learning signal is used to train an initial model (e.g., LMA or ARIMA) as described in Section \ref{sec:model}. The test signal is used both to assess the models forecasting accuracy and for any refitting that may be necessary. In particular, we perform $k$ one-step predictions, after each one-step prediction\footnote{We would like to note that this rebuilding occurs due to a problem with ARIMA models converging to a mean prediction if too long of a prediction horizon is used, this is not a handicap of either LMA or na\"ive.} we append the training signal with the next point in the correct signal $c_j$, refit the model taking into account the new system measurement and perform another prediction. This is repeated $k$ times to obtain $\{p_j\}_{j=n+1}^{k+n+1}$.
+
+As a figure of merit we calculate the Mean Absolute Scaled Error (MASE)\cite{MASE} between the true and predicted signals: 
+%In order to compare the resulting forecasts we calculate the Mean Absolute Squared Error (MASE)\cite{MASE} between the true and predicted signals:
+$$MASE = \sum_{j=n+1}^{k+n+1}\frac{|c_j-p_j| }{\frac{k}{n-1}\sum^n_{i=2}|X_{i,obs}-X_{i-1,obs}|}$$
+The scaling term for MASE:
+$$\frac{1}{n-1}\sum^n_{i=2}|X_{i,obs}-X_{i-1,obs}|$$ 
+is the average in-sample forecast error for a random walk prediction $(p_i=X_{i-1,obs})$. This error method was introduced in \cite{MASE} as a ``generally applicable measurement of forecast accuracy without the problems seen in the other measurements." We chose MASE because it allows for fair comparison across varying methods, prediction horizons and signal scales. When a forecast results in a $MASE<1$ the prediction method produced, on average, smaller errors than the one-step errors from the in-sample random walk forecast strategy. Analogously, $MASE>1$ means that the prediction method did worse, on average than the one-step errors for the in-sample random walk forecast strategy. 
+
+Table \ref{tab:error} provides the MASE distributions {\color{red}[[Joshua: Ryan, Is this the right word? we give mean $\pm$ std. dev but some have very skewed right tails]]} for each of the eight signals and three prediction strategies, these are averaged over 15 runs of each signal-method combination. For later comparison, Table \ref{tab:error} also has the complexity measure we introduce in Section  \ref{sec:meaComplex}. 
 
 
 
-
+To aid in a conceptual understanding of this error metric we provide example forecasts in Figure~\ref{fig:forecast-example}. In plots like this we plot $(c_j,p_j)$, visually points close to the line $y=x$, i.e. the line $p_j = c_j$ are more accurate. Forecasts which stay close to the line are more accurate than forecasts that stray away from it. 
 
 
 \begin{figure}[htbp]
@@ -216,21 +226,20 @@ forecast, provides accurate forecasts when the generating process is a determini
   %\begin{subfigure}{0.5\textwidth}
   %  \includegraphics[width=1.0\textwidth]{figs/LMA_vs_ARIMA}
    \caption{
-{\color{red}[[Joshua: I should probably add \svdfive as it is a persistent example making this figure 9x9.}For each of these, we plot the predicted value $p_n$ against the correct value $c_n$. On this type of plot a perfect prediction lies exactly on the diagonal, that is the line $p_n = c_n$, e.g., \ref{fig:colLMA} is a near perfect prediction where-as \ref{fig:gccARIMA} is a very poor prediction. }\label{fig:gcc_vs_col}  
+{\color{red}[[Joshua: Liz, I added \svdfive as it has been a persistent example up to this figure. I am a little worried about the 9x9 being too small in 1 column. We may need to make this figure span two columns, which I think is ok.]]}For each of these, we plot the predicted value $p_j$ against the correct value $c_j$. On this type of plot a perfect prediction lies exactly on the diagonal, that is the line $p_j = c_j$, e.g., (g) is a near perfect prediction where-as (e) is a poor prediction.}\label{fig:forecast-example}  
   %\end{subfigure}
 \end{figure} 
-In order to analyze correctness of each prediction we split each time series into two pieces: the first 90\% referred to as the ``learning" or ``training" signal, $\{X_{i,obs}\}_{i=1}^{n}$ and the last 10\% known as the ``test" or ``correct" signal $\{c_j\}_{j=n+1}^{k+n+1}$. The learning signal is used to train an initial model (e.g., LMA or ARIMA) as described in Section \ref{sec:model}. The test signal is used both to assess the models forecasting accuracy and for any refitting that may be necessary. In particular, we perform $k$ one-step predictions, after each one-step prediction\footnote{We would like to note that this rebuilding occurs due to a problem with ARIMA models converging to a mean prediction if too long of a prediction horizon is used, this is not a handicap of either LMA or na\"ive.} we append the training signal with the next point in the correct signal $c_j$, refit the model taking into account the new system measurement and perform another prediction. This is repeated $k$ times to obtain $\{p_j\}_{j=n+1}^{k+n+1}$.
 
-As a figure of merit we calculate the Mean Absolute Scaled Error (MASE)\cite{MASE} between the true and predicted signals: 
-%In order to compare the resulting forecasts we calculate the Mean Absolute Squared Error (MASE)\cite{MASE} between the true and predicted signals:
-$$MASE = \sum_{j=n+1}^{k+n+1}\frac{|c_j-p_j| }{\frac{k}{n-1}\sum^n_{i=2}|X_{i,obs}-X_{i-1,obs}|}$$
-The scaling term for MASE:
-$$\frac{1}{n-1}\sum^n_{i=2}|X_{i,obs}-X_{i-1,obs}|$$ 
-is the average in-sample forecast error for a random walk prediction $(p_i=X_{i-1,obs})$. This error method was introduced in \cite{MASE} as a ``generally applicable measurement of forecast accuracy without the problems seen in the other measurements." We chose MASE because it allows for fair comparison across varying methods, prediction horizons and signal scales. When a forecast results in a $MASE<1$ the prediction method produced, on average, smaller errors than the one-step errors from the in-sample random walk forecast strategy. Analogously, $MASE>1$ means that the prediction method did worse, on average than the one-step errors for the in-sample random walk forecast strategy. In Table \ref{tab:error} we provide the distribution {\color{red}[[Joshua: Ryan, Is this the right word? we give mean $\pm$ std. dev but some have very skewed right tails]]}  of MASE errors for each of the eight signals and three prediction strategies, these are averaged over 15 runs of each type (signal + method). [[and cherry pick a few examples of \gcc and \col to put in the text For comparison Table \ref{tab:error} also has the distribution of weighted permutation entropies for word lengths of $l=6$.]]
+It may be helpful for the reader at this point to compare some of the MASE scores in Table \ref{tab:error} with the example forecasts in Figure~\ref{fig:forecast-example}. For example, if we compare Figures~ \ref{fig:forecast-example} (d) and (g), \col is almost perfectly predicted by LMA (close to the line $y=x$ and ARIMA is a poor predictor as the points are spread out around $y=x$. Comparing to the MASE values in Table~\ref{tab:error} we see that \col with LMA had a MASE of $0.05 \pm 0.002$, whereas \col with ARIMA had a MASE of $0.599 \pm 0.211$. So intuitively the better visual prediction received a much better MASE score (the smaller the better). One way of interpreting these are that LMA on \col is on average 20 times more effective than random walk and ARIMA on \col is only 2 times more effective than random walk. 
+
+The part that becomes tricky and which must be kept in mind is that this error metric is in comparison to random walk. If we compare visually for example the LMA prediction of \col and \svdfive (Figures~\ref{fig:forecast-example} (g) \& (i)) visually they look very similar in terms of accuracy; however, \col was forecast 20 times better than random walk where as \svdfive was forecast only 1.5 times better. The reason for this lies in the strengths/weaknesses of Random Walk discussed in Section~\ref{sec:simple}. The large oscillations in \col cause Random Walk to do poorly, MASE then gives a model that accounts for this oscillation (e.g., LMA) a boost, whereas \svdfive is a great signal for Random Walk so there is less improvement to be made, and less boost is given for example for correctly reacting to regime shift. A more in-depth discussion of this is presented in Section~\ref{sec:results}. 
 
 
----works quite well on the trace in Figure~\ref{fig:ipc}, as
-shown in Figure~\ref{fig:lmacol}. 
+%[[and cherry pick a few examples of \gcc and \col to put in the text ]]
+
+
+%---works quite well on the trace in Figure~%\ref{fig:ipc}, as%
+%shown in Figure~\ref{fig:lmacol}. 
 %
 %\begin{figure}
 %   \centering
@@ -278,15 +287,15 @@ shown in Figure~\ref{fig:lmacol}.
 %\label{fig:lmagcc}
 %\end{figure}
 %
-On the other hand, if we use the same approach to forecast the
-processor efficiency (IPC) of the \gcc time series, the
-prediction is far less accurate; see Figure~\ref{fig:lmagcc}.
-Figure~\ref{fig:lmasvdfive} is clearly a better prediction than Figure~\ref{fig:gccLMA} but not nearly as good as the \col forecast.
+%On the other hand, if we use the same approach to %forecast the
+%processor efficiency (IPC) of the \gcc time series, %the
+%prediction is far less accurate; see Figure~%\ref{fig:lmagcc}.
+%Figure~\ref{fig:lmasvdfive} is clearly a better %prediction than Figure~\ref{fig:gccLMA} but not nearly as good as the \col forecast.
 
 
-This gets at the utility of the contribution of this paper: These time series all come from the same system---computers---but they are not equally predictable (at this point by LMA). For a practitioner is it the case that 
-  Our
-conjecture is that while they come from similar systems \gcc produces processor load traces on the top of the complexity spectrum whereas \col produces processor loads with complexity in the mid to low region of the complexity spectrum. If this is the case then \gcc might be much better predicted using a method like Random Walk or \naive which can effectively predict in the presence of complexity. This is explored more rigorously in the results Section of this paper (Section \ref{sec:results}. So that we don't have to compare the forecast accuarcy by visual comparing the predictions we calculate a figure of merit to compare the predictions. 
+%This gets at the utility of the contribution of this %paper: These time series all come from the same system---computers---but they are not equally predictable (at this point by LMA). For a practitioner is it the case that 
+%  Our
+%conjecture is that while they come from similar systems \gcc produces processor load traces on the top of the complexity spectrum whereas \col produces processor loads with complexity in the mid to low region of the complexity spectrum. If this is the case then \gcc might be much better predicted using a method like Random Walk or \naive which can effectively predict in the presence of complexity. This is explored more rigorously in the results Section of this paper (Section \ref{sec:results}. So that we don't have to compare the forecast accuarcy by visual comparing the predictions we calculate a figure of merit to compare the predictions. 
 
 
 
