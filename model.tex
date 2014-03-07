@@ -142,7 +142,7 @@ is the ``Lorenz method of analogues'' (LMA), which is essentially
 nearest-neighbor prediction in the embedded state
 space~\cite{lorenz-analogues}.  Even this simple algorithm---which
 builds predictions by finding the nearest neighbor in the embedded space of the given point, then taking that neighbor's path as the
-forecast provides quite accurate forecasts when a process generates and transmits information in this way. In particular, when an observation in a time series has redundancy in the form of nonlinear structure this forecast scheme should be a great choice. However, since this method is based on near-neighbor prediction in a reconstructed state-space, if a system does not exhibit deterministic structure this method can do quite poorly. {\color{red}[[Joshua:Not a fan of this wording]]}
+forecast, provides accurate forecasts when the generating process is a deterministic dynamical system. In particular, when an observation in a time series has redundancy in the form of nonlinear predictive structure this forecast scheme should be a great choice. However, since this method is based on near-neighbor prediction in a reconstructed state-space, if a system does not exhibit deterministic structure this method can do quite poorly. {\color{red}[[Joshua:Not a fan of this wording]]}
 %% [[If space: Add a segue sentence: next section uses permutation
 %% entropy to explore that conjecture.]]
 
@@ -163,39 +163,56 @@ forecast provides quite accurate forecasts when a process generates and transmit
 
 \begin{figure}[htbp]
   \centering
-      \begin{subfigure}{0.48\columnwidth}
-    \includegraphics[width=\columnwidth]{figs/colMeanForecast}
-    \caption{\col na\"ive }
+      \begin{subfigure}{0.33\columnwidth}
+    \includegraphics[width=\columnwidth]{figs/colMeanForecast.png}
+    \caption{\col\\ na\"ive }
     \label{fig:gccMEAN}
   \end{subfigure}%
-   \begin{subfigure}{0.48\columnwidth}
-    \includegraphics[width=\columnwidth]{figs/gccMeanForecast}
-    \caption{\gcc na\"ive }
+   \begin{subfigure}{0.32\columnwidth}
+    \includegraphics[width=\columnwidth]{figs/gccMeanForecast.png}
+    \caption{\gcc\\ na\"ive }
+    \label{fig:gccMEAN}
+  \end{subfigure}% 
+     \begin{subfigure}{0.32\columnwidth}
+    \includegraphics[width=\columnwidth]{figs/svdfiveMeanForecast.png}
+    \caption{\svdfive\\ na\"ive }
     \label{fig:gccMEAN}
   \end{subfigure}%      
   \\
-    \begin{subfigure}{0.48\columnwidth}
-    \includegraphics[width=\columnwidth]{figs/colARIMAForecast}
+    \begin{subfigure}{0.32\columnwidth}
+    \includegraphics[width=\columnwidth]{figs/colARIMAForecast.png}
+    
+    
     \caption{\col ARIMA}
     \label{fig:colARIMA}
   \end{subfigure}
-  \begin{subfigure}{0.48\columnwidth}
-    \includegraphics[width=\columnwidth]{figs/gccARIMAForecast}
-    \caption{\gcc ARIMA }
+  \begin{subfigure}{0.32\columnwidth}
+    \includegraphics[width=\columnwidth]{figs/gccARIMAForecast.png}
+    \caption{\gcc \\ ARIMA }
     \label{fig:gccARIMA}
   \end{subfigure}%
+  \begin{subfigure}{0.32\columnwidth}
+    \includegraphics[width=\columnwidth]{figs/svdfiveARIMAForecast.png}
+    \caption{\svdfive \\ ARIMA }
+    \label{fig:gccARIMA}
+  \end{subfigure}%    
   \\
-  
-      \begin{subfigure}{0.48\columnwidth}
-    \includegraphics[width=\columnwidth]{figs/colLMAForecast}
+
+      \begin{subfigure}{0.32\columnwidth}
+    \includegraphics[width=\columnwidth]{figs/colLMAForecast.png}
     \caption{\col LMA}
     \label{fig:colLMA}
   \end{subfigure}
-      \begin{subfigure}{0.48\columnwidth}
-    \includegraphics[width=\columnwidth]{figs/gccLMAForecast}
+      \begin{subfigure}{0.32\columnwidth}
+    \includegraphics[width=\columnwidth]{figs/gccLMAForecast.png}
     \caption{\gcc LMA}
     \label{fig:gccLMA}
   \end{subfigure}  
+        \begin{subfigure}{0.32\columnwidth}
+    \includegraphics[width=\columnwidth]{figs/svdfiveLMAForecast.png}
+    \caption{\svdfive LMA}
+    \label{fig:gccLMA}
+  \end{subfigure}
   %\begin{subfigure}{0.5\textwidth}
   %  \includegraphics[width=1.0\textwidth]{figs/LMA_vs_ARIMA}
    \caption{
@@ -215,29 +232,29 @@ is the average in-sample forecast error for a random walk prediction $(p_i=X_{i-
 ---works quite well on the trace in Figure~\ref{fig:ipc}, as
 shown in Figure~\ref{fig:lmacol}. 
 %
-\begin{figure}
-   \centering
-\begin{subfigure}{\columnwidth}
-    \includegraphics[width=\columnwidth]{figs/colPredShortTS}
-    \caption{\col }
-    \label{fig:lmacol}
-  \end{subfigure}%  
-  
-    \begin{subfigure}{\columnwidth}
-    \includegraphics[width=\columnwidth]{figs/colPredShortTS}
-    \caption{\gcc}
-    \label{fig:lmagcc}
-  \end{subfigure} 
-  \begin{subfigure}{\columnwidth}
-    \includegraphics[width=\columnwidth]{figs/colPredShortTS}
-    \caption{\svdfive}
-    \label{fig:lmasvdfive}
-  \end{subfigure}% 
-  \caption{{\color{red} [[If Liz thinks we should include these I actually need to generate this figure]]}An LMA-based forecast of
-       processor-efficiency performance trace from the\col ,\gcc and \svdfive generating processes.  Red circles and blue $\times$s are the true and
-       predicted values, respectively; vertical bars show where these
-       values differ.}\label{fig:lmapredictions}
- \end{figure}
+%\begin{figure}
+%   \centering
+%\begin{subfigure}{\columnwidth}
+%    \includegraphics[width=\columnwidth]{figs/%colPredShortTS}
+%    \caption{\col }
+%    \label{fig:lmacol}
+%  \end{subfigure}%  
+%  
+%    \begin{subfigure}{\columnwidth}
+%    \includegraphics[width=\columnwidth]{figs/%colPredShortTS}
+%    \caption{\gcc}
+%    \label{fig:lmagcc}
+%  \end{subfigure} 
+%  \begin{subfigure}{\columnwidth}
+%%    \includegraphics[width=\columnwidth]{figs/%colPredShortTS}
+%    \caption{\svdfive}
+%    \label{fig:lmasvdfive}
+%  \end{subfigure}% 
+%  \caption{{\color{red} [[If Liz thinks we should %include these I actually need to generate this %figure]]}An LMA-based forecast of
+%       processor-efficiency performance trace from the%\col ,\gcc and \svdfive generating processes.  Red %circles and blue $\times$s are the true and
+%       predicted values, respectively; vertical bars %show where these
+%       values differ.}\label{fig:lmapredictions}
+% \end{figure}
 %
 %\begin{figure}[htbp]
 %  \centering
