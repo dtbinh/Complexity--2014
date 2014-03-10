@@ -33,24 +33,24 @@ nobibnotes,
 %\usepackage{amsmath}
 \usepackage{epstopdf}
 \usepackage{amsthm}
-
+\usepackage{xspace}
 \usepackage{pifont} % check and x marks
 \usepackage{color}
 
 \newcommand{\cmark}{\ding{51}}
 \newcommand{\xmark}{\ding{55}}
 
-\newcommand{\gcc}{{\tt 403.gcc}~}
-\newcommand{\svd}{{\tt dgesdd}~}
-\newcommand{\svdone}{{\tt dgesdd}$_1$~}
-\newcommand{\svdtwo}{{\tt dgesdd$_2$}~}
-\newcommand{\svdthree}{{\tt dgesdd$_3$}~}
-\newcommand{\svdfour}{{\tt dgesdd$_4$}~}
-\newcommand{\svdfive}{{\tt dgesdd$_5$}~}
-\newcommand{\svdsix}{{\tt dgesdd$_6$}~}
+\newcommand{\gcc}{{\tt 403.gcc}\xspace}
+\newcommand{\svd}{{\tt dgesdd}\xspace}
+\newcommand{\svdone}{{\tt dgesdd}$_1$\xspace}
+\newcommand{\svdtwo}{{\tt dgesdd$_2$}\xspace}
+\newcommand{\svdthree}{{\tt dgesdd$_3$}\xspace}
+\newcommand{\svdfour}{{\tt dgesdd$_4$}\xspace}
+\newcommand{\svdfive}{{\tt dgesdd$_5$}\xspace}
+\newcommand{\svdsix}{{\tt dgesdd$_6$}\xspace}
 \newcommand{\naive}{na\"ive}
-\newcommand{\row}{{\tt row\_major}~}
-\newcommand{\col}{{\tt col\_major}~}
+\newcommand{\row}{{\tt row\_major}\xspace}
+\newcommand{\col}{{\tt col\_major}\xspace}
 %\newcommand{\color{red}}{{\color[rgb]{1,0,0}}}
 
 %\parskip=3pt
@@ -164,24 +164,19 @@ nobibnotes,
              %  but any date may be explicitly specified
 
 \begin{abstract}
-{\color{green}From the site:It should be about 5\% of the length of the article, but less than 500 words.}[[Joshua: Needs to be rewritten to be more general and use computers as the application not the focus, should be done after we have a first draft of the paper]]  Computers are deterministic dynamical systems \cite{mytkowicz09}.
-  Among other things, that implies that one should be able to use
-  deterministic forecast rules to predict aspects of their behavior.
-  That statement is sometimes---but not always---true. The memory and
-  processor loads of some simple programs are easy to predict, for
-  example, but those of more-complex programs like \gcc are not.
-%%%%%%%%%%%%%%%%%%%%%%
-%% I had to change all the \verb|blah| entries because they caused
-%% latex to barf if they were in figure captions.  Odd bug.
-%%%%%%%%%%%%%%%%%%%%%%
-  The goal of this paper is to determine why that is the case. We
-  conjecture that, in practice, complexity can effectively overwhelm
-  the predictive power of deterministic forecast models. To explore
-  that, we build models of a number of performance traces from
-  different programs running on different Intel-based computers. We
-  then calculate the \emph{permutation entropy}---a temporal entropy
-  metric that uses ordinal analysis---of those traces and correlate
-  those values against the prediction success.
+{\color{green}From the site:It should be about 5\% of the length of the article, but less than 500 words.} This paper provides insight
+into when, why, and how forecast strategies fail when they are applied
+to complicated time series by empirically estimating their inherent
+complexity. We focus here on the specific example of computer
+performance but believe the results apply to a much broader class of
+time series. We conjecture that the complexity of traces from these
+systems---which results from the inherent dimension, non-linearity,
+and non-stationarity, as well as from measurement issues like noise,
+aggregation, and finite data length---is \emph{empirically
+  quantifiable}.  To validate this conjecture we model 120 different
+performance traces using a variety of forecasting models.  We then
+compare the empirically estimated \emph{complexity} with the accuracy
+of each forecast method.
 \begin{description}
 \item[Usage]
 Secondary publications and information retrieval purposes.

@@ -216,6 +216,7 @@ Section~\ref{sec:model} on that time series.  In
 Section~\ref{sec:conc}, we discuss these results and their
 implications and consider future areas of research.
 
+<<<<<<< HEAD
 [[Following is a good start at an abstract. It doesn't need to be
     reiterated in the introduction.]]  This paper provides insight
 into when, why, and how forecast strategies fail when they are applied
@@ -233,3 +234,23 @@ aggregation, and finite data length---is \emph{empirically
 performance traces using a variety of forecasting models.  We then
 compare the empirically estimated \emph{complexity} with the accuracy
 of each forecast method.
+=======
+[[Following belongs in the methods section:]] In addition, some
+performance traces even exhibit interesting regime changes as a
+program switches between varying subroutines. 
+
+[[Following belongs in the conclusion.  Putting it here would be
+    appropriate in a CS paper, but not in a physics journal, and not
+    when we've just made the point that this is just a testbed.]] 
+% paragraph to appease the theoretician in me
+It is worth taking a moment to consider the theoretical possibility of
+this task. We are not attempting to predict the state of the CPU at an
+arbitrary point in the future --- this, at least with perfect
+accuracy, would be tantamount to solving the halting problem. What we
+are attempting is to predict aspects or functions of the running of
+the CPU, e.g., processor efficiency and similar statistics. Prediction
+of these quantities at some finite time in the future, even with
+perfect accuracy, does not violate the Rice-Shapiro
+theorem~\cite{hopcroft2007} which essentially states that any non-trivial
+property of a program is uncomputable.
+
