@@ -11,28 +11,11 @@ THINGS TO DO
 \end{enumerate}
 
 
-For the purposes of this paper, one can view entropy as a measure of complexity
-and predictability in a time series.  A high-entropy time series is almost
-completely unpredictable---and conversely.  This can be made more rigorous:
-Pesin's relation \cite{pesin77} states that in chaotic dynamical systems, the
-Shannon entropy rate is equal to the sum of the positive Lyapunov exponents,
-$\lambda_i$. The Lyapunov exponents directly quantify the rate at which nearby
-states of the system will diverge with time: $\left| \Delta x(t) \right| \approx
-e^{\lambda t} \left| \Delta x(0) \right|$.  The faster the divergence, the more
-difficult prediction becomes.
+For the purposes of this paper, one can view entropy as a measure of complexity and unpredictability in a time series.  A high-entropy time series is almost completely unpredictable---and conversely a low entropy signal is often quite predictable.  This can be made more rigorous: Pesin's relation \cite{pesin77} states that in chaotic dynamical systems, the Shannon entropy rate is equal to the sum of the positive Lyapunov exponents, $\lambda_i$. The Lyapunov exponents directly quantify the rate at which nearby states of the system will diverge with time: $\left| \Delta x(t) \right| \approx e^{\lambda t} \left| \Delta x(0) \right|$.  The faster the divergence, the more difficult prediction becomes.
 
-Utilizing entropy as a measure of temporal complexity is by no means a new idea
-\cite{Shannon1951, mantegna1994linguistic}.  Its effective usage requires
-categorical data: $x_t \in \mathcal{S}$ for some finite or countably infinite
-\emph{alphabet} $\mathcal{S}$, whereas data taken from real-world systems is
-effectively real-valued.  To get around this, one must discretize the data---
-typically achieved by binning.  Unfortunately, this is rarely a good solution to
-the problem, as the binning of the values introduces an additional dynamic on
-top of the intrinsic dynamics whose entropy is desired.  The field of symbolic
-dynamics studies how to discretize a time series in such a way that the
-intrinsic behavior is not perverted, but these methods are fragile in the face
-of noise and require further understanding of the underlying system, which
-defeats the purpose of measuring the entropy in the first place.
+Further we can consider the information contained in a single observable, say the \emph{present}, of the system, measured by the entropy. This information can be partitioned in to two components: the information shared with past observations --- the mutual information between the past and present --- and the information in the present which is not contained in the past --- the conditional entropy. The first part is known as \emph{redundancy}, as it is information in the present which is also in the past, and the second part is the \emph{entropy rate}. In theory, the more redundancy in a signal the more predictable it is. The difference between prediction methods is the types of redundancy (linear, non-linear, etc) they can detect and make use of.
+
+Utilizing entropy as a measure of temporal complexity is by no means a new idea \cite{Shannon1951, mantegna1994linguistic}. Its effective usage requires categorical data: $x_t \in \mathcal{S}$ for some finite or countably infinite \emph{alphabet} $\mathcal{S}$, whereas data taken from real-world systems is effectively\footnote{Measurements from real devices are of finite precision, rendering them discrete. Unfortunately the space of values taken is so large that for the purposes of entropy calculations it can be taken as a continuum.} real-valued.  To get around this, one must discretize the data --- typically achieved by binning.  Unfortunately, this is rarely a good solution to the problem, as the binning of the values introduces an additional dynamic on top of the intrinsic dynamics whose entropy is desired\cite{bollt2001}. The field of symbolic dynamics studies how to discretize a time series in such a way that the intrinsic behavior is not perverted, but these methods are fragile in the face of noise and require further understanding of the underlying system, which defeats the purpose of measuring the entropy in the first place.
 
 Bandt and Pompe introduced the \emph{permutation entropy} (PE) as a ``natural
 complexity measure for time series" \cite{bandt2002per}.  Permutation entropy
@@ -50,27 +33,18 @@ knowledge of the underlying mechanisms.
 
 \begin{mydef}[Permutation Entropy]
 
-  Given a time series $\{x_t\}_{t = 1,\dots,T}$. Define $\mathcal{S}_n$ as all
-  $n!$ permutations $\pi$ of order $n$. For each $\pi \in \mathcal{S}_n$ we
-  determine the relative frequency of that permutation occurring in $\{x_t\}_{t
-  = 1,\dots,T}$:
+  Given a time series $\{x_t\}_{t = 1,\dots,T}$. Define $\mathcal{S}_\ell$ as all $\ell!$ permutations $\pi$ of order $\ell$. For each $\pi \in \mathcal{S}_\ell$ we determine the relative frequency of that permutation occurring in $\{x_t\}_{t = 1,\dots,T}$:
   \begin{align*}
-    p(\pi) = \frac{\left|\{t|t \leq T-n,\phi(x_{t+1},\dots,x_{t+n}) = \pi\}\right|}{T-n+1}
+    p(\pi) = \frac{\left|\{t|t \leq T-\ell,\phi(x_{t+1},\dots,x_{t+\ell}) = \pi\}\right|}{T-\ell+1}
   \end{align*}
-  Where $|\cdot|$ is set cardinality. The \emph{permutation entropy} of order $n
-  \ge 2$ is defined as
+  Where $|\cdot|$ is set cardinality. The \emph{permutation entropy} of order $\ell \ge 2$ is defined as
   \begin{align*}
-  H(n) = - \sum_{\pi \in \mathcal{S}_n} p(\pi) \log_2 p(\pi)
+    H(\ell) = - \sum_{\pi \in \mathcal{S}_\ell} p(\pi) \log_2 p(\pi)
   \end{align*}
 
 \end{mydef}
 
-Notice that $0\le H(n) \le \log_2(n!)$ \cite{bandt2002per}.  With this in mind,
-it is common in the literature to normalize permutation entropy as follows:
-$\frac{H(n)}{\log_2(n!)}$.  With this convention, ``low'' entropy is close to 0
-and ``high'' entropy is close to 1. Finally, it should be noted that the
-permutation entropy has been shown to be identical to the Shannon entropy for {\color{red}[[Ryan is this the case or is it the KS entropy?]]}
-many large classes of systems \cite{amigo2012permutation}.
+Notice that $0\le H(\ell) \le \log_2(\ell!)$ \cite{bandt2002per}.  With this in mind, it is common in the literature to normalize permutation entropy as follows: $\frac{H(\ell)}{\log_2(\ell!)}$.  With this convention, ``low'' entropy is close to 0 and ``high'' entropy is close to 1. Finally, it should be noted that the permutation entropy has been shown to be identical to the Kolmolgorov-Sinai (KS) entropy for many large classes of systems \cite{amigo2012permutation}. In turn, and under very loose conditions, the KS entropy is equal to the Shannon entropy rate. What this normalization allows us to do, then, is approximate the redundancy of a signal by $1 - \frac{H(\ell)}{\log_2(\ell!)}$.
 
 Here we will be utilizing a variation of the permutation entropy, the
 \emph{weighted permutation entropy} (WPE)~\cite{fadlallah2013}. The weighted
@@ -213,7 +187,7 @@ regimes. [[I think here it would be good to add a paragraph explaining the windo
   \caption{The weighted permutation entropy of one run of
   SVD. The gray bands are regions where the window overlaps
   regimes. The window size used is 5,000 $\times$ 100,000 instructions
-  and the word length is $6$. {\color{red} make sure this is actually updated to 6} For reference the instructions per cycle
+  and the word length is $6$. For reference the instructions per cycle
   of \svd are plotted as a ghost behind this plot. Each color on the
   ghosted time series corresonds to the different regimes as selected
   by rapid shifts in WPE. From left to right each change in color
