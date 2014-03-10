@@ -110,9 +110,8 @@ extension of \emph{permutation entropy} \cite{bandt2002per}---a method
 for approximating the entropy through ordinal analysis---is an
 effective way to assess the complexity of a given time series.
 Permutation entropy is ideal for our purposes because it is known to
-converge to the true entropy value, unlike other existing techniques,
-which either require specific knowledge of the generating process or
-produce biased values of the entropy~\cite{bollt2001}.
+converge to the true entropy value. Other existing techniques either require specific knowledge of the generating process orproduce biased values of the entropy~\cite{bollt2001}.
+
 
 To explore the relationship between complexity, predictive structure,
 and predictability, we generate forecasts of a number of time-series
@@ -122,18 +121,11 @@ associated signals.  This results in two primary findings:
 \begin{enumerate}
 \item The complexity of a noisy real-valued time series is
   quantifiable by permutation entropy and correlated with prediction
-  accuracy of an ideal predictor [[we don't know that.  we only tried
-      four methods.]]
+  accuracy of an appropriate predictor.
 \item The way information is generated and processed internally by a
   system plays a crucial role in the success of different forecasting
-  schema.
+  schema, and in the choice of which forcasting scheme is appropriate.
 \end{enumerate}
-
-The second conjecture isn't just the corollary of halting problem in
-disguise.  It gives insight into why there's not an ideal predictor.
-It can't exist because the info is being transmitted in different
-ways.
-
 The forecast methods used here were chosen to span the space of
 standard prediction strategies, but they do not cover that space
 exhaustively.  Our goal here is an empirical assessment of the
@@ -208,8 +200,7 @@ completely unstructured, making this an ideal testbed for this study.
 %that trace using a series of deterministic models.
 
 The rest of the paper is organized as follows:
-Section~\ref{sec:related} discusses previous results on [[what]] and
-[[what]] and situates this work in that
+Section~\ref{sec:related} discusses previous results on generating partitions, local modeling, and error distribution analysis, and situates this work in that
 context. Section~\ref{sec:methods} covers the experimental setup and
 methods used to collect each time series. Section~\ref{sec:model}
 describes the prediction models we implemented.  In
@@ -236,7 +227,7 @@ are attempting is to predict aspects or functions of the running of
 the CPU, e.g., processor efficiency and similar statistics. Prediction
 of these quantities at some finite time in the future, even with
 perfect accuracy, does not violate the Rice-Shapiro
-theorem~\cite{hopcroft} which essentially states that any non-trivial
+theorem~\cite{hopcroft2007} which essentially states that any non-trivial
 property of a program is uncomputable.
 
 [[Following is a good start at an abstract. It doesn't need to be
