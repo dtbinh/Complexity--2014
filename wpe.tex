@@ -46,51 +46,28 @@ knowledge of the underlying mechanisms.
 
 Notice that $0\le H(\ell) \le \log_2(\ell!)$ \cite{bandt2002per}.  With this in mind, it is common in the literature to normalize permutation entropy as follows: $\frac{H(\ell)}{\log_2(\ell!)}$.  With this convention, ``low'' entropy is close to 0 and ``high'' entropy is close to 1. Finally, it should be noted that the permutation entropy has been shown to be identical to the Kolmolgorov-Sinai (KS) entropy for many large classes of systems \cite{amigo2012permutation}. In turn, and under very loose conditions, the KS entropy is equal to the Shannon entropy rate. What this normalization allows us to do, then, is approximate the redundancy of a signal by $1 - \frac{H(\ell)}{\log_2(\ell!)}$.
 
-Here we will be utilizing a variation of the permutation entropy, the
-\emph{weighted permutation entropy} (WPE)~\cite{fadlallah2013}. The weighted
-permutation entropy attempts to correct for observational noise which is larger
-than some trends in the data, but smaller than the larger scale features --- for
-example, a signal that switches between two fixed points with noise about those
-fixed points. The weighted permutation entropy would be dominated by the
-switching rather than by the stochastic fluctuation. To accomplish this, the
-\emph{weight} of a permutation is taken into account:
+Here we will be utilizing a variation of the permutation entropy, the \emph{weighted permutation entropy} (WPE)~\cite{fadlallah2013}. The weighted permutation entropy attempts to correct for observational noise which is larger than some trends in the data, but smaller than the larger scale features --- for example, a signal that switches between two fixed points with noise about those fixed points. The weighted permutation entropy would be dominated by the switching rather than by the stochastic fluctuation. To accomplish this, the \emph{weight} of a permutation is taken into account:
 \begin{align*}
-  w(x_{t+1:t+n}) = \frac{1}{n}
-                 \sum_{x_i \in \{x_{t+1:t+n}\}}
-                 \left( x_i - \bar{x}_{t+1:t+n} \right)^2
+  w(x_{t+1:t+\ell}) = \frac{1}{\ell} \sum_{x_i \in \{x_{t+1:t+\ell}\}}
+                      \left( x_i - \bar{x}_{t+1:t+\ell} \right)^2
 \end{align*}
-where $x_{t+1:t+n}$ is a sequence of values $x_{t+1}, \ldots, x_{t+n}$, and
-$\bar{x}_{t+1:t+n}$ is the arithmetic mean of those values.
+where $x_{t+1:t+\ell}$ is a sequence of values $x_{t+1}, \ldots, x_{t+\ell}$, and $\bar{x}_{t+1:t+\ell}$ is the arithmetic mean of those values.
 
 The weighted probability of a permutation is then:
 \begin{align*}
-  p_w(\pi) = \frac{\displaystyle \sum_{t \le T - n} w(x_{t+1:t+n}) \cdot \delta(\phi(x_{t:t+n}), \pi) }{\displaystyle \sum_{t \le T - n} w(x_{t+1:t+n})}
+  p_w(\pi) = \frac{\displaystyle \sum_{t \le T - \ell} w(x_{t+1:t+\ell}) \cdot \delta(\phi(x_{t:t+\ell}), \pi) }{\displaystyle \sum_{t \le T - \ell} w(x_{t+1:t+\ell})}
 \end{align*}
-where $\delta(x, y)$ is 1 if $x = y$ and 0 otherwise. Effectively, this weighted
-probability enhances permutations involved in ``large'' features and demotes
-permutations which are small in amplitude relative to the features of the time
-series. The weighted permutation entropy is then:
+where $\delta(x, y)$ is 1 if $x = y$ and 0 otherwise. Effectively, this weighted probability enhances permutations involved in ``large'' features and demotes permutations which are small in amplitude relative to the features of the time series. The weighted permutation entropy is then:
 \begin{align*}
-  H_w(n) = - \sum_{\pi \in \mathcal{S}_n} p_w(\pi) \log_2 p_w(\pi),
+  H_w(\ell) = - \sum_{\pi \in \mathcal{S}_\ell} p_w(\pi) \log_2 p_w(\pi),
 \end{align*}
-which can also be normalized by dividing by $\log_2(n!)$, and will be in all the
-results of this paper.
+which can also be normalized by dividing by $\log_2(\ell!)$, and will be in all the results of this paper.
 
-In practice, calculating permutation entropy and weighted permutation entropy
-involves choosing a good value for the word length $n$. The primary
-consideration is that the value be large enough that forbidden ordinals are
-discovered, yet small enough that reasonable statistics over the ordinals are
-gathered: e.g.:
+In practice, calculating permutation entropy and weighted permutation entropy involves choosing a good value for the word length $\ell$. The primary consideration is that the value be large enough that forbidden ordinals are discovered, yet small enough that reasonable statistics over the ordinals are gathered: e.g.:
 \begin{align*}
-  n = \operatornamewithlimits{argmax}_\ell \{ T \gtrapprox 100 \ell! \},
+  \ell = \operatornamewithlimits{argmax}_n \{ T \gtrapprox 100 n! \},
 \end{align*}
-assuming an average of 100 counts per ordinal is sufficient. In the literature,
-$3 \le n \le 6$ is a standard choice --- generally without any formal
-justification. In theory, the permutation entropy should reach an asymptote with
-increasing $n$, but that requires an arbitrarily long time series. In practice,
-what one should do is calculate the \emph{persistent} permutation entropy by
-increasing $n$ until the result converges, but data length issues can intrude
-before that convergence is reached.
+assuming an average of 100 counts per ordinal is sufficient. In the literature, $3 \le \ell \le 6$ is a standard choice --- generally without any formal justification. In theory, the permutation entropy should reach an asymptote with increasing $\ell$, but that requires an arbitrarily long time series. In practice, what one should do is calculate the \emph{persistent} permutation entropy by increasing $\ell$ until the result converges, but data length issues can intrude before that convergence is reached. Here, we found that $\ell = 6$ was a good choice, because with $\ell \geq 7$ many signals had entropies plummet due to finite data effects and so with a word length of 6 we are capturing as much structure as possible without sacraficing the accuracy of ordinal statistics.
 
 \subsection{Regime Selection:Detecting complexity shift in a time series}\label{sec:wpeRegime}
 
