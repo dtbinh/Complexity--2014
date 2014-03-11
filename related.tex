@@ -1,17 +1,29 @@
 \section{Related Work }\label{sec:related}
 {\color{red}[[NOT EDITABLE]]}
-Attempting to model and characterize predictability is a very old problem which arguably began with Yule in 1927 when he invented AR and many attempts to quantify predicatbility have followed including ....
+Attempting to model time series for prediction is an  old problem which arguably began with Yule in 1927 when he invented autoregression \cite{Yule27}. Since then hundreds if not thousands of prediction strategies have been developed for a wide variety of prediction tasks. The purpose of this paper is \emph{not} to model a time series for prediction but to understand the predictability of a real-valued-scalar time series model free and then to associate the model accuracy with the time series inherent complexity. 
 
-The ideal method of computing the entropy of a system is via \emph{generating partitions}~\cite{lind95}, a technique which partitions observations into symbols in a way which preserves the underlying dynamics. Unfortunately, outside of one-dimensional unimodal maps and a few select higher dimensional maps, generating partitions are highly non-trivial to compute and often have fractal boundaries~\cite{eisele1999}. Furthermore, the underlying dynamic needs to be known to construct the generating partition. Unfortunately, using any partition (such as those produced by simply binning the data) other than the generation partition induces spurious complexity to the resulting symbolic sequence, thus misrepresenting the entropy of the underlying system~\cite{bollt2001}.
+Quantifying predictability or sometimes called predicting predictability is also not a new problem and most solutions fall into two categories: model based and model free where information content is estimated through binning. 
 
+The first class of methods is model oriented. These methods often include one of two things: Building local  models around points in a time series or analyzing statistics on the distribution of model errors. A few examples of the first case are \cite{Smith199250,dvsplots}, in \cite{Smith199250} for example they build local error distributions around "landmarks"(look up actual word they use) of a reconstructed trajectory of a dynamical system. They then use these distributions to predict error bounds on  predictions which occur within that $\epsilon$-ball. DVS-plots (Deterministic-vs-Stochastic plots) are somewhat similar to this 
 
-Redundancy (details in SFI forecasting), relies heavily on either estimating the generating partiion which is hard to do *and* estimating the positive lyap spectrum which is hard to do for noisy systems and impossible for systems that are not deterministic.
 
 DVS plots, gives pros and cons in (SFI prediction book)
 
 predicting local predictive capacity (radial basis functions stuff, trying to predict error bounds on next forecast based on ensemble uncertainty) but does not aggregate tell you at what level the time series exhibits complexity only locally predictive structure, this actualy gets at the interesting point that different regions of a time series may exhibit differnt levels of complexity which we will illustrate with \svd
 
 Distrubtion of error. For many methods, if your error is not normally distributed this signals that there is stil more predictve structure to that could be used by for example a larger order ARMA process. But if error is normally distributed, this suggests that you have used up all the predictive structure that **that** model can use, this doesn't quantify if preidctuce structure exists that isn't being used by this process. For example, nonlinear structure which is ignored by a linear predictor.
+
+
+
+
+
+ and many attempts to quantify predicatbility have followed including ....
+
+The ideal method of computing the entropy of a system is via \emph{generating partitions}~\cite{lind95}, a technique which partitions observations into symbols in a way which preserves the underlying dynamics. Unfortunately, outside of one-dimensional unimodal maps and a few select higher dimensional maps, generating partitions are highly non-trivial to compute and often have fractal boundaries~\cite{eisele1999}. Furthermore, the underlying dynamic needs to be known to construct the generating partition. Unfortunately, using any partition (such as those produced by simply binning the data) other than the generation partition induces spurious complexity to the resulting symbolic sequence, thus misrepresenting the entropy of the underlying system~\cite{bollt2001}.
+
+
+Redundancy (details in SFI forecasting), relies heavily on either estimating the generating partiion which is hard to do *and* estimating the positive lyap spectrum which is hard to do for noisy systems and impossible for systems that are not deterministic.
+
 
 
 But this method is differnt becasue it uses no assumption about the underlying model, does not require generating partitions, is applicable to noisy real-valued time series.
