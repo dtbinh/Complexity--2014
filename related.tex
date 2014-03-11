@@ -2,35 +2,46 @@
 {\color{red}[[NOT EDITABLE]]}
 Attempting to model time series for prediction is an  old problem which arguably began with Yule in 1927 when he invented autoregression \cite{Yule27}. Since then hundreds if not thousands of prediction strategies have been developed for a wide variety of prediction tasks. The purpose of this paper is \emph{not} to model a time series for prediction but to understand the predictability of a real-valued-scalar time series model free and then to associate the model accuracy with the time series inherent complexity. 
 
-Quantifying predictability or sometimes called predicting predictability is also not a new problem and most solutions fall into two categories: model based and model free where information content is estimated through binning. 
+Quantifying predictability or sometimes called predicting predictability is also not a new problem and most solutions fall into two categories: model-based error analysis and model-free information analysis.
 
-The first class of methods is model oriented. These methods often include one of two things: Building local  models around points in a time series or analyzing statistics on the distribution of model errors. A few examples of the first case are \cite{Smith199250,Casdagli92dvsplots}, in \cite{Smith199250} for example they build local error distributions around "landmarks"(look up actual word they use) of a reconstructed trajectory of a dynamical system. They then use these distributions to predict error bounds on  predictions which occur within that $\epsilon$-ball. Casdagli introduced Deterministic-vs-Stochastic plots (DVS-plots) in \cite{Casdagli92dvsplots} 
+%Actually this first class are both just analyzing model error distributions but some are local and some are global models but both are really just error
 
-
-DVS plots, gives pros and cons in (SFI prediction book)
-
-predicting local predictive capacity (radial basis functions stuff, trying to predict error bounds on next forecast based on ensemble uncertainty) but does not aggregate tell you at what level the time series exhibits complexity only locally predictive structure, this actualy gets at the interesting point that different regions of a time series may exhibit differnt levels of complexity which we will illustrate with \svd
-
-Distrubtion of error. For many methods, if your error is not normally distributed this signals that there is stil more predictve structure to that could be used by for example a larger order ARMA process. But if error is normally distributed, this suggests that you have used up all the predictive structure that **that** model can use, this doesn't quantify if preidctuce structure exists that isn't being used by this process. For example, nonlinear structure which is ignored by a linear predictor.
+%predicting local predictive capacity (radial basis functions stuff, trying to predict error bounds on next forecast based on ensemble uncertainty) but does not aggregate tell you at what level the time series exhibits complexity only locally predictive structure, this actualy gets at the interesting point that different regions of a time series may exhibit differnt levels of complexity which we will illustrate with \svd
 
 
 
+The first class of methods is model oriented and focuses on either local or global in- or out-of-sample errors of a particular forecast schema. The local side of this tries to build error distributions for different areas of a time series reconstruction by doing local ensemble in-sample forecasting and then using the constructed distribution of in-sample errors as a means to predict out-of-sample forecast errors in that area of the time series reconstruction. For example, in \cite{Smith199250} in-sample forecasts are done for ensembles around ``data centers" (a subset of the time series) to predict the local predictability of a time series reconstruction. This does not however tell you if redundancy exists in a time series but only tells you the local predictive capacity in relation to this particular model (an extension of the model described in Section~\ref{sec:lma}). This paper does brings up a very interesting point however that different regions of a time series may exhibit varying levels of local predictive structure, we expand on this finding later in this paper with a time series called ``\svd".
 
 
- and many attempts to quantify predicatbility have followed including ....
-
-The ideal method of computing the entropy of a system is via \emph{generating partitions}~\cite{lind95}, a technique which partitions observations into symbols in a way which preserves the underlying dynamics. Unfortunately, outside of one-dimensional unimodal maps and a few select higher dimensional maps, generating partitions are highly non-trivial to compute and often have fractal boundaries~\cite{eisele1999}. Furthermore, the underlying dynamic needs to be known to construct the generating partition. Unfortunately, using any partition (such as those produced by simply binning the data) other than the generation partition induces spurious complexity to the resulting symbolic sequence, thus misrepresenting the entropy of the underlying system~\cite{bollt2001}.
-
-
-Redundancy (details in SFI forecasting), relies heavily on either estimating the generating partiion which is hard to do *and* estimating the positive lyap spectrum which is hard to do for noisy systems and impossible for systems that are not deterministic.
+%Distrubtion of error. For many methods, if your error is not normally distributed this signals that there is stil more predictve structure to that could be used by for example a larger order ARMA process. But if error is normally distributed, this suggests that you have used up all the predictive structure that **that** model can use, this doesn't quantify if preidctuce structure exists that isn't being used by this process. For example, nonlinear structure which is ignored by a linear predictor.
 
 
 
-But this method is differnt becasue it uses no assumption about the underlying model, does not require generating partitions, is applicable to noisy real-valued time series.
+When analyzing post-facto global fits, practitioners often analyze the global error distribution of a forecasting schema. For example, it is common with autoregressive models to verify the error is normally distributed. If it is not then this is an indicator that more linear structure is present that can be used. The problem with this approach is that if the error is normally distributed it can not be said that the practitioner is using the ideal forecasting schema, e.g., if nonlinear structure is present that linear modeling is oblivious to. 
 
 
+A practice known as deterministic vs. stochastic modeling\cite{Casdagli92dvsplots, weigend-book} bridges the gap between local and global error analysis. The basic idea is to construct a series of local linear fits (single point) to global linear fits (fitting all points known at that time), increasing the number of points in the fit slowly. Then analyze how the average out-of-sample error changes as a function of number of points in the linear fits. The shape of such a graph indicates how much determinism vs. stochasticity is present in a time series, see  \cite{Casdagli92dvsplots, weigend-book} for more information. 
+
+ Our approach is completely different than this first class as our approach is model free, each of the methods in this class are based off very particular assumptions about the underlying generating system and knowledge of how error will result if those assumptions hold or break. Our approach instead empirically approximates the time series inherent complexity (Kolmogorov-Sinai entropy). Quantifying predictability through entropy/redundancy is not a new idea, but past methods (e.g.,\cite{Shannon1951, mantegna1994linguistic}) have hinged on knowledge of the  \emph{generating partitions}. 
+ 
+It is the case that the ideal method of computing the entropy of a system is via \emph{generating partitions}~\cite{lind95}, a technique which partitions observations into symbols in a way which preserves the underlying dynamics. Unfortunately, outside of one-dimensional unimodal maps and a few select higher dimensional maps, generating partitions are highly non-trivial to compute and often have fractal boundaries~\cite{eisele1999}. Furthermore, the underlying dynamic needs to be known to construct the generating partition. Unfortunately, using any partition (such as those produced by simply binning the data) other than the generation partition induces spurious complexity to the resulting symbolic sequence, thus misrepresenting the entropy of the underlying system~\cite{bollt2001}.
+
+{\color{red}[[Ryan to write]]
+
+A paragraph on redundancy and its connection with predictability  how it is approximated and how these estimates are bad 
+
+e.g., Redundancy estimates rely heavily on either estimating the generating partition which is hard to do *and* estimating the full positive Lyapunov spectrum which is hard to do for noisy systems and impossible for systems that are not deterministic.
+
+
+
+Also please edit / look at the paragrpah proceeding and following this one
+}
+
+Our approach expands on \cite{bandt2002per} to approximate normalized redundancy of a time series as a proxy for predictability. This method is different from the current literature because it does not rely on generating partitions, and as such does not suffer from the previously mentioned biases and no knowledge of the underlying generating process is necessary, e.g, linear, nonlinear, the Lyapunov spectrum etc.  In contrast our approach uses no assumption about the underlying generating process, does not require generating partitions, and is applicable to noisy real-valued time series from all classes of systems.
+
+{\color{red}
 Maybe talk about ``
 wpe has been applied to predicting irregularities in brain wave data but no on one has examined it's correlation with predictive structure. "
 but kind of puts the cart before the horse
-
+}
 
