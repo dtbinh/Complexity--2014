@@ -12,16 +12,37 @@
 
 \subsection{Time Series Collection {\color{blue} EDITABLE}}
 
-The time-series data for these experiments was collected on an Intel Core\textsuperscript{\textregistered} i7-2600 running the 2.6.38-8 Linux
-kernel.  This Nehalem chip has eight cores running at 3.40GHz and a cache size
-of 8192 KB.  We collected performance traces of processor efficiency (IPC) during the execution of three exemplar programs---a simple microkernel(\col) and two complex programs: one from the
-SPEC 2006CPU benchmark suite (\gcc), and one from LAPACK (\svd). In particular, we measured and aggregated the instructions executed per clock cycle (ipc)---a measure of processor efficiency---at 100,000-instruction intervals.  To record these measurements,
-we used the {\tt libpfm4} library, via PAPI 5.2
-\footnote{Performance Application Programming Interface}\cite{papi}, combined with a custom measurement infrastructure\cite{todd-phd} to stop program execution every 100,00-instructions and read the contents of the CPU's onboard hardware performance monitors (HPMs). HPMs are specialty registers who exist solely to store performance data.  For statistical validation we collected 15 performance traces from each program resulting in 45 total time series.
+The time-series data for these experiments was collected on an Intel
+Core\textsuperscript{\textregistered} i7-2600-based machine running
+the 2.6.38-8 Linux kernel.  This particular microprocessor chip has
+eight processing units---''cores''---a clock rate of 3.40GHz, and a
+cache size of 8192 KB.  We collected performance traces of processor
+efficiency during the execution of three different programs---the
+simple loop (\col) whose performance is depicted in
+Figure~\ref{fig:col-ipc} and two more-complex programs: one from the
+SPEC 2006CPU benchmark suite (\gcc), and one from the LAPACK linear
+algebra package (\svd).  To record these measurements, we used the
+{\tt libpfm4} library, via PAPI
+% 
+% \footnote{Performance Application Programming Interface}
+% 
+5.2~\cite{papi}, to stop program execution at 100,000-instruction
+intervals and read the contents of the CPU's onboard hardware
+performance monitors\footnote{These specialty registers are built into
+  modern microprocessors for the purpose of on-board monitoring and
+  storage of performance data.}, which we had programmed to count how
+many instructions were executed in each clock cycle (IPC).  For an
+in-depth description of this custom-measurement infrastructure,
+including discussion of the implications of the measurement interval,
+please see \cite{zach-IDA10,mytkowicz09,todd-phd}.  For statistical
+validation, we collected 15 performance traces from each of the three
+programs.
 
-
-Obviously using a system to measure itself can cause interference--i.e, are you measuring the generating process cleanly or are you adding noise to the process?---but due diligence was put into monitoring the generating process of these time series without interfering with it in a significant way. For an in-depth explanation of this custom-measurement infrastructure as well as discussion on choice of interrupt rate see 
-\cite{zach-IDA10,mytkowicz09,todd-phd}.
+% Obviously using a system to measure itself can cause
+% interference--i.e, are you measuring the generating process cleanly or
+% are you adding noise to the process?---but due diligence was put into
+% monitoring the generating process of these time series without
+% interfering with it in a significant way.
 
 
 \subsection{The Programs: [[Maybe The generating processes]]{\color{blue} EDITABLE}}

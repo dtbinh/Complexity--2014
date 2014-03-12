@@ -146,7 +146,7 @@ memories, for instance, and they use complicated hardware/software
 strategies to move data and threads of computation across those
 resources.  As a result, the processor and memory loads during the
 execution of even a very simple program can evolve in a very
-complicated fashion.  Figure~\ref{fig:ipc} shows a performance trace
+complicated fashion.  Figure~\ref{fig:col-ipc} shows a performance trace
 of a three-line loop that repeatedly initializes the upper triangle of
 a matrix in column-major order.
 %
@@ -159,7 +159,7 @@ a matrix in column-major order.
       a three-line C program that repeatedly initializes a matrix in
       column-major order, running on an Intel
       i7\textsuperscript{\textregistered}-based machine.}
-   \label{fig:ipc}
+   \label{fig:col-ipc}
   \end{figure}
 %
 Although this time series appears to be periodic, it is actually
