@@ -68,7 +68,7 @@ high accuracy.
 As a corollary of the undecidability of the halting problem
 \cite{halting-problem}, however, no single forecasting schema is ideal
 for all noise-free deterministic signals\cite{weigend-book}---let
-alone all real-world time series data sets.  This leads naturally to
+alone all real-world time-series data sets.  This leads naturally to
 an important and challenging question: given a complicated real-valued
 time series, does there exist a forecast model that can utilize the
 information (if any) that is being transmitted from past to future by
@@ -82,12 +82,8 @@ the generating process---whether a time series is too complex to
 predict.  An important practical corollary to this is a strategy for
 assessing appropriateness of forecast methods.  If the forecast
 produced by a particular method is poor but the time series contains a
-significant amount of predictive structure, that method is inadequate
-to the task and one should seek another method.  We focus on
-real-valued, scalar, time-series data that appear complicated: i.e.,
-not periodic, linear, constant, etc.  We make no assumptions about the
-properties of the generating process: whether it is linear, nonlinear,
-deterministic, stochastic, stationary, non-stationary, etc.  
+significant amount of predictive structure, one can reasonably conclude that that method is inadequate
+to the task and that one should seek another method.    
 
 The information in an observation can be partitioned into two pieces:
 redundancy and entropy generation\cite{crutchfield2003}.  Our approach
@@ -102,27 +98,32 @@ that an extension of \emph{permutation entropy}
 \cite{bandt2002per}---a method for approximating the entropy through
 ordinal analysis---is an effective way to assess the complexity of a
 given time series.  Permutation entropy is ideal for our purposes
-because it is known to converge to the true entropy value. Other
+because it works with real-valued data and is known to converge to the true entropy value. Other
 existing techniques either require specific knowledge of the
 generating process or produce biased values of the
 entropy~\cite{bollt2001}.
 
-
+We focus on real-valued, scalar, time-series data that appear
+complicated: i.e., not periodic, linear, constant, etc.  We make no
+assumptions about the properties of the generating process: whether it
+is linear, nonlinear, deterministic, stochastic, stationary,
+non-stationary, etc.
 To explore the relationship between complexity, predictive structure,
-and predictability, we generate forecasts of a number of time-series
+and predictability, we generate forecasts of a variety of time-series
 datasets using four different prediction methods, then compare the
 accuracy of those predictions to the permutation entropy of the
 associated signals.  This results in two primary findings:
 \begin{enumerate}
-\item The complexity of a noisy real-valued time series is
-  quantifiable by permutation entropy and correlated with prediction
+\item The complexity of a noisy real-valued time series is {\sl (i)}
+  quantifiable by permutation entropy and {\sl (ii)} correlated with prediction
   accuracy of an appropriate predictor.
 \item The way information is generated and processed internally by a
   system plays a crucial role in the success of different forecasting
-  schema---and in the choice of which forecasting scheme is appropriate.
+  schema---and in the choice of which one is appropriate for a given 
+time series.
 \end{enumerate}
-The forecast methods used here were chosen to span the space of
-standard prediction strategies, but they do not cover that space
+The forecast methods used in this study were chosen to span the space of
+standard prediction strategies, but they do not, of course, cover that space
 exhaustively.  Our goal here is an empirical assessment of the
 relationship between predictability and complexity, not formal results
 about a ``best'' predictor for a given time series.  From a
@@ -137,16 +138,17 @@ is, if one could do better and should keep searching.
 For the purposes of this study, we require a broad array of
 time-series datasets that cover the full complexity spectrum.  Rather
 than use synthetic data, we study sensor data from computer
-performance experiments.  Computers are among the most complex
-engineered artifacts in current use.  Modern microprocessor chips
-contain multiple processing units and multi-layer memories, for
-instance, and they use complicated hardware/software strategies to
-move data and threads of computation across those resources.  As a
-result, the processor and memory loads during the execution of even a
-very simple program can evolve in a very complicated fashion.
-Figure~\ref{fig:ipc} shows a performance trace of a three-line loop
-that repeatedly initializes the upper triangle of a matrix in
-column-major order.
+performance experiments.  While this is not a common laboratory
+experiment, it is a highly appropriate choice here.  Computers are
+among the most complex engineered artifacts in current use.  Modern
+microprocessor chips contain multiple processing units and multi-layer
+memories, for instance, and they use complicated hardware/software
+strategies to move data and threads of computation across those
+resources.  As a result, the processor and memory loads during the
+execution of even a very simple program can evolve in a very
+complicated fashion.  Figure~\ref{fig:ipc} shows a performance trace
+of a three-line loop that repeatedly initializes the upper triangle of
+a matrix in column-major order.
 %
  \begin{figure}[htbp]
     \centering
@@ -170,7 +172,7 @@ complexity spectrum, from completely predictable to completely
 unstructured, making this an ideal testbed for this
 study\footnote{Predicting the \emph{state} of a computer, of course,
   would amount to solving the halting problem.  What we are doing here
-  is predicting its \emph{performance}, which does not violate the
+  is predicting computer \emph{performance}, which does not violate the
   Rice-Shapiro theorem~\cite{hopcroft2007}.}.
 % footnote to appease the theoretician in Josh
 
@@ -201,17 +203,17 @@ study\footnote{Predicting the \emph{state} of a computer, of course,
 %load (instructions per cycle), then compare that to %the prediction accuracy attainable for
 %that trace using a series of deterministic models.
 
-The rest of the paper is organized as follows:
+The rest of the paper is organized as follows.
 Section~\ref{sec:related} discusses previous results on generating
 partitions, local modeling, and error distribution analysis, and
 situates this work in that context. Section~\ref{sec:methods} covers
 the experimental setup and methods used to collect each time
-series. Section~\ref{sec:model} describes the prediction models we
-implemented.  In Section~\ref{sec:meaComplex}, we review weighted
-permutation entropy.  In Section~\ref{sec:results}, we estimate the
+series. Section~\ref{sec:model} describes the prediction models used
+in this study.  In Section~\ref{sec:meaComplex}, we review the
+permutation entropy technique.  In Section~\ref{sec:results}, we estimate the
 complexity of each time series and compare that complexity to the
 accuracy of predictions produced by the methods of
-Section~\ref{sec:model} on that time series.  In
+Section~\ref{sec:model}, operating on that time series.  In
 Section~\ref{sec:conc}, we discuss these results and their
 implications and consider future areas of research.
 
