@@ -26,16 +26,7 @@ A practice known as deterministic vs. stochastic modeling\cite{Casdagli92dvsplot
  
 It is the case that the ideal method of computing the entropy of a system is via \emph{generating partitions}~\cite{lind95}, a technique which partitions observations into symbols in a way which preserves the underlying dynamics. Unfortunately, outside of one-dimensional unimodal maps and a few select higher dimensional maps, generating partitions are highly non-trivial to compute and often have fractal boundaries~\cite{eisele1999}. Furthermore, the underlying dynamic needs to be known to construct the generating partition. Unfortunately, using any partition (such as those produced by simply binning the data) other than the generation partition induces spurious complexity to the resulting symbolic sequence, thus misrepresenting the entropy of the underlying system~\cite{bollt2001}.
 
-{\color{red}[[Ryan to write]]
-
-A paragraph on redundancy and its connection with predictability  how it is approximated and how these estimates are bad 
-
-e.g., Redundancy estimates rely heavily on either estimating the generating partition which is hard to do *and* estimating the full positive Lyapunov spectrum which is hard to do for noisy systems and impossible for systems that are not deterministic.
-
-
-
-Also please edit / look at the paragrpah proceeding and following this one
-}
+It seems desirable to quantify how much information prior observations of a system lend to future values, the \emph{mututal information} between, say, the past $n$ observations at the current one. This quantity is known as the \emph{redundancy}. For example, this would be the amount of information that delay coordinate embedding captures. For IID random processes,  the redundancy is zero, since all observations are independent of each other. On the other hand, any deterministic system --- including chaotic ones --- can be perfectly predicted if observed for long enough~\cite{{weigend-book}. Unfortunately it is quite difficult to estimate the redundancy in practice for an arbitrary, real-valued time series. Doing so requires knowing either the Kolmolgorov-Sinai entropy or the Lyapunov spectrum. As discussed above, computing the entropy is quite difficult. Similarly, computing the Lyapunov exponent from an arbitrary time series is also fraught with difficulties, and is effectivly impossible if there is significant noise or the generating system is stochastic.
 
 Our approach expands on \cite{bandt2002per} to approximate normalized redundancy of a time series as a proxy for predictability. This method is different from the current literature because it does not rely on generating partitions, and as such does not suffer from the previously mentioned biases and no knowledge of the underlying generating process is necessary, e.g, linear, nonlinear, the Lyapunov spectrum etc.  In contrast our approach uses no assumption about the underlying generating process, does not require generating partitions, and is applicable to noisy real-valued time series from all classes of systems.
 
