@@ -40,24 +40,25 @@ strategies in the case of highly complex signals, as discussed below.
 
 A random-walk predictor simply uses the last observed measurement as
 the forecast: that is, the value $px_i$ at time $i$ is predicted using
-the relation $$px_i = x_{i-1}$$ The \naive ~prediction strategy
-averages the prior observations to generate the forecast: $$px_i =
-\sum_{j=1}^{i-1}\frac{x_j}{i-1}$$ While both of these methods are
-simplistic, they are not without merit.  For a time series near the
-high end of the complexity spectrum---i.e., one that possesses very
-little predictive structure---these two methods can actually be the
-best choice.  In forecasting currency exchange rates, for instance,
-sophisticated econometrics-based prediction models fail to
-consistently outperform the random-walk method~\cite{rwMeese,rwCCE}.
-These signals are volatile, noisy, and possess very little predictive
-structure, but they do not---on the average---vary a great deal, so
-the random-walk method's strategy of simply guessing the last known
-value is not a bad choice.  If a signal has a unimodal distribution
-with low variance, the \naive ~prediction strategy will perform quite
-well---even if the signal is highly complex---simply because the mean
-is a good approximation of the future behavior.  Moreover, a temporal
-average effects a low-pass filtering operation.  In a signal with very
-little predictive structure, then, the \naive ~prediction strategy
+the relation $$px_i = x_{i-1}$$ The prediction strategy that we refer
+to using the term ``\naive'' averages the prior observations to
+generate the forecast: $$px_i = \sum_{j=1}^{i-1}\frac{x_j}{i-1}$$
+While both of these methods are simplistic, they are not without
+merit.  For a time series near the high end of the complexity
+spectrum---i.e., one that possesses very little predictive
+structure---these two methods can actually be the best choice.  In
+forecasting currency exchange rates, for instance, sophisticated
+econometrics-based prediction models fail to consistently outperform
+the random-walk method~\cite{rwMeese,rwCCE}.  These signals are
+volatile, noisy, and possess very little predictive structure, but
+they do not---on the average---vary a great deal, so the random-walk
+method's strategy of simply guessing the last known value is not a bad
+choice.  If a signal has a unimodal distribution with low variance,
+the \naive ~prediction strategy will perform quite well---even if the
+signal is highly complex---simply because the mean is a good
+approximation of the future behavior.  Moreover, a temporal average
+effects a low-pass filtering operation.  In a signal with very little
+predictive structure, then, the \naive ~prediction strategy
 effectively mitigates the complexity.
 
 Both of these methods have significant weaknesses, however.  Because
@@ -161,9 +162,9 @@ and~\ref{sec:results}.
 % ...down to here
 %%%%%%%%%%%%%%%%%%%%%%%%
 
-Perhaps the simplest way to capture and exploit the structure of data
-is to fit a hyperplane to the dataset and then use that it to make
-predictions.  The roots of this approach date back to Yule's 1927
+A simple and yet powerful way to capture and exploit the structure of
+data is to fit a hyperplane to the dataset and then use that it to
+make predictions.  The roots of this approach date back to Yule's 1927
 invention of the autoregressive schema~\cite{weigend93}, which
 forecasts the next time step through a weighted average of past
 observations: $$px_i = \sum a_i x_i$$ The weighting coefficients $a_i$
@@ -172,10 +173,10 @@ $p+1$ values of $x_i$.  To account for noise in the data, one can add
 a so-called ``moving average'' term to the model; to remove
 nonstationarities, one can detrend the data using a differencing
 operation.  A strategy that incorporates all three of these features
-is called a \emph{nonseasonal ARIMA model}.  If periodic structure is
-present in the data, a \emph{seasonal ARIMA model}, which adds a
-sampling operation that filters out periodicities, can be a good
-choice.  
+is called a \emph{nonseasonal ARIMA model}.  If evidence of periodic
+structure is present in the data, a \emph{seasonal ARIMA model}, which
+adds a sampling operation that filters out periodicities, can be a
+good choice.
 
 There is a vast amount of theory and literature regarding the
 construction and use of models of this type; we refer the reader to
@@ -208,54 +209,52 @@ forecasts in a stepwise fashion: i.e., fit the model to the existing
 data, use it to perform a one-step prediction, rebuild the model using
 the latest observations, and iterate until the desired prediction
 horizon is reached.  (For consistency, we take the same approach with
-the other three models in this study as well, even though that amounts
+the other three models in this study as well, even though this amounts
 to artificially hobbling LMA.)
 
-\subsection{Nonlinear Forecasting: The Lorenz Method of Analogues}
+\subsection{A Nonlinear Prediction Strategy}
 \label{sec:lma}
 
-When a generating process exhibits deterministic predictive nonlinear
-structure a common approach is to reconstruct the generating processes
-dynamics using a technique called delay-coordinate embedding and then
-use the geometric structure of this reconstruction as a proxy for the
-information transmission occurring in the underlying process to
-predict the future. In this section we discuss the theory and
-implementation of this forecasting scheme.
+When the temporal progressions in a time series are produced by a
+deterministic nonlinear process, one can use a technique called
+delay-coordinate embedding
+%
+%% Note: claiming that we can reconstruct the dynamics of the
+%% underlying generating process isn't right.  That would be
+%% equivalent to solving the system identification problem!  We're
+%% not reconstructing the underlying system, just its output.
+%
+to model the structure of the information generation and transmission
+occurring in the underlying process, then use that reconstruction to
+generate forecasts.  This section discusses the theory and
+implementation of a prediction strategy that is based on this idea.
 
-
- \subsubsection{Reconstructing hidden dynamics {\color{blue} EDITABLE}}
-
-
-
-Delay-coordinate embedding allows one to reconstruct a dynamical system's full
-state-space dynamics from a \emph{single} scalar time-series
+Delay-coordinate embedding allows one to reconstruct a dynamical
+system's full state-space dynamics from a scalar time-series
 measurement---provided that some conditions hold regarding that data.
 Specifically, if the underlying dynamics and the measurement
 function---the mapping from the unknown state vector $\vec{X}$ to the
-scalar value $X_{i,obs}$ that one is measuring---are both smooth and generic,
+observed value $x_i$---are both smooth and generic,
 Takens~\cite{takens} formally proves that the delay-coordinate map
 \[
-F(\tau,m)(\vec{X}) = ([X_{i+\tau,obs} ~ X_{i+\tau,obs} ~ \dots ~X_{i+m\tau,obs}])
+F(\tau,m)(\vec{X}) = ([x_{i} ~ x_{i+\tau} ~ \dots ~x_{i+m\tau}])
 \]
-from a $d$-dimensional smooth compact manifold $M$ to $\mathbb{R}^{2d+1}$,
-where $t$ is time, is a diffeomorphism on $M$---in other words, that
+from a $d$-dimensional smooth compact manifold $M$ to
+$\mathbb{R}^{2d+1}$ is a diffeomorphism on $M$---in other words, that
 the reconstructed dynamics and the true (hidden) dynamics have the
-same topology.
+same topology.  This is an extremely powerful result: among other
+things, it means that one can model the full system dynamics without
+measuring, or even knowing, every one of its state variables.  
 
-This is an extremely powerful result: among other things, it means
-that one can build a formal model of the full system dynamics without
-measuring (or even knowing) every one of its state variables.  This is
-the foundation of this modeling approach.
-The first step in the process is to estimate values for the two free
-parameters in the delay-coordinate map: the delay $\tau$ and the
-dimension $m$.  We follow standard procedures for this, choosing the
-first minimum in the average mutual information as an estimate of
-$\tau$ \cite{fraser-swinney} and using the false-near(est) neighbor
-method of \cite{KBA92} to estimate $m$.  A
-plot of the data from Figures~\ref{fig:col-ts}-\ref{fig:svd-ts-colored}, embedded following this
-procedure, are shown in Figure~\ref{fig:embedding}.
-
-
+The first step in the delay-coordinate embedding process is to
+estimate values for the two free parameters in the map: the delay
+$\tau$ and the dimension $m$.  We follow standard procedures for this,
+choosing the first minimum in the average mutual information as an
+estimate of $\tau$~\cite{fraser-swinney} and using the
+false-near-neighbor method of~\cite{KBA92} to estimate $m$.  Plots of
+the data from Figures~\ref{fig:col-ts}-\ref{fig:svd-ts-colored},
+embedded following this procedure, are shown in
+Figure~\ref{fig:embedding}.
  \begin{figure}
    \centering
 \begin{subfigure}{\columnwidth}
@@ -279,55 +278,103 @@ procedure, are shown in Figure~\ref{fig:embedding}.
  
    
      %\includegraphics[width=\textwidth]{figs/colipc3d.png}
-     \caption{A 3D projection of the delay-coordinate embeddings of the traces
- from: (a) \col seen in Figure~\ref{fig:col-ts} (b)\gcc seen in Figure~\ref{fig:gcc-ts} and (c) \svdfive seen as the fifth regime in Figure~\ref{fig:svd-ts-colored}.
- }
+     \caption{3D projections of delay-coordinate embeddings of the
+       traces from (a) Figure~\ref{fig:col-ts} (b)
+       Figure~\ref{fig:gcc-ts} and (c) the fifth (green) segment of
+       Figure~\ref{fig:svd-ts-colored}.}
  \label{fig:embedding}
  \end{figure}
-
-
-
 %% can cut for space if need be:
-The coordinates of each point in these plots are differently delayed
-elements of the instructions per cycle time series
-$X_{i,obs}$: that is, $X_{i,obs}$ on the first axis, $X_{i+\tau,obs}$ on the second,
-$X_{i+2\tau,obs}$ on the third, and so on.
-Structure in these kinds of plots---clearly visible in
-Figure~\ref{fig:embedding} (a) is an indication of
-structure in the information transmission process, that can be leveraged for prediction. Where the water becomes muddy is with embedding like those in Figure~\ref{fig:embedding} (b) \& (c). Figure~\ref{fig:embedding} (b) shows little to no structure, this embedding is essentially a noise cloud; with an embedding like this we would expect the forecast accuracy that uses this structure to be lacking. However, with Figure~\ref{fig:embedding} (c) more structure is present but the structure is surrounded in noise. Is the structure enough to aid in accurately forecasting the signal? This is a difficult question to answer and one that comes back to the main contributions of this paper. It may be that \gcc has some redundancy but that structure is not amenable to this method, similarly \svdfive clearly has structure but it is obfuscated by noise. By quantifying the balance between normalized redundancy (predictive structure) and entropy for these real valued time series, we can begin to answer these questions.  If enough (redundancy) predictive structure is present in these embeddings as seen in Figure~\ref{fig:embedding} (a) and possibly in (c), that structure can be used to build a forecast model which we discuss in the next section.
- \subsubsection{LMA: Using dynamics in forecasting {\color{blue} EDITABLE}}
+%The coordinates of each point in these plots are differently delayed
+%elements of the instructions per cycle time series $X_{i,obs}$: that
+%is, $X_{i,obs}$ on the first axis, $X_{i+\tau,obs}$ on the second,
+%$X_{i+2\tau,obs}$ on the third, and so on.  
+%
 
-Given a nonlinear model of a deterministic dynamical system in the
-form of a delay-coordinate embedding like those in Figure~\ref{fig:embedding},
-one can build deterministic forecast algorithms by capturing and
-exploiting the geometry of the embedding.  Many techniques have been
-developed by the dynamical systems community for this purpose
-(e.g.,~\cite{weigend-book,casdagli-eubank92,Smith199250}).  Perhaps the most straightforward
-is the ``Lorenz method of analogues'' (LMA), which is essentially
-nearest-neighbor prediction in the embedded state
-space~\cite{lorenz-analogues}.  Even this simple algorithm---which
-builds predictions by finding the nearest neighbor in the embedded space of the given point, then taking that neighbor's path as the
-forecast, provides accurate forecasts when the generating process is a deterministic dynamical system. In particular, when an observation in a time series has redundancy in the form of nonlinear predictive structure this forecast scheme should be a great choice. However, since this method is based on near-neighbor prediction in a reconstructed state-space, if a system does not exhibit deterministic structure this method can do quite poorly. {\color{red}[[Joshua:Not a fan of this wording]]}
-%% [[If space: Add a segue sentence: next section uses permutation
-%% entropy to explore that conjecture.]]
+Geometric structure in these kinds of plots is an indication of
+structure in the underlying information generation/transmission
+process.  The dynamical systems community has developed a number of
+methods that leverage this structure to generate predictions
+(e.g.,~\cite{weigend-book,casdagli-eubank92,Smith199250}).  One of the
+most straightforward of these is the ``Lorenz method of analogues''
+(LMA), which is essentially nearest-neighbor prediction in the
+embedded\footnote{Lorenz's original formulation used the full system
+  state space; the method was later extended to embedded dynamics by
+  Kantz~\cite{kantz-lma-citation}.} space~\cite{lorenz-analogues}.
 
-%\subsection{Comparing Prediction Accuracy}
+Even this simple algorithm---which builds predictions by finding the
+nearest neighbor in the embedded space of the given point, then taking
+that neighbor's path as the forecast---provides accurate forecasts
+when the generating process is a deterministic dynamical system.
+Since LMA does not rest on an assumption of linearity, as ARIMA does,
+it can be applied to data produced by both linear and nonlinear
+processes.  If the underlying generating process is not deterministic,
+however, it can perform poorly.  In Figure~\ref{fig:embedding}(b), for
+instance, little structure is visible, so LMA may not work well.  More
+structure appears to be present in~Figure~\ref{fig:embedding}(c), but
+this reconstruction also appears to contain some noise.
 
+The question as to how much structure is present in a
+reconstruction---and how much of that structure can be captured and
+used by LMA---is apropos of the central question treated in this
+paper.  It may be that \gcc has some redundancy that LMA cannot
+exploit, or that the structure in \svdfive is effectively obfuscated,
+from the standpoint of the LMA method, by noise.  By quantifying the
+balance between normalized redundancy (that is, predictive structure)
+and entropy for these real-valued time series, we can begin to answer
+these questions.  
 
+% If enough predictive structure is present in these embeddings, that
+% structure can be used to build an effective forecast model.
 
-
-
-\subsection{Prediction Accuracy: Mean Absolute Scaled Error (MASE) {\color{blue} EDITABLE}}
+\subsection{Assessing Prediction Accuracy}
 \label{sec:accuracy}
 
-In order to analyze correctness of each prediction we split each time series into two pieces: the first 90\% referred to as the ``learning" or ``training" signal, $\{X_{i,obs}\}_{i=1}^{n}$ and the last 10\% known as the ``test" or ``correct" signal $\{c_j\}_{j=n+1}^{k+n+1}$. The learning signal is used to train an initial model (e.g., LMA or ARIMA) as described in Section \ref{sec:model}. The test signal is used both to assess the models forecasting accuracy and for any refitting that may be necessary. In particular, we perform $k$ one-step predictions, after each one-step prediction\footnote{We would like to note that this rebuilding occurs due to a problem with ARIMA models converging to a mean prediction if too long of a prediction horizon is used, this is not a handicap of either LMA or na\"ive.} we append the training signal with the next point in the correct signal $c_j$, refit the model taking into account the new system measurement and perform another prediction. This is repeated $k$ times to obtain $\{p_j\}_{j=n+1}^{k+n+1}$.
+To study the relationship between predictability and complexity, we
+use these four methods to generate predictions of all 360 traces
+described in Section~\ref{sec:methods}, then calculate the error
+between the predictions and the true continuations.  Specifically, we
+split each time series into two pieces: the first 90\%, referred to as
+the ``initial training" signal and denoted $\{x_i\}_{i=1}^{n}$, and
+the last 10\% known as the ``test" signal $\{c_j\}_{j=n+1}^{k+n+1}$.
+The initial training signal is used to build the model, following the
+procedures described in the previous section; that model is used to
+generate a prediction of the value of $x_{n+1}$, which is then
+compared to the true continuation, $c_{n+1}$.  The model is then
+rebuilt using $\{x_i\}_{i=1}^{n+1}$ and the process repeats $k$ times,
+out to the end of the observed time series.  This ``one step
+prediction'' process is not technically necessary in the LMA method,
+which can generate arbitrary-length predictions, but the performance
+of the other three methods used here will degrade if the associated
+models are not periodically rebuilt.  In order to make the comparison
+fair, we used an iterative one-step prediction schema {\sl for all
+  four methods}.  This has the slightly confusing effect of causing
+the ``test'' signal to be used both to assess the accuracy of each
+model and for periodic refitting.
 
-As a figure of merit we calculate the Mean Absolute Scaled Error (MASE)\cite{MASE} between the true and predicted signals: 
-%In order to compare the resulting forecasts we calculate the Mean Absolute Squared Error (MASE)\cite{MASE} between the true and predicted signals:
-$$MASE = \sum_{j=n+1}^{k+n+1}\frac{|c_j-p_j| }{\frac{k}{n-1}\sum^n_{i=2}|X_{i,obs}-X_{i-1,obs}|}$$
-The scaling term for MASE:
-$$\frac{1}{n-1}\sum^n_{i=2}|X_{i,obs}-X_{i-1,obs}|$$ 
-is the average in-sample forecast error for a random walk prediction $(p_i=X_{i-1,obs})$. This error method was introduced in \cite{MASE} as a ``generally applicable measurement of forecast accuracy without the problems seen in the other measurements." We chose MASE because it allows for fair comparison across varying methods, prediction horizons and signal scales. When a forecast results in a $MASE<1$ the prediction method produced, on average, smaller errors than the one-step errors from the in-sample random walk forecast strategy. Analogously, $MASE>1$ means that the prediction method did worse, on average than the one-step errors for the in-sample random walk forecast strategy. 
+To assess prediction accurary, we calculate the mean absolute scaled
+error (MASE) between the true and predicted signals:
+% 
+$$MASE = \sum_{j=n+1}^{k+n+1}\frac{|c_j-p_j| }{\frac{k}{n-1}\sum^n_{i=2}|x_{i}-x_{i-1}|}$$
+% 
+This error method was introduced in \cite{MASE} as a ``generally
+applicable measurement of forecast accuracy without the problems seen
+in the other measurements."  Note that the scaling term in the
+denominator
+% 
+% of the MASE value
+% $$\frac{1}{n-1}\sum^n_{i=2}|X_{i,obs}-X_{i-1,obs}|$$ 
+% 
+is the average in-sample forecast error for a random-walk prediction
+$px_i=x_{i-1}$ over a signal of length $k$.  That is, MASE is a
+normalized measure.  A MASE value below one means that the prediction
+error was, on the average, smaller than the error of a one-step
+in-sample random-walk forecast on the same data.  Analogously, a MASE
+value greater than one means that the corresponding prediction method
+did \emph{worse}, on average, than a one-step in-sample random-walk
+method.  We chose this error metric because it allows for fair
+comparison across varying methods, prediction horizons, and signal
+scales.
 
 Table \ref{tab:error} provides the MASE distributions {\color{red}[[Joshua: Ryan, Is this the right word? we give mean $\pm$ std. dev but some have very skewed right tails]]} for each of the eight signals and three prediction strategies, these are averaged over 15 runs of each signal-method combination. For later comparison, Table \ref{tab:error} also has the complexity measure we introduce in Section  \ref{sec:meaComplex}. 
 
