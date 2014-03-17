@@ -16,7 +16,7 @@
 
 In this section, we describe the four different forecasting schema
 used in this study, as well as the error metric used to evaluate their
-predictive accuracy:
+predictive accuracy.  These methods include:
 \begin{itemize}
 \item The \emph{random-walk} method, which uses the previous value in
   the observed signal as the forecast,
@@ -26,74 +26,72 @@ predictive accuracy:
 
 \item The \emph{ARIMA} method, a common linear forecast strategy, and
 
-\item The \emph{LMA} method, which uses a near(est) neighbor forecast
+\item The \emph{LMA} method, which uses a near-neighbor forecast
   strategy on a dynamical reconstruction of the signal.
 \end{itemize}
 ARIMA is based on standard autoregressive techniques.  LMA is designed
 to capture and exploit the deterministic structure of a signal from a
 nonlinear dynamical system.  The first two methods, somewhat
-surprisingly, often outperform sophisticated prediction strategies in
-the case of highly complex signals, as discussed below.  
+surprisingly, often outperform these more-sophisticated prediction
+strategies in the case of highly complex signals, as discussed below.
 
 \subsection{Two Simple Prediction Strategies}
 \label{sec:simple}
 
 A random-walk predictor simply uses the last observed measurement as
-the forecast: that is, the value $p(i)$ at time $i$ is predicted to
-be $$p_i = X_{i-1,obs}$$ The \naive ~prediction strategy uses a
-rolling average to generate the forecast: the prediction $p_i$ is
-simply the average of [[all]] [[no window?  if so, then it's not a
-    ``rolling'' average]] observed points up to that point: $$p_i =
-\sum_{j=1}^{i-1}\frac{X_{j,obs}}{i-1}$$
-
-While both of these methods are simplistic, they are not without
-merit.  For a time series near the high end of the complexity
-spectrum---i.e., one that possesses very little predictive
-structure---these two methods can actually be the best choice.  In
-forecasting currency exchange rates, for instance, sophisticated
-econometric techniques and prediction models fail to consistently
-outperform the random-walk method~\cite{rwMeese,rwCCE}.  These signals
-are volatile, noisy, and possess very little predictive structure, but
-they do not---on the average---vary a great deal, so guessing the last
-known value is not a bad strategy.  If a signal has a unimodal
-distribution with low variance, the \naive ~prediction strategy will
-perform quite well---even if the signal is highly complex---simply
-because the mean is a good approximation of the future behavior.
-Also, a temporal average effects a low-pass filtering operation.  In a
-signal with very little predictive structure, then, the \naive
-~prediction strategy effectively mitigates the complexity.
+the forecast: that is, the value $px_i$ at time $i$ is predicted to
+be $$px_i = x_{i-1}$$ The \naive ~prediction strategy uses an average
+to generate the forecast: the prediction $px_i$ is simply the running
+average of observervations up to that point: $$px_i =
+\sum_{j=1}^{i-1}\frac{x_j}{i-1}$$ While both of these methods are
+simplistic, they are not without merit.  For a time series near the
+high end of the complexity spectrum---i.e., one that possesses very
+little predictive structure---these two methods can actually be the
+best choice.  In forecasting currency exchange rates, for instance,
+sophisticated econometric techniques and prediction models fail to
+consistently outperform the random-walk method~\cite{rwMeese,rwCCE}.
+These signals are volatile, noisy, and possess very little predictive
+structure, but they do not---on the average---vary a great deal, so
+the random-walk method's strategy of simply guessing the last known
+value is not a bad choice.  If a signal has a unimodal distribution
+with low variance, the \naive ~prediction strategy will perform quite
+well---even if the signal is highly complex---simply because the mean
+is a good approximation of the future behavior.  Also, a temporal
+average effects a low-pass filtering operation.  In a signal with very
+little predictive structure, then, the \naive ~prediction strategy
+effectively mitigates the complexity.
 
 Both of these methods have significant weaknesses, however, because
 they do not model the temporal patterns of the time series or even the
 distribution of its values.  Thus, they cannot track changes in that
 structure, which causes them to fail in a number of important
-situations.  
+situations.  Random-walk strategies are a particularly bad choice for
+time series that change drastically at every time step.  In the worst
+case---a large-amplitude square wave whose period is equivalent to
+twice the sample time---a random-walk prediction would be exactly 180
+degrees out of phase with the true continuation.  The \naive ~method
+would be a better choice in this situation, since it would always
+predict the mean.  It would, however, fail when a signal has a number
+of long-lived regimes that have significantly different means.  In
+this situation, the inertia of the \naive ~method's accumulating mean
+is a liability and the agility of the random-walk method is an
+advantage, since it can respond quickly to regime shifts.
 
-Random-walk strategies are a particularly bad choice for time series
-that change drastically at every time step.  In the worst case---a
-large-amplitude square wave whose period is equivalent to twice the
-sample time---a random-walk prediction would be exactly 180 degrees
-out of phase with the true continuation.  The \naive ~method would be
-better in this situation, since it would always predict the mean.  It
-would, however, fail when a signal has a number of long-lived regimes
-that have significantly different means.  In this situation, the
-inertia of the \naive ~method's rolling mean is a liability and the
-random-walk method's nimbleness is an advantage, allowing it to
-react quickly to regime shifts.
-
-Of course, a method that could capture and exploit periodic patterns
-would be far more effective in these examples.  The LMA method
-introduced in Section~\ref{sec:lma} is designed to do exactly that.
-[[Couldn't one think about ARIMA as moving in that direction, too?]]
-Note, though, that periodic patterns appear only in signals that are
-at the low end of the complexity spectrum.  If a signal contains
-little predictive structure, forecast strategies like LMA [[and
-    ARIMA?]] have nothing to exploit and thus will be beaten out by
-the two simple strategies described in this section.  This is explored
-further in Sections~\ref{sec:accuracy} and~\ref{sec:results}
+Of course, methods that could capture and exploit the geometry of the
+data, or its temporal patterns, would be far more effective in the
+situations described in the previous paragraph.  The ARIMA and LMA
+methods introduced in Sections~\ref{sec:lma} and~\ref{sec:arima} are
+designed to do exactly that.  Note, though, that periodic patterns
+appear only in signals that are at the low end of the complexity
+spectrum.  If a signal contains little predictive structure, forecast
+strategies like LMA and ARIMA have [[nothing to exploit and thus will
+    be beaten out by]] [[needs wordsmithing from Liz]] the two simple
+strategies described in this section.  This is explored further in
+Sections~\ref{sec:accuracy} and~\ref{sec:results}.
 
 
-\subsection{Linear Forecasting: Seasonal Autoregressive-integrated-moving average(ARIMA){\color{blue} EDITABLE}}\label{sec:arima}
+\subsection{A Regression-Based Prediction Strategy}
+\label{sec:arima}
 %\begin{enumerate}
 %\item\cmark introduce method abstractly and practically, common method basically fitting a hyperplane to data removing seasonality and filtering for noise
 %\item\cmark define rigorously, all the backshift operator garbage
@@ -107,17 +105,99 @@ further in Sections~\ref{sec:accuracy} and~\ref{sec:results}
 
 %For this \cite{davislinearts}
 
-When there is evidence a generating process exhibits predictive structure an obvious strategy would be to fit a hyperplane to the dataset and then use this hyperplane to forecast new data points. This is a very old technique stemming back to Yule in 1927\cite{weigend93} with his invention of autoregressive forecasting, which forecasts the next time step through a weighted average of the past $p$ time-steps, i.e., $$p_i = \phi(B)X_{i,obs}.$$ Here $\phi(z)$ is a polynomial of degree $p$ and $B$ is the backshift operator, i.e., $$B^mX_i  = X_{i-m,obs}.$$
-To improve this method further--especially in the presence of noisy data---one could allow for some wiggle room by adding a moving average of white noise to the model: $\theta(B)\epsilon_i$, where $\theta(z)$ is a polynomial of degree $q$ and $\{\epsilon_i\}\sim WN(0,\sigma^2)$. Finally if there is evidence of non-stationarity an initial differencing (integrated) is applied as an attempt to remove that non-stationarity: $(1-B^d)X_i$. Combining these three give us a nonseasonal  ARIMA$(p,d,q)$ model:  $$\phi(B)(1-B)^dX_i = \theta(B)\epsilon_i.$$ Where $p$, $d$ and $q$ correspond to the orders of the autoregressive, integrated and moving average models respectively. If periodic structure is present a seasonal ARIMA$(p,d,q)(P,D,Q)_m$ is often used and is defined by:$$\Phi(B^m)\phi(B)(1-B^m)^D(1-B)^dX_i = \Theta(B^m)\theta(B)\epsilon_i.$$ Here $\Phi(z)$ and $\Theta(z)$ are polynomials of degree P and Q respectively, and $m$ is the seasonal frequency. Forecasting is then done in two steps, first the integrated step is performed to remove non-stationarity. $$\hat{X_i} = (1-B^m)^D(1-B)^d X_{i,obs}.$$ Then forecasts are made by evaluating $$\Phi(B^m)\phi(B)\hat{X_i} = \Theta(B^m)\theta(B)\epsilon_i.$$
+Perhaps the simplest way to capture and exploit the structure of data
+is to fit a hyperplane to the dataset and then use that it to forecast
+new data points.  The roots of this date back to Yule's 1927 invention
+of the autoregressive schema~\cite{weigend93}, which forecasts the
+next time step through a weighted average of past observations: $$px_i
+= \phi(B^p)x_{i}$$ where $\phi(\cdot)$ is a polynomial of degree $p$
+that is fit to the past $p+1$ [[???]] values of $x_i$ via the
+backshift operator $B$ \footnote{I changed the superscript to $k$ to
+  make this definition general---not connected to any of the terms
+  that have specific meanings later in this section.}:
+$$B^k x_i = x_{i-k}$$
+%
+with $k=1...p$ [[presumably?]].  To account for noise in the data, one
+can add a so-called ``moving average'' term to the model:
+$\theta(B^q)\epsilon_i$, where $\theta(\cdot)$ is a polynomial of
+degree $q$ and $\epsilon$ is white noise with the same mean and
+variance as the data.
+% if you leave this in, you'll need to explain a lot about the data
+% and the calculation
+% $\{\epsilon_i\}\sim WN(0,\sigma^2)$.  
+To remove nonstationarities in the data, one can detrend it using a
+differencing operation: $(1-B^d)x_i$.  
 
-There is a vast amount of theory and literature on constructing, fitting and forecasting with this class of models. However, this is not the focus of this paper and  we refer the reader to \cite{davislinearts} for an in-depth exploration. In this paper, we intend to explore how predictive accuracy of several different forecasting schema correlates with signal complexity. As such, we use ARIMA$(p,d,q)(P,D,Q)_m$ (or simply ARIMA) models as an out of the box black box linear forecasting scheme. To do this we use an automated fitting and forecasting techniques described in \cite{autoARIMA}. This technique automatically selects model and differencing orders: $p, d, q, P, D, Q$ and $m$ as well as fitting the corresponding polynomials to the time series. Hyndman and Khandakar use unit root tests to select differencing orders, $d$ and $D$. In particular, they use a combination of  
-KPSS unit-root tests \cite{KPSSunit} and their own extension of Canova-Hansen test \cite{Canova1995}. To do model order selection they use the Akaike information criterion (AIC) \cite{akaike1974} conditioned on the maximized likelihood of the  model fitted to the differenced data, $(1-B^m)^D(1-B)^d X_{i,obs}$ \cite{autoARIMA}. For more detail on this fitting process see \cite{autoARIMA}.
+A strategy that incorporates all three of these features is called a
+\emph{nonseasonal ARIMA} model of order $(p,d,q)$:
+ $$\phi(B^p)(1-B^d) x_i = \theta(B^q)\epsilon_i$$
+%
+{\color{red} You had superscripts on some of the $B$s and not on
+  others.  I added them but I may have gotten them wrong.  I also
+  changed some $(1-B)^d$s to $(1-B^d)$s to make things consistent with
+  the first use of that construction.  Please make sure things are
+  consistent, here and throughout this section.}  Here, $p$, $d$ and
+$q$ correspond to the orders of the autoregressive, detrending, and
+moving average terms, respectively.
 
-ARIMA forecasting is a time tested modelling process which uses a global linear fit and adjustments for seasonality, non-stationarity and noise. If a generating process fits into this category then this model is a great short term predictor. If information is instead being transmitted in a nonlinear way this global linear fit falls apart. One other weakness of this method is that if long prediction horizons are needed the forecast is guaranteed to converge to the mean after some number of predictions (dependent on model order). For this reason, we limit all methods to doing multiple 1-step predictions as to not handicap this method. 
+If periodic structure is present in the data, a \emph{seasonal ARIMA}
+model of order $(p,d,q)(P,D,Q)$ can be a good choice:
+%
+$$\Phi(B^P)\phi(B^p)(1-B^m)^D(1-B^d) x_i =
+\Theta(B^Q)\theta(B^q)\epsilon_i$$
+%
+Here $\Phi(\cdot)$ and $\Theta(\cdot)$ are polynomials of degree $P$
+and $Q$, respectively [[which accomplish what purpose?  why?  how?
+    where did $D$ come from and what does it do?]].  $m$ is the
+seasonal frequency [[shouldn't this be ``period''?]].  [[Explain why
+    one should choose $P=Q=m$, since that's what the equation below
+    implicitly does.]]  To use a seasonal ARIMA model, one first uses
+the detrending term to remove nonstationarity: $$\hat{x_i} =
+(1-B^m)^D(1-B^d) x_{i}$$ and then creates the forecast $px_i$ by
+evaluating $$\Phi(B^m)\phi(B^p)\hat{X_i} =
+\Theta(B^m)\theta(B^q)\epsilon_i$$
 
-\subsection{Nonlinear Forecasting: Lorenz Method of Analogues (LMA){\color{blue} EDITABLE}}\label{sec:lma}
+There is a vast amount of theory and literature regarding the
+construction and use of this class of models; we refer the reader to
+\cite{davislinearts} for an in-depth exploration.  For the purposes of
+this paper, where the goal is to explore the relationship between
+predictability and complexity across a broad array of forecast
+strategies, seasonal ARIMA models are a good exemplar of the class of
+linear forecasting strategies.  In the sections that follow, we use
+the automated fitting and forecasting techniques described
+in~\cite{autoARIMA} to select model and differencing orders and fit
+the corresponding polynomials to the time series.  This procedure uses
+a combination of KPSS unit-root tests \cite{KPSSunit} and a
+customization of the Canova-Hansen test \cite{Canova1995} to select
+the differencing orders $d$ and $D$ and chooses the model order using
+the Akaike information criterion (AIC) \cite{akaike1974}, conditioned
+on the maximized likelihood of the model fitted to the detrended data,
+$(1-B^m)^D(1-B^d) x_{i,obs}$.
 
-When a generating process exhibits deterministic predictive nonlinear structure a common approach is to reconstruct the generating processes dynamics using a technique called delay-coordinate embedding and then use the geometric structure of this reconstruction as a proxy for the information transmission occurring in the underlying process to predict the future. In this section we discuss the theory and implementation of this forecasting scheme. 
+ARIMA forecasting is a common and time-tested procedure.  Its
+adjustments for seasonality, nonstationarity, and noise make it an
+appropriate choice for short-term predictions of time-series data
+generated by a wide range of processes.  If information is being
+generated and/or transmitted in a nonlinear way, however, a global
+linear fit is inappropriate and ARIMA forecasts will be inaccurate.
+Another weakness of this method is prediction horizon, since an ARIMA
+forecast is guaranteed to converge to the mean after some number of
+predictions, depending on model order.  To avoid this issue, we employ
+it in a stepwise fashion: we build the model, perform a one-step
+prediction, rebuild using the latest observations, and iterate until
+the desired prediction horizon is reached.  (For consistency, we take
+the same approach with the other three models in this study as well.)
+
+\subsection{Nonlinear Forecasting: The Lorenz Method of Analogues}
+\label{sec:lma}
+
+When a generating process exhibits deterministic predictive nonlinear
+structure a common approach is to reconstruct the generating processes
+dynamics using a technique called delay-coordinate embedding and then
+use the geometric structure of this reconstruction as a proxy for the
+information transmission occurring in the underlying process to
+predict the future. In this section we discuss the theory and
+implementation of this forecasting scheme.
 
 
  \subsubsection{Reconstructing hidden dynamics {\color{blue} EDITABLE}}
