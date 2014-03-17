@@ -19,8 +19,11 @@ eight processing units, a clock rate of 3.40GHz, and a cache size of
 different programs---the simple \col loop whose performance is
 depicted in Figure~\ref{fig:col-ipc}, as well as two more-complex
 programs: one from the SPEC 2006CPU benchmark suite (\gcc), and one
-from the LAPACK linear algebra package (\svd).  To record these
-measurements, we used the {\tt libpfm4} library, via PAPI
+from the LAPACK linear algebra package (\svd).  In these experiments,
+the scalar observation $X_{i,obs}$ at time $i$ was a measurement of
+how well each program was able to exploit the native parellelism of
+the i7 chip.  To record these measurements, we used the {\tt libpfm4}
+library, via PAPI
 % 
 % \footnote{Performance Application Programming Interface}
 % 
