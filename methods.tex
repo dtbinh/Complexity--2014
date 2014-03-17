@@ -31,14 +31,16 @@ library, via PAPI
 intervals and read the contents of the CPU's onboard hardware
 performance monitors\footnote{These specialty registers are built into
   modern microprocessors for the purpose of on-board monitoring and
-  storage of performance data.}, which we had programmed to count how
-many instructions were executed in each clock cycle (IPC).  For an
-in-depth description of this custom-measurement infrastructure,
-including discussion of the implications of the sampling interval,
-please see \cite{zach-IDA10,mytkowicz09,todd-phd}.  For statistical
-validation, we collected 15 performance traces from each of the three
-programs.  These traces, and the processes that generated them, are
-described in more depth in the rest of this section.
+  storage of performance data.  They can be programmed to measure a
+  wide array of processor and memory metrics besides the one used
+  here.}, which we had programmed to count how many instructions were
+executed in each clock cycle (IPC).  For an in-depth description of
+this custom-measurement infrastructure, including discussion of the
+implications of the sampling interval, please see
+\cite{zach-IDA10,mytkowicz09,todd-phd}.  For statistical validation,
+we collected 15 performance traces from each of the three programs.
+These traces, and the processes that generated them, are described in
+more depth in the rest of this section.
 
 
 % Obviously using a system to measure itself can cause
