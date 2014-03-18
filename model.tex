@@ -14,7 +14,7 @@
 % 
 % \end{enumerate}
 
-In this section, we describe the four different forecasting schema
+In this section, we describe the four different forecasting methods
 used in this study, as well as the error metric used to evaluate their
 predictive accuracy.  These methods include:
 \begin{itemize}
@@ -31,17 +31,18 @@ predictive accuracy.  These methods include:
 \end{itemize}
 ARIMA is based on standard autoregressive techniques.  LMA is designed
 to capture and exploit the deterministic structure of a signal from a
-nonlinear dynamical system.  The first two methods, somewhat
-surprisingly, often outperform these more-sophisticated prediction
-strategies in the case of highly complex signals, as discussed below.
+nonlinear dynamical system.  The \naive and random-walk methods,
+somewhat surprisingly, often outperform these more-sophisticated
+prediction strategies in the case of highly complex signals, as
+discussed below.
 
 \subsection{Two Simple Prediction Strategies}
 \label{sec:simple}
 
 A random-walk predictor simply uses the last observed measurement as
-the forecast: that is, the value $px_i$ at time $i$ is predicted using
-the relation $$px_i = x_{i-1}$$ The prediction strategy that we refer
-to using the term ``\naive'' averages the prior observations to
+the forecast: that is, the value $px_i$ at time $i$ is calculated
+using the relation $$px_i = x_{i-1}$$ The prediction strategy that we
+refer to using the term ``\naive'' averages the prior observations to
 generate the forecast: $$px_i = \sum_{j=1}^{i-1}\frac{x_j}{i-1}$$
 While both of these methods are simplistic, they are not without
 merit.  For a time series near the high end of the complexity
@@ -56,31 +57,32 @@ method's strategy of simply guessing the last known value is not a bad
 choice.  If a signal has a unimodal distribution with low variance,
 the \naive ~prediction strategy will perform quite well---even if the
 signal is highly complex---simply because the mean is a good
-approximation of the future behavior.  Moreover, a temporal average
-effects a low-pass filtering operation.  In a signal with very little
-predictive structure, then, the \naive ~prediction strategy
-effectively mitigates the complexity.
+approximation of the future behavior.  Moreover, the \naive
+~prediction strategy's temporal average effects a low-pass filtering
+operation, which effectively mitigates the complexity in signals with
+very little predictive structure.
 
 Both of these methods have significant weaknesses, however.  Because
 they do not model the temporal patterns in the data, or even the
 distribution of its values, they cannot track changes in that
 structure.  This causes them to fail in a number of important
 situations.  Random-walk strategies are a particularly bad choice for
-time series that change drastically at every time step.  In the worst
-case---a large-amplitude square wave whose period is equivalent to
-twice the sample time---a random-walk prediction would be exactly 180
-degrees out of phase with the true continuation.  The \naive ~method
-would be a better choice in this situation, since it would always
-predict the mean.  It would, however, perform poorly when a signal has
-a number of long-lived regimes that have significantly different
-means.  In this situation, the inertia of the \naive ~method's
-accumulating mean is a liability and the agility of the random-walk
-method is an advantage, since it can respond quickly to regime shifts.
+time series that change significantly at every time step.  In the
+worst case---a large-amplitude square wave whose period is equivalent
+to twice the sample time---a random-walk prediction would be exactly
+180 degrees out of phase with the true continuation.  The \naive
+~method would be a better choice in this situation, since it would
+always predict the mean.  It would, however, perform poorly when a
+signal has a number of long-lived regimes that have significantly
+different means.  In this situation, the inertia of the \naive
+~method's accumulating mean is a liability and the agility of the
+random-walk method is an advantage, since it can respond quickly to
+regime shifts.
 
 Of course, methods that could capture and exploit the geometry of the
 data, or its temporal patterns, would be far more effective in the
 situations described in the previous paragraph.  The ARIMA and LMA
-methods introduced in Sections~\ref{sec:lma} and~\ref{sec:arima} are
+methods introduced in Sections~\ref{sec:arima} and~\ref{sec:lma} are
 designed to do exactly that.  Note, though, that periodic patterns
 appear only in signals that are at the low end of the complexity
 spectrum.  If a signal contains little predictive structure, forecast
@@ -167,16 +169,16 @@ data is to fit a hyperplane to the dataset and then use that it to
 make predictions.  The roots of this approach date back to Yule's 1927
 invention of the autoregressive schema~\cite{weigend93}, which
 forecasts the next time step through a weighted average of past
-observations: $$px_i = \sum a_i x_i$$ The weighting coefficients $a_i$
-are computed using a polynomial of degree $p$ that is fit to the past
-$p+1$ values of $x_i$.  To account for noise in the data, one can add
-a so-called ``moving average'' term to the model; to remove
-nonstationarities, one can detrend the data using a differencing
-operation.  A strategy that incorporates all three of these features
-is called a \emph{nonseasonal ARIMA model}.  If evidence of periodic
-structure is present in the data, a \emph{seasonal ARIMA model}, which
-adds a sampling operation that filters out periodicities, can be a
-good choice.
+observations: $$px_i = \sum_{j=1}^{i-1} a_j x_j$$ The weighting
+coefficients $a_i$ are computed using a polynomial of degree $p$ that
+is fit to the past $p+1$ values of $x_i$.  To account for noise in the
+data, one can add a so-called ``moving average'' term to the model; to
+remove nonstationarities, one can detrend the data using a
+differencing operation.  A strategy that incorporates all three of
+these features is called a \emph{nonseasonal ARIMA model}.  If
+evidence of periodic structure is present in the data, a
+\emph{seasonal ARIMA model}, which adds a sampling operation that
+filters out periodicities, can be a good choice.
 
 There is a vast amount of theory and literature regarding the
 construction and use of models of this type; we refer the reader to
@@ -184,17 +186,17 @@ construction and use of models of this type; we refer the reader to
 this paper, where the goal is to explore the relationship between
 predictability and complexity across a broad array of forecast
 strategies, seasonal ARIMA models are a good exemplar of the class of
-linear forecasting strategies.  Fitting such a model to a dataset
-involves choosing values for the various free parameters in the
-autoregressive, detrending, moving average, and filtering
-terms---e.g., the $p$ in the equation at the beginning of this
-section.  We employ the automated fitting techniques described
-in~\cite{autoARIMA} to accomplish this.  This procedure uses
-sophisticated methods---KPSS unit-root tests~\cite{KPSSunit}, a
-customization of the Canova-Hansen test~\cite{Canova1995}, and the
-Akaike information criterion~\cite{akaike1974}, conditioned on the
-maximized likelihood of the model fitted to the detrended data---to
-select good values for the free parameters of the ARIMA model.
+linear predictors.  Fitting such a model to a dataset involves
+choosing values for the various free parameters in the autoregressive,
+detrending, moving average, and filtering terms---e.g., the $p$ in the
+equation at the beginning of this section.  We employ the automated
+fitting techniques described in~\cite{autoARIMA} to accomplish this.
+This procedure uses sophisticated methods---KPSS unit-root
+tests~\cite{KPSSunit}, a customization of the Canova-Hansen
+test~\cite{Canova1995}, and the Akaike information
+criterion~\cite{akaike1974}, conditioned on the maximized likelihood
+of the model fitted to the detrended data---to select good values for
+the free parameters of the ARIMA model.
 
 ARIMA forecasting is a common and time-tested procedure.  Its
 adjustments for seasonality, nonstationarity, and noise make it an
@@ -204,13 +206,13 @@ generated and/or transmitted in a nonlinear way, however, a global
 linear fit is inappropriate and ARIMA forecasts will be inaccurate.
 Another weakness of this method is prediction horizon, since an ARIMA
 forecast is guaranteed to converge to the mean after some number of
-predictions, depending on model order.  To avoid this issue, we build
-forecasts in a stepwise fashion: i.e., fit the model to the existing
-data, use it to perform a one-step prediction, rebuild the model using
-the latest observations, and iterate until the desired prediction
-horizon is reached.  (For consistency, we take the same approach with
-the other three models in this study as well, even though this amounts
-to artificially hobbling LMA.)
+predictions, depending on model order.  To sidestep this issue, we
+build forecasts in a stepwise fashion: i.e., fit the model to the
+existing data, use it to perform a one-step prediction, rebuild the
+model using the latest observations, and iterate until the desired
+prediction horizon is reached.  (For consistency, we take the same
+approach with the other three models in this study as well, even
+though this amounts to artificially hobbling LMA.)
 
 \subsection{A Nonlinear Prediction Strategy}
 \label{sec:lma}
@@ -229,13 +231,14 @@ occurring in the underlying process, then use that reconstruction to
 generate forecasts.  This section discusses the theory and
 implementation of a prediction strategy that is based on this idea.
 
-Delay-coordinate embedding allows one to reconstruct a dynamical
-system's full state-space dynamics from a scalar time-series
-measurement---provided that some conditions hold regarding that data.
-Specifically, if the underlying dynamics and the measurement
-function---the mapping from the unknown state vector $\vec{X}$ to the
-observed value $x_i$---are both smooth and generic,
-Takens~\cite{takens} formally proves that the delay-coordinate map
+Delay-coordinate embedding~\cite{packard80,Sauer:1991lr,Takens:1981uq}
+allows one to reconstruct a dynamical system's full state-space
+dynamics from a scalar time-series measurement---provided that some
+conditions hold regarding that data.  Specifically, if the underlying
+dynamics and the measurement function---the mapping from the unknown
+state vector $\vec{X}$ to the observed value $x_i$---are both smooth
+and generic, Takens~\cite{Takens:1981uq} formally proves that the
+delay-coordinate map
 \[
 F(\tau,m)(\vec{X}) = ([x_{i} ~ x_{i+\tau} ~ \dots ~x_{i+m\tau}])
 \]
@@ -292,37 +295,37 @@ Figure~\ref{fig:embedding}.
 %
 
 Geometric structure in these kinds of plots is an indication of
-structure in the underlying information generation/transmission
-process.  The dynamical systems community has developed a number of
-methods that leverage this structure to generate predictions
-(e.g.,~\cite{weigend-book,casdagli-eubank92,Smith199250}).  One of the
-most straightforward of these is the ``Lorenz method of analogues''
-(LMA), which is essentially nearest-neighbor prediction in the
-embedded\footnote{Lorenz's original formulation used the full system
-  state space; the method was later extended to embedded dynamics by
-  Kantz~\cite{kantz-lma-citation}.} space~\cite{lorenz-analogues}.
+structure in the information generation/transmission process the
+produced the time series.  The dynamical systems community has
+developed a number of methods that leverage this structure to generate
+predictions (e.g.,~\cite{weigend-book,casdagli-eubank92,Smith199250}).
+One of the most straightforward of these is the ``Lorenz method of
+analogues'' (LMA), which is essentially nearest-neighbor prediction in
+the embedded\footnote{Lorenz's original formulation used the full
+  system state space; the method was later extended to embedded
+  dynamics by Kantz~\cite{kantz-lma-citation}.}
+space~\cite{lorenz-analogues}.  Even this simple algorithm---which
+builds predictions by finding the nearest neighbor in the embedded
+space of the given point, then taking that neighbor's path as the
+prediction---provides accurate forecasts when the generating process
+is a deterministic dynamical system.  
 
-Even this simple algorithm---which builds predictions by finding the
-nearest neighbor in the embedded space of the given point, then taking
-that neighbor's path as the forecast---provides accurate forecasts
-when the generating process is a deterministic dynamical system.
-Since LMA does not rest on an assumption of linearity, as ARIMA does,
-it can be applied to data produced by both linear and nonlinear
-processes.  If the underlying generating process is not deterministic,
-however, it can perform poorly.  In Figure~\ref{fig:embedding}(b), for
-instance, little structure is visible, so LMA may not work well.  More
-structure appears to be present in~Figure~\ref{fig:embedding}(c), but
-this reconstruction also appears to contain some noise.
-
-The question as to how much structure is present in a
-reconstruction---and how much of that structure can be captured and
-used by LMA---is apropos of the central question treated in this
-paper.  It may be that \gcc has some redundancy that LMA cannot
-exploit, or that the structure in \svdfive is effectively obfuscated,
-from the standpoint of the LMA method, by noise.  By quantifying the
-balance between normalized redundancy (that is, predictive structure)
-and entropy for these real-valued time series, we can begin to answer
-these questions.  
+Since LMA does not rest on an assumption of linearity (as ARIMA does)
+it can handle both linear and nonlinear processes.  If the underlying
+generating process is nondeterministic, however, it can perform
+poorly.  In Figure~\ref{fig:embedding}(b), for instance, little
+structure is visible, so LMA may not work well.  More structure
+appears to be present in~Figure~\ref{fig:embedding}(c), but this
+reconstruction also appears to contain some noise.  The question as to
+how much structure is present in a reconstruction---and how much of
+that structure can be captured and used by LMA---is apropos of the
+central question treated in this paper.  It may be that \gcc has some
+redundancy that LMA cannot exploit, or that the structure in \svdfive
+is effectively obfuscated, from the standpoint of the LMA method, by
+noise.  By quantifying the balance between normalized redundancy (that
+is, predictive structure) and entropy for these real-valued time
+series, as shown in Section~\ref{sec:results}, we can begin to answer
+these questions.
 
 % If enough predictive structure is present in these embeddings, that
 % structure can be used to build an effective forecast model.
@@ -331,121 +334,194 @@ these questions.
 \label{sec:accuracy}
 
 To study the relationship between predictability and complexity, we
-use these four methods to generate predictions of all 360 traces
-described in Section~\ref{sec:methods}, then calculate the error
-between the predictions and the true continuations.  Specifically, we
-split each time series into two pieces: the first 90\%, referred to as
-the ``initial training" signal and denoted $\{x_i\}_{i=1}^{n}$, and
-the last 10\% known as the ``test" signal $\{c_j\}_{j=n+1}^{k+n+1}$.
-The initial training signal is used to build the model, following the
-procedures described in the previous section; that model is used to
-generate a prediction of the value of $x_{n+1}$, which is then
-compared to the true continuation, $c_{n+1}$.  The model is then
-rebuilt using $\{x_i\}_{i=1}^{n+1}$ and the process repeats $k$ times,
-out to the end of the observed time series.  This ``one step
-prediction'' process is not technically necessary in the LMA method,
-which can generate arbitrary-length predictions, but the performance
-of the other three methods used here will degrade if the associated
-models are not periodically rebuilt.  In order to make the comparison
-fair, we used an iterative one-step prediction schema {\sl for all
-  four methods}.  This has the slightly confusing effect of causing
-the ``test'' signal to be used both to assess the accuracy of each
-model and for periodic refitting.
+use the four methods outlined above to generate predictions of all 360
+traces described in Section~\ref{sec:methods}, then calculate the
+error between the predictions and the true continuations.
+Specifically, we split each time series into two pieces: the first
+90\%, referred to as the ``initial training" signal and denoted
+$\{x_i\}_{i=1}^{n}$, and the last 10\%, known as the ``test" signal
+$\{c_j\}_{j=n+1}^{k+n+1}$.  The initial training signal is used to
+build the model, following the procedures described in the previous
+section; that model is used to generate a prediction of the value of
+$x_{n+1}$, which is then compared to the true continuation, $c_{n+1}$.
+The model is then rebuilt using $\{x_i\}_{i=1}^{n+1}$ and the process
+repeats $k$ times, out to the end of the observed time series.  This
+``one step prediction'' process is not technically necessary in the
+LMA method, which can generate arbitrary-length predictions, but the
+performance of the other three methods used here will degrade if the
+associated models are not periodically rebuilt.  In order to make the
+comparison fair, we used an iterative one-step prediction schema {\sl
+  for all four methods}.  This has the slightly confusing effect of
+causing the ``test'' signal to be used both to assess the accuracy of
+each model and for periodic refitting.
 
-To assess prediction accurary, we calculate the mean absolute scaled
-error (MASE) between the true and predicted signals:
-% 
-$$MASE = \sum_{j=n+1}^{k+n+1}\frac{|c_j-p_j| }{\frac{k}{n-1}\sum^n_{i=2}|x_{i}-x_{i-1}|}$$
-% 
-This error method was introduced in \cite{MASE} as a ``generally
-applicable measurement of forecast accuracy without the problems seen
-in the other measurements."  Note that the scaling term in the
-denominator
-% 
-% of the MASE value
-% $$\frac{1}{n-1}\sum^n_{i=2}|X_{i,obs}-X_{i-1,obs}|$$ 
-% 
-is the average in-sample forecast error for a random-walk prediction
-$px_i=x_{i-1}$ over a signal of length $k$.  That is, MASE is a
-normalized measure.  A MASE value below one means that the prediction
-error was, on the average, smaller than the error of a one-step
-in-sample random-walk forecast on the same data.  Analogously, a MASE
-value greater than one means that the corresponding prediction method
-did \emph{worse}, on average, than a one-step in-sample random-walk
-method.  We chose this error metric because it allows for fair
-comparison across varying methods, prediction horizons, and signal
-scales.
-
-Table \ref{tab:error} provides the MASE distributions {\color{red}[[Joshua: Ryan, Is this the right word? we give mean $\pm$ std. dev but some have very skewed right tails]]} for each of the eight signals and three prediction strategies, these are averaged over 15 runs of each signal-method combination. For later comparison, Table \ref{tab:error} also has the complexity measure we introduce in Section  \ref{sec:meaComplex}. 
-
-
-
-To aid in a conceptual understanding of this error metric we provide example forecasts in Figure~\ref{fig:forecast-example}. In plots like this we plot $(c_j,p_j)$, visually points close to the line $y=x$, i.e. the line $p_j = c_j$ are more accurate. Forecasts which stay close to the line are more accurate than forecasts that stray away from it. 
-
-
-\begin{figure}[htbp]
+Figure~\ref{fig:forecast-example} shows example forecasts made using
+the \naive, ARIMA, and LMA methods for the \col, \gcc, and \svdfive
+time series.
+\begin{figure*}[htbp]
   \centering
-      \begin{subfigure}{0.33\columnwidth}
+      \begin{subfigure}{0.6\columnwidth}
     \includegraphics[width=\columnwidth]{figs/colMeanForecast.png}
     \caption{\col\\ na\"ive }
     \label{fig:gccMEAN}
   \end{subfigure}%
-   \begin{subfigure}{0.32\columnwidth}
+   \begin{subfigure}{0.6\columnwidth}
     \includegraphics[width=\columnwidth]{figs/gccMeanForecast.png}
     \caption{\gcc\\ na\"ive }
     \label{fig:gccMEAN}
   \end{subfigure}% 
-     \begin{subfigure}{0.32\columnwidth}
+     \begin{subfigure}{0.6\columnwidth}
     \includegraphics[width=\columnwidth]{figs/svdfiveMeanForecast.png}
     \caption{\svdfive\\ na\"ive }
     \label{fig:gccMEAN}
   \end{subfigure}%      
   \\
-    \begin{subfigure}{0.32\columnwidth}
+    \begin{subfigure}{0.6\columnwidth}
     \includegraphics[width=\columnwidth]{figs/colARIMAForecast.png}
     
     
-    \caption{\col ARIMA}
+    \caption{\col \\ ARIMA}
     \label{fig:colARIMA}
   \end{subfigure}
-  \begin{subfigure}{0.32\columnwidth}
+  \begin{subfigure}{0.6\columnwidth}
     \includegraphics[width=\columnwidth]{figs/gccARIMAForecast.png}
     \caption{\gcc \\ ARIMA }
     \label{fig:gccARIMA}
   \end{subfigure}%
-  \begin{subfigure}{0.32\columnwidth}
+  \begin{subfigure}{0.6\columnwidth}
     \includegraphics[width=\columnwidth]{figs/svdfiveARIMAForecast.png}
     \caption{\svdfive \\ ARIMA }
     \label{fig:gccARIMA}
   \end{subfigure}%    
   \\
 
-      \begin{subfigure}{0.32\columnwidth}
+      \begin{subfigure}{0.6\columnwidth}
     \includegraphics[width=\columnwidth]{figs/colLMAForecast.png}
-    \caption{\col LMA}
+    \caption{\col \\ LMA}
     \label{fig:colLMA}
   \end{subfigure}
-      \begin{subfigure}{0.32\columnwidth}
+      \begin{subfigure}{0.6\columnwidth}
     \includegraphics[width=\columnwidth]{figs/gccLMAForecast.png}
-    \caption{\gcc LMA}
+    \caption{\gcc \\ LMA}
     \label{fig:gccLMA}
   \end{subfigure}  
-        \begin{subfigure}{0.32\columnwidth}
+        \begin{subfigure}{0.6\columnwidth}
     \includegraphics[width=\columnwidth]{figs/svdfiveLMAForecast.png}
-    \caption{\svdfive LMA}
+    \caption{\svdfive \\ LMA}
     \label{fig:gccLMA}
   \end{subfigure}
   %\begin{subfigure}{0.5\textwidth}
   %  \includegraphics[width=1.0\textwidth]{figs/LMA_vs_ARIMA}
-   \caption{
-{\color{red}[[Joshua: Liz, I added \svdfive as it has been a persistent example up to this figure. I am a little worried about the 9x9 being too small in 1 column. We may need to make this figure span two columns, which I think is ok.]]}For each of these, we plot the predicted value $p_j$ against the correct value $c_j$. On this type of plot a perfect prediction lies exactly on the diagonal, that is the line $p_j = c_j$, e.g., (g) is a near perfect prediction where-as (e) is a poor prediction.}\label{fig:forecast-example}  
+   \caption{Predicted ($px_j$) versus true values ($c_j$) for
+     forecasts of \col, \gcc, and \svdfive.  On this type of plot, a
+     perfect prediction lies exactly on the diagonal.
+%
+{\color{red} Joshua, what would you think of adding a row of
+  random-walk plots at the top?  The letters in the subcaptions---(a)
+  (b) etc.---feel clunky here.  Finally, we should eventually change
+  the label of the vertical axes on these plots to be whatever symbol
+  we choose for the prediction.}
+%
+}
+\label{fig:forecast-example}
   %\end{subfigure}
-\end{figure} 
+\end{figure*} 
+In these images, the vertical axis is the prediction $px_j$ and the
+horizontal axis is the true continuation $c_j$.  On such a plot, a
+perfect prediction would lie on the diagonal.  LMA, for instance,
+generates a very accurate prediction of the \col data, while ARIMA
+does not.  [[We should comment on what a noise ball means on such a
+    plot, as well as what a horizontal line means.]]
 
-It may be helpful for the reader at this point to compare some of the MASE scores in Table \ref{tab:error} with the example forecasts in Figure~\ref{fig:forecast-example}. For example, if we compare Figures~ \ref{fig:forecast-example} (d) and (g), \col is almost perfectly predicted by LMA (close to the line $y=x$ and ARIMA is a poor predictor as the points are spread out around $y=x$. Comparing to the MASE values in Table~\ref{tab:error} we see that \col with LMA had a MASE of $0.05 \pm 0.002$, whereas \col with ARIMA had a MASE of $0.599 \pm 0.211$. So intuitively the better visual prediction received a much better MASE score (the smaller the better). One way of interpreting these are that LMA on \col is on average 20 times more effective than random walk and ARIMA on \col is only 2 times more effective than random walk. 
+As a numerical measure of prediction accurary, we calculate the mean
+absolute scaled error ($MASE$) between the true and predicted signals:
+% 
+$$MASE = \sum_{j=n+1}^{k+n+1}\frac{|c_j-x_j|
+}{\frac{k}{n-1}\sum^n_{i=2}|x_{i}-x_{i-1}|}$$
+% 
+This error metric was introduced in \cite{MASE} as a ``generally
+applicable measurement of forecast accuracy without the problems seen
+in the other measurements."  $MASE$ is a normalized measure; the
+scaling term in the denominator
+% 
+% of the MASE value
+% $$\frac{1}{n-1}\sum^n_{i=2}|X_{i,obs}-X_{i-1,obs}|$$ 
+% 
+is the average in-sample forecast error for a random-walk prediction
+over a signal of length $k$.  That is, $MASE<1$ means that the
+prediction error in question was, on the average, smaller than the
+error of a random-walk forecast on the same data.  Analogously,
+$MASE>1$ means that the corresponding prediction method did
+\emph{worse}, on average, than the random-walk method.  We chose this
+error metric because it allows for fair comparison across varying
+methods, prediction horizons, and signal scales.
 
-The part that becomes tricky and which must be kept in mind is that this error metric is in comparison to random walk. If we compare visually for example the LMA prediction of \col and \svdfive (Figures~\ref{fig:forecast-example} (g) \& (i)) visually they look very similar in terms of accuracy; however, \col was forecast 20 times better than random walk where as \svdfive was forecast only 1.5 times better. The reason for this lies in the strengths/weaknesses of Random Walk discussed in Section~\ref{sec:simple}. The large oscillations in \col cause Random Walk to do poorly, MASE then gives a model that accounts for this oscillation (e.g., LMA) a boost, whereas \svdfive is a great signal for Random Walk so there is less improvement to be made, and less boost is given for example for correctly reacting to regime shift. A more in-depth discussion of this is presented in Section~\ref{sec:results}. 
+$MASE$ scores for all 360 experiments are tabulated in the three
+middle columns in Table~\ref{tab:error}.
+\begin{table*}
+  \begin{center}
+  \begin{tabular}{|c|c|c|c|c|}
+  \hline Signal & MASE LMA & MASE ARIMA &MASE na\"{i}ve & Weighted Permutation \\ 
+  &  &  & &  Entropy \\ \hline
+ 
+ \col           & $ 0.050 \pm0.002  $ & $0.599  \pm 0.211 $ & $0.571\pm0.002$&  $0.513 \pm 0.003$ \\
 
+\gcc           & $ 1.530\pm 0.021$ & $1.837 \pm0.016 $ & $0.951 \pm 0.001$ & $0.943 \pm 0.001$ \\
+
+\svdone     & $ 0.827\pm 0.076$ & $ 0.714\pm 0.075 $ & $2.676\pm4.328$&  $0.957 \pm 0.016$ \\
+
+ \svdtwo    & $1.279 \pm0.020 $ & $2.163 \pm0.027 $ &  $3.054\pm0.040$ &   $0.846 \pm0.004$ \\
+ 
+ \svdthree     & $0.619 \pm0.021 $ & $0.713 \pm 0.010 $ & $31.386\pm 0.282$ &  $0.716 \pm 0.006$ \\
+
+ \svdfour     & $ 0.779\pm0.036 $ & $0.979 \pm0.032 $ & $2.661\pm0.074$ & $0.825 \pm 0.008$ \\
+ 
+ \svdfive     & $ 0.718\pm 0.048 $ & $2.370  \pm 0.051 $ & $20.870 \pm 0.192$&  $0.678 \pm 0.007$ \\
+ 
+ \svdsix     & $ 0.739\pm 0.068 $ & $ 1.438\pm 0.0610$ & $2.197\pm0.083$&  $0.748 \pm 0.011$ \\
+  \hline
+  \end{tabular}
+  \end{center}
+ \label{default}
+ \caption{MASE scores and weighted permutation entropies for all eight
+   processes studied in this paper}
+ \label{tab:error}
+  \end{table*}%
+Comparing these with the geometry of the plots in
+Figure~\ref{fig:forecast-example}, one can see some obvious
+correspondences.  The average LMA $MASE$ score for the \col signals
+was $0.050$, for instance, while ARIMA scored much worse ($0.599$).
+That is, LMA performed roughly 20 times better on \col signals than a
+random-walk predictor, while ARIMA only outperformed random walk by a
+factor of 1.7 [[is this right?  there was a ``2'' here, but 1/0.599 is
+    closer to 1.7]].  This is in accordance with the visual appearance
+of the corresponding images in Figure~\ref{fig:forecast-example}.
+While the correspondence between $MASE$ score and the visual
+appearance of a $px$ versus $c$ plot is clear cut in this case, that
+is not always so.  The plots of LMA predictions of \col and \svdfive
+both lie near the diagonal, for instance, but the corresponding $MASE$
+scores were very different: $0.050$ for \col and $0.718$ for \svdfive
+(resp., 20 and 1.4 times better than random-walk forecasts of the same
+signals).  This is a result of the normalization in the $MASE$ score.
+Recall from Section~\ref{sec:simple} that the random-walk method
+performs especially poorly on signals that oscillate rapidly.  \col
+fits this description, so the random-walk error on this signal---the
+denominator of the three $MASE$ scores in the first row of the
+Table---is pathologically high, which skews those scores down.
+Random-walk prediction is very effective for the\svdfive signal, on
+the other hand, so the denominator is small and the $MASE$ scores are
+skewes upwards.  Normalization is a two-edged sword here.  It
+facilitates comparisons across signals of different types and lengths,
+but its particular pathologies must be taken into account, as
+discussed at more length in Section~\ref{sec:results}.
+
+% Table \ref{tab:error} provides the $MASE$ distributions
+% {\color{red}[[Joshua: Ryan, Is this the right word? we give mean $\pm$
+%       std. dev but some have very skewed right tails]]} for each of
+% the eight signals and three prediction strategies, these are averaged
+% over 15 runs of each signal-method combination. For later comparison,
+% Table \ref{tab:error} also has the complexity measure we introduce in
+% Section \ref{sec:meaComplex}.
 
 %[[and cherry pick a few examples of \gcc and \col to put in the text ]]
 
@@ -511,7 +587,4 @@ The part that becomes tricky and which must be kept in mind is that this error m
 
 
 
-
-
-% took out for space
 
