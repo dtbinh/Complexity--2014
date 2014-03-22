@@ -40,10 +40,10 @@ discussed below.
 \label{sec:simple}
 
 A random-walk predictor simply uses the last observed measurement as
-the forecast: that is, the value $px_i$ at time $i$ is calculated
-using the relation $$px_i = x_{i-1}$$ The prediction strategy that we
+the forecast: that is, the value $p_i$ at time $i$ is calculated
+using the relation $$p_i = x_{i-1}$$ The prediction strategy that we
 refer to using the term ``\naive'' averages the prior observations to
-generate the forecast: $$px_i = \sum_{j=1}^{i-1}\frac{x_j}{i-1}$$
+generate the forecast: $$p_i = \sum_{j=1}^{i-1}\frac{x_j}{i-1}$$
 While both of these methods are simplistic, they are not without
 merit.  For a time series near the high end of the complexity
 spectrum---i.e., one that possesses very little predictive
@@ -114,7 +114,7 @@ and~\ref{sec:results}.
 %is to fit a hyperplane to the dataset and then use that it to forecast
 %new data points.  The roots of this date back to Yule's 1927 invention
 %of the autoregressive schema~\cite{weigend93}, which forecasts the
-%next time step through a weighted average of past observations: $$px_i
+%next time step through a weighted average of past observations: $$p_i
 %= \phi(B^p)x_{i}$$ where $\phi(\cdot)$ is a polynomial of degree $p$
 %that is fit to the past $p+1$ [[???]] values of $x_i$ via the
 %backshift operator $B$ \footnote{I changed the superscript to $k$ to
@@ -158,7 +158,7 @@ and~\ref{sec:results}.
 %    one should choose $P=Q=m$, since that's what the equation below
 %    implicitly does.]]  To use a seasonal ARIMA model, one first uses
 %the detrending term to remove nonstationarity: $$\hat{x_i} =
-%(1-B^m)^D(1-B^d) x_{i}$$ and then creates the forecast $px_i$ by
+%(1-B^m)^D(1-B^d) x_{i}$$ and then creates the forecast $p_i$ by
 %evaluating $$\Phi(B^m)\phi(B^p)\hat{X_i} =
 %\Theta(B^m)\theta(B^q)\epsilon_i$$
 % ...down to here
@@ -169,7 +169,7 @@ data is to fit a hyperplane to the dataset and then use that it to
 make predictions.  The roots of this approach date back to Yule's 1927
 invention of the autoregressive schema~\cite{weigend93}, which
 forecasts the next time step through a weighted average of past
-observations: $$px_i = \sum_{j=1}^{i-1} a_j x_j$$ The weighting
+observations: $$p_i = \sum_{j=1}^{i-1} a_j x_j$$ The weighting
 coefficients $a_i$ are computed using a polynomial of degree $p$ that
 is fit to the past $p+1$ values of $x_i$.  To account for noise in the
 data, one can add a so-called ``moving average'' term to the model; to
@@ -412,7 +412,7 @@ time series.
   \end{subfigure}
   %\begin{subfigure}{0.5\textwidth}
   %  \includegraphics[width=1.0\textwidth]{figs/LMA_vs_ARIMA}
-   \caption{Predicted ($px_j$) versus true values ($c_j$) for
+   \caption{Predicted ($p_j$) versus true values ($c_j$) for
      forecasts of \col, \gcc, and \svdfive.  On this type of plot, a
      perfect prediction lies exactly on the diagonal.
 %
@@ -426,7 +426,7 @@ time series.
 \label{fig:forecast-example}
   %\end{subfigure}
 \end{figure*} 
-In these images, the vertical axis is the prediction $px_j$ and the
+In these images, the vertical axis is the prediction $p_j$ and the
 horizontal axis is the true continuation $c_j$.  On such a plot, a
 perfect prediction would lie on the diagonal.  LMA, for instance,
 generates a very accurate prediction of the \col data, while ARIMA
@@ -497,7 +497,7 @@ factor of 1.7 [[is this right?  there was a ``2'' here, but 1/0.599 is
     closer to 1.7]].  This is in accordance with the visual appearance
 of the corresponding images in Figure~\ref{fig:forecast-example}.
 While the correspondence between $MASE$ score and the visual
-appearance of a $px$ versus $c$ plot is clear cut in this case, that
+appearance of a $p$ versus $c$ plot is clear cut in this case, that
 is not always so.  The plots of LMA predictions of \col and \svdfive
 both lie near the diagonal, for instance, but the corresponding $MASE$
 scores were very different: $0.050$ for \col and $0.718$ for \svdfive
