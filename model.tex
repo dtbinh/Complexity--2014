@@ -170,8 +170,8 @@ make predictions.  The roots of this approach date back to Yule's 1927
 invention of the autoregressive schema~\cite{weigend93}, which
 forecasts the next time step through a weighted average of past
 observations: $$p_i = \sum_{j=1}^{i-1} a_j x_j$$ The weighting
-coefficients $a_i$ are computed using a polynomial of degree $p$ that
-is fit to the past $p+1$ values of $x_i$.  To account for noise in the
+coefficients $a_i$ are computed using a polynomial of degree $l$ that
+is fit to the past $l+1$ values of $x_i$.  To account for noise in the
 data, one can add a so-called ``moving average'' term to the model; to
 remove nonstationarities, one can detrend the data using a
 differencing operation.  A strategy that incorporates all three of
@@ -188,7 +188,7 @@ predictability and complexity across a broad array of forecast
 strategies, seasonal ARIMA models are a good exemplar of the class of
 linear predictors.  Fitting such a model to a dataset involves
 choosing values for the various free parameters in the autoregressive,
-detrending, moving average, and filtering terms---e.g., the $p$ in the
+detrending, moving average, and filtering terms---e.g., the $l$ in the
 equation at the beginning of this section.  We employ the automated
 fitting techniques described in~\cite{autoARIMA} to accomplish this.
 This procedure uses sophisticated methods---KPSS unit-root
@@ -417,10 +417,9 @@ time series.
      perfect prediction lies exactly on the diagonal.
 %
 {\color{red} Joshua, what would you think of adding a row of
-  random-walk plots at the top?  The letters in the subcaptions---(a)
-  (b) etc.---feel clunky here.  Finally, we should eventually change
-  the label of the vertical axes on these plots to be whatever symbol
-  we choose for the prediction.}
+  random-walk plots at the top?  Also, the letters in the
+  subcaptions---(a) (b) etc.---feel clunky here.  What would you think
+  of removing them?}
 %
 }
 \label{fig:forecast-example}
@@ -430,15 +429,17 @@ In these images, the vertical axis is the prediction $p_j$ and the
 horizontal axis is the true continuation $c_j$.  On such a plot, a
 perfect prediction would lie on the diagonal.  LMA, for instance,
 generates a very accurate prediction of the \col data, while ARIMA
-does not.  [[We should comment on what a noise ball means on such a
-    plot, as well as what a horizontal line means.]]
+does not.  {\color{red}[[We should comment on what a noise ball means
+      on such a plot, as well as what a horizontal line means.]]}
 
 As a numerical measure of prediction accurary, we calculate the mean
 absolute scaled error ($MASE$) between the true and predicted signals:
 % 
-$$MASE = \sum_{j=n+1}^{k+n+1}\frac{|c_j-x_j|
+$$MASE = \sum_{j=n+1}^{k+n+1}\frac{|p_j-x_j|
 }{\frac{k}{n-1}\sum^n_{i=2}|x_{i}-x_{i-1}|}$$
 % 
+{\color{red} That equation had $c_j$ instead of $p_j$ in the numerator.
+I changed it.  Let me know if that's wrong.}
 This error metric was introduced in \cite{MASE} as a ``generally
 applicable measurement of forecast accuracy without the problems seen
 in the other measurements."  $MASE$ is a normalized measure; the
@@ -493,26 +494,27 @@ correspondences.  The average LMA $MASE$ score for the \col signals
 was $0.050$, for instance, while ARIMA scored much worse ($0.599$).
 That is, LMA performed roughly 20 times better on \col signals than a
 random-walk predictor, while ARIMA only outperformed random walk by a
-factor of 1.7 [[is this right?  there was a ``2'' here, but 1/0.599 is
-    closer to 1.7]].  This is in accordance with the visual appearance
-of the corresponding images in Figure~\ref{fig:forecast-example}.
-While the correspondence between $MASE$ score and the visual
-appearance of a $p$ versus $c$ plot is clear cut in this case, that
-is not always so.  The plots of LMA predictions of \col and \svdfive
-both lie near the diagonal, for instance, but the corresponding $MASE$
-scores were very different: $0.050$ for \col and $0.718$ for \svdfive
-(resp., 20 and 1.4 times better than random-walk forecasts of the same
-signals).  This is a result of the normalization in the $MASE$ score.
-Recall from Section~\ref{sec:simple} that the random-walk method
-performs especially poorly on signals that oscillate rapidly.  \col
-fits this description, so the random-walk error on this signal---the
-denominator of the three $MASE$ scores in the first row of the
-Table---is pathologically high, which skews those scores down.
-Random-walk prediction is very effective for the\svdfive signal, on
-the other hand, so the denominator is small and the $MASE$ scores are
-skewes upwards.  Normalization is a two-edged sword here.  It
-facilitates comparisons across signals of different types and lengths,
-but its particular pathologies must be taken into account, as
+factor of 1.7 {\color{red}[[is this right?  there was a ``2'' here,
+      but 1/0.599 is closer to 1.7]]}.  This is in accordance with the
+visual appearance of the corresponding images in
+Figure~\ref{fig:forecast-example}.  While the correspondence between
+$MASE$ score and the visual appearance of a $p$ versus $c$ plot is
+clear cut in this case, that is not always so.  The plots of LMA
+predictions of \col and \svdfive both lie near the diagonal, for
+instance, but the corresponding $MASE$ scores were very different:
+$0.050$ for \col and $0.718$ for \svdfive (resp., 20 and 1.4 times
+better than random-walk forecasts of the same signals).  This is a
+result of the normalization in the $MASE$ score.  Recall from
+Section~\ref{sec:simple} that the random-walk method performs
+especially poorly on signals that oscillate rapidly.  \col fits this
+description, so the random-walk error on this signal---the denominator
+of the three $MASE$ scores in the first row of the Table---is
+pathologically high, which skews those scores down.  Random-walk
+prediction is very effective for the \svdfive signal, on the other
+hand, so the denominator is small and the $MASE$ scores are skewes
+upwards.  Normalization is, as is often the case, a two-edged sword.
+Here, it facilitates comparisons across signals of different types and
+lengths, but its particular pathologies must be taken into account, as
 discussed at more length in Section~\ref{sec:results}.
 
 % Table \ref{tab:error} provides the $MASE$ distributions
