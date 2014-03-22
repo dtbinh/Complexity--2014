@@ -65,17 +65,18 @@ that an \emph{ideal} model---one that captures the generating
 process---can forecast the future behavior of the observed system with
 high accuracy.
 
-As a corollary of the undecidability of the halting problem
-\cite{halting-problem}, however, no single forecasting schema is ideal
-for all noise-free deterministic signals\cite{weigend-book}---let
-alone all real-world time-series data sets.  This leads naturally to
-an important and challenging question: given a complicated real-valued
-time series, does there exist a forecast model that can utilize the
-information (if any) that is being transmitted from past to future by
-the underlying generating process?  A first step in answering this
-question is to reliably quantify where on the complexity spectrum a
-given time series falls; a second step is to determine how complexity
-and predictability are related.  These are the goals of this paper.
+As a corollary of the undecidability of the halting
+problem~\cite{halting-problem}, however, no single forecasting schema
+is ideal for all noise-free deterministic
+signals~\cite{weigend-book}---let alone all real-world time-series
+data sets.  This leads naturally to an important and challenging
+question: given a complicated real-valued time series, does there
+exist a forecast model that can utilize the information (if any) that
+is being transmitted from past to future by the underlying generating
+process?  A first step in answering this question is to reliably
+quantify where on the complexity spectrum a given time series falls; a
+second step is to determine how complexity and predictability are
+related.  These are the goals of this paper.
 
 In particular, we wish to determine---without knowing anything about
 the generating process---whether a time series is too complex to
@@ -86,24 +87,23 @@ significant amount of predictive structure, one can reasonably conclude that tha
 to the task and that one should seek another method.    
 
 The information in an observation can be partitioned into two pieces:
-redundancy and entropy generation\cite{crutchfield2003}.  
+redundancy and entropy generation~\cite{crutchfield2003}.  
 \label{page:redundancy}
-Our approach
-exploits this decomposition in order to assess how much predictive
-structure is present in a signal---i.e., where it falls on the
-complexity spectrum mentioned above.  We define \emph{complexity} as a
-particular approximation of Kolmogorov-Sinai entropy\cite{KS-entropy}.
-That is, we view a random-walk time series (which exhibits high
-entropy) as purely complex, whereas a periodic signal, which exhibits
-low entropy, is on the low end of the complexity spectrum.  We argue
-that an extension of \emph{permutation entropy}
-\cite{bandt2002per}---a method for approximating the entropy through
-ordinal analysis---is an effective way to assess the complexity of a
-given time series.  Permutation entropy is ideal for our purposes
-because it works with real-valued data and is known to converge to the true entropy value. Other
-existing techniques either require specific knowledge of the
-generating process or produce biased values of the
-entropy~\cite{bollt2001}.
+Our approach exploits this decomposition in order to assess how much
+predictive structure is present in a signal---i.e., where it falls on
+the complexity spectrum mentioned above.  We define \emph{complexity}
+as a particular approximation of Kolmogorov-Sinai
+entropy~\cite{KS-entropy}.  That is, we view a random-walk time series
+(which exhibits high entropy) as purely complex, whereas a periodic
+signal, which exhibits low entropy, is on the low end of the
+complexity spectrum.  We argue that an extension of \emph{permutation
+  entropy}~\cite{bandt2002per}---a method for approximating the
+entropy through ordinal analysis---is an effective way to assess the
+complexity of a given time series.  Permutation entropy is ideal for
+our purposes because it works with real-valued data and is known to
+converge to the true entropy value. Other existing techniques either
+require specific knowledge of the generating process or produce biased
+values of the entropy~\cite{bollt2001}.
 
 We focus on real-valued, scalar, time-series data that appear
 complicated: i.e., not periodic, linear, constant, etc.  We make no
@@ -165,7 +165,7 @@ a matrix in column-major order.
   \end{figure}
 %
 Although this time series appears to be periodic, it is actually
-chaotic \cite{mytkowicz09}, which places fundamental limits on
+chaotic~\cite{mytkowicz09}, which places fundamental limits on
 predictability.  Changes in the program can radically change this
 behavior; indeed, many performance traces exhibit interesting regime
 changes as a program moves through the different phases of its
