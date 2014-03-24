@@ -1,11 +1,6 @@
 \section{Measuring Structural Complexity }\label{sec:meaComplex}
 {\color{blue} EDITABLE}
 
-{\color{red} Maybe talk about ``wpe has been applied to predicting
-  irregularities in brain wave data but no on one has examined it's
-  correlation with predictive structure. " but kind of puts the cart
-  before the horse }
-
 The goal of the section is to describe how we reasonably estimate the entropy of an arbitrary, real-valued time series. We will first detail why this is a highly non-trivial task, and then we will weave a path through which this can in fact be accomplished. This path will draw upon a myriad of tools and results from a variety of fields including time series analysis, dynamical systems, stochastic processes, and chaos.
 
 For the purposes of this paper, one can view entropy as a measure of complexity and unpredictability in a time series.  A high-entropy time series is almost completely unpredictable---and conversely a low entropy signal is often quite predictable.  This can be made more rigorous: Pesin's relation \cite{pesin77} states that in chaotic dynamical systems, the Shannon entropy rate is equal to the sum of the positive Lyapunov exponents, $\lambda_i$. The Lyapunov exponents directly quantify the rate at which nearby states of the system will diverge with time: $\left| \Delta x(t) \right| \approx e^{\lambda t} \left| \Delta x(0) \right|$.  The faster the divergence, the larger the entropy and the more difficult prediction becomes.
@@ -142,9 +137,12 @@ assuming an average of 100 counts per ordinal is sufficient. In the literature, 
 %  %\\
 % % \begin{subfigure}{\textwidth}
 %
-{\color{red}TODO: Put this image back in.}
+% {\color{red}TODO: Put this image back in.}
 %%Liz commented this image out temporarily so that her mac doesn't hang
 %%when she scrolls past p12
+%% We decided to skip the figure completely, since we took out
+%% all stuff about PE as regime-shift detection.  
+%% [[should add that as future work, though.]]
 %  \includegraphics[width=\columnwidth]{figs/SVD_wwpe}
 %  \caption{The weighted permutation entropy of one run of SVD. The gray bands are regions where the window overlaps regimes. The window size used is 5,000 $\times$ 100,000 instructions and the word length is $6$. For reference the instructions per cycle of \svd are plotted as a ghost behind this plot. Each color on the ghosted time series corresonds to the different regimes as determined by visual inspection. From left to right each change in color represents a change in regime for 6 regimes in total.}\label{fig:wwpe}
 %\end{figure}
