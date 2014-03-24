@@ -166,19 +166,19 @@ and~\ref{sec:results}.
 
 A simple and yet powerful way to capture and exploit the structure of
 data is to fit a hyperplane to the dataset and then use that it to
-make predictions.  The roots of this approach date back to Yule's 1927
-invention of the autoregressive schema~\cite{weigend93}, which
-forecasts the next time step through a weighted average of past
-observations: $$p_i = \sum_{j=1}^{i-1} a_j x_j$$ The weighting
-coefficients $a_i$ are computed using a polynomial of degree $l$ that
-is fit to the past $l+1$ values of $x_i$.  To account for noise in the
-data, one can add a so-called ``moving average'' term to the model; to
-remove nonstationarities, one can detrend the data using a
-differencing operation.  A strategy that incorporates all three of
-these features is called a \emph{nonseasonal ARIMA model}.  If
-evidence of periodic structure is present in the data, a
-\emph{seasonal ARIMA model}, which adds a sampling operation that
-filters out periodicities, can be a good choice.
+make predictions.  The roots of this approach date back to the
+original autoregressive schema~\cite{weigend93}, which forecasts the
+next time step through a weighted average of past observations: $$p_i
+= \sum_{j=1}^{i-1} a_j x_j$$ The weighting coefficients $a_i$ are
+computed using a polynomial of degree $l$ that is fit to the past
+$l+1$ values of $x_i$.  To account for noise in the data, one can add
+a so-called ``moving average'' term to the model; to remove
+nonstationarities, one can detrend the data using a differencing
+operation.  A strategy that incorporates all three of these features
+is called a \emph{nonseasonal ARIMA model}.  If evidence of periodic
+structure is present in the data, a \emph{seasonal ARIMA model}, which
+adds a sampling operation that filters out periodicities, can be a
+good choice.
 
 There is a vast amount of theory and literature regarding the
 construction and use of models of this type; we refer the reader to
