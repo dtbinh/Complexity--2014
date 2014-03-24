@@ -25,13 +25,17 @@ information analysis.
 The first class focuses on errors produced by a fixed forecasting
 schema.  This analysis can proceed locally or globally.  The local
 version approximates error distributions for different regions of a
-time-series model using local ensemble in-sample forecasting.
-{\color{red}[[Joshua, we probably want a quick definition of in-sample
-      and out-of-sample.]]} These distributions are then used to
-estimate out-of-sample forecast errors {\color{red}[[in that area of]]
-  [[means?]]} the time series model.  For example, Smith {\sl et al.}
-make in-sample forecasts using ensembles around selected points in
-order to predict the local predictability of that time
+time-series model using local ensemble in-sample
+forecasting\footnote{[[The terms ``in sample'' and ``out of sample''
+      are used in different ways in the forecasting community.  By in
+      sample, we mean a ``forecast'' that is done on the stuff that
+      you know, for the purposes of assessing models, errors, and
+      prediction horizons.  An out-of-sample prediction is what one
+      thinks of as a prediction: forecasting the future.]]}.  These
+distributions are then used as estimates of out-of-sample forecast
+errors in those regions.  For example, Smith {\sl et al.}  make
+in-sample forecasts using ensembles around selected points in order to
+predict the local predictability of that time
 series~\cite{Smith199250}.  This approach can be used to show that
 different portions of a time series can exhibit varying levels of
 local predictive uncertainty.  We expand on this finding later in this
@@ -52,24 +56,24 @@ building an autoregressive model, for example, it is common to
 calculate the errors and verify that they are normally distributed.
 If they are not, that indicates that there is structure in the time
 series that the model-building process was unable to capture and use.
-The problem with this approach is lack of generality.  Normally
-distributed errors indicate that a model has captured the structure in
-the data insofar as is possible, \emph{given the formulation of that
-  particular model} (viz., the best possible linear fit to a nonlinear
-dataset).  This gives no indication as to whether another modeling
-strategy might do better.  {\color{red} [[I'm not sure I believe that
-      a model's bad fit wouldn't manifest in the error distribution.
-      Is that really true?]]}
+The problem with this approach is lack of generality.  
+\label{page:normal-errors}
+Normally distributed errors indicate that a model has captured the
+structure in the data insofar as is possible, \emph{given the
+  formulation of that particular model} (viz., the best possible
+linear fit to a nonlinear dataset).  This gives no indication as to
+whether another modeling strategy might do better.
+
 
 A practice known as deterministic/sto\-chas\-tic
 modeling~\cite{Casdagli92dvsplots, weigend-book} bridges the gap
-between local and global model-based error analysis {\color{red} [[or
-      also in model-free?]]}  The basic idea is to construct a series
-of local linear fits, beginning with a few points and working up to to
-a global linear fit that includes all known points, and then analyze
-how the average out-of-sample error changes as a function of number of
-points in the fit. The shape of such a graph indicates the amounts of
-determinism and stochasticity are present in a time series.
+between local and global approaches to model-based error analysis.
+The basic idea is to construct a series of local linear fits,
+beginning with a few points and working up to to a global linear fit
+that includes all known points, and then analyze how the average
+out-of-sample error changes as a function of number of points in the
+fit. The shape of such a graph indicates the amounts of determinism
+and stochasticity are present in a time series.
 
 The model-based error analysis methods described in the previous three
 paragraphs are based on specific assumptions about the underlying
@@ -85,24 +89,23 @@ page~\pageref{page:redundancy}, which formally quantifies how
 information propagates forward through a time series:
 % how much information prior observations of a system lend to future
 % values
-e.g., the mutual information between the past $n$ observations and the
-current one.  {\color{red} [[How is redundancy different from/more
-      general than MI, then?]]}  For example, this would be the amount
-of information that delay coordinate embedding captures.  {\color{red}
-  [[This will be very hard to understand, coming as it does before the
-      description of that method.  Does it add something essential
-      here?]]}  The redundancy of i.i.d. random processes is zero,
-since all observations are independent of one another.  On the other
-hand, any deterministic system --- including chaotic ones --- can be
-perfectly predicted if observed for long enough~\cite{weigend-book}.
-{\color{red} [[Previous sentence leaves the connection to redundancy
-      implicit.  Need to make it explicit.]]}  
-In practice, it is quite difficult to estimate the redundancy of an
-arbitrary, real-valued time series.  Doing so requires knowing either
-the Kolmolgorov-Sinai entropy or the values of all positive Lyapunov
-exponents of the system.  Both of these calculations are
-difficult---the latter particularly so if the data are very noisy or
-the generating system is stochastic.
+i.e., the mutual information between the past $n$ observations and the
+current one.
+% took this out because DCE hasn't been introduced yet: 
+% 
+% For example,
+% this would be the amount of information that delay coordinate
+% embedding captures.
+The redundancy of i.i.d. random processes is zero, since all
+observations are independent of one another.  On the other hand, any
+deterministic system---including chaotic ones---has maximal redundancy
+and thus can be perfectly predicted if observed for long
+enough~\cite{weigend-book}.  In practice, it is quite difficult to
+estimate the redundancy of an arbitrary, real-valued time series.
+Doing so requires knowing either the Kolmolgorov-Sinai entropy or the
+values of all positive Lyapunov exponents of the system.  Both of
+these calculations are difficult---the latter particularly so if the
+data are very noisy or the generating system is stochastic.
 
 Using entropy and redundancy to quantify the inherent predictability
 of a time series is not a new idea.  Past methods for this, however,
