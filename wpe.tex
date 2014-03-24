@@ -1,6 +1,11 @@
 \section{Measuring Structural Complexity }\label{sec:meaComplex}
 {\color{blue} EDITABLE}
 
+{\color{red} Maybe talk about ``wpe has been applied to predicting
+  irregularities in brain wave data but no on one has examined it's
+  correlation with predictive structure. " but kind of puts the cart
+  before the horse }
+
 The goal of the section is to describe how we reasonably estimate the entropy of an arbitrary, real-valued time series. We will first detail why this is a highly non-trivial task, and then we will weave a path through which this can in fact be accomplished. This path will draw upon a myriad of tools and results from a variety of fields including time series analysis, dynamical systems, stochastic processes, and chaos.
 
 For the purposes of this paper, one can view entropy as a measure of complexity and unpredictability in a time series.  A high-entropy time series is almost completely unpredictable---and conversely a low entropy signal is often quite predictable.  This can be made more rigorous: Pesin's relation \cite{pesin77} states that in chaotic dynamical systems, the Shannon entropy rate is equal to the sum of the positive Lyapunov exponents, $\lambda_i$. The Lyapunov exponents directly quantify the rate at which nearby states of the system will diverge with time: $\left| \Delta x(t) \right| \approx e^{\lambda t} \left| \Delta x(0) \right|$.  The faster the divergence, the larger the entropy and the more difficult prediction becomes.
