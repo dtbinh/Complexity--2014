@@ -1,25 +1,106 @@
 \section{Related Work }\label{sec:related}
-{\color{blue}[[EDITABLE]]}
-Attempting to model time series for prediction is an old problem which arguably began with Yule in 1927 when he invented autoregression \cite{Yule27}. Since then hundreds if not thousands of prediction strategies have been developed for a wide variety of prediction tasks. The purpose of this paper is \emph{not} to find an ideal forecast model for a time series but to quantify empirically the predictive structure present in a real-valued-scalar time series model free and then to associate the prediction accuracy of a set of methods with the time series inherent complexity. For this reason we do not cover in-depth the spectrum of previous work in predictive modeling, we do however provide an overview of the models used in this paper in  Section~\ref{sec:model}. Quantifying predictability, or what is sometimes called ``predicting predictability", is also not a new problem and most solutions fall into two categories: model-based error analysis and model-free information analysis.
 
+Modeling time-series data for the purposes of prediction is an old
+problem that dates back at least to Yule's 1927 invention of
+autoregression~\cite{Yule27}.  Since then hundreds, if not thousands,
+of prediction strategies have been developed for a wide variety of
+prediction tasks.  The purpose of this paper is not to add a new
+method to this arsenal, nor to assess or compare the effectiveness of
+these existing methods.  Our goals are broader: (i) to empirically
+quantify the predictive structure that is present in a real-valued
+scalar time series and (ii) to explore how that inherent complexity
+affects the performance of those existing prediction methods.  It
+would, of course, be neither practical nor interesting to report
+results for every existing forecast method; instead, we choose a
+representative set, which are described in Section~\ref{sec:model}.
+
+Quantifying predictability, which is sometimes called ``predicting
+predictability,'' is also not a new problem.  Most solutions fall into
+two categories: model-based error analysis and model-free information
+analysis.
+%
 %Actually this first class are both just analyzing model error distributions but some are local and some are global models but both are really just error
-
+%
 %predicting local predictive capacity (radial basis functions stuff, trying to predict error bounds on next forecast based on ensemble uncertainty) but does not aggregate tell you at what level the time series exhibits complexity only locally predictive structure, this actualy gets at the interesting point that different regions of a time series may exhibit differnt levels of complexity which we will illustrate with \svd
+%
+The first class focuses on errors produced by a fixed forecasting
+schema.  This can proceed locally or globally.  The local version of
+this type of analysis approximates error distributions for different
+regions of a time-series model using local ensemble in-sample
+forecasting.  [[Joshua, we probably want a quick definition of
+    in-sample and out-of-sample.]] These distributions are then used
+to estimate out-of-sample forecast errors [[in that area of]] the time
+series model.  For example, Smith {\sl et al.} make in-sample
+forecasts using ensembles around selected points in the time series in
+order to predict the local predictability of a time series
+reconstructed using delay-coordinate embedding~\cite{Smith199250}.
+This approach can be used to show that different portions of a time
+series can exhibit varying levels of local predictive uncertainty.  We
+expand on this finding later in this paper with a time series that
+exhibits interesting regime shifts.
 
-
-
-The first class of methods for quantifying predictive structure is model oriented and focuses on either local or global in- or out-of-sample errors produced by a fixed forecasting schema. The local analysis attempts to approximate error distributions for different regions of a time series model by doing local ensemble in-sample forecasting. The analysis then uses the approximate in-sample error distribution as a means to estimate out-of-sample forecast errors in that area of the time series model. For example, in \cite{Smith199250} in-sample forecasts are done with ensembles around ``data centers" (a subset of the time series) to predict the local predictability of a time series reconstruction using delay-coordinate embedding. Using this method, Smtih et al. \cite{Smith199250} show  a very interesting corollary: different portions of a time series can exhibit varying levels of local predictive uncertainty.  We expand on this finding later in this paper with a time series called ``\svd", which exhibits interesting regime changes.
-This local type analysis works quite well but this does not quantify a time series redundancy but only approximates the local predictive uncertainty in relation to a fixed model and tells you nothing of the predictive structure usable by other schema. 
+Local model-based error analysis works quite well, but it only
+approximates the \emph{local} predictive uncertainty \emph{in relation
+  to a fixed model}.  It cannot quantify the inherent redundancy of a
+time series~\cite{crutchfield2003} and thus cannot be used to draw
+conclusions about predictive structure that may be usable by other
+forecast methods.
+%
 %Distrubtion of error. For many methods, if your error is not normally distributed this signals that there is stil more predictve structure to that could be used by for example a larger order ARMA process. But if error is normally distributed, this suggests that you have used up all the predictive structure that **that** model can use, this doesn't quantify if preidctuce structure exists that isn't being used by this process. For example, nonlinear structure which is ignored by a linear predictor.
+%
+Global model-based error analysis moves in this direction.  It uses
+out-of-sample error distributions, computed {\sl post facto} from a
+class of models, to determine which of those models was best.  When
+building an autoregressive model, for example, it is common to verify
+that the model error is normally distributed.  If it is not, that
+indicates that there is linear structure in the time series that the
+model-building process failed to use.  The problem with this approach
+is that if the error is normally distributed it can not be said that
+the practitioner is using the ideal forecasting schema---e.g., if
+nonlinear structure is present that linear modeling is oblivious
+to---but only if this class of model used all the structure it was
+able to process.
 
-The global error analysis is generally done post-facto and attempts to quantify if the right model was chosen from a particular class of models by assessing the out-of-sample error distribution. For example, it is common with autoregressive models to verify the error is normally distributed. If it is not then this is an indicator that linear structure is present that the current model failed to use. The problem with this approach is that if the error is normally distributed it can not be said that the practitioner is using the ideal forecasting schema---e.g., if nonlinear structure is present that linear modeling is oblivious to---but only if this class of model used all the structure it was able to process.
+A practice known as deterministic vs. stochastic
+modeling~\cite{Casdagli92dvsplots, weigend-book} bridges the gap
+between local and global error analysis. The basic idea is to
+construct a series of local linear fits (single point) to global
+linear fits (fitting all points known at that time), increasing the
+number of points in the fit slowly. Then analyze how the average
+out-of-sample error changes as a function of number of points in the
+linear fits. The shape of such a graph indicates how much determinism
+vs. stochasticity is present in a time series, see
+\cite{Casdagli92dvsplots, weigend-book} for more information.
 
+The model-based error analysis methods described in the previous three
+paragraphs are based on specific assumptions about the underlying
+generating process and knowledge about what will happen to the error
+if those assumptions hold or fail.  Model-free information analysis
+moves away from those restrictions.  Our approach falls into this
+class.  In particular, we empirically measure the inherent complexity
+of a time series using an approximation of the Kolmogorov-Sinai
+entropy, then correlate that complexity with the predictive accuracy
+of forecasts made a number of different schema for that time series.
 
-A practice known as deterministic vs. stochastic modeling\cite{Casdagli92dvsplots, weigend-book} bridges the gap between local and global error analysis. The basic idea is to construct a series of local linear fits (single point) to global linear fits (fitting all points known at that time), increasing the number of points in the fit slowly. Then analyze how the average out-of-sample error changes as a function of number of points in the linear fits. The shape of such a graph indicates how much determinism vs. stochasticity is present in a time series, see  \cite{Casdagli92dvsplots, weigend-book} for more information. 
+[[I think we need a short paragraph about redundancy in here
+    somewhere.  We keep referring to it as if the reader knows it...]]
 
-Each of these methods in the first class are based off very particular assumptions about the underlying generating process and knowledge of how error will result if those assumptions hold or fail. Our approach instead falls into the second class which is model-free information analysis. In particular, we empirically approximates the time series inherent complexity (Kolmogorov-Sinai entropy) and then correlates this complexity with the predictive accuracy of different forecasting schema, as a means to quantify predictability. Quantifying predictability through entropy/redundancy is not a new idea, but past methods (e.g.,\cite{Shannon1951, mantegna1994linguistic}) have hinged on knowledge of the \emph{generating partition} of the generating process, a luxury rarely if ever afforded to an analyst. 
- 
-It is the case that the ideal method of computing the entropy of a system is via \emph{generating partitions}~\cite{lind95}, a technique which partitions observations into symbols in a way which preserves the underlying dynamics. Unfortunately, outside of one-dimensional unimodal maps and a few select higher dimensional maps, generating partitions are highly non-trivial to compute and often have fractal boundaries~\cite{eisele1999}. Furthermore, the underlying dynamic needs to be known to construct the generating partition. Unfortunately, using any partition (such as those produced by simply binning the data) other than the generation partition induces spurious complexity to the resulting symbolic sequence, thus misrepresenting the entropy of the underlying system~\cite{bollt2001}.
+Using entropy and redundancy to quantify the inherent predictability
+of a time series is not a new idea.  Past methods for this, however,
+(e.g.,~\cite{Shannon1951, mantegna1994linguistic}) have hinged on
+knowledge of the \emph{generating partition} of the generating
+process, which partitions observations into symbols in a way that
+preserves the underlying dynamics~\cite{lind95}.  This is a luxury
+that is rarely, if ever, afforded to an analyst, since one needs to
+know the underlying dynamics in order to construct a generating
+partition.  Even if the dynamics are known, these partitions are
+difficult to compute and often have fractal
+boundaries~\cite{eisele1999}.
+
+Unfortunately, using any partition (such as those produced by simply
+binning the data) other than the generation partition induces spurious
+complexity to the resulting symbolic sequence, thus misrepresenting
+the entropy of the underlying system~\cite{bollt2001}.
 
 It seems desirable to quantify how much information prior observations of a system lend to future values, the \emph{mututal information} between, say, the past $n$ observations at the current one. This quantity is known as the \emph{redundancy}. For example, this would be the amount of information that delay coordinate embedding captures. For IID random processes,  the redundancy is zero, since all observations are independent of each other. On the other hand, any deterministic system --- including chaotic ones --- can be perfectly predicted if observed for long enough~\cite{weigend-book}. Unfortunately it is quite difficult to estimate the redundancy in practice for an arbitrary, real-valued time series. Doing so requires knowing either the Kolmolgorov-Sinai entropy or the \emph{full} positive Lyapunov spectrum. As discussed above, computing the entropy is quite difficult. Similarly, computing the positive Lyapunov exponent(s) from an arbitrary time series is also fraught with difficulties, and is effectively impossible if there is significant noise or the generating system is stochastic.
 
