@@ -124,33 +124,34 @@ associated signals.  This results in two primary findings:
   schema---and in the choice of which one is appropriate for a given 
 time series.
 \end{enumerate}
-The forecast methods used in this study were chosen to span the space of
-standard prediction strategies, but they do not, of course, cover that space
-exhaustively.  Our goal here is an empirical assessment of the
-relationship between predictability and complexity, not formal results
-about a ``best'' predictor for a given time series.  From a
-practitioner's standpoint, it would be useful to know {\sl a priori}
-if a trace contains enough predictive structure to make it worth
-spending the time and effort searching for a good forecast method.  It
-would also be useful to know if a given method is inadequate---that
-is, if one could do better and should keep searching.
+The forecast methods used in this study were chosen to be a
+representative sampling of standard prediction strategies, but they do
+not, of course, cover that space exhaustively.  Our goal here is an
+empirical assessment of the relationship between predictability and
+complexity, not formal results about a ``best'' predictor for a given
+time series.  From a practitioner's standpoint, it would be useful to
+know {\sl a priori} if a trace contains enough predictive structure to
+make it worth spending the time and effort searching for a good
+forecast method.  It would also be useful to know if a given method is
+inadequate---that is, if one could do better and should keep
+searching.
 
 %[[Introduce and make it clear why we choose comp. perf. as test bed.]]
 
 For the purposes of this study, we require a broad array of
-time-series datasets that cover the full complexity spectrum.  Rather
-than use synthetic data, we study sensor data from computer
-performance experiments.  While this is not a common laboratory
-experiment, it is a highly appropriate choice here.  Computers are
-among the most complex engineered artifacts in current use.  Modern
-microprocessor chips contain multiple processing units and multi-layer
-memories, for instance, and they use complicated hardware/software
-strategies to move data and threads of computation across those
-resources.  As a result, the processor and memory loads during the
-execution of even a very simple program can evolve in a very
-complicated fashion.  Figure~\ref{fig:col-ipc} shows a performance trace
-of a three-line loop that repeatedly initializes the upper triangle of
-a matrix in column-major order.
+time-series datasets from across the complexity spectrum.  Rather than
+use synthetic data, we study sensor data from computer performance
+experiments.  While this is not a common laboratory experiment, it is
+a highly appropriate choice here.  Computers are among the most
+complex engineered artifacts in current use.  Modern microprocessor
+chips contain multiple processing units and multi-layer memories, for
+instance, and they use complicated hardware/software strategies to
+move data and threads of computation across those resources.  As a
+result, the processor and memory loads during the execution of even a
+very simple program can evolve in a very complicated fashion.
+Figure~\ref{fig:col-ipc} shows a performance trace of a three-line
+loop that repeatedly initializes the upper triangle of a matrix in
+column-major order.
 %
  \begin{figure}[htbp]
     \centering
@@ -166,7 +167,7 @@ a matrix in column-major order.
 %
 Although this time series appears to be periodic, it is actually
 chaotic~\cite{mytkowicz09}, which places fundamental limits on
-predictability.  Changes in the program can radically change this
+predictability.  Changes in the code can radically change this
 behavior; indeed, many performance traces exhibit interesting regime
 changes as a program moves through the different phases of its
 operation.  The resulting traces span the whole range of the
@@ -174,8 +175,8 @@ complexity spectrum, from completely predictable to completely
 unstructured, making this an ideal testbed for this
 study\footnote{Predicting the \emph{state} of a computer, of course,
   would amount to solving the halting problem.  What we are doing here
-  is predicting computer \emph{performance}, which does not violate the
-  Rice-Shapiro theorem~\cite{hopcroft2007}.}.
+  is predicting computer \emph{performance}, which does not violate
+  the Rice-Shapiro theorem~\cite{hopcroft2007}.}.
 % footnote to appease the theoretician in Josh
 
 %The computer systems community has applied a variety of prediction
@@ -211,12 +212,12 @@ partitions, local modeling, and error distribution analysis, and
 situates this work in that context. Section~\ref{sec:methods} covers
 the experimental setup and methods used to collect each time
 series. Section~\ref{sec:model} describes the prediction models used
-in this study.  In Section~\ref{sec:meaComplex}, we review the
-permutation entropy technique.  In Section~\ref{sec:results}, we estimate the
-complexity of each time series and compare that complexity to the
-accuracy of predictions produced by the methods of
-Section~\ref{sec:model}, operating on that time series.  In
-Section~\ref{sec:conc}, we discuss these results and their
-implications and consider future areas of research.
+in this study.  In Section~\ref{sec:meaComplex}, we review permutation
+entropy, the technique that we use to measure complexity.  In
+Section~\ref{sec:results}, we estimate the complexity of each time
+series and compare that complexity to the accuracy of predictions
+produced by the methods of Section~\ref{sec:model}, operating on that
+time series.  In Section~\ref{sec:conc}, we discuss these results and
+their implications, and consider future areas of research.
 
 
