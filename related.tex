@@ -26,16 +26,19 @@ The first class focuses on errors produced by a fixed forecasting
 schema.  This analysis can proceed locally or globally.  The local
 version approximates error distributions for different regions of a
 time-series model using local ensemble in-sample
-forecasting\footnote{[[The terms ``in sample'' and ``out of sample''
-      are used in different ways in the forecasting community.  By in
-      sample, we mean a ``forecast'' that is done on the stuff that
-      you know, for the purposes of assessing models, errors, and
-      prediction horizons.  An out-of-sample prediction is what one
-      thinks of as a prediction: forecasting the future.]]}.  These
-distributions are then used as estimates of out-of-sample forecast
-errors in those regions.  For example, Smith {\sl et al.}  make
-in-sample forecasts using ensembles around selected points in order to
-predict the local predictability of that time
+forecasting\footnote{The terms ``in sample'' and ``out of sample'' are
+  used in different ways in the forecasting community.  The meanings
+  that take here are distinguished by the part of the time series that
+  is the focus of the prediction: the observed data for the former and
+  the unknown future for the latter.  In-sample
+  forecasts---comparisons of predictions generated from \emph{part} of
+  the observed time series---are useful for assessing model error and
+  prediction horizons, among other things.}.
+%
+These distributions are then used as estimates of out-of-sample
+forecast errors in those regions.  For example, Smith {\sl et al.}
+make in-sample forecasts using ensembles around selected points in
+order to predict the local predictability of that time
 series~\cite{Smith199250}.  This approach can be used to show that
 different portions of a time series can exhibit varying levels of
 local predictive uncertainty.  We expand on this finding later in this
