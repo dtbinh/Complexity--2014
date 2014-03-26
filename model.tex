@@ -31,7 +31,7 @@ predictive accuracy.  These methods include:
 \end{itemize}
 ARIMA is based on standard autoregressive techniques.  LMA is designed
 to capture and exploit the deterministic structure of a signal from a
-nonlinear dynamical system.  The \naive and random-walk methods,
+nonlinear dynamical system.  The \naive ~and random-walk methods,
 somewhat surprisingly, often outperform these more-sophisticated
 prediction strategies in the case of highly complex signals, as
 discussed below.
@@ -40,24 +40,24 @@ discussed below.
 \label{sec:simple}
 
 A random-walk predictor simply uses the last observed measurement as
-the forecast: that is, the value $p_i$ at time $i$ is calculated
-using the relation $$p_i = x_{i-1}$$ The prediction strategy that we
-refer to using the term ``\naive'' averages the prior observations to
-generate the forecast: $$p_i = \sum_{j=1}^{i-1}\frac{x_j}{i-1}$$
-While both of these methods are simplistic, they are not without
-merit.  For a time series near the high end of the complexity
-spectrum---i.e., one that possesses very little predictive
-structure---these two methods can actually be the best choice.  In
-forecasting currency exchange rates, for instance, sophisticated
-econometrics-based prediction models fail to consistently outperform
-the random-walk method~\cite{rwMeese,rwCCE}.  These signals are
-volatile, noisy, and possess very little predictive structure, but
-they do not---on the average---vary a great deal, so the random-walk
-method's strategy of simply guessing the last known value is not a bad
-choice.  If a signal has a unimodal distribution with low variance,
-the \naive ~prediction strategy will perform quite well---even if the
-signal is highly complex---simply because the mean is a good
-approximation of the future behavior.  Moreover, the \naive
+the forecast: that is, the predicted value $p_i$ at time $i$ is
+calculated using the relation $$p_i = x_{i-1}$$ The prediction
+strategy that we refer to using the term ``\naive'' averages the prior
+observations to generate the forecast: $$p_i =
+\sum_{j=1}^{i-1}\frac{x_j}{i-1}$$ While both of these methods are
+simplistic, they are not without merit.  For a time series near the
+high end of the complexity spectrum---i.e., one that possesses very
+little predictive structure---these two methods can actually be the
+best choice.  In forecasting currency exchange rates, for instance,
+sophisticated econometrics-based prediction models fail to
+consistently outperform the random-walk method~\cite{rwMeese,rwCCE}.
+These signals are volatile, noisy, and possess very little predictive
+structure, but they do not---on the average---vary a great deal, so
+the random-walk method's strategy of simply guessing the last known
+value is not a bad choice.  If a signal has a unimodal distribution
+with low variance, the \naive ~prediction strategy will perform quite
+well---even if the signal is highly complex---simply because the mean
+is a good approximation of the future behavior.  Moreover, the \naive
 ~prediction strategy's temporal average effects a low-pass filtering
 operation, which effectively mitigates the complexity in signals with
 very little predictive structure.
@@ -310,7 +310,7 @@ space of the given point, then taking that neighbor's path as the
 prediction---provides accurate forecasts when the generating process
 is a deterministic dynamical system.  
 
-Since LMA does not rest on an assumption of linearity (as ARIMA does)
+Since LMA does not rest on an assumption of linearity (as ARIMA does),
 it can handle both linear and nonlinear processes.  If the underlying
 generating process is nondeterministic, however, it can perform
 poorly.  In Figure~\ref{fig:embedding}(b), for instance, little
@@ -416,10 +416,7 @@ time series.
      forecasts of \col, \gcc, and \svdfive.  On this type of plot, a
      perfect prediction lies exactly on the diagonal.
 %
-{\color{red} Joshua, what would you think of adding a row of
-  random-walk plots at the top?  Also, the letters in the
-  subcaptions---(a) (b) etc.---feel clunky here.  What would you think
-  of removing them?}
+{\color{red} Joshua will add a row of random-walk plots at the top}
 %
 }
 \label{fig:forecast-example}
