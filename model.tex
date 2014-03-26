@@ -360,6 +360,23 @@ the \naive, ARIMA, and LMA methods for the \col, \gcc, and \svdfive
 time series.
 \begin{figure*}[htbp]
   \centering
+  
+  \begin{subfigure}{0.6\columnwidth}
+    \includegraphics[width=\columnwidth]{figs/colRWForecast.png}
+    \caption{\col\\ Random Walk }
+    \label{fig:gccMEAN}
+  \end{subfigure}%
+   \begin{subfigure}{0.6\columnwidth}
+    \includegraphics[width=\columnwidth]{figs/gccRWForecast.png}
+    \caption{\gcc\\ Random Walk }
+    \label{fig:gccMEAN}
+  \end{subfigure}% 
+     \begin{subfigure}{0.6\columnwidth}
+    \includegraphics[width=\columnwidth]{figs/svdfiveRWForecast.png}
+    \caption{\svdfive\\ Random Walk}
+    \label{fig:gccMEAN}
+  \end{subfigure}%      
+  \\  
       \begin{subfigure}{0.6\columnwidth}
     \includegraphics[width=\columnwidth]{figs/colMeanForecast.png}
     \caption{\col\\ na\"ive }
@@ -416,7 +433,6 @@ time series.
      forecasts of \col, \gcc, and \svdfive.  On this type of plot, a
      perfect prediction lies exactly on the diagonal.
 %
-{\color{red} Joshua will add a row of random-walk plots at the top}
 %
 }
 \label{fig:forecast-example}
