@@ -99,16 +99,17 @@ current one.
 % For example,
 % this would be the amount of information that delay coordinate
 % embedding captures.
-The redundancy of i.i.d. random processes is zero, since all
-observations are independent of one another.  On the other hand, any
-deterministic system---including chaotic ones---has maximal redundancy
-and thus can be perfectly predicted if observed for long
-enough~\cite{weigend-book}.  In practice, it is quite difficult to
-estimate the redundancy of an arbitrary, real-valued time series.
-Doing so requires knowing either the Kolmolgorov-Sinai entropy or the
-values of all positive Lyapunov exponents of the system.  Both of
-these calculations are difficult---the latter particularly so if the
-data are very noisy or the generating system is stochastic.
+The redundancy of i.i.d. random processes, for instance, is zero,
+since all observations in such a process are independent of one
+another.  On the other hand, deterministic systems---including chaotic
+ones---have maximal redundancy and thus can be perfectly predicted if
+observed for long enough~\cite{weigend-book}.  In practice, it is
+quite difficult to estimate the redundancy of an arbitrary,
+real-valued time series.  Doing so requires knowing either the
+Kolmolgorov-Sinai entropy or the values of all positive Lyapunov
+exponents of the system.  Both of these calculations are
+difficult---the latter particularly so if the data are very noisy or
+the generating system is stochastic.
 
 Using entropy and redundancy to quantify the inherent predictability
 of a time series is not a new idea.  Past methods for this, however,
@@ -116,14 +117,14 @@ of a time series is not a new idea.  Past methods for this, however,
 knowledge of the \emph{generating partition} of the underlying
 process, which lets one transform real-valued observations into
 symbols in a way that preserves the underlying dynamics~\cite{lind95}.
-Different projections---e.g., simply binning the data---can create
-spurious complexity in the resulting symbolic sequence and thus
-misrepresent the entropy of the underlying system~\cite{bollt2001}.
-Generating partitions are luxuries that are rarely, if ever, afforded
-to an analyst, since one needs to know the underlying dynamics in
-order to construct one.  And even if the dynamics are known, these
-partitions are difficult to compute and often have fractal
-boundaries~\cite{eisele1999}.
+Using a projection that is not a generating partition---e.g., simply
+binning the data---can introduce spurious complexity into the
+resulting symbolic sequence and thus misrepresent the entropy of the
+underlying system~\cite{bollt2001}.  Generating partitions are
+luxuries that are rarely, if ever, afforded to an analyst, since one
+needs to know the underlying dynamics in order to construct one.  And
+even if the dynamics are known, these partitions are difficult to
+compute and often have fractal boundaries~\cite{eisele1999}.
 
 We sidestep these issues by using a variant of the \emph{permutation
   entropy} of Bandt and Pompe~\cite{bandt2002per} to estimate a value
