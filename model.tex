@@ -356,24 +356,23 @@ causing the ``test'' signal to be used both to assess the accuracy of
 each model and for periodic refitting.
 
 Figure~\ref{fig:forecast-example} shows example forecasts made using
-the \naive, ARIMA, and LMA methods for the \col, \gcc, and \svdfive
-time series.
+all four methods for the \col, \gcc, and \svdfive time series.
 \begin{figure*}[htbp]
   \centering
   
   \begin{subfigure}{0.6\columnwidth}
     \includegraphics[width=\columnwidth]{figs/colRWForecast.png}
-    \caption{\col\\ Random Walk }
+    \caption{\col\\ random walk }
     \label{fig:gccMEAN}
   \end{subfigure}%
    \begin{subfigure}{0.6\columnwidth}
     \includegraphics[width=\columnwidth]{figs/gccRWForecast.png}
-    \caption{\gcc\\ Random Walk }
+    \caption{\gcc\\ random walk }
     \label{fig:gccMEAN}
   \end{subfigure}% 
      \begin{subfigure}{0.6\columnwidth}
     \includegraphics[width=\columnwidth]{figs/svdfiveRWForecast.png}
-    \caption{\svdfive\\ Random Walk}
+    \caption{\svdfive\\ random walk}
     \label{fig:gccMEAN}
   \end{subfigure}%      
   \\  
@@ -446,6 +445,8 @@ does not.  Horizontal lines result when a constant predictor (e.g.,
 \naive) is used on a non-constant signal.  Point clouds reflect the
 structure of the distribution of the errors---roughly normally
 distributed, for example, in the case of LMA on \gcc.
+{\color{red} [[We need to comment on and explain the structure in parts
+      (a) and (g).]]}
 
 As a numerical measure of prediction accurary, we calculate the mean
 absolute scaled error ($MASE$) between the true and predicted signals:
