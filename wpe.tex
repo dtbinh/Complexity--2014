@@ -9,11 +9,12 @@ stochastic processes.
 For the purposes of this paper, we view the Shannon entropy---in
 particular its growth rate with respect to word length (the
 \emph{Shannon entropy rate})---as a measure of complexity and
-unpredictability in a time series.  A time series with a high entropy
-rate is almost completely unpredictable; conversely one with low
-entropy rate is often quite predictable. {\color{red} [[does the claim
-      in the previous sentence need a citation, a justification, or an
-      ``in practice,''?]]}  This can be made more rigorous: Pesin's
+unpredictability in a time series.  Time-series consisting of IID 
+random variables, such as white noise, have maximal entropy rates, 
+whereas highly structured time-series, for example periodic, have very
+low or zero entropy rate. A time series with a high entropy rate is 
+almost completely unpredictable; conversely one with low entropy rate
+is often quite predictable. This can be made more rigorous: Pesin's
 relation \cite{pesin77} states that in chaotic dynamical systems, the
 Kolmogorov-Sinai (KS) entropy is equal to the sum of the positive
 Lyapunov exponents, $\lambda_i$.  The Lyapunov exponents directly
@@ -106,11 +107,10 @@ shown to be identical to the Kolmolgorov-Sinai entropy for many large
 classes of systems \cite{amigo2012permutation}, so long as
 observational noise is sufficiently small. As mentioned before, this
 is equal to the Shannon entropy rate of a generating partition of the
-system.  {\color{red} [[What this normalization allows us to do, then,
-      is approximate the redundancy of a signal by $1 -
-      \frac{H(\ell)}{\log_2(\ell!)}$.]] [[This sentence is out of
-      place.  Shouldn't it be before the sentence that starts with
-      ``Finally...''?]]}
+system. This transitive chain of equalities, from permutation entropy 
+to Shannon entropy rate via the KS entropy, then allows us to
+approximate the redundancy --- being the dual of the Shannon entropy 
+rate --- of a signal by $1 - \frac{H(\ell)}{\log_2(\ell!)}$.
 
 Here we will be utilizing a variation of the basic permutation entropy
 technique, the \emph{weighted permutation entropy} (WPE), which was
@@ -118,46 +118,41 @@ introduced in~\cite{fadlallah2013}.  The intent behind the weighting
 is to correct for observational noise that is larger than the trends
 in the data, but smaller than the larger scale features.  Consider,
 for example, a signal that switches between two fixed points and
-contains some additive noise.  {\color{red} The weighted permutation
-  entropy would be dominated by the switching rather than by the
-  stochastic fluctuation. To accomplish this, [[I am completely
-      confused by the wording here.  Do you mean that the {\bf
-        original} PE would be dominated?  And that you don't want
-      that?  If not, you need to fix this wording -- i.e., ``would''
-      to ``should'' and an explanation of why one would want to
-      calculate a PE that captures the switching.]]} the \emph{weight}
-of a permutation is taken into account:
+contains some additive noise. The PE is dominated by the noise about 
+the fixed points driving it to be $\approx 1$, in some sense hiding
+the fact that the signal is actually quite structed. The weighted 
+permutation entropy on the other hand would be dominated by the 
+switching rather than by the stochastic fluctuations. To accomplish 
+this, the \emph{weight} of a permutation is taken into account:
 \begin{align*}
-  w(x_{t+1:t+\ell}) = \frac{1}{\ell} \sum_{x_i \in \{x_{t+1:t+\ell}\}}
-                      \left( x_i - \bar{x}_{t+1:t+\ell} \right)^2
+  w(x_{t+1}^\ell) = \frac{1}{\ell} \sum_{i = t}^{t+\ell}
+                      \left( x_i - \bar{x}_{t+1}^\ell \right)^2
 \end{align*}
-where $x_{t+1:t+\ell}$ is a sequence of values $x_{t+1}, \ldots,
-x_{t+\ell}$, and $\bar{x}_{t+1:t+\ell}$ is the arithmetic mean of
+where $x_{t+1}^\ell$ is a sequence of values $x_{t+1}, \ldots,
+x_{t+\ell}$, and $\bar{x}_{t+1}^\ell$ is the arithmetic mean of
 those values.
 
-The weighted probability of a permutation is then:
+The weighted probability of a permutation is defined as:
 \begin{align*}
-  P_w(\pi) = \frac{\displaystyle \sum_{t \le T - \ell} w(x_{t+1:t+\ell}) \cdot \delta(\phi(x_{t:t+\ell}), \pi) }{\displaystyle \sum_{t \le T - \ell} w(x_{t+1:t+\ell})}
+  P_w(\pi) = \frac{\displaystyle \sum_{t \le T - \ell} w(x_{t+1}^\ell) \cdot \delta(\phi(x_{t+1}^\ell), \pi) }{\displaystyle \sum_{t \le T - \ell} w(x_{t+1}^\ell)}
 \end{align*}
 where $\delta(x, y)$ is 1 if $x = y$ and 0 otherwise. Effectively,
 this weighted probability enhances permutations that are involved in
 ``large'' features and de-emphasizes permutations that are small in
-amplitude relative to the features of the time series.  {\color{red}
-  [[The weighted permutation entropy is then:]] [[you used exactly
-      these words above.  what is the textual causality of this
-      ``then'' and that ``then''?]]}
+amplitude relative to the features of the time series. Using the
+standard form of an entropy, the weighted permutation entropy is then:
 \begin{align*}
   H_w(\ell) = - \sum_{\pi \in \mathcal{S}_\ell} P_w(\pi) \log_2 P_w(\pi),
 \end{align*}
-which can also be normalized {\color{red} [[why?]]}  by dividing by
-$\log_2(\ell!)$.  This normalization is used in all the results that
-follow.
+which can also be normalized by dividing by $\log_2(\ell!)$, making $0
+\le \textrm{WPE} \le 1$.  This normalization is used in all the
+results that follow.
 
 In practice, calculating permutation entropy and weighted permutation
 entropy involves choosing a good value for the word length $\ell$. The
 primary consideration here is that the value be large enough that
 forbidden ordinals are discovered, yet small enough that reasonable
-statistics over the {\color{red} [[existing??]]}  ordinals are
+statistics over the ordinals are
 gathered.  If an average of 100 counts per ordinal is considered to be
 sufficient, for instance, then $\ell =
 \operatornamewithlimits{argmax}_n \{ T \gtrapprox 100 n! \}$.  In the
@@ -173,14 +168,19 @@ represents a good balance between accurate ordinal statistics and
 finite-data effects.
 
 As a final note: there has been prior work under a similar title to
-ours~\cite{haven}, but there are only superficial similarities between
-the two research projects.  Haven {\sl et al.} utilize the relative
-entropy to study how well small ensembles predict the distribution of
-future states of dynamical (and potentially chaotic) systems.  Our
-work quantifies the predictability of a single observed time series
-using weighted permutation entropy and makes no assumptions about the
-underlying dynamics.  {\color{red}[[Why is WPE better than relative
-      entropy?]]}.
+ours~\cite{haven2005}, but there are only superficial similarities 
+between the two research projects.  Haven {\sl et al.} utilize the 
+relative entropy to quantify how much better a distribution over 
+system states evolved from small ensembles predicts the future of a 
+dynamical system compared to its asymptotic distribution. Our work 
+quantifies the predictability of a single observed time series using 
+weighted permutation entropy and makes no assumptions about the 
+underlying dynamics. These approaches are very different: Haven's 
+compares two distributions, the average behavior versus the behaviors 
+that can be seen given a reasonably known state in the past; ours 
+attempts to quantify how well an appropriate predictor will do for a 
+given time-series without any understanding of how that time-series
+was generated.
 
 % was a good choice, because with $\ell \geq 7$ many signals had
 % entropies plummet due to finite data effects and so with a word length
