@@ -1,6 +1,7 @@
 \documentclass[%
- reprint,
-%superscriptaddress,
+pre,
+reprint,
+superscriptaddress,
 %groupedaddress,
 %unsortedaddress,
 %runinaddress,
@@ -143,20 +144,18 @@ Quantifying Time-Series Predictability through Structural Complexity
 
 
 
-\author{Joshua Garland}\email{joshua.garland@colorado.edu}
-\author{Ryan James}%
- \email{ryan.james@colorado.edu}
-\affiliation{%
- Department of Computer Science, University of Colorado at Boulder. Colorado, USA}%
-%\collaboration{MUSO Collaboration}%\noaffiliation
-\author{Elizabeth Bradley}\email{lizb@colorado.edu}
-\affiliation{
- Department of Computer Science, University of Colorado at Boulder. Colorado, USA
-}%
-\affiliation{
- Santa Fe Institute, New Mexico, USA\\
- %This line break forced% with \\
-}%
+\author{Joshua Garland}
+\email{joshua.garland@colorado.edu}
+\affiliation{Department of Computer Science, University of Colorado at Boulder. Colorado, USA}
+
+\author{Ryan James}
+\email{ryan.james@colorado.edu}
+\affiliation{Department of Computer Science, University of Colorado at Boulder. Colorado, USA}
+
+\author{Elizabeth Bradley}
+\email{lizb@colorado.edu}
+\affiliation{Department of Computer Science, University of Colorado at Boulder. Colorado, USA}
+\affiliation{Santa Fe Institute, New Mexico, USA}
 
 
 
@@ -177,40 +176,25 @@ aggregation, and finite data length---is \emph{empirically
 performance traces using a variety of forecasting models.  We then
 compare the empirically estimated \emph{complexity} with the accuracy
 of each forecast method.
-\begin{description}
-\item[Usage]
-Secondary publications and information retrieval purposes.
-\item[PACS numbers]
-May be entered using the \verb+\pacs{#1}+ \pacs{05.45.Tp} command.
-Time series analysis (nonlinear dynamics) 05.45.Tp
-Information theory, 89.70.-a
-	channel capacity in, 89.70.Kn
-	communication complexity in, 89.70.Hj
-	computational complexity in, 89.70.Eg
-	entropy in, 89.70.Cf
-	general biological information, 87.10.Vg
-	in neuroscience, 87.19.lo
-	
-Nonlinear dynamics, 05.45.-a	
-	
-	89.75.Kd	Patterns (complex systems)	
-	
-	
-Computational Physics	
-95.75.Wx	Time series analysis, time variability
-95.75.Pq	Mathematical procedures and computer techniques
-07.05.-t	Computers in experimental physics
-	
-\item[Structure]
-You may use the \texttt{description} environment to structure your abstract;
-use the optional argument of the \verb+\item+ command to give the category of each item. 
-\end{description}
-\end{abstract}
 
-\pacs{Valid PACS appear here 95.75.Wx	}% PACS, the Physics and Astronomy
-                             % Classification Scheme.
-%\keywords{Suggested keywords}%Use showkeys class option if keyword
-                              %display desired
+\vspace{0.1in}
+\noindent
+{\bf Keywords}: entropy, permutation entropy, weighted permutation
+entropy, time-series analysis, predictibility
+
+\end{abstract}
+\pacs{
+05.45.Tp    % Time series analysis (nonlinear dynamics)
+89.70.-a    % Information theory
+89.70.Hj    %   communication complexity
+89.70.Cf    %   entropy
+05.45.-a    % Nonlinear dynamics
+89.75.Kd    %   Patterns (complex systems)
+95.75.Wx    % Time series analysis, time variability
+95.75.Pq    % Mathematical procedures and computer techniques
+07.05.-t    % Computers in experimental physics
+}
+
 \maketitle
 
 \input{intro.tex}
