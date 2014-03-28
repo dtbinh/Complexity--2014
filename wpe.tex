@@ -1,15 +1,86 @@
 \section{Measuring Structural Complexity }\label{sec:meaComplex}
-{\color{blue} EDITABLE}
 
-The goal of the section is to describe how we reasonably estimate the entropy of an arbitrary, real-valued time series. We will first detail why this is a highly non-trivial task, and then we will weave a path through which this can in fact be accomplished. This path will draw upon a myriad of tools and results from a variety of fields including time series analysis, dynamical systems, stochastic processes, and chaos.
+The goal of the section is to describe our solution to the challenging
+problem of estimating the entropy of an arbitrary, real-valued time
+series.  This approach draws upon methods and results from a variety
+of fields including time-series analysis, dynamical systems, and
+stochastic processes.
 
-For the purposes of this paper one can view the Shannon entropy, and in particular its growth rate  with respect to word length (the \emph{Shannon entropy rate}), as a measure of complexity and unpredictability in a time series. A high-entropy rate time series is almost completely unpredictable---and conversely a low entropy rate signal is often quite predictable. This can be made more rigorous: Pesin's relation \cite{pesin77} states that in chaotic dynamical systems, the Kolmogorov-Sanai (KS) entropy is equal to the sum of the positive Lyapunov exponents, $\lambda_i$. The Lyapunov exponents directly quantify the rate at which nearby states of the system will diverge with time: $\left| \Delta x(t) \right| \approx e^{\lambda t} \left| \Delta x(0) \right|$. The faster the divergence, the larger the entropy and the more difficult prediction becomes. Further, the KS entropy is defined as the supremum of the Shannon entropy rates of all partitions~\cite{petersen1989}. The partition which achieves this supremum is known as a \emph{generating partition}. 
+For the purposes of this paper, we view the Shannon entropy---in
+particular its growth rate with respect to word length (the
+\emph{Shannon entropy rate})---as a measure of complexity and
+unpredictability in a time series.  A time series with a high entropy
+rate is almost completely unpredictable; conversely one with low
+entropy rate is often quite predictable. {\color{red} [[does the claim
+      in the previous sentence need a citation, a justification, or an
+      ``in practice,''?]]}  This can be made more rigorous: Pesin's
+relation \cite{pesin77} states that in chaotic dynamical systems, the
+Kolmogorov-Sinai (KS) entropy is equal to the sum of the positive
+Lyapunov exponents, $\lambda_i$.  The Lyapunov exponents directly
+quantify the rate at which nearby states of the system diverge with
+time: $\left| \Delta x(t) \right| \approx e^{\lambda t} \left| \Delta
+x(0) \right|$.  The faster the divergence, the larger the entropy, and
+the more difficult prediction becomes.  The KS entropy is defined as
+the supremum of the Shannon entropy rates of all
+partitions~\cite{petersen1989}. The partition that achieves this
+supremum is the \emph{generating partition} discussed in
+Section~\ref{sec:related}.
 
-From a different point of view, we can consider the information (as measured by the Shannon entropy) contained in a single observable, say the \emph{present}, of the system. This information can be partitioned in to two components: the information shared with past observations, the mutual information between the past and present, and the information in the present which is not contained in the past, the conditional entropy of the present given the past. The first part is known as the \emph{redundancy}, as it is information in the present which is also in the past, and the second part is the aforementioned \emph{Shannon entropy rate}. In theory, the more redundancy in a signal the more predictable it is. The difference between prediction methods is the types of redundancy (linear, non-linear, etc) they can detect and make use of.
+From a different point of view, we can consider the information (as
+measured by the Shannon entropy) contained in a single observable, say
+the \emph{present}, of the system. This information can be partitioned
+into two components: the information shared with past
+observations---e.g., the mutual information between the past and
+present---and the information in the present that is not contained in
+the past (aka ``the conditional entropy of the present given the
+past'').  The first part is known as the \emph{redundancy}, as it is
+information in the present which is also in the past.  The second part
+is the aforementioned \emph{Shannon entropy rate}.  In theory, the
+more redundancy in a signal, the more predictable it is {\color{red}
+  [[citation for that theory?]]}.  Redundancy is critical to
+prediction, in general.  And the specific \emph{form} of the
+redundancy dictates whether a particular prediction method will work
+well or poorly on the corresponding signal.  A linear method cannot
+detect or make use of nonlinear redundancy, for instance.  This issue
+is central to the claims in this paper and the discussion in the
+following section.
 
-Utilizing Shannon entropy rate as a measure of temporal complexity is not a new idea \cite{Shannon1951, mantegna1994linguistic}, but these approaches required categorical data: $x_t \in \mathcal{S}$ for some finite or countably infinite \emph{alphabet} $\mathcal{S}$, whereas data taken from real-world systems is effectively\footnote{Measurements from real devices are always discrete though typically of very high resolution, for example \texttt{double} precision. Though these values are discete, for the purposes of entropy calculations they are effectively a continuum.} real-valued.  To get around this, one must discretize the data --- typically achieved by binning.  Unfortunately, this is rarely a good solution to the problem, as the binning of the values introduces an additional dynamic on top of the intrinsic dynamics whose entropy is desired\cite{bollt2001}. The field of symbolic dynamics studies how to discretize a time series in such a way that the intrinsic behavior is not perverted, but these methods are fragile in the face of noise and furthermore require understanding of the underlying system, which defeats the purpose of measuring the entropy to quantify predictability in the first place.
+Utilizing Shannon entropy rate as a measure of temporal complexity is
+not a new idea \cite{Shannon1951, mantegna1994linguistic}, but
+previous approaches required categorical data: $x_t \in \mathcal{S}$
+for some finite or countably infinite \emph{alphabet} $\mathcal{S}$.
+Data taken from real-world systems is, however,
+effectively\footnote{Measurements from finite-precision sensors are
+  discrete, but data from modern high-resolution sensors are, for the
+  purposes of entropy calculations, effectively continuous.}
+real-valued.  To analyze real-valued data using a method that requires
+categorical values, one must discretize the data---typically by
+binning.  Unfortunately, this is rarely a good solution, as the
+binning of the values introduces spurious dynamics~\cite{bollt2001}.
+The field of symbolic dynamics offers discretization methods that do
+not disturb the intrinsic behavior.  These methods are, however,
+fragile in the face of noise; worse yet, they require knowledge of the
+underlying system.  This is not useful in our context, where we want
+to measure the entropy to quantify predictability.
 
-Bandt and Pompe introduced the \emph{permutation entropy} (PE) as a ``natural complexity measure for time series'' \cite{bandt2002per}. Permutation entropy employs a method of discretizing real-valued time series that follows the intrinsic behavior of the system under examination.  Rather than looking at the statistics of sequences of values, as is done when computing the Shannon entropy, permutation entropy looks at the statistics of the \emph{orderings} of sequences of values using ordinal analysis. Ordinal analysis of a time series is the process of mapping successive time-ordered elements of a time series to their value-ordered permutation of the same size.  By way of example, if $(x_1, x_2, x_3) = (9, 1, 7)$ then its \emph{ordinal pattern}, $\phi(x_1, x_2, x_3)$, is $231$ since $x_2 \leq x_3 \leq x_1$.  This method has many features; among other things, it is generally robust to observational noise and requires no knowledge of the underlying mechanisms.
+Bandt and Pompe introduced the \emph{permutation entropy} (PE) as a
+``natural complexity measure for time series''
+\cite{bandt2002per}. Permutation entropy employs a method of
+discretizing real-valued time series that follows the intrinsic
+behavior of the system under examination.  Rather than looking at the
+statistics of sequences of values, as is done when computing the
+Shannon entropy, permutation entropy looks at the statistics of the
+\emph{orderings} of sequences of values using ordinal
+analysis. Ordinal analysis of a time series is the process of mapping
+successive time-ordered elements of a time series to their
+value-ordered permutation of the same size.  By way of example, if
+$(x_1, x_2, x_3) = (9, 1, 7)$ then its \emph{ordinal pattern},
+$\phi(x_1, x_2, x_3)$, is $231$ since $x_2 \leq x_3 \leq x_1$.  The
+ordinal pattern of the permutation $(x_1, x_2, x_3) = (9, 7, 1)$ is
+$321$.  {\color{red} [[This method has many features; among other
+      things, it is generally robust to observational noise and
+      requires no knowledge of the underlying mechanisms.]] [[This
+      sentence is out of place.]]}
 
 \begin{mydef}[Permutation Entropy]
 
@@ -17,37 +88,95 @@ Bandt and Pompe introduced the \emph{permutation entropy} (PE) as a ``natural co
   \begin{align*}
     P(\pi) = \frac{\left|\{t|t \leq T-\ell,\phi(x_{t+1},\dots,x_{t+\ell}) = \pi\}\right|}{T-\ell+1}
   \end{align*}
-  Where $P(\pi)$ quantifies the probability of an ordinal and $|\cdot|$ is set cardinality. The \emph{permutation entropy} of order $\ell \ge 2$ is defined as
+  where $P(\pi)$ quantifies the probability of an ordinal and
+  $|\cdot|$ is set cardinality. The \emph{permutation entropy} of
+  order $\ell \ge 2$ is defined as
   \begin{align*}
     H(\ell) = - \sum_{\pi \in \mathcal{S}_\ell} P(\pi) \log_2 P(\pi)
   \end{align*}
 
 \end{mydef}
 
-Notice that $0\le H(\ell) \le \log_2(\ell!)$ \cite{bandt2002per}.  With this in mind, it is common in the literature to normalize permutation entropy as follows: $\frac{H(\ell)}{\log_2(\ell!)}$.  With this convention, ``low'' PE is close to 0 and ``high'' PE is close to 1. Finally, it should be noted that the permutation entropy has been shown to be identical to the Kolmolgorov-Sinai entropy for many large classes of systems \cite{amigo2012permutation}, so long as observational noise is sufficiently small. As mentioned before, this is equal to the Shannon entropy rate of a generating partition of the system. What this normalization allows us to do, then, is approximate the redundancy of a signal by $1 - \frac{H(\ell)}{\log_2(\ell!)}$.
+Notice that $0\le H(\ell) \le \log_2(\ell!)$ \cite{bandt2002per}.
+With this in mind, it is common in the literature to normalize
+permutation entropy as follows: $\frac{H(\ell)}{\log_2(\ell!)}$.  With
+this convention, ``low'' PE is close to 0 and ``high'' PE is close to
+1. Finally, it should be noted that the permutation entropy has been
+shown to be identical to the Kolmolgorov-Sinai entropy for many large
+classes of systems \cite{amigo2012permutation}, so long as
+observational noise is sufficiently small. As mentioned before, this
+is equal to the Shannon entropy rate of a generating partition of the
+system.  {\color{red} [[What this normalization allows us to do, then,
+      is approximate the redundancy of a signal by $1 -
+      \frac{H(\ell)}{\log_2(\ell!)}$.]] [[This sentence is out of
+      place.  Shouldn't it be before the sentence that starts with
+      ``Finally...''?]]}
 
-Here we will be utilizing a variation of the permutation entropy, the \emph{weighted permutation entropy} (WPE)~\cite{fadlallah2013}. The weighted permutation entropy attempts to correct for observational noise which is larger than some trends in the data, but smaller than the larger scale features --- for example, a signal that switches between two fixed points with noise about those fixed points. The weighted permutation entropy would be dominated by the switching rather than by the stochastic fluctuation. To accomplish this, the \emph{weight} of a permutation is taken into account:
+Here we will be utilizing a variation of the basic permutation entropy
+technique, the \emph{weighted permutation entropy} (WPE), which was
+introduced in~\cite{fadlallah2013}.  The intent behind the weighting
+is to correct for observational noise that is larger than the trends
+in the data, but smaller than the larger scale features.  Consider,
+for example, a signal that switches between two fixed points and
+contains some additive noise.  {\color{red} The weighted permutation
+  entropy would be dominated by the switching rather than by the
+  stochastic fluctuation. To accomplish this, [[I am completely
+      confused by the wording here.  Do you mean that the {\bf
+        original} PE would be dominated?  And that you don't want
+      that?  If not, you need to fix this wording -- i.e., ``would''
+      to ``should'' and an explanation of why one would want to
+      calculate a PE that captures the switching.]]} the \emph{weight}
+of a permutation is taken into account:
 \begin{align*}
   w(x_{t+1:t+\ell}) = \frac{1}{\ell} \sum_{x_i \in \{x_{t+1:t+\ell}\}}
                       \left( x_i - \bar{x}_{t+1:t+\ell} \right)^2
 \end{align*}
-where $x_{t+1:t+\ell}$ is a sequence of values $x_{t+1}, \ldots, x_{t+\ell}$, and $\bar{x}_{t+1:t+\ell}$ is the arithmetic mean of those values.
+where $x_{t+1:t+\ell}$ is a sequence of values $x_{t+1}, \ldots,
+x_{t+\ell}$, and $\bar{x}_{t+1:t+\ell}$ is the arithmetic mean of
+those values.
 
 The weighted probability of a permutation is then:
 \begin{align*}
   P_w(\pi) = \frac{\displaystyle \sum_{t \le T - \ell} w(x_{t+1:t+\ell}) \cdot \delta(\phi(x_{t:t+\ell}), \pi) }{\displaystyle \sum_{t \le T - \ell} w(x_{t+1:t+\ell})}
 \end{align*}
-where $\delta(x, y)$ is 1 if $x = y$ and 0 otherwise. Effectively, this weighted probability enhances permutations involved in ``large'' features and demotes permutations which are small in amplitude relative to the features of the time series. The weighted permutation entropy is then:
+where $\delta(x, y)$ is 1 if $x = y$ and 0 otherwise. Effectively,
+this weighted probability enhances permutations that are involved in
+``large'' features and de-emphasizes permutations that are small in
+amplitude relative to the features of the time series.  {\color{red}
+  [[The weighted permutation entropy is then:]] [[you used exactly
+      these words above.  what is the textual causality of this
+      ``then'' and that ``then''?]]}
 \begin{align*}
   H_w(\ell) = - \sum_{\pi \in \mathcal{S}_\ell} P_w(\pi) \log_2 P_w(\pi),
 \end{align*}
-which can also be normalized by dividing by $\log_2(\ell!)$, and will be in all the results of this paper.
+which can also be normalized {\color{red} [[why?]]}  by dividing by
+$\log_2(\ell!)$.  This normalization is used in all the results that
+follow.
 
-In practice, calculating permutation entropy and weighted permutation entropy involves choosing a good value for the word length $\ell$. The primary consideration is that the value be large enough that forbidden ordinals are discovered, yet small enough that reasonable statistics over the ordinals are gathered: e.g.:
-\begin{align*}
-  \ell = \operatornamewithlimits{argmax}_n \{ T \gtrapprox 100 n! \},
-\end{align*}
-assuming an average of 100 counts per ordinal is sufficient. In the literature, $3 \le \ell \le 6$ is a standard choice --- generally without any formal justification. In theory, the permutation entropy should reach an asymptote with increasing $\ell$, but that requires an arbitrarily long time series. In practice, what one should do is calculate the \emph{persistent} permutation entropy by increasing $\ell$ until the result converges, but data length issues can intrude before that convergence is reached. Here, we found that $\ell = 6$ was a good choice, because with $\ell \geq 7$ many signals had entropies plummet due to finite data effects and so with a word length of 6 we are capturing as much structure as possible without sacraficing the accuracy of ordinal statistics.
+In practice, calculating permutation entropy and weighted permutation
+entropy involves choosing a good value for the word length $\ell$. The
+primary consideration here is that the value be large enough that
+forbidden ordinals are discovered, yet small enough that reasonable
+statistics over the {\color{red} [[existing??]]}  ordinals are
+gathered.  If an average of 100 counts per ordinal is considered to be
+sufficient, for instance, then $\ell =
+\operatornamewithlimits{argmax}_n \{ T \gtrapprox 100 n! \}$.  In the
+literature, $3 \le \ell \le 6$ is a standard choice---generally
+without any formal justification.  In theory, the permutation entropy
+should reach an asymptote with increasing $\ell$, but that can require
+an arbitrarily long time series. In practice, what one should do is
+calculate the \emph{persistent} permutation entropy by increasing
+$\ell$ until the result converges, but data length issues can intrude
+before that convergence is reached.  We used this approach to choose
+$\ell = 6$ for the experiments in the following section.  This value
+represents a good balance between accurate ordinal statistics and
+finite-data effects.
+
+
+% was a good choice, because with $\ell \geq 7$ many signals had
+% entropies plummet due to finite data effects and so with a word length
+% of 6 we are capturing as much structure as possible without
+% sacraficing the accuracy of ordinal statistics.
 
 %\subsection{Regime Selection:Detecting complexity shift in a time series}\label{sec:wpeRegime}
 %
