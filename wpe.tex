@@ -36,15 +36,14 @@ present---and the information in the present that is not contained in
 the past (aka ``the conditional entropy of the present given the
 past'').  The first part is known as the \emph{redundancy}, as it is
 information in the present which is also in the past.  The second part
-is the aforementioned \emph{Shannon entropy rate}.  In theory, the
-more redundancy in a signal, the more predictable it is {\color{red}
-  [[citation for that theory?]]}.  Redundancy is critical to
-prediction, in general.  And the specific \emph{form} of the
-redundancy dictates whether a particular prediction method will work
-well or poorly on the corresponding signal.  A linear method cannot
-detect or make use of nonlinear redundancy, for instance.  This issue
-is central to the claims in this paper and the discussion in the
-following section.
+is the aforementioned \emph{Shannon entropy rate}.  We conjecture that 
+the more redundancy in a signal, the more predictable it is.  
+Redundancy is critical to prediction, in general.  And the specific 
+\emph{form} of the redundancy dictates whether a particular prediction 
+method will work well or poorly on the corresponding signal.  A linear 
+method cannot detect or make use of nonlinear redundancy, for 
+instance.  This issue is central to the claims in this paper and the 
+discussion in the following section.
 
 Utilizing Shannon entropy rate as a measure of temporal complexity is
 not a new idea \cite{Shannon1951, mantegna1994linguistic}, but
@@ -66,22 +65,21 @@ to measure the entropy to quantify predictability.
 
 Bandt and Pompe introduced the \emph{permutation entropy} (PE) as a
 ``natural complexity measure for time series''
-\cite{bandt2002per}. Permutation entropy employs a method of
+\cite{bandt2002per}. The permutation entropy employs a method of
 discretizing real-valued time series that follows the intrinsic
-behavior of the system under examination.  Rather than looking at the
-statistics of sequences of values, as is done when computing the
-Shannon entropy, permutation entropy looks at the statistics of the
-\emph{orderings} of sequences of values using ordinal
-analysis. Ordinal analysis of a time series is the process of mapping
-successive time-ordered elements of a time series to their
+behavior of the system under examination, and has many advantages 
+including being robust to observational noise and its application does 
+not require any knowledge of the underlying mechanisms.  Rather than 
+looking at the statistics of sequences of values, as is done when 
+computing the Shannon entropy, permutation entropy looks at the 
+statistics of the \emph{orderings} of sequences of values using 
+ordinal analysis. Ordinal analysis of a time series is the process of 
+mapping successive time-ordered elements of a time series to their
 value-ordered permutation of the same size.  By way of example, if
 $(x_1, x_2, x_3) = (9, 1, 7)$ then its \emph{ordinal pattern},
 $\phi(x_1, x_2, x_3)$, is $231$ since $x_2 \leq x_3 \leq x_1$.  The
 ordinal pattern of the permutation $(x_1, x_2, x_3) = (9, 7, 1)$ is
-$321$.  {\color{red} [[This method has many features; among other
-      things, it is generally robust to observational noise and
-      requires no knowledge of the underlying mechanisms.]] [[This
-      sentence is out of place.]]}
+$321$.
 
 \begin{mydef}[Permutation Entropy]
 
