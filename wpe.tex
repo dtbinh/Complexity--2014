@@ -47,7 +47,7 @@ discussion in the following section.
 
 Utilizing Shannon entropy rate as a measure of temporal complexity is
 not a new idea \cite{Shannon1951, mantegna1994linguistic}, but
-previous approaches required categorical data: $x_t \in \mathcal{S}$
+previous approaches required categorical data: $x_i \in \mathcal{S}$
 for some finite or countably infinite \emph{alphabet} $\mathcal{S}$.
 Data taken from real-world systems is, however,
 effectively\footnote{Measurements from finite-precision sensors are
@@ -83,9 +83,9 @@ $321$.
 
 \begin{mydef}[Permutation Entropy]
 
-  Given a time series $\{x_t\}_{t = 1,\dots,T}$. Define $\mathcal{S}_\ell$ as all $\ell!$ permutations $\pi$ of order $\ell$. For each $\pi \in \mathcal{S}_\ell$ we determine the relative frequency of that permutation occurring in $\{x_t\}_{t = 1,\dots,T}$:
+  Given a time series $\{x_i\}_{i = 1,\dots,N}$. Define $\mathcal{S}_\ell$ as all $\ell!$ permutations $\pi$ of order $\ell$. For each $\pi \in \mathcal{S}_\ell$ we determine the relative frequency of that permutation occurring in $\{x_i\}_{i = 1,\dots,N}$:
   \begin{align*}
-    P(\pi) = \frac{\left|\{t|t \leq T-\ell,\phi(x_{t+1},\dots,x_{t+\ell}) = \pi\}\right|}{T-\ell+1}
+    P(\pi) = \frac{\left|\{i|i \leq N-\ell,\phi(x_{i+1},\dots,x_{i+\ell}) = \pi\}\right|}{N-\ell+1}
   \end{align*}
   where $P(\pi)$ quantifies the probability of an ordinal and
   $|\cdot|$ is set cardinality. The \emph{permutation entropy} of
@@ -123,16 +123,16 @@ permutation entropy on the other hand would be dominated by the
 switching rather than by the stochastic fluctuations. To accomplish 
 this, the \emph{weight} of a permutation is taken into account:
 \begin{align*}
-  w(x_{t+1}^\ell) = \frac{1}{\ell} \sum_{i = t}^{t+\ell}
-                      \left( x_i - \bar{x}_{t+1}^\ell \right)^2
+  w(x_{i+1}^\ell) = \frac{1}{\ell} \sum_{j = i}^{i+\ell}
+                      \left( x_j - \bar{x}_{i+1}^\ell \right)^2
 \end{align*}
-where $x_{t+1}^\ell$ is a sequence of values $x_{t+1}, \ldots,
-x_{t+\ell}$, and $\bar{x}_{t+1}^\ell$ is the arithmetic mean of
+where $x_{i+1}^\ell$ is a sequence of values $x_{i+1}, \ldots,
+x_{i+\ell}$, and $\bar{x}_{i+1}^\ell$ is the arithmetic mean of
 those values.
 
 The weighted probability of a permutation is defined as:
 \begin{align*}
-  P_w(\pi) = \frac{\displaystyle \sum_{t \le T - \ell} w(x_{t+1}^\ell) \cdot \delta(\phi(x_{t+1}^\ell), \pi) }{\displaystyle \sum_{t \le T - \ell} w(x_{t+1}^\ell)}
+  P_w(\pi) = \frac{\displaystyle \sum_{i \le N - \ell} w(x_{i+1}^\ell) \cdot \delta(\phi(x_{i+1}^\ell), \pi) }{\displaystyle \sum_{i \le N - \ell} w(x_{i+1}^\ell)}
 \end{align*}
 where $\delta(x, y)$ is 1 if $x = y$ and 0 otherwise. Effectively,
 this weighted probability enhances permutations that are involved in
@@ -153,7 +153,7 @@ forbidden ordinals are discovered, yet small enough that reasonable
 statistics over the ordinals are
 gathered.  If an average of 100 counts per ordinal is considered to be
 sufficient, for instance, then $\ell =
-\operatornamewithlimits{argmax}_n \{ T \gtrapprox 100 n! \}$.  In the
+\operatornamewithlimits{argmax}_{\hat{\ell}} \{ N \gtrapprox 100 \hat{\ell}! \}$.  In the
 literature, $3 \le \ell \le 6$ is a standard choice---generally
 without any formal justification.  In theory, the permutation entropy
 should reach an asymptote with increasing $\ell$, but that can require
