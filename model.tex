@@ -444,9 +444,9 @@ generates a very accurate prediction of the \col data, while ARIMA
 does not.  Horizontal lines result when a constant predictor (e.g.,
 \naive) is used on a non-constant signal.  Point clouds reflect the
 structure of the distribution of the errors---roughly normally
-distributed, for example, in the case of LMA on \gcc.
-{\color{red} [[We need to comment on and explain the structure in parts
-      (a) and (g).]]}
+distributed, for example, in the case of LMA on \gcc. The triangular 
+shapes that ARIMA and random-walk produce for \col simply reflects 
+three phases of values that is visually present in the time-series.
 
 As a numerical measure of prediction accurary, we calculate the mean
 absolute scaled error ($MASE$) between the true and predicted signals:

@@ -123,7 +123,7 @@ bring out the correlation between these two quantities.
 % 
 The dashed line is a least-squares linear fit of all the points except
 {\tt dgesdd$_1$}, which we have excluded for reasons explained in the
-text.  [[Ryan, is that correct?]]}
+text.}
   \label{fig:wpe_vs_mase_best}
 \end{figure}
 
@@ -175,8 +175,8 @@ instance---the MASE variance is larger, which spreads out the clusters
 horizontally.  The distribution of the cluster {\sl positions} is
 quite different in the three plots: clusters of predictions generated
 with the nonlinear LMA method are closer to the dashed line, whereas
-the naive and ARIMA prediction clusters are more spread out [[need to
-    revisit this wording when get the third image]].  This is a
+the naive and ARIMA prediction clusters are more spread out {\color{red}[[need to
+    revisit this wording when get the third image]]}.  This is a
 geometric validation of the second conjecture in this paper, as
 described in the following paragraphs.
 
@@ -192,10 +192,10 @@ as large as the errors produced by the random-walk method---a
 primitive strategy that simply uses the current value as the
 prediction.  However, the WPE value for the \col trials is $0.51 \pm
 0.003$, which is in the center of the complexity spectrum described in
-Section~\ref{sec:intro}.  [[This suggests that roughly half of the
+Section~\ref{sec:intro}.  {\color{red}[[This suggests that roughly half of the
     signal is predictive structure.]]  [[I'm still uncomfortable with
     that phrasing; let's revisit it after we have the terminology and
-    definitions hammered out.]]  
+    definitions hammered out.]]  }
 
 This disparity---WPE values that suggest a high rate of forward
 information transfer in the signal, but predictions with comparatively
@@ -220,11 +220,11 @@ Figure~\ref{fig:wpe_vs_mase_all}), one should try a different method.
 
 Note that the \col points are clustered in LMA but spread out
 horizontally in ARIMA, far to the right of the dashed line (i.e., much
-worse than the other methods).  [[We need to come up with a hypothesis
+worse than the other methods).  {\color{red}[[We need to come up with a hypothesis
     about this spread and skew, even if it's totally tentative.  We
     may want to merge this discussion into one of the other \col
     paragraphs---or perhaps put it with the \svdone discussion later
-    on?]]
+    on?]]}
 
 The WPE of \svdfive ($0.677 \pm 0.006$) is higher than that of {\tt
   col\_major}.  This indicates that the rate of forward information
@@ -246,7 +246,7 @@ predictions for this system were $20.870 \pm 0.192$ and $2.370 \pm
 simple random walk forecast of the same signals\footnote{The \naive
   MASE score is large because the amount of variance in this signal is
   high, which makes guessing the mean a particularly bad strategy.
-  The same thing is true of the \svdthree signal.[[Joshua, it isn't the variance it is the strength in the bimodal distribution and only predicting in one mode of the distribution...]]}.  Again, the
+  The same thing is true of the \svdthree signal.{\color{red}[[Joshua, it isn't the variance it is the strength in the bimodal distribution and only predicting in one mode of the distribution...]]}}.  Again, the
 positions of these points on a WPE vs. MASE plot---significantly below
 and to the right of the dashed line---should suggest to a practitioner
 that there is more structure in this signal than the corresponding
@@ -260,11 +260,11 @@ prediction methods cannot.
 
 The WPE of \gcc is much higher: $0.940 \pm 0.001$.  This system
 transmits very little information forward in time and provides almost
-no structure for prediction methods to work with.  [[What we see:
+no structure for prediction methods to work with.  {\color{red}[[What we see:
     \naive does the best, then LMA, then ARIMA.  Hypothesis: that that
     5\% of the structure is nonlinear, so LMA can use it better than
     ARIMA can.  \naive does better than LMA because it's filtering out
-    the noise.]]
+    the noise.]]}
 
 \svdone behaves very differently than the other seven systems in this
 study: though its WPE is very high ($0.95 \pm 0.02$), two of the three
