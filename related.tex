@@ -56,7 +56,7 @@ Global model-based error analysis moves in this direction.  It uses
 out-of-sample error distributions, computed \emph{post facto} from a
 class of models, to determine which of those models was best.  After
 building an autoregressive model, for example, it is common to
-calculate the errors and verify that they are normally distributed.
+calculate forecast errors and verify that they are normally distributed.
 If they are not, that indicates that there is structure in the time
 series that the model-building process was unable to capture and use.
 The problem with this approach is lack of generality.  
@@ -68,14 +68,14 @@ linear fit to a nonlinear dataset).  This gives no indication as to
 whether another modeling strategy might do better.
 
 
-A practice known as deterministic/sto\-chas\-tic
+A practice known as deterministic vs. stochastic
 modeling~\cite{Casdagli92dvsplots, weigend-book} bridges the gap
 between local and global approaches to model-based error analysis.
 The basic idea is to construct a series of local linear fits,
 beginning with a few points and working up to to a global linear fit
 that includes all known points, and then analyze how the average
 out-of-sample error changes as a function of number of points in the
-fit. The shape of such a graph indicates the amounts of determinism
+fit. The shape of such a ``DVS" graph indicates the amounts of determinism
 and stochasticity are present in a time series.
 
 The model-based error analysis methods described in the previous three
