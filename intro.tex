@@ -142,13 +142,13 @@ For the purposes of this study, we require a broad array of
 time-series datasets from across the complexity spectrum.  Rather than
 use synthetic data, we study sensor data from computer performance
 experiments.  While this is not a common laboratory experiment, it is
-a highly appropriate choice here. {\color{red} [[Liz, these are the few sentences I was worried about being too similar but we may have only used them in a grant proposal.]]} Computers are among the most
-complex engineered artifacts in current use.  Modern microprocessor
-chips contain multiple processing units and multi-layer memories, for
-instance, and they use complicated hardware/software strategies to
-move data and threads of computation across those resources.  As a
-result, the processor and memory loads during the execution of even a
-very simple program can evolve in a very complicated fashion.
+a highly appropriate choice here.  Computers are extremely complicated
+systems.  Modern microprocessor chips contain multiple processing
+units and multi-layer memories, for instance, and they use complicated
+hardware/software strategies to maximize performance by moving data
+and threads of computation across those resources.  As a result, the
+processor and memory loads during the execution of even a very simple
+program can evolve in a very complicated fashion.
 Figure~\ref{fig:col-ipc} shows a performance trace of a three-line
 loop that repeatedly initializes the upper triangle of a matrix in
 column-major order.
