@@ -52,7 +52,7 @@ best choice.  In forecasting currency exchange rates, for instance,
 sophisticated econometrics-based prediction models fail to
 consistently outperform the random-walk method~\cite{rwMeese,rwCCE}.
 These signals are constantly changing, noisy, and possess very little predictive
-structure, but those variations are not---on the average---very large, so
+structure, but their variations are not---on the average---very large, so
 the random-walk method's strategy of simply guessing the last known
 value is not a bad choice.  If a signal has a unimodal distribution
 with low variance, the \naive ~prediction strategy will perform quite
@@ -189,11 +189,10 @@ predictability and complexity across a broad array of forecast
 strategies, seasonal ARIMA models are a good exemplar of the class of
 linear predictors.  Fitting such a model to a dataset involves
 choosing values for the various free parameters in the autoregressive,
-detrending, moving average, and filtering terms---e.g., the $l$ in the
-equation at the beginning of this section.  We employ the automated
-fitting techniques described in~\cite{autoARIMA} to accomplish this.
-This procedure uses sophisticated methods---KPSS unit-root
-tests~\cite{KPSSunit}, a customization of the Canova-Hansen
+detrending, moving average, and filtering terms.  We employ the
+automated fitting techniques described in~\cite{autoARIMA} to
+accomplish this.  This procedure uses sophisticated methods---KPSS
+unit-root tests~\cite{KPSSunit}, a customization of the Canova-Hansen
 test~\cite{Canova1995}, and the Akaike information
 criterion~\cite{akaike1974}, conditioned on the maximized likelihood
 of the model fitted to the detrended data---to select good values for
@@ -348,13 +347,15 @@ $x_{n+1}$, which is then compared to the true continuation, $c_{n+1}$.
 The model is then rebuilt using $\{x_i\}_{i=1}^{n+1}$ and the process
 repeats $k$ times, out to the end of the observed time series.  This
 ``one step prediction'' process is not technically necessary in the
-LMA method, which can generate arbitrary-length predictions (although these predictions will degrade over time in the presence of positive Lyapunov exponents), but the
-performance of the other three methods used here will degrade severely if the
-associated models are not periodically rebuilt.  In order to make the
-comparison fair, we used an iterative one-step prediction schema {\sl
-  for all four methods}.  This has the slightly confusing effect of
-causing the ``test'' signal to be used both to assess the accuracy of
-each model and for periodic refitting.
+LMA method, which can generate arbitrary-length
+predictions\footnote{although the accuracy of these predictions will
+  degrade over prediction length, in the presence of positive Lyapunov
+  exponents}, but the performance of the other three methods used here
+will degrade severely if the associated models are not periodically
+rebuilt.  In order to make the comparison fair, we used an iterative
+one-step prediction schema {\sl for all four methods}.  This has the
+slightly confusing effect of causing the ``test'' signal to be used
+both to assess the accuracy of each model and for periodic refitting.
 
 Figure~\ref{fig:forecast-example} shows example forecasts made using
 all four methods for the \col, \gcc, and \svdfive time series.
@@ -477,7 +478,7 @@ middle columns in Table~\ref{tab:error}.
 \begin{table*}
   \begin{center}
   \begin{tabular}{|c|c|c|c|c|}
-  \hline Signal & MASE LMA & MASE ARIMA &MASE na\"{i}ve & Weighted Permutation \\ 
+  \hline Signal & LMA $MASE$  & ARIMA $MASE$ & na\"{i}ve $MASE$  & Weighted Permutation \\ 
   &  &  & &  Entropy \\ \hline
  
  \col           & $ 0.050 \pm0.002  $ & $0.599  \pm 0.211 $ & $0.571\pm0.002$&  $0.513 \pm 0.003$ \\
@@ -499,7 +500,7 @@ middle columns in Table~\ref{tab:error}.
   \end{tabular}
   \end{center}
  \label{default}
- \caption{MASE scores and weighted permutation entropies for all eight
+ \caption{$MASE$< scores and weighted permutation entropies for all eight
    processes studied in this paper}
  \label{tab:error}
   \end{table*}%
@@ -509,27 +510,26 @@ correspondences.  The average LMA $MASE$ score for the \col signals
 was $0.050$, for instance, while ARIMA scored much worse ($0.599$).
 That is, LMA performed roughly 20 times better on \col signals than a
 random-walk predictor, while ARIMA only outperformed random walk by a
-factor of 1.7.  This is in accordance with the
-visual appearance of the corresponding images in
-Figure~\ref{fig:forecast-example}.  While the correspondence between
-$MASE$ score and the visual appearance of these kinds of plots is
-clear cut in this case, that is not always so.  The plots of LMA
-predictions of \col and \svdfive both lie near the diagonal, for
-instance, but the corresponding $MASE$ scores were very different:
-$0.050$ for \col and $0.718$ for \svdfive (resp., 20 and 1.4 times
-better than random-walk forecasts of the same signals).  This is a
-result of the normalization in the $MASE$ score.  Recall from
-Section~\ref{sec:simple} that the random-walk method performs
-especially poorly on signals that oscillate rapidly.  \col fits this
-description, so the random-walk error on this signal---the denominator
-of the three $MASE$ scores in the first row of the Table---is
-pathologically high, which skews those scores down.  Random-walk
-prediction is very effective for the \svdfive signal, on the other
-hand, so the denominator is small and the $MASE$ scores are skewed
-upwards.  Normalization is, as is often the case, a two-edged sword.
-Here, it facilitates comparisons across signals of different types and
-lengths, but its particular pathologies must be taken into account, as
-discussed at more length in Section~\ref{sec:results}.
+factor of 1.7.  This is in accordance with the visual appearance of
+the corresponding images in Figure~\ref{fig:forecast-example}.  While
+the correspondence between $MASE$ score and the visual appearance of
+these kinds of plots is clear cut in this case, that is not always so.
+The plots of LMA predictions of \col and \svdfive both lie near the
+diagonal, for instance, but the corresponding $MASE$ scores were very
+different: $0.050$ for \col and $0.718$ for \svdfive (resp., 20 and
+1.4 times better than random-walk forecasts of the same signals).
+This is a result of the normalization in the $MASE$ score calculation.
+Recall from Section~\ref{sec:simple} that the random-walk method
+performs especially poorly on signals that oscillate rapidly.  \col
+fits this description, so the random-walk error on this signal---the
+denominator of the three $MASE$ scores in the first row of the
+Table---is pathologically high, which skews those scores down.
+Random-walk prediction is very effective for the \svdfive signal, on
+the other hand, so the denominator is small and the $MASE$ scores are
+skewed upwards.  Normalization is, as is often the case, a two-edged
+sword.  Here, it facilitates comparisons across signals of different
+types and lengths, but its particular pathologies must be taken into
+account, as discussed at more length in Section~\ref{sec:results}.
 
 % Table \ref{tab:error} provides the $MASE$ distributions
 % {\color{red}[[Joshua: Ryan, Is this the right word? we give mean $\pm$
