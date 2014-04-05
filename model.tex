@@ -477,10 +477,9 @@ $MASE$ scores for all 360 experiments are tabulated in the three
 middle columns in Table~\ref{tab:error}.
 \begin{table*}
   \begin{center}
-  \begin{tabular}{|c|c|c|c|c|}
-  \hline Signal & LMA $MASE$  & ARIMA $MASE$ & na\"{i}ve $MASE$  & Weighted Permutation \\ 
-  &  &  & &  Entropy \\ \hline
- 
+  \begin{tabular}{|c|c|c|l|c|}
+  \hline Signal & LMA  & ARIMA & na\"{i}ve  & Weighted Permutation \\ 
+  &  $MASE$ & $MASE$  & $MASE$ &  Entropy \\ \hline
  \col           & $ 0.050 \pm0.002  $ & $0.599  \pm 0.211 $ & $0.571\pm0.002$&  $0.513 \pm 0.003$ \\
 
 \gcc           & $ 1.530\pm 0.021$ & $1.837 \pm0.016 $ & $0.951 \pm 0.001$ & $0.943 \pm 0.001$ \\
@@ -489,18 +488,16 @@ middle columns in Table~\ref{tab:error}.
 
  \svdtwo    & $1.279 \pm0.020 $ & $2.163 \pm0.027 $ &  $3.054\pm0.040$ &   $0.846 \pm0.004$ \\
  
- \svdthree     & $0.619 \pm0.021 $ & $0.713 \pm 0.010 $ & $31.386\pm 0.282$ &  $0.716 \pm 0.006$ \\
-
+\svdthree     & $0.619 \pm0.021 $ & $0.713 \pm 0.010 $ & $31.386\pm 0.282$ &  $0.716 \pm 0.006$ \\
  \svdfour     & $ 0.779\pm0.036 $ & $0.979 \pm0.032 $ & $2.661\pm0.074$ & $0.825 \pm 0.008$ \\
  
- \svdfive     & $ 0.718\pm 0.048 $ & $2.370  \pm 0.051 $ & $20.870 \pm 0.192$&  $0.678 \pm 0.007$ \\
- 
- \svdsix     & $ 0.739\pm 0.068 $ & $ 1.438\pm 0.0610$ & $2.197\pm0.083$&  $0.748 \pm 0.011$ \\
+\svdfive     & $ 0.718\pm 0.048 $ & $2.370  \pm 0.051 $ & $20.870 \pm 0.192$&  $0.678 \pm 0.007$ \\
+ \svdsix     & $ 0.739\pm 0.068 $ & $ 1.438\pm 0.061$ & $2.197\pm0.083$&  $0.748 \pm 0.011$ \\
   \hline
   \end{tabular}
   \end{center}
  \label{default}
- \caption{$MASE$< scores and weighted permutation entropies for all eight
+ \caption{$MASE$ scores and weighted permutation entropies for all eight
    processes studied in this paper}
  \label{tab:error}
   \end{table*}%
