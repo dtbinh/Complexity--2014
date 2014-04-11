@@ -57,13 +57,16 @@ more depth in the rest of this section.
 % performance trace (Seen in Figures
 % \ref{fig:col-ts}-\ref{fig:svd-ts-colored}.
 
-\col is a simple three-line C program that repeatedly initializes the
-upper triangle of a 2048 $\times$ 2048 matrix in column-major order.
-As mentioned in Section~\ref{sec:intro}, this simple program exhibits
-surprisingly complicated behavior~\cite{mytkowicz09}.  A time series
-of the processor performance during the execution this program is
-shown in Figure~\ref{fig:col-ts}. \alert{would it be useful to include
-said 3-line loop?}
+\col is a simple C program that repeatedly initializes the upper
+triangle of a 2048 $\times$ 2048 matrix in column-major order.
+
+{\color{red}Joshua, can you please insert code here?} 
+
+\noindent As mentioned in Section~\ref{sec:intro}, this simple program
+exhibits surprisingly complicated behavior~\cite{mytkowicz09}.  A time
+series of the processor performance during the execution this program
+is shown in Figure~\ref{fig:col-ts}. \alert{would it be useful to
+  include said 3-line loop?}
 \begin{figure}[htbp]
   \centering
     \includegraphics[width=\columnwidth]{figs/colFullTS}
