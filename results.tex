@@ -228,30 +228,31 @@ matched to the task at hand: that is, when the time series has more
 predictive structure than the method is able to use.  When the
 predictions are well below that line (as in the top and middle images
 in Figure~\ref{fig:wpe_vs_mase_all}), one should try a different
-method.
+method.  The position of the LMA cluster, for instance---well to the
+left of the other two, near the dashed line---reflects this method's
+ability to capture and exploit the structure that is present in this
+signal.
 
 Note that the \col points (blue {\color{blue}$+$} icons) are clustered
 very tightly in the lower left quadrant of the LMA and \naive ~$MASE$
-vs. WPE plots, but spread out horizontally in the ARIMA plot.
-{\color{red}[[We need to come up with a hypothesis about this spread,
-      even if it's totally tentative.  Was it that the random-walk got
-      really good in a few of the \col trials?  Or that ARIMA got
-      really bad in those trials?  In either case, why did that
-      happen---what was it about those trials that made ARIMA bark
-      and/or random walk do well?]]} The position of the LMA
-cluster---well to the left of the other two, near the dashed
-line---reflects this method's ability to capture and exploit the
-structure that is present in this signal.
+vs. WPE plots, but spread out horizontally in the ARIMA plot.  This is
+because of the way that these models are built.  If a KPSS test of the
+time series indicates that it is nonstationary, an integration term is
+added to the model.  According to this test, the \col time series is
+right on the edge of nonstationarity, so the ARIMA procedure sometimes
+omits the integration term, which increases the error, thereby
+spreading out the points.  
 
 The WPE of \svdfive ($0.677 \pm 0.006$) is higher than that of {\tt
-  col\_major}.  This indicates that the rate{\color{red} is this really a rate} of forward information
-transfer of the underlying process is lower, but that time-series data
-from this system still contain a significant amount of structure that
-can, in theory, be leveraged to predict the future course of the time
-series.  As mentioned above, though, the effectiveness of any
-prediction strategy depends on how well it leverages the available
-information: methods that use linear models, for instance, may fail
-when applied to nonlinear processes.
+  col\_major}.  This indicates that the rate{\color{red} is this
+  really a rate} of forward information transfer of the underlying
+process is lower, but that time-series data from this system still
+contain a significant amount of structure that can, in theory, be
+leveraged to predict the future course of the time series.  As
+mentioned above, though, the effectiveness of any prediction strategy
+depends on how well it leverages the available information: methods
+that use linear models, for instance, may fail when applied to
+nonlinear processes.
 % 
 % (This is the basis for the second conjecture above.)  
 % 
