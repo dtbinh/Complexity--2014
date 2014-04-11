@@ -169,19 +169,13 @@ effects.
 As a final note: there has been prior work under a similar title to
 ours~\cite{haven2005}, but there are only superficial similarities
 between the two research projects.  Haven {\sl et al.} utilize the
-relative entropy to quantify how much better a distribution over
-system states evolved from small ensembles to predict the future of a
-dynamical system compared to its asymptotic distribution. Our work
+relative entropy to quantify how much better one can predict the exact
+state of a system from a distribution over system states evolved from 
+a small ensemble around a prior known exact state, verses its asymptotic
+distribution, requiring a model to perform the evolution. Our work
 quantifies the predictability of a single observed time series using
 weighted permutation entropy and makes no assumptions about the
-underlying dynamics. {\color{red} These approaches are very different:
-  Haven's compares two distributions, the average behavior versus the
-  behaviors that can be seen given a reasonably known state in the
-  past; ours attempts to quantify how well an appropriate predictor
-  will do for a given time-series without any understanding of how
-  that time-series was generated. [[Seems to me like the first part of
-      this paragraph made the point.  Is this second set of stuff
-      needed?]]}
+underlying dynamics.
 
 % was a good choice, because with $\ell \geq 7$ many signals had
 % entropies plummet due to finite data effects and so with a word length
