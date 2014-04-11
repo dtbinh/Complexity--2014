@@ -367,23 +367,23 @@ all four methods for the \col, \gcc, and \svdfive time series.
   \begin{subfigure}{0.6\columnwidth}
     \includegraphics[width=\columnwidth]{figs/colRWForecast.png}
     \caption{\col\\ random walk }
-    \label{fig:gccMEAN}
+    \label{fig:colRW}
   \end{subfigure}%
    \begin{subfigure}{0.6\columnwidth}
     \includegraphics[width=\columnwidth]{figs/gccRWForecast.png}
     \caption{\gcc\\ random walk }
-    \label{fig:gccMEAN}
+    \label{fig:gccRW}
   \end{subfigure}% 
      \begin{subfigure}{0.6\columnwidth}
     \includegraphics[width=\columnwidth]{figs/svdfiveRWForecast.png}
     \caption{\svdfive\\ random walk}
-    \label{fig:gccMEAN}
+    \label{fig:svd5RW}
   \end{subfigure}%      
   \\  
       \begin{subfigure}{0.6\columnwidth}
     \includegraphics[width=\columnwidth]{figs/colMeanForecast.png}
     \caption{\col\\ na\"ive }
-    \label{fig:gccMEAN}
+    \label{fig:colMEAN}
   \end{subfigure}%
    \begin{subfigure}{0.6\columnwidth}
     \includegraphics[width=\columnwidth]{figs/gccMeanForecast.png}
@@ -393,13 +393,11 @@ all four methods for the \col, \gcc, and \svdfive time series.
      \begin{subfigure}{0.6\columnwidth}
     \includegraphics[width=\columnwidth]{figs/svdfiveMeanForecast.png}
     \caption{\svdfive\\ na\"ive }
-    \label{fig:gccMEAN}
+    \label{fig:svd5MEAN}
   \end{subfigure}%      
   \\
     \begin{subfigure}{0.6\columnwidth}
     \includegraphics[width=\columnwidth]{figs/colARIMAForecast.png}
-    
-    
     \caption{\col \\ ARIMA}
     \label{fig:colARIMA}
   \end{subfigure}
@@ -411,7 +409,7 @@ all four methods for the \col, \gcc, and \svdfive time series.
   \begin{subfigure}{0.6\columnwidth}
     \includegraphics[width=\columnwidth]{figs/svdfiveARIMAForecast.png}
     \caption{\svdfive \\ ARIMA }
-    \label{fig:gccARIMA}
+    \label{fig:svd5ARIMA}
   \end{subfigure}%    
   \\
 
@@ -448,9 +446,16 @@ generates a very accurate prediction of the \col data, while ARIMA
 does not.  Horizontal lines result when a constant predictor (e.g.,
 \naive) is used on a non-constant signal.  Point clouds reflect the
 structure of the distribution of the errors---roughly normally
-distributed, for example, in the case of LMA on \gcc. The triangular 
-shapes that ARIMA and random-walk produce for \col simply reflects 
-three phases of values that is visually present in the time-series.{\color{red}not happy with this explanation, I(joshua) will think about how to word this}
+distributed, for example, in the case of LMA on \gcc.  The shapes of
+Figures~\ref{fig:colRW} and~\ref{fig:colARIMA} are reminiscent of the
+projected embedding in Figure~\ref{fig:embedding}(a).  For a
+random-walk predictor, a $p_j$ vs. $c_j$ plot is equivalent to a
+two-dimensional embedding with $\tau=1$.  For ARIMA, the
+correspondence is not quite as simple, since the $p_j$ values are
+linear combinations of a number of past values of the $c_j$, but the
+effect is largely the same\footnote{The temporal ordering of the
+  points on the ARIMA $p_j$ vs. $c_j$ plot does not match that of a
+  projected embedding of the time series, however.}.
 
 As a numerical measure of prediction accurary, we calculate the mean
 absolute scaled error ($MASE$) between the true and predicted signals:
