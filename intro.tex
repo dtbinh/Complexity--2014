@@ -73,7 +73,7 @@ data sets.  This leads naturally to an important and challenging
 question: given a complicated real-valued time series, does there
 exist a forecast model that can utilize the information (if any) that
 is being transmitted from past to future by the underlying generating
-process?  A first step in answering this question is to reliably
+process \alert{in order to predict it}?  A first step in answering this question is to reliably
 quantify where on the complexity spectrum a given time series falls; a
 second step is to determine how complexity and predictability are
 related.  These are the goals of this paper.
@@ -105,13 +105,13 @@ converge to the true entropy value. Other existing techniques either
 require specific knowledge of the generating process or produce biased
 values of the entropy~\cite{bollt2001}.
 
-We focus on real-valued, scalar, time-series data that appear
+We focus on real-valued, scalar, time-series data that appear\alert{s}
 complicated: i.e., not periodic, linear, constant, etc.  We make no
 assumptions about the properties of the generating process: whether it
 is linear, nonlinear, deterministic, stochastic, stationary,
 non-stationary, etc.
 To explore the relationship between complexity, predictive structure,
-and predictability, we generate forecasts of a variety of time-series
+and predictability, we generate forecasts for a variety of time-series
 datasets using four different prediction methods, then compare the
 accuracy of those predictions to the permutation entropy of the
 associated signals.  This results in two primary findings:
@@ -133,8 +133,8 @@ time series.  From a practitioner's standpoint, it would be useful to
 know {\sl a priori} if a time series contains enough predictive structure to
 make it worth spending the time and effort searching for a good
 forecast method.  It would also be useful to know if a given method is
-inadequate---that is, if one could do better and should keep
-searching.
+inadequate---that is, if an alternative method could do better and so 
+one should continue searching.
 
 %[[Introduce and make it clear why we choose comp. perf. as test bed.]]
 
@@ -142,7 +142,7 @@ For the purposes of this study, we require a broad array of
 time-series datasets from across the complexity spectrum.  Rather than
 use synthetic data, we study sensor data from computer performance
 experiments.  While this is not a common laboratory experiment, it is
-a highly appropriate choice here.  Computers are extremely complicated
+a highly appropriate choice.  Computers are extremely complicated
 systems.  Modern microprocessor chips contain multiple processing
 units and multi-layer memories, for instance, and they use complicated
 hardware/software strategies to maximize performance by moving data
@@ -172,7 +172,7 @@ behavior; indeed, many performance traces exhibit interesting regime
 changes as a program moves through the different phases of its
 operation.  The resulting traces span the whole range of the
 complexity spectrum, from completely predictable to completely
-unstructured, making this an ideal testbed for this
+unstructured, making them an ideal testbed for this
 study\footnote{Predicting the \emph{state} of a computer, of course,
   would amount to solving the halting problem.  What we are doing here
   is predicting computer \emph{performance}, which does not violate

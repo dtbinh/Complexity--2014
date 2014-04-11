@@ -26,6 +26,7 @@ nobibnotes,
 %\geometry{landscape}                % Activate for for rotated page geometry
 %\usepackage[parfill]{parIEEEabrvskip}    % Activate to begin paragraphs with an empty line rather than an indent
 \usepackage{graphicx}
+\usepackage{hyperref}
 \usepackage{caption}
 \usepackage{subcaption}
 \usepackage{dcolumn}% Align table columns on decimal point
@@ -52,6 +53,7 @@ nobibnotes,
 \newcommand{\naive}{na\"ive}
 \newcommand{\row}{{\tt row\_major}\xspace}
 \newcommand{\col}{{\tt col\_major}\xspace}
+\newcommand{\alert}[1]{{\color{red}#1}}
 %\newcommand{\color{red}}{{\color[rgb]{1,0,0}}}
 
 %\parskip=3pt
@@ -163,7 +165,9 @@ Quantifying Time-Series Predictability through Structural Complexity
              %  but any date may be explicitly specified
 
 \begin{abstract}
-{\color{green}From the site:It should be about 5\% of the length of the article, but less than 500 words.} This paper provides insight
+{\color{green}From the site: It should be about 5\% of the length of the article, but less than 500 words.}
+
+This paper provides insight
 into when, why, and how forecast strategies fail when they are applied
 to complicated time series by empirically estimating their inherent
 complexity. We focus here on the specific example of computer
