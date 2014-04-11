@@ -245,7 +245,7 @@ line---reflects this method's ability to capture and exploit the
 structure that is present in this signal.
 
 The WPE of \svdfive ($0.677 \pm 0.006$) is higher than that of {\tt
-  col\_major}.  This indicates that the rate of forward information
+  col\_major}.  This indicates that the rate{\color{red} is this really a rate} of forward information
 transfer of the underlying process is lower, but that time-series data
 from this system still contain a significant amount of structure that
 can, in theory, be leveraged to predict the future course of the time
@@ -300,7 +300,7 @@ however, are highly inconsistent: $2.676 \pm 4.328$.  The majority of
 the blue diamond-shaped points on the top plot in the figure are
 clustered near a $MASE$ score of 0.6, but three of the 15 \svdone
 trials posed challenges to this prediction method, resulting in $MASE$
-scores $\approx 2.5$.
+scores $\approx 2.5$. {\color{red} this is becasue of the weird split it does some of the time. Should this be said?}
 
 These effects, we believe, are artifacts of the way $MASE$ is
 calculated, as well as the nonstationarity properties of the \svdone
@@ -324,7 +324,7 @@ closeup in Figure~\ref{fig:svdone-ts},
 \end{figure} 
 is not quite to the level of the worst-case signal described above,
 but it still poses a serious challenge to random-walk prediction.  It
-is dominated by a white-noise regime (between $\approx$1.86 and
+is dominated by a white-noise{\color{red} can we actually say white-noise here} regime (between $\approx$1.86 and
 $\approx$1.88 on the vertical scale in the Figure), punctuated by
 short excursions above 1.9.  In the former regime, which makes up more
 than 80\% of the signal, there are frequent dips to 1.82 and
@@ -336,7 +336,7 @@ also problematic for the \naive ~prediction strategy, since the
 outliers have significant influence on the mean.  This compounds the
 effect of the skew in the scaling factor and creates a large spread in
 the \svdone $MASE$ values.  {\color{red} We need to think about the
-  three outliers and put in a sentence here about them.}  For all of
+  three outliers and put in a sentence here about them., these are the dip ones}  For all of
 these reasons, we view \svdone as an outlier and exclude it from the
 fit calculation of the dashed line in
 Figure~\ref{fig:wpe_vs_mase_best}.
