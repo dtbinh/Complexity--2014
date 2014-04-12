@@ -27,15 +27,15 @@
 
 %BRAINSTORMING 
 %\begin{itemize}
-%\cmark\item The kind of complexity present matters, i.e., that is whether the complexity is structured or not.[[use here and mention in intro]] 
-%\cmark\item Quantifying structured and unstructured complexity is nontrivial in the case of real-valued noisy time series but WPE does this. [[talk about again here but justify in information theory section]]
+%\cmark\item The kind of complexity present matters, i.e., that is whether the complexity is structured or not.
+%\cmark\item Quantifying structured and unstructured complexity is nontrivial in the case of real-valued noisy time series but WPE does this. 
 %\item Maybe plot a big chunk of \col and a big chunk of \gcc together and show that they both look complex. 
 
-%\cmark\item \gcc appears visually very complex, *and* according to WPE this complexity is unstructured. And a constant, linear and nonlinear prediction strategy all fail. We should be able to conclude that guessing random values is the best we can do as is shown by MASE [[Use in this section]]
+%\cmark\item \gcc appears visually very complex, *and* according to WPE this complexity is unstructured. And a constant, linear and nonlinear prediction strategy all fail. We should be able to conclude that guessing random values is the best we can do as is shown by MASE 
 
-%\cmark\item \col is also complex (can even be chaotic/ point to CHAOS paper) but the complexity is structured according to WPE and as such that complexity is usable for prediction [[use in this section]]
+%\cmark\item \col is also complex (can even be chaotic/ point to CHAOS paper) but the complexity is structured according to WPE and as such that complexity is usable for prediction 
 
-%\cmark\item \col brings about the point nicely that some prediction strategies cannot utilize the processes internal information transfer method. That is a nonlinear internal information transfer system cannot be predicted effectively with a linear strategy. This gives a practitioner leverage on when to give up and when to keep working. [[use in this section as bridge to next section]]
+%\cmark\item \col brings about the point nicely that some prediction strategies cannot utilize the processes internal information transfer method. That is a nonlinear internal information transfer system cannot be predicted effectively with a linear strategy. This gives a practitioner leverage on when to give up and when to keep working. 
 
 %\end{itemize}
 
@@ -49,8 +49,8 @@ conjectures introduced in Section \ref{sec:intro}, namely:
   accuracy---i.e., that the predictable structure in a time-series
   data set can be quantified by its WPE.
 
-%\subitem [[Simply reminders not to be included]]WPE can quantify when
-%a noisy real-valued time series is predictable.[[I am unsatisfied
+%\subitem Simply reminders not to be included]]WPE can quantify when
+%a noisy real-valued time series is predictable.I am unsatisfied
 %with predictable in this sentence, need a better word to say "better
 %than random walk" or ``able to be forecast effectively" or ``has the
 %structural capacity to transmit information in a way that the time
@@ -64,14 +64,14 @@ conjectures introduced in Section \ref{sec:intro}, namely:
   is correlated with the effectiveness of a given predictor on
   time-series data from that system
 
-%\subitem [[Simply reminders not to be included]]We will have shown
+%\subitem Simply reminders not to be included]]We will have shown
 %that the existence whether linear or nonlinear is picked up on with
 %WPE but this point gets at whether the prediction model can use the
 %structure or not (linear can't use nonlinear structure). The right to
 %left shifts in \col and some of the \svd regimes and the lack of
 %shift in \gcc illustrate this nicely.
 
-%\subitem [[Simply reminders not to be included]]This is the linear vs
+%\subitem Simply reminders not to be included]]This is the linear vs
 %nonliear vs random we see with the right to left shifts with lower
 %complexity time series.
 
@@ -91,7 +91,7 @@ conjectures introduced in Section \ref{sec:intro}, namely:
 
 %\item Quantifying structured and unstructured complexity is
 %nontrivial in the case of real-valued noisy time series but WPE does
-%this. [[talk about again here but justify in information theory
+%this. talk about again here but justify in information theory
 %section]]
 
 The experiments below involve three different prediction methods
@@ -165,13 +165,6 @@ experiments.
 Numerical values, including means and standard deviations of the
 errors, can be found in Table~\ref{tab:error}.  The dashed line is the
 same as in the previous figure.
-% 
-%  [[All traces except those from \svd$_1$ lie above the line,
-%      indicating that LMA is better suited prediction method for the
-%      computer traces considered.]]  [[This comes {\bf long} before the
-%      associated discussion in the text, and it's not what this figure
-%      is trying to show here.]]
-% 
 }
     \label{fig:wpe_vs_mase_all}
 \end{figure} 
@@ -228,7 +221,7 @@ matched to the task at hand: that is, when the time series has more
 predictive structure than the method is able to use.  When the
 predictions are well below that line (as in the top and middle images
 in Figure~\ref{fig:wpe_vs_mase_all}), one should try a different
-method.  The position of the LMA cluster, for instance---well to the
+method.  Conversely, the position of the LMA cluster---well to the
 left of the other two, near the dashed line---reflects this method's
 ability to capture and exploit the structure that is present in this
 signal.
@@ -237,22 +230,21 @@ Note that the \col points (blue {\color{blue}$+$} icons) are clustered
 very tightly in the lower left quadrant of the LMA and \naive ~$MASE$
 vs. WPE plots, but spread out horizontally in the ARIMA plot.  This is
 because of the way that these models are built.  If a KPSS test of the
-time series indicates that it is nonstationary, an integration term is
-added to the model.  According to this test, the \col time series is
-right on the edge of nonstationarity, so the ARIMA procedure sometimes
-omits the integration term, which increases the error, thereby
-spreading out the points.  
+time series in question indicates that it is nonstationary, an
+integration term is added to the model.  According to this test, the
+\col time series is right on the edge of nonstationarity, so the ARIMA
+procedure sometimes omits the integration term, which increases the
+error, thereby spreading out the points.
 
 The WPE of \svdfive ($0.677 \pm 0.006$) is higher than that of {\tt
-  col\_major}.  This indicates that the rate{\color{red} is this
-  really a rate} of forward information transfer of the underlying
-process is lower, but that time-series data from this system still
-contain a significant amount of structure that can, in theory, be
-leveraged to predict the future course of the time series.  As
-mentioned above, though, the effectiveness of any prediction strategy
-depends on how well it leverages the available information: methods
-that use linear models, for instance, may fail when applied to
-nonlinear processes.
+  col\_major}.  This indicates that the rate of forward information
+transfer of the underlying process is lower, but that time-series data
+from this system still contain a significant amount of structure that
+can, in theory, be leveraged to predict the future course of the time
+series.  As mentioned above, though, the effectiveness of any
+prediction strategy depends on how well it leverages the available
+information: methods that use linear models, for instance, may fail
+when applied to nonlinear processes.
 % 
 % (This is the basis for the second conjecture above.)  
 % 
@@ -290,31 +282,34 @@ that kind of structure.
 
 \svdone behaves very differently than the other seven systems in this
 study.  Though its weighted permutation entropy is very high ($0.957
-\pm 0.016$), two of the three prediction methods do quite well,
-yielding $MASE$ scores of $0.827 \pm 0.076$ (LMA) and $0.714 \pm
-0.075$ (ARIMA).  This pushes the corresponding clusters of points in
-the bottom two images in Figure~\ref{fig:wpe_vs_mase_all} well above
-the trend followed by the other seven clusters.  The $MASE$ scores of
-the predictions of this system produced by the \naive ~method,
-however, are highly inconsistent: $2.676 \pm 4.328$.  The majority of
-the blue diamond-shaped points on the top plot in the figure are
-clustered near a $MASE$ score of 0.6, but three of the 15 \svdone
-trials posed challenges to this prediction method, resulting in $MASE$
-scores $\approx 2.5$. {\color{red} this is becasue of the weird split it does some of the time. Should this be said?}
+\pm 0.016$), two of the three prediction methods do quite well on this
+signal, yielding $MASE$ scores of $0.827 \pm 0.076$ (LMA) and $0.714
+\pm 0.075$ (ARIMA).  This pushes the corresponding clusters of points
+in the bottom two images in Figure~\ref{fig:wpe_vs_mase_all} well
+above the trend followed by the other seven signals.  The $MASE$
+scores of the predictions that were produced by the \naive ~method for
+this system, however, are highly inconsistent.  The majority of the
+blue diamond-shaped points on the top plot in
+Figure~\ref{fig:wpe_vs_mase_all} are clustered near a $MASE$ score of
+0.6.  In five of the 15 \svdone trials, however, there were step
+changes in the signal.  The \naive ~method has a very difficult time
+with signals like this, particularly if there are multiple step
+changes.  This raised the $MASE$ scores of these trials, pushing the
+corresponding points to the right, and in turn raising both the mean
+and variance of this set of trials.
 
-These effects, we believe, are artifacts of the way $MASE$ is
-calculated, as well as the nonstationarity properties of the \svdone
-signal.  Recall that $MASE$ scores are scaled \emph{relative to a
-  random-walk forecast}, which uses the current value as the
-prediction.  This strategy works very badly on signals with frequent,
-large, rapid transitions.  Consider a signal that oscillates from one
-end of its range to the other at every step.  A signal like this will
-have a low WPE, much like {\tt col\_major}.  However, a random-walk
-forecast of this signal will be 180 degrees out of phase with the true
-continuation.  Since random-walk error appears in the denominator of
-the $MASE$ score, this effect can shift points leftwards on a WPE
-vs. $MASE$ plot, and that is exactly why the \svdone clusters for
-ARIMA and LMA are above the dashed line in
+The effects described in the previous paragraph are exacerbated by the
+way $MASE$ is calculated.  Recall that $MASE$ scores are scaled
+\emph{relative to a random-walk forecast}, which uses the current
+value as the prediction.  This strategy works very badly on signals
+with frequent, large, rapid transitions.  Consider a signal that
+oscillates from one end of its range to the other at every step.  A
+signal like this will have a low WPE, much like {\tt col\_major}.
+However, a random-walk forecast of this signal will be 180 degrees out
+of phase with the true continuation.  Since random-walk error appears
+in the denominator of the $MASE$ score, this effect can shift points
+leftwards on a WPE vs. $MASE$ plot, and that is exactly why the
+\svdone clusters for ARIMA and LMA are above the dashed line in
 Figure~\ref{fig:wpe_vs_mase_all}.  This time series, which is shown in
 closeup in Figure~\ref{fig:svdone-ts},
 \begin{figure}[htbp]
@@ -324,7 +319,7 @@ closeup in Figure~\ref{fig:svdone-ts},
 \end{figure} 
 is not quite to the level of the worst-case signal described above,
 but it still poses a serious challenge to random-walk prediction.  It
-is dominated by a white-noise{\color{red} can we actually say white-noise here} regime (between $\approx$1.86 and
+is dominated by a noisy regime (between $\approx$1.86 and
 $\approx$1.88 on the vertical scale in the Figure), punctuated by
 short excursions above 1.9.  In the former regime, which makes up more
 than 80\% of the signal, there are frequent dips to 1.82 and
@@ -334,12 +329,10 @@ bane of random-walk forecasting.  In this particular case, roughly
 dip, which skews the associated $MASE$ scores.  Signals like this are
 also problematic for the \naive ~prediction strategy, since the
 outliers have significant influence on the mean.  This compounds the
-effect of the skew in the scaling factor and creates a large spread in
-the \svdone $MASE$ values.  {\color{red} We need to think about the
-  three outliers and put in a sentence here about them., these are the dip ones}  For all of
-these reasons, we view \svdone as an outlier and exclude it from the
-fit calculation of the dashed line in
-Figure~\ref{fig:wpe_vs_mase_best}.
+effect of the skew in the scaling factor and exacerbates the spread in
+the \svdone $MASE$ values.  For all of these reasons, we view \svdone
+as an outlier and exclude it from the fit calculation of the dashed
+line in Figure~\ref{fig:wpe_vs_mase_best}.
 
 %This portion should justify the following claim%%%%%%%%%%%%%%%%%%%%%%
 %\item The way structure/information/complexity is processed internally by a given process plays a crucial role in predictability.
