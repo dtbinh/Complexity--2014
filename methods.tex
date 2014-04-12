@@ -60,7 +60,23 @@ more depth in the rest of this section.
 \col is a simple C program that repeatedly initializes the upper
 triangle of a 2048 $\times$ 2048 matrix in column-major order.
 
-{\color{red}Joshua, can you please insert code here?} 
+
+\begin{lstlisting}
+#define SIZE (2048)
+
+int main(int argc, char ** argv)
+{
+  int i, j, n;
+  static int data[SIZE][SIZE];
+  
+  for(n=0;n<numInits;n++){  
+  for(i=0;i<SIZE;i++)
+  	for(j=i;j<SIZE;j++)
+  		data[j][i] = 0;
+  }
+  return 0;
+}
+\end{lstlisting}
 
 \noindent As mentioned in Section~\ref{sec:intro}, this simple program
 exhibits surprisingly complicated behavior~\cite{mytkowicz09}.  A time
