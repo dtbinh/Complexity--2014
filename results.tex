@@ -229,12 +229,18 @@ signal.
 Note that the \col points (blue {\color{blue}$+$} icons) are clustered
 very tightly in the lower left quadrant of the LMA and \naive ~$MASE$
 vs. WPE plots, but spread out horizontally in the ARIMA plot.  This is
-because of the way that these models are built.  If a KPSS test of the
-time series in question indicates that it is nonstationary, an
-integration term is added to the model.  According to this test, the
-\col time series is right on the edge of nonstationarity, so the ARIMA
-procedure sometimes omits the integration term, which increases the
-error, thereby spreading out the points.
+because of the way that these models are built \cite{auto-arima}.  If
+a KPSS test of the time series in question indicates that it is
+nonstationary, an integration term is added to the model.  This test
+gives mixed results in the case of the \col process, flagging five of
+the 15 trials as stationary and ten as nonstationary.  ARIMA models
+without an integration term perform more poorly on this signal, which
+increases the error, thereby spreading out the points\footnote{We
+  tested this hypothesis by forcing the inclusion of an integration
+  term in the five cases where a KPSS test indicated that such a term
+  was not needed.  This action removed the spread, pushing all 15 of
+  the \col ARIMA points in Figure~\ref{fig:wpe_vs_mase_all} into a
+  tight cluster.}.
 
 The WPE of \svdfive ($0.677 \pm 0.006$) is higher than that of {\tt
   col\_major}.  This indicates that the rate of forward information
