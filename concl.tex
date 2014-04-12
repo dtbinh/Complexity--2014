@@ -1,86 +1,67 @@
 \section{ Conclusions \& Future Work }\label{sec:conc}
-{\color{red} NOT EDITABLE}
-\begin{enumerate}
-\item  This need to be rewritten to conclude and address this paper...
-\end{enumerate}
 
-The colmajor spread in arima tells you that autofitting methods are a
-bad idea.
+It's obvious that no forecast method can work if a time series has no
+predictive structure, but it's hard to define or measure predictive
+structure.  In this paper, we have argued that redundancy---insert
+short definition here---is a useful definition of predictive structure
+in a time series, and that weighted permutation entropy is an
+effective way to estimate how much of that structure is present in a
+given real-valued, scalar time series.  Even if predictive structure
+exists, a given forecast method may not work---simply because it
+cannot capture and/or exploit the structure that is present (e.g., a
+linear model of a nonlinear process).  This fairly obvious point can
+be a serious practical challenge.  When a model isn't working, the
+practitioner doesn't know whether it's because there's no predictive
+structure (i.e., no model will work) or whether the model simply isn't
+good enough.  Fortunately, weighted permutation entropy allows us to
+make this distinction for noisy real-valued time series.
 
-Paragraph about PE as regime-shift detection.  Here's some text that
-we had in a footnote in the methods section, which no longer talks
-about regimes or regime-shift detection: It should be noted that
-[[non-weighted?  non-windowed?]]  permutation entropy has been used to
-detect seizures in brainwave data \cite{cao2004det}, which can be
-viewed as regime detection.  The purpose of this paper is \emph{not}
-to rigorously explore regime detection but to explore quantifying
-complexity of a time series.
+In particular, we wish to determine---without knowing anything about
+the generating process---whether a time series is too complex to
+successfully predict.  We have argued that
+redundancy~\cite{crutchfield2003} is a useful definition of the
+inherent predictability of a time series.  To operationalize that
+definition, we use an approximation of the Kolmogorov-Sinai
+entropy~\cite{lind95}, estimated using a weighted version of the
+permutation entropy of~\cite{bandt2002per}.  This WPE technique---an
+ordinal calculation of forward information transfer in a time
+series---is ideal for our purposes because it works with real-valued
+data and is known to converge to the true entropy value.  Using a
+variety of forecast models and more than a hundred time-series data
+sets from a computer-performance experiment, we have shown that
+prediction accuracy is indeed correlated with weighted permutation
+entropy: the higher the WPE, in general, the higher the prediction
+error.  There are some exceptions: summarize \& discuss here.
 
-Moved the following material here from the results section, since
-they're more general.  But there's a lot of repeated material that
-will obviously need to get compressed and streamlined.
+% Further, the persistent WPE values of 0.5--0.6 for the {\tt
+%   col\_major} trace are consistent with dynamical chaos, further
+% corroborating the results of~\cite{mytkowicz09}.
 
-Just because there is forward information transfer, that does not mean
-that an arbitrary predictor can interpret or utilize it, but WPE can
-tell us when this structure is present.
+An important practical corollary to this empirical correlation of
+predictability and WPE is a strategy for assessing appropriateness of
+forecast methods.  If the forecast produced by a particular method is
+poor but the time series contains a significant amount of predictive
+structure, one can reasonably conclude that that method is inadequate
+to the task and that one should seek another method.  The nonlinear
+LMA method, for instance, performs better in most cases because it is
+more general.  The \naive ~method, which simply predicts the mean,
+works better in noisy signals because it's a filter.  The dashed line
+in Figures blah is a useful empirical guideline for knowing when a
+model is not well-matched to the task at hand: predictions whose MASE
+scores are more than foo times their WPE are an indication that the
+time series has more predictive structure than that method can capture
+and exploit.
 
-These results support that time series with low to moderate complexity
-($0\le WPE \le 0.85$) can be predicted more efficiently than a na\"ive
-random walk \emph{and} that complexity can be qualitatively measured
-for a real-valued noisy time series using WPE. This will allow
-practitioners to stop spinning their wheels in the case of signals who
-are simply better predicted with a simple strategy like random
-walk. The analysis of these results illuminates an interesting point:
-The way structure, information and complexity are processed by a
-generating process plays a crucial role in the success of a given
-prediction scheme.
-
-As we discussed in Section \ref{sec:meaComplex} distinguishing
-structured from unstructured complexity in the case of real-valued
-time series is non trivial, i.e., distinguishing when a complex signal
-omits predictable structure and when the signal is effectively random
-is not a trivial task. As described in Section \ref{sec:intro}, for a
-practitioner this can be frustrating because it can be nearly
-impossible to find the source of faulty predictions: Is it simply that
-we need to use a more ideal (possibly more advanced) predictor or is
-it the case that the time series is simply so complex that using a
-simple (yet inconsistent) forecast strategy such as random walk is the
-best we can do. Fortunately, weighted permutation entropy (WPE) allows
-us to make this distinction for noisy real-valued time series.
-
-Needs to be more stuff in the WPE section for this to tie back to as
-well as in the new related work section.  [[Joshua, can you elaborate
-    on this so that Ryan can fill this in?]]
-
-The results presented here suggest that permutation entropy---a ordinal
-calculation of forward information transfer in a time series---is an effective
-metric for predictability of computer performance traces. Experimentally, traces
-with a persistent PE $\gtrapprox 0.97$ have a natural level of complexity that
-may overshadow the inherent determinism in the system dynamics, whereas traces
-with PE $\lessapprox 0.7$ seem to be highly predictable (viz., at least an order
-of magnitude improvement in nRMSPE).Further, the persistent WPE values of 0.5--
-0.6 for the {\tt col\_major} trace are consistent with dynamical chaos, further
-corroborating the results of~\cite{mytkowicz09}.
-
-If information is the limit, then gathering and using more information is an
-obvious next step.  There is an equally obvious tension here between data length
-and prediction speed: a forecast that requires half a second to compute is not
-useful for the purposes of real-time control of a computer system with a MHz
-clock rate.  Another alternative is to sample several system variables
-simultaneously and build multivariate delay-coordinate embeddings.  Existing
-approaches to that are computationally prohibitive
-\cite{cao-multivariate-embedding}.  We are working on alternative
-methods that sidestep that complexity.
-
-%%This use of permutaiotn entropy is a useful application of information
-%%theory to computer performance modeling because it gives you a simple
-%%and fast way to decide whether building a model and trying to forecast
-%%the future is worthwhile or if guessing the mean is just as effective.
-%%End with a sentence tying back to power management and world peace.
-
-
-%\begin{it}
-%Summarize the results.
+If information is the limit, then gathering and using more information
+is an obvious next step.  There is an equally obvious tension here
+between data length and prediction speed: a forecast that requires
+half a second to compute is not useful for the purposes of real-time
+control of a computer system with a MHz clock rate.  Another
+alternative is to sample several system variables simultaneously and
+build multivariate delay-coordinate embeddings.  Existing approaches
+to that (e.g., \cite{cao-multivariate-embedding,deyle-sugihara2011})
+are computationally prohibitive, however.  We are working on
+alternative methods that sidestep that complexity.
 
 %Paragraphs on the issues that come up, including one about the "amount
 %of info" one: if one could sample more variables, for instance, one
@@ -94,3 +75,23 @@ methods that sidestep that complexity.
 %not useful.
 %\end{it}
 
+Nonstationarity is a serious challenge in any time-series modeling
+problem.  One of the most common uses of permutation entropy is in
+regime-shift detection: e.g., to detect seizures in brainwave data
+\cite{cao2004det}.  The SVD signal in Figure~\ref{fig:what} was useful
+here because it contains a number of different regimes.  We segmented
+this signal visually, but one could imagine using permutation entropy
+to do so instead.  This would be a win because it would be automatic,
+which would move towards an adaptive modeling strategy, wherein one
+would toss the old model at the regime boundary, measure WPE, then use
+the result to choose which kind of model to build for the next regime.
+More here from Ryan and Joshua.
+
+Experiments here are from one system, but should work on others.  Give
+some examples.  Close with mention of what that could enable (viz.,
+adaptive models like ones at end of prev paragraph used as the core of
+controllers).
+
+% The way structure, information and complexity are processed by a
+% generating process play a crucial role in the success of a given
+% prediction scheme.
