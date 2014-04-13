@@ -1,7 +1,7 @@
 \section{ Conclusions \& Future Work }\label{sec:conc}
 
 No forecast strategy will be effective if a time series has no
-predictive structure.  In practice, this almost-tautological statement
+predictive structure.{\color{red} no forecast strategy that uses **structure** will be effective, but naive forecast may do just fine. Maybe something like ..."Forecast strategies which depend on predictive structure (e.g., LMA or ARIMA) are rendered ineffective when signal complexity outweighs information redundancy."}  In practice, this almost-tautological statement
 poses real problems; without knowing anything about the generating
 process, it is difficult to determine how much predictive structure is
 present in a given time series.  And even if predictive structure
@@ -41,7 +41,7 @@ method is inadequate to the task and that one should seek another
 method.  The nonlinear LMA method, for instance, performs better in
 most cases because it is more general.  The \naive ~method, which
 simply predicts the mean, works better in noisy signals because it
-effects a filtering operation.  The dashed line in
+effects a filtering operation.{\color{red} might be helpful to say \naive wins on \svdone with the exception to the 5 outliers and that random walk beats everyone on \gcc, this shows the two simple predictions beat everyone for the two highly complex signals but might be too late in the paper to say this, but might be able to say this to reinforce it}   The dashed line in
 Figures~\ref{fig:wpe_vs_mase_best} and~\ref{fig:wpe_vs_mase_all} is a
 useful empirical guideline for knowing when a model is not
 well-matched to the task at hand: a $MASE$ score that is more than
@@ -79,7 +79,7 @@ Nonstationarity is a serious challenge in any time-series modeling
 problem.  Indeed, one of the first uses of permutation entropy was
 regime-shift detection for the purposes of recognizing seizure onset
 in brainwave data~\cite{cao2004det}.  Recall that the signal in
-Figure~\ref{fig:svd_ts_colored} was especially useful for the study in
+Figure~\ref{fig:svd-ts-colored} was especially useful for the study in
 this paper because it contained a number of different regimes.  We
 segmented this signal visually, but one could imagine using
 permutation entropy to do so instead.  Automating regime-shift
