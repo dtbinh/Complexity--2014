@@ -1,14 +1,14 @@
 \section{ Conclusions \& Future Work }\label{sec:conc}
 
-No forecast strategy will be effective if a time series has no
-predictive structure.{\color{red} no forecast strategy that uses **structure** will be effective, but naive forecast may do just fine. Maybe something like ..."Forecast strategies which depend on predictive structure (e.g., LMA or ARIMA) are rendered ineffective when signal complexity outweighs information redundancy."}  In practice, this almost-tautological statement
-poses real problems; without knowing anything about the generating
-process, it is difficult to determine how much predictive structure is
-present in a given time series.  And even if predictive structure
-exists, a given forecast method may not work, simply because it cannot
-capture and/or exploit the structure that is present (e.g., a linear
-model of a nonlinear process).  This too can be a serious practical
-challenge.  If a forecast model is not producing good results, a
+Forecast strategies that are designed to capture predictive structure
+are ineffective when signal complexity outweighs information
+redundancy.  This poses a number of serious challenges in practice.
+First, without knowing anything about the generating process, it is
+difficult to determine how much predictive structure is present in a
+given time series.  And even if predictive structure exists, a given
+forecast method may not work, simply because it cannot exploit the
+structure that is present (e.g., a linear model of a nonlinear
+process).  If a forecast model is not producing good results, a
 practitioner needs to know why: is the reason that the time series
 contains no predictive structure---i.e., that no model will work---or
 is the model that s/he is using simply not good enough?
@@ -41,14 +41,21 @@ method is inadequate to the task and that one should seek another
 method.  The nonlinear LMA method, for instance, performs better in
 most cases because it is more general.  The \naive ~method, which
 simply predicts the mean, works better in noisy signals because it
-effects a filtering operation.{\color{red} might be helpful to say \naive wins on \svdone with the exception to the 5 outliers and that random walk beats everyone on \gcc, this shows the two simple predictions beat everyone for the two highly complex signals but might be too late in the paper to say this, but might be able to say this to reinforce it}   The dashed line in
-Figures~\ref{fig:wpe_vs_mase_best} and~\ref{fig:wpe_vs_mase_all} is a
-useful empirical guideline for knowing when a model is not
-well-matched to the task at hand: a $MASE$ score that is more than
-{\color{red}[[what's the equation for that line, Ryan?]]} times the
-WPE of the corresponding signal is an indication that that time series
-has more predictive structure than that forecast model can capture and
-exploit.
+effects a filtering operation.  The simple random-walk strategy is
+better than LMA, ARIMA, or the \naive ~method on the \gcc signal,
+which is extremely complex---i.e., extremely low redundancy.
+{\color{red} I suggest we don't mention \svdone here since it's a
+  pretty detailed thing and conclusions are for high-level summaries.
+  It's a good point, though, and I'll leave it in comments in the
+  file.}
+%  \naive ~wins on \svdone with the exception to the 5 outliers.
+The dashed line in Figures~\ref{fig:wpe_vs_mase_best}
+and~\ref{fig:wpe_vs_mase_all} is a useful empirical guideline for
+knowing when a model is not well-matched to the task at hand: a $MASE$
+score that is more than {\color{red}[[what's the equation for that
+      line, Ryan?]]} times the WPE of the corresponding signal is an
+indication that that time series has more predictive structure than
+that forecast model can capture and exploit.
 
 Given that information is a fundamental limitation in predictability,
 then gathering and using more information is an obvious next step.
@@ -76,9 +83,9 @@ that sidestep that complexity.
 %\end{it}
 
 Nonstationarity is a serious challenge in any time-series modeling
-problem.  Indeed, one of the first uses of permutation entropy was
-regime-shift detection for the purposes of recognizing seizure onset
-in brainwave data~\cite{cao2004det}.  Recall that the signal in
+problem.  Indeed, one of the first applications of permutation entropy
+was regime-shift detection for the purposes of recognizing seizure
+onset in brainwave data~\cite{cao2004det}.  Recall that the signal in
 Figure~\ref{fig:svd-ts-colored} was especially useful for the study in
 this paper because it contained a number of different regimes.  We
 segmented this signal visually, but one could imagine using
