@@ -61,6 +61,11 @@ more depth in the rest of this section.
 triangle of a 2048 $\times$ 2048 matrix in column-major order by
 looping over the following three lines of code:
 \begin{lstlisting}
+  for(i=0;i<2048;i++)
+  	for(j=i;j<2048;j++)
+  		data[j][i] = 0;
+\end{lstlisting}
+% full listing
 % #define SIZE (2048)
 % 
 % int main(int argc, char ** argv)
@@ -69,13 +74,13 @@ looping over the following three lines of code:
 %   static int data[SIZE][SIZE];
 %   
 %   for(n=0;n<numInits;n++){  
-  for(i=0;i<SIZE;i++)
-  	for(j=i;j<SIZE;j++)
-  		data[j][i] = 0;
+%   for(i=0;i<SIZE;i++)
+%   	for(j=i;j<SIZE;j++)
+%   		data[j][i] = 0;
 %   }
 %   return 0;
-}
-\end{lstlisting}
+% }
+%
 \noindent As mentioned in Section~\ref{sec:intro}, this simple program
 exhibits surprisingly complicated behavior~\cite{mytkowicz09}.  A time
 series of the processor performance during the execution of this
