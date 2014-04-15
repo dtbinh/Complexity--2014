@@ -58,30 +58,28 @@ more depth in the rest of this section.
 % \ref{fig:col-ts}-\ref{fig:svd-ts-colored}.
 
 \col is a simple C program that repeatedly initializes the upper
-triangle of a 2048 $\times$ 2048 matrix in column-major order.
-
-
+triangle of a 2048 $\times$ 2048 matrix in column-major order by
+looping over the following three lines of code:
 \begin{lstlisting}
-#define SIZE (2048)
-
-int main(int argc, char ** argv)
-{
-  int i, j, n;
-  static int data[SIZE][SIZE];
-  
-  for(n=0;n<numInits;n++){  
+% #define SIZE (2048)
+% 
+% int main(int argc, char ** argv)
+% {
+%   int i, j, n;
+%   static int data[SIZE][SIZE];
+%   
+%   for(n=0;n<numInits;n++){  
   for(i=0;i<SIZE;i++)
   	for(j=i;j<SIZE;j++)
   		data[j][i] = 0;
-  }
-  return 0;
+%   }
+%   return 0;
 }
 \end{lstlisting}
-
 \noindent As mentioned in Section~\ref{sec:intro}, this simple program
 exhibits surprisingly complicated behavior~\cite{mytkowicz09}.  A time
-series of the processor performance during the execution this program
-is shown in Figure~\ref{fig:col-ts}. 
+series of the processor performance during the execution of this
+program is shown in Figure~\ref{fig:col-ts}.
 \begin{figure}[htbp]
   \centering
     \includegraphics[width=\columnwidth]{figs/colFullTS}
