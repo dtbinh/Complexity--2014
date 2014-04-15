@@ -25,8 +25,11 @@ Using a variety of forecast models and more than a hundred time-series
 data sets from a computer-performance experiment, we have shown that
 prediction accuracy is indeed correlated with weighted permutation
 entropy: the higher the WPE, in general, the higher the prediction
-error.  There are some exceptions: [[Liz to do: summarize \& discuss
-    here.]]
+error.  There are some exceptions: \svdone is easier to predict than
+its WPE value suggests, for instance, using any of the three forecast
+strategies studied here.  Conversely, forecast errors for the \col and
+\svdfive signals are higher than the corresponding WPEs
+suggest---except for the nonlinear LMA predictor.
 
 % Further, the persistent WPE values of 0.5--0.6 for the {\tt
 %   col\_major} trace are consistent with dynamical chaos, further
@@ -39,15 +42,17 @@ particular method is poor but the time series contains a significant
 amount of predictive structure, one can reasonably conclude that that
 method is inadequate to the task and that one should seek another
 method.  The nonlinear LMA method, for instance, performs better in
-most cases because it is more general.  The \naive ~method, which
-simply predicts the mean, works better in noisy signals because it
-effects a filtering operation.  The simple random-walk strategy is
-better than LMA, ARIMA, or the \naive ~method on the \gcc signal,
-which is extremely complex---i.e., extremely low redundancy.
-{\color{red} I suggest we don't mention \svdone here since it's a
-  pretty detailed thing and conclusions are for high-level summaries.
-  It's a good point, though, and I'll leave it in comments in the
-  file.}
+most cases because it is more general.  This becomes particularly
+apparent in the \col and \svdfive examples, where the other two
+methods do not perform well.  The \naive ~method, which simply
+predicts the mean, works better in noisy signals because it effects a
+filtering operation.  The simple random-walk strategy outperforms
+nLMA, ARIMA, and the \naive ~method on the \gcc signal, which is
+extremely complex---i.e., extremely low redundancy.  {\color{red} I
+  suggest we don't mention \svdone here since getting into outliers is
+  a pretty detailed thing and conclusions are for high-level
+  summaries.  It's a good point, though, and I'll leave it in comments
+  in the file.}
 %  \naive ~wins on \svdone with the exception to the 5 outliers.
 The dashed line in Figures~\ref{fig:wpe_vs_mase_best}
 and~\ref{fig:wpe_vs_mase_all} is a useful empirical guideline for
