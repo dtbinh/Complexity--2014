@@ -458,14 +458,14 @@ effect is largely the same\footnote{The temporal ordering of the
   projected embedding of the time series, however.}.
 
 As a numerical measure of prediction accurary, we calculate the mean
-absolute scaled error ($MASE$) between the true and predicted signals:
+absolute scaled error (MASE) between the true and predicted signals:
 % 
 $$MASE = \sum_{j=n+1}^{k+n+1}\frac{|p_j-c_j|
 }{\frac{k}{n-1}\sum^n_{i=2}|x_{i}-x_{i-1}|}$$
 % 
 This error metric was introduced in \cite{MASE} as a ``generally
 applicable measurement of forecast accuracy without the problems seen
-in the other measurements."  $MASE$ is a normalized measure; the
+in the other measurements."  MASE is a normalized measure; the
 scaling term in the denominator
 % 
 % of the MASE value
@@ -480,13 +480,13 @@ $MASE>1$ means that the corresponding prediction method did
 error metric because it allows for fair comparison across varying
 methods, prediction horizons, and signal scales.
 
-$MASE$ scores for all 360 experiments are tabulated in the three
+MASE scores for all 360 experiments are tabulated in the three
 middle columns in Table~\ref{tab:error}.
 \begin{table*}
   \begin{center}
   \begin{tabular}{|c|c|c|c|c|}
   \hline Signal & LMA  & ARIMA & na\"{i}ve  & Weighted Permutation \\ 
-  &  $MASE$ & $MASE$  & $MASE$ &  Entropy \\ \hline
+  &  MASE & MASE  & MASE &  Entropy \\ \hline
  \col           & $ 0.050 \pm0.002  $ & $0.599  \pm 0.211 $ & $0.571\pm0.002$&  $0.513 \pm 0.003$ \\
 
 \gcc           & $ 1.530\pm 0.021$ & $1.837 \pm0.016 $ & $0.951 \pm 0.001$ & $0.943 \pm 0.001$ \\
@@ -504,38 +504,38 @@ middle columns in Table~\ref{tab:error}.
   \end{tabular}
   \end{center}
  \label{default}
- \caption{$MASE$ scores and weighted permutation entropies for all eight
+ \caption{MASE scores and weighted permutation entropies for all eight
    processes studied in this paper}
  \label{tab:error}
   \end{table*}%
 Comparing these with the geometry of the plots in
 Figure~\ref{fig:forecast-example}, one can see some obvious
-correspondences.  The average LMA $MASE$ score for the \col signals
+correspondences.  The average LMA MASE score for the \col signals
 was $0.050$, for instance, while ARIMA scored much worse ($0.599$).
 That is, LMA performed roughly 20 times better on \col signals than a
 random-walk predictor, while ARIMA only outperformed random walk by a
 factor of 1.7.  This is in accordance with the visual appearance of
 the corresponding images in Figure~\ref{fig:forecast-example}.  While
-the correspondence between $MASE$ score and the visual appearance of
+the correspondence between MASE score and the visual appearance of
 these kinds of plots is clear cut in this case, that is not always so.
 The plots of LMA predictions of \col and \svdfive both lie near the
-diagonal, for instance, but the corresponding $MASE$ scores were very
+diagonal, for instance, but the corresponding MASE scores were very
 different: $0.050$ for \col and $0.718$ for \svdfive (resp., 20 and
 1.4 times better than random-walk forecasts of the same signals).
-This is a result of the normalization in the $MASE$ score calculation.
+This is a result of the normalization in the MASE score calculation.
 Recall from Section~\ref{sec:simple} that the random-walk method
 performs especially poorly on signals that oscillate rapidly.  \col
 fits this description, so the random-walk error on this signal---the
-denominator of the three $MASE$ scores in the first row of the
+denominator of the three MASE scores in the first row of the
 Table---is pathologically high, which skews those scores down.
 Random-walk prediction is very effective for the \svdfive signal, on
-the other hand, so the denominator is small and the $MASE$ scores are
+the other hand, so the denominator is small and the MASE scores are
 skewed upwards.  Normalization is, as is often the case, a double-edged
 sword.  Here, it facilitates comparisons across signals of different
 types and lengths, but its particular pathologies must be taken into
 account, as discussed at more length in Section~\ref{sec:results}.
 
-% Table \ref{tab:error} provides the $MASE$ distributions
+% Table \ref{tab:error} provides the MASE distributions
 % {\color{red}[[Joshua: Ryan, Is this the right word? we give mean $\pm$
 %       std. dev but some have very skewed right tails]]} for each of
 % the eight signals and three prediction strategies, these are averaged

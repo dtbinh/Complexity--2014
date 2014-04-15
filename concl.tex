@@ -3,15 +3,15 @@
 Forecast strategies that are designed to capture predictive structure
 are ineffective when signal complexity outweighs information
 redundancy.  This poses a number of serious challenges in practice.
-First, without knowing anything about the generating process, it is
-difficult to determine how much predictive structure is present in a
-given time series.  And even if predictive structure exists, a given
-forecast method may not work, simply because it cannot exploit the
-structure that is present (e.g., a linear model of a nonlinear
-process).  If a forecast model is not producing good results, a
-practitioner needs to know why: is the reason that the time series
-contains no predictive structure---i.e., that no model will work---or
-is the model that s/he is using simply not good enough?
+Without knowing anything about the generating process, it is difficult
+to determine how much predictive structure is present in a given time
+series.  And even if predictive structure exists, a given forecast
+method may not work, simply because it cannot exploit the structure
+that is present (e.g., a linear model of a nonlinear process).  If a
+forecast model is not producing good results, a practitioner needs to
+know why: is the reason that the time series contains no predictive
+structure---i.e., that no model will work---or is the model that s/he
+is using simply not good enough?
 
 In this paper, we have argued that redundancy~\cite{crutchfield2003}
 is a useful definition of the inherent predictability of a time
@@ -26,10 +26,10 @@ data sets from a computer-performance experiment, we have shown that
 prediction accuracy is indeed correlated with weighted permutation
 entropy: the higher the WPE, in general, the higher the prediction
 error.  There are some exceptions: \svdone is easier to predict than
-its WPE value suggests, for instance, using any of the three forecast
-strategies studied here.  Conversely, forecast errors for the \col and
-\svdfive signals are higher than the corresponding WPEs
-suggest---except for the nonlinear LMA predictor.
+its WPE value suggests using any of the three forecast strategies
+studied here.  Conversely, forecast errors for the \col and \svdfive
+signals are higher than the corresponding WPEs suggest---except for
+the nonlinear LMA predictor.
 
 % Further, the persistent WPE values of 0.5--0.6 for the {\tt
 %   col\_major} trace are consistent with dynamical chaos, further
@@ -42,25 +42,23 @@ particular method is poor but the time series contains a significant
 amount of predictive structure, one can reasonably conclude that that
 method is inadequate to the task and that one should seek another
 method.  The nonlinear LMA method, for instance, performs better in
-most cases because it is more general.  This becomes particularly
-apparent in the \col and \svdfive examples, where the other two
-methods do not perform well.  The \naive ~method, which simply
-predicts the mean, works better in noisy signals because it effects a
-filtering operation.  The simple random-walk strategy outperforms
-nLMA, ARIMA, and the \naive ~method on the \gcc signal, which is
-extremely complex---i.e., extremely low redundancy.  {\color{red} I
-  suggest we don't mention \svdone here since getting into outliers is
-  a pretty detailed thing and conclusions are for high-level
-  summaries.  It's a good point, though, and I'll leave it in comments
-  in the file.}
+most cases because it is more general.  (This is particularly apparent
+in the \col and \svdfive examples.)
+% , where the other two methods do not perform well.)  
+The \naive ~method, which simply predicts the mean, can work very well
+on noisy signals because it effects a filtering operation.  The simple
+random-walk strategy outperforms LMA, ARIMA, and the \naive ~method on
+the \gcc signal, which is extremely complex---i.e., extremely low
+redundancy.
 %  \naive ~wins on \svdone with the exception to the 5 outliers.
 The dashed line in Figures~\ref{fig:wpe_vs_mase_best}
-and~\ref{fig:wpe_vs_mase_all} is a useful empirical guideline for
-knowing when a model is not well-matched to the task at hand: a $MASE$
-score that is more than {\color{red}[[what's the equation for that
-      line, Ryan?]]} times the WPE of the corresponding signal is an
-indication that that time series has more predictive structure than
-that forecast model can capture and exploit.
+and~\ref{fig:wpe_vs_mase_all} operationalizes the discussion in this
+paragraph.  It is a useful empirical guideline for knowing when a
+model is not well-matched to the task at hand: a MASE score that is
+more than {\color{red}[[what's the equation for that line, Ryan?]]}
+times the WPE of the corresponding signal is an indication that that
+time series has more predictive structure than that forecast model can
+capture and exploit.
 
 Given that information is a fundamental limitation in predictability,
 then gathering and using more information is an obvious next step.
@@ -89,26 +87,34 @@ that sidestep that complexity.
 
 Nonstationarity is a serious challenge in any time-series modeling
 problem.  Indeed, one of the first applications of permutation entropy
-was regime-shift detection for the purposes of recognizing seizure
-onset in brainwave data~\cite{cao2004det}.  Recall that the signal in
+was to recognize the regime shift in brainwave data that occurs when
+someone has a seizure~\cite{cao2004det}.  Recall that the signal in
 Figure~\ref{fig:svd-ts-colored} was especially useful for the study in
 this paper because it contained a number of different regimes.  We
 segmented this signal visually, but one could imagine using
 permutation entropy to do so instead.  Automating regime-shift
 detection would be an important step towards a fully adaptive modeling
 strategy, where old models are discarded and new ones are rebuilt
-whenever shifts are detected.  WPE would be particularly powerful in
-this scenario, as its value can suggest what kind of model might work
-well in each new regime.
+whenever the time series enters a new regime.  WPE would be
+particularly powerful in this scenario, as its value can not only help
+with regime-shift detection, but also suggest what kind of model might
+work well in each new regime.
 
 All of the experiments described in this paper involve a particular
 physical system.  We chose that system because its behavior spans a
-broad spectrum of classical time series patterns.  We believe that our
-results will generalize far beyond this particular system; proving
-that claim with examples is another important next step.  [[Liz to do:
-    insert some examples.  Close with mention of what that could
-    enable (viz., adaptive models like ones at end of prev paragraph
-    used as the core of controllers).]]
+broad spectrum of classical time series patterns.  Since these
+patterns---dynamical chaos, periodicities, noise, etc.--- are generic,
+we believe that our results will generalize beyond this particular
+system.  Testing that claim with different examples is another
+important next step.  Of particular interest would be the class of
+so-called \emph{hybrid systems}: [[insert def]].  A lathe, for
+instance, that has an intermittent instability.  Traffic at an
+internet router, which has characteristic patterns during normal
+operation that shift radically during an attack.  Modeling and
+predicting the behavior of these kinds of systems effectively is quite
+difficult; doing so adaptively and automatically---in the manner that
+is alluded to at the end of the previous paragraph---would be an even
+more important challenge.
 
 % The way structure, information and complexity are processed by a
 % generating process play a crucial role in the success of a given

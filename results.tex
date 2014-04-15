@@ -103,7 +103,7 @@ and how that relationship depends on the generating process and the
 prediction method.  Working from the first 90\% of each signal, we
 generated a prediction of the last 10\% using the \naive, ARIMA, and
 LMA prediction methods, as described in Section~\ref{sec:accuracy},
-then calculated the $MASE$ value of those predictions.  We also
+then calculated the MASE value of those predictions.  We also
 calculated the WPE of each time series using a wordlength of six, as
 described in Section~\ref{sec:meaComplex}.  In order to assess the
 run-to-run variability of these results, we repeated all of these
@@ -113,13 +113,13 @@ program.
 Figure~\ref{fig:wpe_vs_mase_best} shows the {\sl best} of these 45
 predictions for each system: that is, the lowest error over all 15
 trials and all three methods for each of the eight programs.  The WPE
-is plotted against the corresponding $MASE$ value here in order to bring
+is plotted against the corresponding MASE value here in order to bring
 out the correlation between these two quantities.
 \begin{figure}[htbp]
   \centering
   \includegraphics[width=\columnwidth]{figs/prediction_vs_entropy}
   \caption{Weighted permutation entropy vs. mean absolute scaled error
-    ($MASE$) of the best prediction of each system.
+    (MASE) of the best prediction of each system.
 % 
 % (across all trials and all prediction methods) 
 % 
@@ -138,7 +138,7 @@ methods used here were chosen to span the space of standard prediction
 strategies, but they do not cover that space exhaustively.  Our goal
 here is an empirical assessment of predictability and complexity, not
 formal results about a ``best'' predictor for a given time series.
-There may be other methods that produce lower $MASE$ values than those
+There may be other methods that produce lower MASE values than those
 in Figure~\ref{fig:wpe_vs_mase_best}, but the sparseness of the points
 in the upper-left and lower-right quadrants of this plot strongly
 suggests that the underlying predictability of a time series is
@@ -147,7 +147,7 @@ our results in more detail, including the measures taken to assure
 meaningful comparisons across methods, trials, and programs, and
 elaborates on the meaning of the dashed line in the figure.
 
-Figure~\ref{fig:wpe_vs_mase_all} shows WPE vs. $MASE$ plots for all 360
+Figure~\ref{fig:wpe_vs_mase_all} shows WPE vs. MASE plots for all 360
 experiments.
 \begin{figure}
   \centering
@@ -155,11 +155,11 @@ experiments.
 %    \includegraphics[width=\columnwidth]{figs/ARIMA_prediction_vs_entropy}
 %    \includegraphics[width=\columnwidth]{figs/LMA_prediction_vs_entropy}
   \includegraphics[width=\columnwidth]{figs/predictions_vs_entropy3}
-\caption{WPE vs. $MASE$ for all trials, methods, and systems. \svdone,
+\caption{WPE vs. MASE for all trials, methods, and systems. \svdone,
   \svdthree, and \svdfive are omitted from the top plot for scale
   reasons.
 % 
-% ; their $MASE$ scores are $2.676 \pm 4.328$, $31.39 \pm 0.282$, and
+% ; their MASE scores are $2.676 \pm 4.328$, $31.39 \pm 0.282$, and
 %   $20.87 \pm 0.192$ respectively. 
 % 
 Numerical values, including means and standard deviations of the
@@ -172,12 +172,12 @@ There are 15 points in each cluster, one for each trial.  (The points
 in Figure~\ref{fig:wpe_vs_mase_best} are the leftmost of the points
 for the corresponding system in any of the three plots in
 Figure~\ref{fig:wpe_vs_mase_all}.)  The WPE values do not vary very
-much across trials.  For most traces, the variance in $MASE$ scores is
+much across trials.  For most traces, the variance in MASE scores is
 low as well, resulting in small, tight clusters.  In some
 cases---ARIMA predictions of {\tt col\_major}, for instance---the
-$MASE$ variance is larger, which spreads out the clusters
+MASE variance is larger, which spreads out the clusters
 horizontally.  The distribution of the cluster {\sl positions} is
-quite different in the three plots.  The mean $MASE$ scores of
+quite different in the three plots.  The mean MASE scores of
 predictions generated with the nonlinear LMA method are generally
 closer to the dashed line; the ARIMA method clusters are more
 widely spread, the \naive ~clusters even more so.  This geometric
@@ -189,7 +189,7 @@ complicated, as discussed in Section~\ref{sec:intro}.  Recall from the
 graphical representations in the left-hand column of
 Figure~\ref{fig:forecast-example} that the \naive ~and ARIMA
 prediction methods do not perform as well on this signal as the
-nonlinear LMA method.  The $MASE$ scores of the \naive ~and ARIMA
+nonlinear LMA method.  The MASE scores of the \naive ~and ARIMA
 predictions are $0.571 \pm 0.002$ and $0.599 \pm 0.211$, respectively,
 across all 15 trials.  That is, these methods are performing only
 $\approx 1.7$ times better than the random-walk method, a primitive
@@ -200,15 +200,15 @@ Section~\ref{sec:intro}.
 
 This disparity---WPE values that suggest a high rate of forward
 information transfer in the signal, but predictions with comparatively
-poor $MASE$ scores---is obvious in the geometry of the top two images
+poor MASE scores---is obvious in the geometry of the top two images
 in Figure~\ref{fig:wpe_vs_mase_all}, where the \col clusters are far
-to the right of the dashed line.  {\sl This indicates that these
-  methods are not leveraging the available information in the signal.}
+to the right of the dashed line.  \emph{This indicates that these
+  methods are not leveraging the available information in the signal}.
 The dynamics of \col may be complicated, but they are not
 unstructured.  This signal is nonlinear and deterministic, and if one
 uses a prediction technique that is based a nonlinear model
 (LMA)---rather than a method that simply predicts the running mean
-(\naive) or one that uses a linear model (ARIMA)---the $MASE$ score is
+(\naive) or one that uses a linear model (ARIMA)---the MASE score is
 much better: $0.050 \pm 0.001$.  This prediction is 20 times more
 accurate than a random-walk forecast, which is more in line with the
 level of predictive structure that the low WPE value suggests is
@@ -227,7 +227,7 @@ ability to capture and exploit the structure that is present in this
 signal.
 
 Note that the \col points (blue {\color{blue}$+$} icons) are clustered
-very tightly in the lower left quadrant of the LMA and \naive ~$MASE$
+very tightly in the lower left quadrant of the LMA and \naive ~MASE
 vs. WPE plots, but spread out horizontally in the ARIMA plot.  This is
 because of the way that these models are built \cite{autoARIMA}.  If
 a KPSS test of the time series in question indicates that it is
@@ -255,21 +255,21 @@ when applied to nonlinear processes.
 % (This is the basis for the second conjecture above.)  
 % 
 This match between model and task is an issue in the \svdfive
-experiments as well.  The $MASE$ scores of the \naive ~and ARIMA
+experiments as well.  The MASE scores of the \naive ~and ARIMA
 predictions for this system are $20.870 \pm 0.192$ and $2.370 \pm
 0.051$, respectively: that is, 20.87 and 2.37 times worse than a
 simple random walk forecast of the same signals\footnote{The \naive
-  ~$MASE$ score is large because of the bimodal nature of the
+  ~MASE score is large because of the bimodal nature of the
   distribution of the values of the signal, which makes guessing the
   mean a particularly bad strategy.  The same thing is true of the
   \svdthree signal.}.  As before, the positions of these points on a
-WPE vs. $MASE$ plot---significantly below and to the right of the
+WPE vs. MASE plot---significantly below and to the right of the
 dashed line---should suggest to a practitioner that there is more
 structure in this signal than the corresponding method is able to
 leverage, and that a different method might do better.  Indeed, for
-\svdfive, the LMA method produces a $MASE$ score of $ 0.718\pm 0.048 $
+\svdfive, the LMA method produces a MASE score of $ 0.718\pm 0.048 $
 and a cluster of results that is much closer to the dashed line on the
-WPE-$MASE$ plot.  Again, this validates our second conjecture: the LMA
+WPE-MASE plot.  Again, this validates our second conjecture: the LMA
 method can capture and reproduce the way in which the \svdfive system
 processes information, but the \naive ~and ARIMA prediction methods
 cannot.
@@ -289,25 +289,25 @@ that kind of structure.
 \svdone behaves very differently than the other seven systems in this
 study.  Though its weighted permutation entropy is very high ($0.957
 \pm 0.016$), two of the three prediction methods do quite well on this
-signal, yielding $MASE$ scores of $0.827 \pm 0.076$ (LMA) and $0.714
-\pm 0.075$ (ARIMA).  This pushes the corresponding clusters of points
-in the bottom two images in Figure~\ref{fig:wpe_vs_mase_all} well
-above the trend followed by the other seven signals.  The $MASE$
-scores of the predictions that were produced by the \naive ~method for
-this system, however, are highly inconsistent.  The majority of the
-blue diamond-shaped points on the top plot in
-Figure~\ref{fig:wpe_vs_mase_all} are clustered near a $MASE$ score of
+signal, yielding MASE scores of $0.827 \pm 0.076$ (LMA) and $0.714 \pm
+0.075$ (ARIMA).  This pushes the corresponding clusters of points in
+the bottom two images in Figure~\ref{fig:wpe_vs_mase_all} well above
+the trend followed by the other seven signals.  The MASE scores of the
+predictions that were produced by the \naive ~method for this system,
+however, are highly inconsistent.  The majority of the blue
+diamond-shaped points on the top plot in
+Figure~\ref{fig:wpe_vs_mase_all} are clustered near a MASE score of
 0.6.  In five of the 15 \svdone trials, however, there were step
 changes in the signal.  The \naive ~method has a very difficult time
 with signals like this, particularly if there are multiple step
-changes.  This raised the $MASE$ scores of these trials, pushing the
+changes.  This raised the MASE scores of these trials, pushing the
 corresponding points to the right\footnote{This includes the cluster
-  of three points near $MASE \approx 2.5$, as well as two points that
-  are beyond the domain of the graph, at $MASE$ 11.2 and 14.8.}, and
-in turn raising both the mean and variance of this set of trials.
+  of three points near MASE $\approx 2.5$, as well as two points that
+  are beyond the domain of the graph, at MASE 11.2 and 14.8.}, and in
+turn raising both the mean and variance of this set of trials.
 
 The effects described in the previous paragraph are exacerbated by the
-way $MASE$ is calculated.  Recall that $MASE$ scores are scaled
+way MASE is calculated.  Recall that MASE scores are scaled
 \emph{relative to a random-walk forecast}, which uses the current
 value as the prediction.  This strategy works very badly on signals
 with frequent, large, rapid transitions.  Consider a signal that
@@ -315,8 +315,8 @@ oscillates from one end of its range to the other at every step.  A
 signal like this will have a low WPE, much like {\tt col\_major}.
 However, a random-walk forecast of this signal will be 180 degrees out
 of phase with the true continuation.  Since random-walk error appears
-in the denominator of the $MASE$ score, this effect can shift points
-leftwards on a WPE vs. $MASE$ plot, and that is exactly why the
+in the denominator of the MASE score, this effect can shift points
+leftwards on a WPE vs. MASE plot, and that is exactly why the
 \svdone clusters for ARIMA and LMA are above the dashed line in
 Figure~\ref{fig:wpe_vs_mase_all}.  This time series, which is shown in
 closeup in Figure~\ref{fig:svdone-ts},
@@ -334,11 +334,11 @@ than 80\% of the signal, there are frequent dips to 1.82 and
 occasional larger dips below 1.8.  These single-point dips are the
 bane of random-walk forecasting.  In this particular case, roughly
 40\% of the forecasted points are off by the width of the associated
-dip, which skews the associated $MASE$ scores.  Signals like this are
+dip, which skews the associated MASE scores.  Signals like this are
 also problematic for the \naive ~prediction strategy, since the
 outliers have significant influence on the mean.  This compounds the
 effect of the skew in the scaling factor and exacerbates the spread in
-the \svdone $MASE$ values.  For all of these reasons, we view \svdone
+the \svdone MASE values.  For all of these reasons, we view \svdone
 as an outlier and exclude it from the fit calculation of the dashed
 line in Figure~\ref{fig:wpe_vs_mase_best}.
 
