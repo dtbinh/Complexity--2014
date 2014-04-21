@@ -62,7 +62,7 @@ offers discretization methods that do not disturb the intrinsic
 behavior.  These methods are, however, fragile in the face of noise;
 worse yet, they require knowledge of the underlying system.  This is
 not useful in our context, where we want to measure the entropy to
-quantify predictability.
+quantify predictability of an arbitrary time-series.
 
 Bandt and Pompe introduced the \emph{permutation entropy} (PE) as a
 ``natural complexity measure for time series''
@@ -120,9 +120,10 @@ for example, a signal that switches between two fixed points and
 contains some additive noise. The PE is dominated by the noise about
 the fixed points driving it to $\approx 1$, which in some sense hides
 the fact that the signal is actually quite structured.  In this
-situation, the weighted permutation entropy measures on switching
-rather than the stochastic fluctuations. To accomplish this, the
-\emph{weight} of a permutation is taken into account:
+situation, the terms of the weighted permutation entropy are dominated
+by the switching rather than the stochastic fluctuations. To 
+accomplish this, the \emph{weight} of a permutation is taken into
+account:
 \begin{align*}
   w(x_{i+1}^\ell) = \frac{1}{\ell} \sum_{j = i}^{i+\ell}
                       \left( x_j - \bar{x}_{i+1}^\ell \right)^2
