@@ -21,7 +21,7 @@ predictive accuracy.  These methods include:
 \item The \emph{random-walk} method, which uses the previous value in
   the observed signal as the forecast,
 
-\item The \emph{naive} method, which uses the mean of the
+\item The \emph{\naive} method, which uses the mean of the
   observed signal as the forecast,
 
 \item The \emph{ARIMA} (auto-regressive integrated moving average)
@@ -169,7 +169,7 @@ and~\ref{sec:results}.
 %%%%%%%%%%%%%%%%%%%%%%%%
 
 A simple and yet powerful way to capture and exploit the structure of
-data is to fit a hyperplane to the dataset and then use that it to
+data is to fit a hyperplane to the dataset and then use that to
 make predictions.  The roots of this approach date back to the
 original autoregressive schema~\cite{weigend93}, which forecasts the
 next time step through a weighted average of past observations: $$p_i
@@ -196,7 +196,7 @@ automated fitting techniques described in~\cite{autoARIMA} to
 accomplish this.  This procedure uses sophisticated methods---KPSS
 unit-root tests~\cite{KPSSunit}, a customization of the Canova-Hansen
 test~\cite{Canova1995}, and the Akaike information
-criterion~\cite{akaike1974}, conditioned on the maximized likelihood
+criterion~\cite{akaike1974}, conditioned on the maximum likelihood
 of the model fitted to the detrended data---to select good values for
 the free parameters of the ARIMA model.
 
@@ -254,9 +254,9 @@ measuring, or even knowing, every one of its state variables.
 The first step in the delay-coordinate embedding process is to
 estimate values for the two free parameters in the map: the delay
 $\tau$ and the dimension $m$.  We follow standard procedures for this,
-choosing the first minimum in the average mutual information as an
+choosing the first minimum in the time-delayed mutual information as an
 estimate of $\tau$~\cite{fraser-swinney} and using the
-false-near-neighbor method of~\cite{KBA92} to estimate $m$.  Plots of
+false-near(est)-neighbor(s) method of~\cite{KBA92} to estimate $m$.  Plots of
 the data from Figures~\ref{fig:col-ts}-\ref{fig:svd-ts-colored},
 embedded following this procedure, are shown in
 Figure~\ref{fig:embedding}.
@@ -304,8 +304,7 @@ predictions (e.g.,~\cite{weigend-book,casdagli-eubank92,Smith199250}).
 One of the most straightforward of these is the ``Lorenz method of
 analogues'' (LMA), which is essentially nearest-neighbor prediction in
 the embedded\footnote{Lorenz's original formulation used the full
-  system state space; the method was later extended to embedded
-  dynamics by Kantz~\cite{kantz97}.}
+  system state space; According to \cite{kantz97} this method was first extended to embedded dynamics by Pikovsky ~\cite{pikovsky86-sov}, but more closely related to the prediction work of Sugihara \& May in \cite{sugihara90}}
 space~\cite{lorenz-analogues}.  Even this simple algorithm---which
 builds predictions by finding the nearest neighbor in the embedded
 space of the given point, then taking that neighbor's path as the
@@ -324,7 +323,7 @@ that structure can be captured and used by LMA---is apropos of the
 central question treated in this paper.  It may be that \gcc has some
 redundancy that LMA cannot exploit, or that the structure in \svdfive
 is effectively obfuscated, from the standpoint of the LMA method, by
-noise.  By quantifying the balance between normalized redundancy (that
+noise.  By quantifying the balance between normalized (that
 is, predictive structure) and entropy for these real-valued time
 series, as shown in Section~\ref{sec:results}, we can begin to answer
 these questions.
@@ -350,9 +349,9 @@ The model is then rebuilt using $\{x_i\}_{i=1}^{n+1}$ and the process
 repeats $k$ times, out to the end of the observed time series.  This
 ``one step prediction'' process is not technically necessary in the
 LMA method, which can generate arbitrary-length
-predictions\footnote{although the accuracy of these predictions will
+predictions---although the accuracy of these predictions will
   degrade over prediction length, in the presence of positive Lyapunov
-  exponents}, but the performance of the other three methods used here
+  exponents, but the performance of the other three methods used here
 will degrade severely if the associated models are not periodically
 rebuilt.  In order to make the comparison fair, we used an iterative
 one-step prediction schema {\sl for all four methods}.  This has the
