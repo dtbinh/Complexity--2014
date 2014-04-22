@@ -5,9 +5,9 @@ least to Yule's 1927 invention of autoregression~\cite{Yule27}.  Since
 then, hundreds, if not thousands, of strategies have been developed
 for a wide variety of prediction tasks.  The purpose of this paper is
 not to add a new weapon to this arsenal, nor to assess or compare the
-effectiveness of existing methods.  Our goals are more general: {\sl
-  (i)} to empirically quantify the predictive structure that is
-present in a real-valued scalar time series and {\sl (ii)} to explore
+effectiveness of existing methods.  Our goals are more general:
+\emph{(i)} to empirically quantify the predictive structure that is
+present in a real-valued scalar time series and \emph{(ii)} to explore
 how the performance of prediction methods is related to that inherent
 complexity.  It would, of course, be neither practical nor interesting
 to report results for every existing forecast method; instead, we
@@ -36,7 +36,7 @@ forecasting\footnote{The terms ``in sample'' and ``out of sample'' are
   horizons, among other things.}.
 %
 These distributions are then used as estimates of out-of-sample
-forecast errors in those regions.  For example, Smith {\sl et al.}
+forecast errors in those regions.  For example, Smith \emph{et al.}
 make in-sample forecasts using ensembles around selected points in
 order to predict the local predictability of that time
 series~\cite{Smith199250}.  This approach can be used to show that
@@ -57,7 +57,7 @@ out-of-sample error distributions, computed \emph{post facto} from a
 class of models, to determine which of those models was best.  After
 building an autoregressive model, for example, it is common to
 calculate forecast errors and verify that they are normally distributed.
-If they are not, that indicates that there is structure in the time
+If they are not, that suggests that there is structure in the time
 series that the model-building process was unable to capture and use.
 The problem with this approach is lack of generality.  
 \label{page:normal-errors}
@@ -130,7 +130,7 @@ compute and often have fractal boundaries~\cite{eisele1999}.
 We sidestep these issues by using a variant of the \emph{permutation
   entropy} of Bandt and Pompe~\cite{bandt2002per} to estimate the value
 of the Kolmogorov-Sinai entropy of a real-valued time series---and
-thus the redundancy in that data, which is an effective proxy for
+thus the redundancy in that data, which we show to be an effective proxy for
 predictability.  This differs from existing approaches in a number of
 ways.  It does not rely on generating partitions---and thus does not
 introduce bias into the results if one does not know the dynamics or

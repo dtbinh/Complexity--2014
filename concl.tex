@@ -29,7 +29,8 @@ error.  There are some exceptions: \svdone is easier to predict than
 its WPE value suggests using any of the three forecast strategies
 studied here.  Conversely, forecast errors for the \col and \svdfive
 signals are higher than the corresponding WPEs suggest---except for
-the nonlinear LMA predictor.
+the nonlinear LMA predictor.  On the whole, though, signals with
+higher weighted permutation entropy are harder to predict.
 
 % Further, the persistent WPE values of 0.5--0.6 for the {\tt
 %   col\_major} trace are consistent with dynamical chaos, further
@@ -53,21 +54,21 @@ redundancy.
 %  \naive ~wins on \svdone with the exception to the 5 outliers.
 The dashed line in Figures~\ref{fig:wpe_vs_mase_best}
 and~\ref{fig:wpe_vs_mase_all} operationalizes the discussion in this
-paragraph.  It is a useful empirical guideline for knowing when a
-model is not well-matched to the task at hand: a MASE score that is
-more than $3.5788 \cdot \mathrm{WPE} - 1.909$, where WPE is that of
-the corresponding signal, is an indication that that time series has
-more predictive structure than that forecast model can capture and
-exploit.
+paragraph.  It is a preliminary, but potentially useful, empirical
+guideline for knowing when a model is not well-matched to the task at
+hand: a MASE score that is more than $3.58 \cdot \mathrm{WPE} - 1.91$,
+where $\mathrm{WPE}$ is that of the corresponding signal, is an
+indication that that time series has more predictive structure than
+that forecast model can capture and exploit.
 
 Given that information is a fundamental limitation in predictability,
 then gathering and using more information is an obvious next step.
 But there is an equally obvious tension here between data length and
 prediction speed: a forecast that requires half a second to compute is
 not useful for the purposes of real-time control of a computer system
-with a MHz clock rate.  Another alternative is to sample several
-system variables simultaneously and build multivariate models.  This
-is a particular challenge in nonlinear LMA-type models, since
+with a MHz clock rate, for instance.  Another alternative is to sample
+several system variables simultaneously and build multivariate models.
+This is a particular challenge in nonlinear LMA-type models, since
 multivariate delay-coordinate embedding (e.g.,
 \cite{cao-multivariate-embedding,deyle-sugihara2011}) can be
 computationally prohibitive.  We are working on alternative methods
@@ -103,18 +104,21 @@ work well in each new regime.
 All of the experiments described in this paper involve a particular
 physical system.  We chose that system because its behavior spans a
 broad spectrum of classical time series patterns.  Since these
-patterns---dynamical chaos, periodicities, noise, etc.--- are generic,
-we believe that our results will generalize beyond this particular
+patterns (dynamical chaos, periodicities, noise, etc.) are generic, we
+believe that our results will generalize beyond this particular
 system.  Testing that claim with different examples is another
-important next step.  Of particular interest would be the class of
-so-called \emph{hybrid systems}: [[insert def]].  A lathe, for
-instance, that has an intermittent instability.  Traffic at an
-internet router, which has characteristic patterns during normal
-operation that shift radically during an attack.  Modeling and
-predicting the behavior of these kinds of systems effectively is quite
-difficult; doing so adaptively and automatically---in the manner that
-is alluded to at the end of the previous paragraph---would be an even
-more important challenge.
+important next step---and one that will be critical to validating our
+claims about the utility of the dashed line as a heuristic for
+determining whether a particular forecast method is well-matched to a
+particular task.  Of particular interest would be the class of
+so-called \emph{hybrid systems}, which exhibit discrete transitions
+between different continuous regimes---e.g., a lathe that has an
+intermittent instability or traffic at an internet router, which has
+characteristic patterns during normal operation that shift radically
+during an attack.  Effective modeling and prediction of these kinds of
+systems effectively is quite difficult; doing so adaptively and
+automatically---in the manner that is alluded to at the end of the
+previous paragraph---would be an even more important challenge.
 
 % The way structure, information and complexity are processed by a
 % generating process play a crucial role in the success of a given

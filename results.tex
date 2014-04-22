@@ -39,12 +39,12 @@
 
 %\end{itemize}
 
-In this section, we offer an empirical validation of the two key
-conjectures introduced in Section \ref{sec:intro}, namely:
+In this section, we offer an empirical validation of the two
+conjectures offered in Section \ref{sec:intro}, namely:
 
 \begin{enumerate}
 
-\item that the weighted permutation entropy (WPE) of a noisy
+\item That the weighted permutation entropy (WPE) of a noisy
   real-valued time series is correlated with prediction
   accuracy---i.e., that the predictable structure in a time-series
   data set can be quantified by its WPE.
@@ -60,7 +60,7 @@ conjectures introduced in Section \ref{sec:intro}, namely:
 %series is quantifiable and this type of complexity is directly
 %correlated with predictability
 
-\item that the way information is generated and processed by a system
+\item That the way information is generated and processed by a system
   is correlated with the effectiveness of a given predictor on
   time-series data from that system
 
@@ -110,7 +110,7 @@ run-to-run variability of these results, we repeated all of these
 calculations on 15 separate trials: i.e., 15 different runs of each
 program.  
 
-Figure~\ref{fig:wpe_vs_mase_best} shows the {\sl best} of these 45
+Figure~\ref{fig:wpe_vs_mase_best} shows the \emph{best} of these 45
 predictions for each system: that is, the lowest error over all 15
 trials and all three methods for each of the eight programs.  The WPE
 is plotted against the corresponding MASE value here in order to bring
@@ -128,36 +128,37 @@ The dashed line is a least-squares linear fit of all the points except
 text.}
   \label{fig:wpe_vs_mase_best}
 \end{figure}
-The best-case prediction error for each of these eight systems is
-roughly proportional to the weighted permutation entropy, which is
-consistent with our first conjecture.  The dashed line in the figure,
-a linear least-squares fit to these best-case errors\footnote{with the
-  exception of {\tt dgesdd$_1$}, for reasons described below} captures
-this rough proportionality.  This is not a formal result.  The three
-methods used here were chosen to span the space of standard prediction
-strategies, but they do not cover that space exhaustively.  Our goal
-here is an empirical assessment of predictability and complexity, not
-formal results about a ``best'' predictor for a given time series.
-There may be other methods that produce lower MASE values than those
-in Figure~\ref{fig:wpe_vs_mase_best}, but the sparseness of the points
-in the upper-left and lower-right quadrants of this plot strongly
+As the plot shows, the best-case prediction error for each of these
+eight systems is roughly proportional to the weighted permutation
+entropy, which is consistent with our first conjecture.  The dashed
+line in the figure, a linear least-squares fit to these best-case
+errors\footnote{with the exception of {\tt dgesdd$_1$}, for reasons
+  described below} captures this rough proportionality.  This is not a
+formal result.  The three forecast methods used here were chosen to
+span the space of standard prediction strategies, but they do not
+cover that space exhaustively.  Our goal here is an empirical
+assessment of predictability and complexity, not formal results about
+a ``best'' predictor for a given time series.  There may be other
+methods that produce lower MASE values than those in
+Figure~\ref{fig:wpe_vs_mase_best}, but the sparseness of the points in
+the upper-left and lower-right quadrants of this plot strongly
 suggests that the underlying predictability of a time series is
 inversely correlated with its WPE.  The rest of this section describes
-our results in more detail, including the measures taken to assure
-meaningful comparisons across methods, trials, and programs, and
+our results in more detail---including the measures taken to assure
+meaningful comparisons across methods, trials, and programs---and
 elaborates on the meaning of the dashed line in the figure.
 
-Figure~\ref{fig:wpe_vs_mase_all} shows WPE vs. MASE plots for all 360
-experiments.
+Figure~\ref{fig:wpe_vs_mase_all} shows WPE vs. MASE plots for the full
+set of experiments.
 \begin{figure}
   \centering
 %    \includegraphics[width=\columnwidth]{figs/ARIMA_prediction_vs_entropy}
 %    \includegraphics[width=\columnwidth]{figs/ARIMA_prediction_vs_entropy}
 %    \includegraphics[width=\columnwidth]{figs/LMA_prediction_vs_entropy}
   \includegraphics[width=\columnwidth]{figs/predictions_vs_entropy3}
-\caption{WPE vs. MASE for all trials, methods, and systems. \svdone,
-  \svdthree, and \svdfive are omitted from the top plot for scale
-  reasons.
+\caption{WPE vs. MASE for all trials, methods, and systems---with the
+  exception of \svdone, \svdthree, and \svdfive are omitted from the
+  top plot for scale reasons.
 % 
 % ; their MASE scores are $2.676 \pm 4.328$, $31.39 \pm 0.282$, and
 %   $20.87 \pm 0.192$ respectively. 
@@ -174,15 +175,14 @@ for the corresponding system in any of the three plots in
 Figure~\ref{fig:wpe_vs_mase_all}.)  The WPE values do not vary very
 much across trials.  For most traces, the variance in MASE scores is
 low as well, resulting in small, tight clusters.  In some
-cases---ARIMA predictions of {\tt col\_major}, for instance---the
-MASE variance is larger, which spreads out the clusters
-horizontally.  The distribution of the cluster {\sl positions} is
-quite different in the three plots.  The mean MASE scores of
-predictions generated with the nonlinear LMA method are generally
-closer to the dashed line; the ARIMA method clusters are more
-widely spread, the \naive ~clusters even more so.  This geometric
-validation of the second conjecture in this paper is discussed in more
-details in the following paragraphs.
+cases---ARIMA predictions of {\tt col\_major}, for instance---the MASE
+variance is larger, which spreads out the clusters horizontally.  The
+distribution of the cluster \emph{positions} is quite different in the
+three plots.  The mean MASE scores of predictions generated with the
+nonlinear LMA method are generally closer to the dashed line; the
+ARIMA method clusters are more widely spread, the \naive ~clusters
+even more so.  This geometric validation of the second conjecture in
+this paper is discussed in more detail in the following paragraphs.
 
 Though \col is a very simple program, its dynamics are actually quite
 complicated, as discussed in Section~\ref{sec:intro}.  Recall from the
@@ -214,7 +214,8 @@ accurate than a random-walk forecast, which is more in line with the
 level of predictive structure that the low WPE value suggests is
 present in the signal.  
 
-The dashed line in the Figures is a heuristic that captures the
+The dashed line in Figures~\ref{fig:wpe_vs_mase_best}
+and~\ref{fig:wpe_vs_mase_all} is a heuristic that captures the
 argument at the end of the previous paragraph.  It can allow
 practitioners to recognize when a prediction method is not well
 matched to the task at hand: that is, when the time series has more
@@ -286,25 +287,27 @@ predictive structure that is present in this signal is nonlinear
 (cf.,~\cite{mytkowicz09}), and LMA is designed to capture and exploit
 that kind of structure.
 
-\svdone behaves very differently than the other seven systems in this
-study.  Though its weighted permutation entropy is very high ($0.957
-\pm 0.016$), two of the three prediction methods do quite well on this
-signal, yielding MASE scores of $0.827 \pm 0.076$ (LMA) and $0.714 \pm
-0.075$ (ARIMA).  This pushes the corresponding clusters of points in
-the bottom two images in Figure~\ref{fig:wpe_vs_mase_all} well above
-the trend followed by the other seven signals.  The MASE scores of the
-predictions that were produced by the \naive ~method for this system,
-however, are highly inconsistent.  The majority of the blue
-diamond-shaped points on the top plot in
-Figure~\ref{fig:wpe_vs_mase_all} are clustered near a MASE score of
-0.6.  In five of the 15 \svdone trials, however, there were step
-changes in the signal.  The \naive ~method has a very difficult time
-with signals like this, particularly if there are multiple step
-changes.  This raised the MASE scores of these trials, pushing the
-corresponding points to the right\footnote{This includes the cluster
-  of three points near MASE $\approx 2.5$, as well as two points that
-  are beyond the domain of the graph, at MASE 11.2 and 14.8.}, and in
-turn raising both the mean and variance of this set of trials.
+\svdone---the dark blue segment of
+Figure~\ref{fig:svd-ts-colored}---behaves very differently than the
+other seven systems in this study.  Though its weighted permutation
+entropy is very high ($0.957 \pm 0.016$), two of the three prediction
+methods do quite well on this signal, yielding MASE scores of $0.827
+\pm 0.076$ (LMA) and $0.714 \pm 0.075$ (ARIMA).  This pushes the
+corresponding clusters of points in the bottom two images in
+Figure~\ref{fig:wpe_vs_mase_all} well above the trend followed by the
+other seven signals.  The MASE scores of the predictions that were
+produced by the \naive ~method for this system, however, are highly
+inconsistent.  The majority of the blue diamond-shaped points on the
+top plot in Figure~\ref{fig:wpe_vs_mase_all} are clustered near a MASE
+score of 0.6, which is better than LMA and ARIMA.  In five of the 15
+\svdone trials, however, there were step changes in the signal.  The
+\naive ~method has a very difficult time with signals like this,
+particularly if there are multiple step changes.  This raised the MASE
+scores of these trials, pushing the corresponding points to the
+right\footnote{This includes the cluster of three points near MASE
+  $\approx 2.5$, as well as two points that are beyond the domain of
+  the graph, at MASE 11.2 and 14.8.}, and in turn raising both the
+mean and variance of this set of trials.
 
 The effects described in the previous paragraph are exacerbated by the
 way MASE is calculated.  Recall that MASE scores are scaled
@@ -328,19 +331,19 @@ closeup in Figure~\ref{fig:svdone-ts},
 is not quite to the level of the worst-case signal described above,
 but it still poses a serious challenge to random-walk prediction.  It
 is dominated by a noisy regime (between $\approx$1.86 and
-$\approx$1.88 on the vertical scale in the Figure), punctuated by
-short excursions above 1.9.  In the former regime, which makes up more
-than 80\% of the signal, there are frequent dips to 1.82 and
-occasional larger dips below 1.8.  These single-point dips are the
+$\approx$1.88 on the vertical scale in Figure~\ref{fig:svdone-ts}),
+punctuated by short excursions above 1.9.  In the former regime, which
+makes up more than 80\% of the signal, there are frequent dips to 1.82
+and occasional larger dips below 1.8.  These single-point dips are the
 bane of random-walk forecasting.  In this particular case, roughly
 40\% of the forecasted points are off by the width of the associated
 dip, which skews the associated MASE scores.  Signals like this are
 also problematic for the \naive ~prediction strategy, since the
 outliers have significant influence on the mean.  This compounds the
 effect of the skew in the scaling factor and exacerbates the spread in
-the \svdone MASE values.  For all of these reasons, we view \svdone
-as an outlier and exclude it from the fit calculation of the dashed
-line in Figure~\ref{fig:wpe_vs_mase_best}.
+the \svdone MASE values.  For all of these reasons, we view \svdone as
+an outlier and exclude it from the fit calculation of the dashed line
+in Figure~\ref{fig:wpe_vs_mase_best}.
 
 %This portion should justify the following claim%%%%%%%%%%%%%%%%%%%%%%
 %\item The way structure/information/complexity is processed internally by a given process plays a crucial role in predictability.

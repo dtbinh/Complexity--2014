@@ -11,9 +11,9 @@ For the purposes of this paper, we view the Shannon entropy---in
 particular its growth rate with respect to word length (the
 \emph{Shannon entropy rate})---as a measure of complexity and
 unpredictability in a time series.  Time-series consisting of i.i.d.
-random variables, such as white noise, have maximal entropy rates, 
+random variables, such as white noise, have maximal entropy rates,
 whereas highly structured time-series, for example periodic, have very
-low or zero entropy rate. A time series with a high entropy rate is 
+low (or zero) entropy rates. A time series with a high entropy rate is
 almost completely unpredictable; conversely, one with low entropy rate
 is often quite predictable. This can be made more rigorous: Pesin's
 relation \cite{pesin77} states that in chaotic dynamical systems, the
@@ -21,11 +21,10 @@ Kolmogorov-Sinai (KS) entropy is equal to the sum of the positive
 Lyapunov exponents, $\lambda_i$.  The Lyapunov exponents directly
 quantify the rate at which nearby states of the system diverge with
 time: $\left| \Delta x(t) \right| \approx e^{\lambda t} \left| \Delta
-x(0) \right|$.  The faster the divergence, the larger the entropy, and
-the more difficult prediction becomes.  The KS entropy is defined as
-the supremum of the Shannon entropy rates of all
-partitions~\cite{petersen1989}. The partition that achieves this
-supremum is the \emph{generating partition} discussed in
+x(0) \right|$.  The faster the divergence, the larger the entropy.
+The KS entropy is defined as the supremum of the Shannon entropy rates
+of all partitions~\cite{petersen1989}. The partition that achieves
+this supremum is the \emph{generating partition} discussed in
 Section~\ref{sec:related}.
 
 From a different point of view, we can consider the information (as
@@ -42,7 +41,7 @@ the more redundancy in a signal, the more predictable it is.
 Redundancy is critical to prediction, in general.  And the specific 
 \emph{form} of the redundancy dictates whether a particular prediction 
 method will work well or poorly on the corresponding signal.  A linear 
-method cannot detect or make use of nonlinear redundancy, for 
+method cannot capture or make use of nonlinear redundancy, for 
 instance.  This issue is central to the claims in this paper and the 
 discussion in the following section.
 
@@ -50,7 +49,7 @@ Previous approaches to measuring temporal complexity via the Shannon
 entropy rate \cite{Shannon1951, mantegna1994linguistic} required
 categorical data: $x_i \in \mathcal{S}$ for some finite or countably
 infinite \emph{alphabet} $\mathcal{S}$.  Data taken from real-world
-systems is, however, effectively\footnote{Measurements from
+systems are, however, effectively\footnote{Measurements from
   finite-precision sensors are discrete, but data from modern
   high-resolution sensors are, for the purposes of entropy
   calculations, effectively continuous.}  real-valued.  To analyze
@@ -68,13 +67,13 @@ Bandt and Pompe introduced the \emph{permutation entropy} (PE) as a
 ``natural complexity measure for time series''
 \cite{bandt2002per}. The permutation entropy employs a method of
 discretizing real-valued time series that follows the intrinsic
-behavior of the system under examination, and has many advantages 
-including being robust to observational noise and its application does 
-not require any knowledge of the underlying mechanisms.  Rather than 
-looking at the statistics of sequences of values, as is done when 
-computing the Shannon entropy, permutation entropy looks at the 
-statistics of the \emph{orderings} of sequences of values using 
-ordinal analysis. Ordinal analysis of a time series is the process of 
+behavior of the system under examination.  It has many advantages,
+including being robust to observational noise, and its application
+does not require any knowledge of the underlying mechanisms.  Rather
+than looking at the statistics of sequences of values, as is done when
+computing the Shannon entropy, permutation entropy looks at the
+statistics of the \emph{orderings} of sequences of values using
+ordinal analysis. Ordinal analysis of a time series is the process of
 mapping successive time-ordered elements of a time series to their
 value-ordered permutation of the same size.  By way of example, if
 $(x_1, x_2, x_3) = (9, 1, 7)$ then its \emph{ordinal pattern},
@@ -103,13 +102,13 @@ permutation entropy as follows: $\frac{H(\ell)}{\log_2(\ell!)}$.  With
 this convention, ``low'' PE is close to 0 and ``high'' PE is close to
 1. Finally, it should be noted that the permutation entropy has been
 shown to be identical to the Kolmolgorov-Sinai entropy for many large
-classes of systems \cite{amigo2012permutation}, so long as
+classes of systems \cite{amigo2012permutation}, as long as
 observational noise is sufficiently small. As mentioned before, this
 is equal to the Shannon entropy rate of a generating partition of the
 system. This transitive chain of equalities, from permutation entropy
-to Shannon entropy rate via the KS entropy, then allows us to
-approximate the redundancy---being the dual of the Shannon entropy
-rate---of a signal by $1 - \frac{H(\ell)}{\log_2(\ell!)}$.
+to Shannon entropy rate via the KS entropy, allows us to approximate
+the redundancy---being the dual of the Shannon entropy rate---of a
+signal by $1 - \frac{H(\ell)}{\log_2(\ell!)}$.
 
 Here we will be utilizing a variation of the basic permutation entropy
 technique, the \emph{weighted permutation entropy} (WPE), which was
@@ -121,7 +120,7 @@ contains some additive noise. The PE is dominated by the noise about
 the fixed points driving it to $\approx 1$, which in some sense hides
 the fact that the signal is actually quite structured.  In this
 situation, the terms of the weighted permutation entropy are dominated
-by the switching rather than the stochastic fluctuations. To 
+by the switching rather than the stochastic fluctuations. To
 accomplish this, the \emph{weight} of a permutation is taken into
 account:
 \begin{align*}
@@ -169,13 +168,16 @@ effects.
 
 As a final note: there has been prior work under a similar title to
 ours~\cite{haven2005}, but there are only superficial similarities
-between the two research projects.  Haven {\sl et al.} utilize the
-relative entropy to quantify the difference in predictability between 
-two distributions: one using the known dynamical system from a small 
-ensamble in the past, and the other the asymptotic distribution. Our 
-work quantifies the predictability of a single observed time series 
-using weighted permutation entropy and makes no assumptions about the
-generating process.
+between the two research projects.  Haven \emph{et al.} utilize the
+relative entropy to quantify the difference in predictability between
+two distributions: one {\color{red}[[Ryan: a distribution ``using'' a
+      dynamical system is confusing.  Do you mean ``created using''?
+      Or ``measured from''?  And what do you mean by ``from an
+      ensemble''?  ensemble of what?  used how?]]}  using the known
+dynamical system from a small ensemble in the past, and the other the
+asymptotic distribution. Our work quantifies the predictability of a
+single observed time series using weighted permutation entropy and
+makes no assumptions about the generating process.
 
 % was a good choice, because with $\ell \geq 7$ many signals had
 % entropies plummet due to finite data effects and so with a word length

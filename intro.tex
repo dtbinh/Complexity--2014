@@ -48,22 +48,22 @@ Complicated time-series data are ubiquitous in modern scientific
 research.  The complexity of these data spans a wide range.  On the
 low end of this spectrum are time series that exhibit perfect
 predictive structure, i.e, signals whose future values can be
-successfully predicted from past values.  This can be viewed as the
-output of an underlying process that generates information and/or
-transmits it from the past to the future in a perfectly predictable
-fashion.  Constant or periodic signals, for example, fall in this
-class.  On the opposite end of this spectrum are signals that are what
-we call \emph{fully complex}, where the underlying generating process
-transmits no information at all from the past to the future.  White
-noise and random-walk processes fall in this class.  In fully complex
-signals, knowledge of the past gives no insight into the future,
-\emph{regardless} of what model one chooses to use.  Signals in the
-midrange of this spectrum---e.g., deterministic chaos---pose
-interesting challenges from a modeling perspective.  In these signals,
-enough information is being transmitted from the past to the future
-that an \emph{ideal} model---one that captures the generating
-process---can forecast the future behavior of the observed system with
-high accuracy.
+successfully predicted from past values.  Signals like this can be
+viewed as the product of an underlying process that generates
+information and/or transmits it from the past to the future in a
+perfectly predictable fashion.  Constant or periodic signals, for
+example, fall in this class.  On the opposite end of this spectrum are
+signals that are what we call \emph{fully complex}, where the
+underlying generating process transmits no information at all from the
+past to the future.  White noise and random-walk processes fall in
+this class.  In fully complex signals, knowledge of the past gives no
+insight into the future, regardless of what model one chooses to use.
+Signals in the midrange of this spectrum---e.g., deterministic
+chaos---pose interesting challenges from a modeling perspective.  In
+these signals, enough information is being transmitted from the past
+to the future that an \emph{ideal} model---one that captures the
+generating process---can forecast the future behavior of the observed
+system with high accuracy.
 
 As a corollary of the undecidability of the halting
 problem~\cite{halting-problem}, however, no single forecasting schema
@@ -94,9 +94,9 @@ predictive structure is present in a signal---i.e., where it falls on
 the complexity spectrum mentioned above.  We define \emph{complexity}
 as a particular approximation of Kolmogorov-Sinai
 entropy~\cite{lind95}.  That is, we view a random-walk time series
-(which exhibits high entropy) as purely complex, whereas a periodic
-signal, which exhibits low entropy, is on the low end of the
-complexity spectrum.  We argue that an extension of \emph{permutation
+(which exhibits high entropy) as purely complex, whereas a low-entropy
+periodic signal is on the low end of the complexity spectrum.  We
+argue that an extension of \emph{permutation
   entropy}~\cite{bandt2002per}---a method for approximating the
 entropy through ordinal analysis---is an effective way to assess the
 complexity of a given time series.  Permutation entropy is ideal for
@@ -105,20 +105,22 @@ converge to the true entropy value. Other existing techniques either
 require specific knowledge of the generating process or produce biased
 values of the entropy~\cite{bollt2001}.
 
-We focus on real-valued, scalar, time-series data that appears
-complicated: i.e., not periodic, linear, constant, etc.  We make no
-assumptions about the properties of the generating process: whether it
-is linear, nonlinear, deterministic, stochastic, stationary,
-non-stationary, etc.
-To explore the relationship between complexity, predictive structure,
-and predictability, we generate forecasts for a variety of time-series
-datasets using four different prediction methods, then compare the
-accuracy of those predictions to the permutation entropy of the
-associated signals.  This results in two primary findings:
+We focus on real-valued, scalar, time-series data.
+% 
+% that appears complicated: i.e., not periodic, linear, constant, etc.
+% 
+We make no assumptions about the properties of the generating process:
+whether it is linear, nonlinear, deterministic, stochastic,
+stationary, non-stationary, etc.  To explore the relationship between
+complexity, predictive structure, and predictability, we generate
+forecasts for a variety of time-series datasets using four different
+prediction methods, then compare the accuracy of those predictions to
+the permutation entropy of the associated signals.  This results in
+two primary findings:
 \begin{enumerate}
-\item The complexity of a noisy real-valued time series is {\sl (i)}
-  quantifiable by permutation entropy and {\sl (ii)} correlated with prediction
-  accuracy of an appropriate predictor.
+\item The complexity of a noisy real-valued time series is \emph{(i)}
+  quantifiable by permutation entropy and \emph{(ii)} correlated with
+  prediction accuracy of an appropriate predictor.
 \item The way information is generated and processed internally by a
   system plays a crucial role in the success of different forecasting
   schema---and in the choice of which one is appropriate for a given 
@@ -130,28 +132,28 @@ not, of course, cover that space exhaustively.  Our goal here is an
 empirical assessment of the relationship between predictability and
 complexity, not formal results about a ``best'' predictor for a given
 time series.  From a practitioner's standpoint, it would be useful to
-know {\sl a priori} if a time series contains enough predictive structure to
-make it worth spending the time and effort searching for a good
-forecast method.  It would also be useful to know if a given method is
-inadequate---that is, if an alternative method could do better and so 
-one should continue searching.
+know \emph{ a priori} if a time series contains enough predictive
+structure to make it worth spending the time and effort searching for
+a good forecast method.  It would also be useful to know if a given
+method is inadequate---that is, if an alternative method could do
+better and so one should continue searching.
 
 %[[Introduce and make it clear why we choose comp. perf. as test bed.]]
 
 For the purposes of this study, we require a broad array of
-time-series datasets from across the complexity spectrum.  Rather than
-use synthetic data, we study sensor data from computer performance
-experiments.  While this is not a common laboratory experiment, it is
-a highly appropriate choice.  Computers are extremely complicated
-systems.  Modern microprocessor chips contain multiple processing
-units and multi-layer memories, for instance, and they use complicated
-hardware/software strategies to maximize performance by moving data
-and threads of computation across those resources.  As a result, the
-processor and memory loads during the execution of even a very simple
-program can evolve in a very complicated fashion.
-Figure~\ref{fig:col-ipc} shows a performance trace of a three-line
-loop that repeatedly initializes the upper triangle of a matrix in
-column-major order.
+time-series datasets from across the complexity spectrum.  Since
+forecasting is a real-world problem, we chose to study sensor data
+from a computer-performance experiment.  While this is not a common
+laboratory experiment, it is a highly appropriate choice here.
+Computers are extremely complicated systems.  Modern microprocessor
+chips contain multiple processing units and multi-layer memories, for
+instance, and they use complicated hardware/software strategies to
+maximize performance by moving data and threads of computation across
+those resources.  As a result, the processor and memory loads during
+the execution of even a very simple program can evolve in a very
+complicated fashion.  Figure~\ref{fig:col-ipc} shows a performance
+trace of a short program that repeatedly initializes the upper
+triangle of a matrix in column-major order.
 %
  \begin{figure}[htbp]
     \centering
@@ -159,7 +161,7 @@ column-major order.
     % where an .eps filename suffix will be assumed under latex,
     % and a .pdf suffix will be assumed for pdflatex
     \caption{A computer performance trace: the processor load of \col,
-      a three-line C program that repeatedly initializes a matrix in
+      a simple C program that repeatedly initializes a matrix in
       column-major order, running on an Intel
       i7\textsuperscript{\textregistered}-based machine.}
    \label{fig:col-ipc}

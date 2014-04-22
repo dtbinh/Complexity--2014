@@ -43,9 +43,9 @@ discussed below.
 
 A random-walk predictor simply uses the last observed measurement as
 the forecast: that is, the predicted value $p_i$ at time $i$ is
-calculated using the relation $$p_i = x_{i-1}$$ The prediction
-strategy that we refer to using the term ``\naive'' averages the prior
-observations to generate the forecast: $$p_i =
+calculated using the following relation: $$p_i = x_{i-1}$$ The
+prediction strategy that we refer to using the term ``\naive''
+averages the prior observations to generate the forecast: $$p_i =
 \sum_{j=1}^{i-1}\frac{x_j}{i-1}$$ While both of these methods are
 simplistic, they are not without merit.  For a time series near the
 high end of the complexity spectrum---i.e., one that possesses very
@@ -53,16 +53,16 @@ little predictive structure---these two methods can actually be the
 best choice.  In forecasting currency exchange rates, for instance,
 sophisticated econometrics-based prediction models fail to
 consistently outperform the random-walk method~\cite{rwMeese,rwCCE}.
-These signals are constantly changing, noisy, and possess very little predictive
-structure, but their variations are not---on the average---very large, so
-the random-walk method's strategy of simply guessing the last known
-value is not a bad choice.  If a signal has a unimodal distribution
-with low variance, the \naive ~prediction strategy will perform quite
-well---even if the signal is highly complex---simply because the mean
-is a good approximation of the future behavior.  Moreover, the \naive
-~prediction strategy's temporal average effects a low-pass filtering
-operation, which effectively mitigates the complexity in signals with
-very little predictive structure.
+These signals are constantly changing, noisy, and possess very little
+predictive structure, but their variations are not---on the
+average---very large, so the random-walk method's strategy of simply
+guessing the last known value is not a bad choice.  If a signal has a
+unimodal distribution with low variance, the \naive ~prediction
+strategy will perform quite well---even if the signal is highly
+complex---simply because the mean is a good approximation of the
+future behavior.  Moreover, the \naive ~prediction strategy's temporal
+average effects a low-pass filtering operation, which can  mitigate the
+complexity in signals with very little predictive structure.
 
 Both of these methods have significant weaknesses, however.  Because
 they do not model the temporal patterns in the data, or even the
@@ -74,7 +74,7 @@ worst case---a large-amplitude square wave whose period is equivalent
 to twice the sample time---a random-walk prediction would be exactly
 180 degrees out of phase with the true continuation.  The \naive
 ~method would be a better choice in this situation, since it would
-always predict the mean.  It would, however, perform poorly when a
+always split the difference.  It would, however, perform poorly when a
 signal has a number of long-lived regimes that have significantly
 different means.  In this situation, the inertia of the \naive
 ~method's accumulating mean is a liability and the agility of the
@@ -92,7 +92,7 @@ designed to do exactly that.
 However, if a signal contains little predictive structure, forecast
 strategies like ARIMA and LMA have nothing to work with and thus will
 often be outperformed by the two simple strategies described in this
-section.  This is explored further in Sections~\ref{sec:accuracy}
+section.  This effect is explored further in Sections~\ref{sec:accuracy}
 and~\ref{sec:results}.
 
 
@@ -169,19 +169,20 @@ and~\ref{sec:results}.
 %%%%%%%%%%%%%%%%%%%%%%%%
 
 A simple and yet powerful way to capture and exploit the structure of
-data is to fit a hyperplane to the dataset and then use that to
-make predictions.  The roots of this approach date back to the
-original autoregressive schema~\cite{weigend93}, which forecasts the
-next time step through a weighted average of past observations: $$p_i
-= \sum_{j=1}^{i-1} a_j x_j$$ The weighting coefficients $a_j$ are
-computed generally using either an ordinary least squares approach, or with the method of moments using the Yule-Walker equations.  To account for noise in the data, one can add
-a so-called ``moving average'' term to the model; to remove
-nonstationarities, one can detrend the data using a differencing
-operation.  A strategy that incorporates all three of these features
-is called a \emph{nonseasonal ARIMA model}.  If evidence of periodic
-structure is present in the data, a \emph{seasonal ARIMA model}, which
-adds a sampling operation that filters out periodicities, can be a
-good choice.
+data is to fit a hyperplane to the dataset and then use it to make
+predictions.  The roots of this approach date back to the original
+autoregressive schema~\cite{weigend93}, which forecasts the next time
+step through a weighted average of past observations: $$p_i =
+\sum_{j=1}^{i-1} a_j x_j$$ The weighting coefficients $a_j$ are
+generally computed using either an ordinary least squares approach, or
+with the method of moments using the Yule-Walker equations.  To
+account for noise in the data, one can add a so-called ``moving
+average'' term to the model; to remove nonstationarities, one can
+detrend the data using a differencing operation.  A strategy that
+incorporates all three of these features is called a \emph{nonseasonal
+  ARIMA model}.  If evidence of periodic structure is present in the
+data, a \emph{seasonal ARIMA model}, which adds a sampling operation
+that filters out periodicities, can be a good choice.
 
 There is a vast amount of theory and literature regarding the
 construction and use of models of this type; we refer the reader to
@@ -210,11 +211,11 @@ Another weakness of this method is prediction horizon: an ARIMA
 forecast is guaranteed to converge to the mean after some number of
 predictions, depending on model order.  To sidestep this issue, we
 build forecasts in a stepwise fashion: i.e., fit the model to the
-existing data, use it to perform a one-step prediction, rebuild the
-model using the latest observations, and iterate until the desired
+existing data, use that model to perform a one-step prediction, rebuild it
+using the latest observations, and iterate until the desired
 prediction horizon is reached.  (For consistency, we take the same
 approach with the other three models in this study as well, even
-though this amounts to artificially hobbling LMA.)
+though doing so amounts to artificially hobbling LMA.)
 
 \subsection{A Nonlinear Prediction Strategy}
 \label{sec:lma}
@@ -236,7 +237,7 @@ implementation of a prediction strategy that is based on this idea.
 Delay-coordinate embedding~\cite{packard80,Sauer:1991lr,Takens:1981uq}
 allows one to reconstruct a dynamical system's full state-space
 dynamics from a scalar time-series measurement---provided that some
-conditions hold regarding that data.  Specifically, if the underlying
+conditions hold regarding those data.  Specifically, if the underlying
 dynamics and the measurement function---the mapping from the unknown
 state vector $\vec{X}$ to the observed value $x_i$---are both smooth
 and generic, Takens~\cite{Takens:1981uq} formally proves that the
@@ -248,18 +249,19 @@ from a $d$-dimensional smooth compact manifold $M$ to
 $\mathbb{R}^{2d+1}$ is a diffeomorphism on $M$---in other words, that
 the reconstructed dynamics and the true (hidden) dynamics have the
 same topology.  This is an extremely powerful result: among other
-things, it means that one can model the full system dynamics without
-measuring, or even knowing, every one of its state variables.  
+things, it means that one can model the full system dynamics, up to
+diffeomorphism, without measuring---or even knowing---every one of its
+state variables.
 
 The first step in the delay-coordinate embedding process is to
 estimate values for the two free parameters in the map: the delay
 $\tau$ and the dimension $m$.  We follow standard procedures for this,
-choosing the first minimum in the time-delayed mutual information as an
-estimate of $\tau$~\cite{fraser-swinney} and using the
-false-near(est)-neighbor(s) method of~\cite{KBA92} to estimate $m$.  Plots of
-the data from Figures~\ref{fig:col-ts}-\ref{fig:svd-ts-colored},
-embedded following this procedure, are shown in
-Figure~\ref{fig:embedding}.
+choosing the first minimum in the time-delayed mutual information as
+an estimate of $\tau$~\cite{fraser-swinney} and using the
+false-near(est)-neighbor(s) method of~\cite{KBA92} to estimate $m$.
+Some example plots of data from
+Figures~\ref{fig:col-ts}-\ref{fig:svd-ts-colored}, embedded following
+this procedure, are shown in Figure~\ref{fig:embedding}.
  \begin{figure}
    \centering
 \begin{subfigure}{\columnwidth}
@@ -301,32 +303,35 @@ structure in the information generation/transmission process that
 produced the time series.  The dynamical systems community has
 developed a number of methods that leverage this structure to generate
 predictions (e.g.,~\cite{weigend-book,casdagli-eubank92,Smith199250}).
-One of the most straightforward of these is the ``Lorenz method of
-analogues'' (LMA), which is essentially nearest-neighbor prediction in
-the embedded\footnote{Lorenz's original formulation used the full
-  system state space; According to \cite{kantz97} this method was first extended to embedded dynamics by Pikovsky ~\cite{pikovsky86-sov}, but more closely related to the prediction work of Sugihara \& May in \cite{sugihara90}}
+One of the most straightforward of these is the \emph{Lorenz method of
+  analogues} (LMA), which is essentially nearest-neighbor prediction
+in the embedded\footnote{Lorenz's original formulation used the full
+  system state space; According to \cite{kantz97} this method was
+  first extended to embedded dynamics by Pikovsky
+  ~\cite{pikovsky86-sov}, but more closely related to the prediction
+  work of Sugihara \& May in \cite{sugihara90}}
 space~\cite{lorenz-analogues}.  Even this simple algorithm---which
 builds predictions by finding the nearest neighbor in the embedded
 space of the given point, then taking that neighbor's path as the
 prediction---provides accurate forecasts when the generating process
-is a deterministic dynamical system.  
+is a deterministic dynamical system.
 
 Since LMA does not rest on an assumption of linearity (as ARIMA does),
 it can handle both linear and nonlinear processes.  If the underlying
 generating process is nondeterministic, however, it can perform
-poorly.  In Figure~\ref{fig:embedding}(b), for instance, little
+poorly.  In Figure~\ref{fig:embedding}b, for instance, little
 structure is visible, so LMA may not work well.  More structure
-appears to be present in~Figure~\ref{fig:embedding}(c), but this
+appears to be present in~Figure~\ref{fig:embedding}c, but this
 reconstruction also appears to contain some noise.  The question as to
 how much structure is present in a reconstruction---and how much of
 that structure can be captured and used by LMA---is apropos of the
 central question treated in this paper.  It may be that \gcc has some
 redundancy that LMA cannot exploit, or that the structure in \svdfive
 is effectively obfuscated, from the standpoint of the LMA method, by
-noise.  By quantifying the balance between normalized (that
-is, predictive structure) and entropy for these real-valued time
-series, as shown in Section~\ref{sec:results}, we can begin to answer
-these questions.
+noise.  By quantifying the balance between redundancy (that is,
+predictive structure) and entropy for these real-valued time series,
+as shown in Section~\ref{sec:results}, we can begin to answer these
+questions.
 
 % If enough predictive structure is present in these embeddings, that
 % structure can be used to build an effective forecast model.
@@ -348,15 +353,14 @@ $x_{n+1}$, which is then compared to the true continuation, $c_{n+1}$.
 The model is then rebuilt using $\{x_i\}_{i=1}^{n+1}$ and the process
 repeats $k$ times, out to the end of the observed time series.  This
 ``one step prediction'' process is not technically necessary in the
-LMA method, which can generate arbitrary-length
-predictions---although the accuracy of these predictions will
-  degrade over prediction length, in the presence of positive Lyapunov
-  exponents, but the performance of the other three methods used here
-will degrade severely if the associated models are not periodically
-rebuilt.  In order to make the comparison fair, we used an iterative
-one-step prediction schema {\sl for all four methods}.  This has the
-slightly confusing effect of causing the ``test'' signal to be used
-both to assess the accuracy of each model and for periodic refitting.
+LMA method, whose ability to generate accurate predictions is limited
+only by the positive Lyapunov exponents of the system.  However, the
+performance of the other three methods used here will degrade severely
+if the associated models are not periodically rebuilt.  In order to
+make the comparison fair, we used an iterative one-step prediction
+schema \emph{for all four methods}.  This has the slightly confusing
+effect of causing the ``test'' signal to be used both to assess the
+accuracy of each model and for periodic refitting.
 
 Figure~\ref{fig:forecast-example} shows example forecasts made using
 all four methods for the \col, \gcc, and \svdfive time series.
@@ -430,8 +434,9 @@ all four methods for the \col, \gcc, and \svdfive time series.
   %\begin{subfigure}{0.5\textwidth}
   %  \includegraphics[width=1.0\textwidth]{figs/LMA_vs_ARIMA}
    \caption{Predicted ($p_j$) versus true values ($c_j$) for
-     forecasts of \col, \gcc, and \svdfive.  On this type of plot, a
-     perfect prediction lies exactly on the diagonal.
+     forecasts of \col, \gcc, and \svdfive.  
+% On this type of plot, a perfect prediction lies exactly on the
+% diagonal.
 %
 %
 }
@@ -445,16 +450,16 @@ generates a very accurate prediction of the \col data, while ARIMA
 does not.  Horizontal lines result when a constant predictor (e.g.,
 \naive) is used on a non-constant signal.  Point clouds reflect the
 structure of the distribution of the errors---roughly normally
-distributed, for example, in the case of LMA on \gcc.  The shapes of
-Figures~\ref{fig:colRW} and~\ref{fig:colARIMA} are reminiscent of the
-projected embedding in Figure~\ref{fig:embedding}(a).  For a
-random-walk predictor, a $p_j$ vs. $c_j$ plot is equivalent to a
+distributed, for example, in the case of LMA on \gcc.  Note that the
+shapes of Figures~\ref{fig:colRW} and~\ref{fig:colARIMA} are
+reminiscent of the projected embedding in Figure~\ref{fig:embedding}a.
+For a random-walk predictor, a $p_j$ vs. $c_j$ plot is equivalent to a
 two-dimensional embedding with $\tau=1$.  For ARIMA, the
 correspondence is not quite as simple, since the $p_j$ values are
 linear combinations of a number of past values of the $c_j$, but the
-effect is largely the same\footnote{The temporal ordering of the
-  points on the ARIMA $p_j$ vs. $c_j$ plot does not match that of a
-  projected embedding of the time series, however.}.
+effect is largely the same\footnote{The temporal \emph{ordering} of
+  the points on the ARIMA $p_j$ vs. $c_j$ plot does not match that of
+  a projected embedding of the time series, however.}.
 
 As a numerical measure of prediction accurary, we calculate the mean
 absolute scaled error (MASE) between the true and predicted signals:
@@ -464,8 +469,8 @@ $$MASE = \sum_{j=n+1}^{k+n+1}\frac{|p_j-c_j|
 % 
 This error metric was introduced in \cite{MASE} as a ``generally
 applicable measurement of forecast accuracy without the problems seen
-in the other measurements."  MASE is a normalized measure; the
-scaling term in the denominator
+in the other measurements."  MASE is a normalized measure: the scaling
+term in the denominator
 % 
 % of the MASE value
 % $$\frac{1}{n-1}\sum^n_{i=2}|X_{i,obs}-X_{i-1,obs}|$$ 

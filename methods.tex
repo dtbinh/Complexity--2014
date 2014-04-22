@@ -11,33 +11,35 @@
 
 % \subsection{Time Series Collection}
 
-The time-series data for these experiments was collected on an Intel
-Core\textsuperscript{\textregistered} i7-2600-based machine running
-the 2.6.38-8 Linux kernel.  This particular microprocessor chip has
-eight processing units, a clock rate of 3.40 GHz, and a cache size of
-8192 KB.  We gathered performance traces during the execution of three
-different programs---the simple \col loop whose performance is
-depicted in Figure~\ref{fig:col-ipc}, as well as two more-complex
+The time-series data sets for these experiments were collected on an
+Intel Core\textsuperscript{\textregistered} i7-2600-based machine
+running the 2.6.38-8 Linux kernel.  This particular microprocessor
+chip has eight processing units, a clock rate of 3.40 GHz, and a cache
+size of 8192 KB.  We gathered performance traces during the execution
+of three different programs---the simple \col loop whose performance
+is depicted in Figure~\ref{fig:col-ipc}, as well as two more-complex
 programs: one from the SPEC 2006CPU benchmark suite (\gcc), and one
-from the LAPACK linear algebra package (\svd).  In these experiments, the scalar observation $x_i$ was a measurement of the processor performance at time $i$ during the execution of each program.  To record these measurements, we used the {\tt libpfm4}
-library, via PAPI
+from the LAPACK linear algebra package (\svd).  In these experiments,
+the scalar observation $x_i$ was a measurement of the processor
+performance at time $i$ during the execution of each program.  To
+record these measurements, we used the {\tt libpfm4} library, via PAPI
 % 
 % \footnote{Performance Application Programming Interface}
 % 
 5.2~\cite{papi}, to stop program execution at 100,000-instruction
-intervals and read the contents of the CPU's onboard hardware
-performance monitors\footnote{These specialty registers are built into
-  modern microprocessors for the purpose of on-board monitoring and
-  storage of performance data.  They can be programmed to measure a
-  wide array of processor and memory metrics besides the one used
-  here.}, which we had programmed to count how many instructions were
-executed in each clock cycle (IPC).  For an in-depth description of
-this custom-measurement infrastructure, including discussion of the
-implications of the sampling interval, please see
-\cite{zach-IDA10,mytkowicz09,todd-phd}.  For statistical validation,
-we collected 15 performance traces from each of the three programs.
-These traces, and the processes that generated them, are described in
-more depth in the rest of this section.
+intervals---the unit of time in this paper---and read the contents of
+the CPU's onboard hardware performance monitors\footnote{These
+  specialty registers are built into modern microprocessors for the
+  purpose of monitoring and storage of performance data.  They can be
+  programmed to measure a wide array of processor and memory metrics
+  besides the one used here.}, which we had programmed to count how
+many instructions were executed in each clock cycle (IPC).  For an
+in-depth description of this custom-measurement infrastructure,
+including discussion of the implications of the sampling interval,
+please see \cite{zach-IDA10,mytkowicz09,todd-phd}.  For statistical
+validation, we collected 15 performance traces from each of the three
+programs.  These traces, and the processes that generated them, are
+described in more depth in the rest of this section.
 
 
 % Obviously using a system to measure itself can cause
@@ -97,7 +99,7 @@ program is shown in Figure~\ref{fig:col-ts}.
   \end{figure}
 
 The SPEC CPU2006 benchmark suite \cite{spec} is a collection of
-complicated programs that are used in the computer science community
+complicated programs that are used in the computer-science community
 to assess and compare the performance of different computers.  \gcc is
 a member of that suite.
 % 
@@ -107,10 +109,11 @@ a member of that suite.
 % files and generating x86-64 assembly code files intended for execution
 % on AMD Opteron processors\cite{spec}. 
 % 
-It is a \emph{C-compiler}: a program that translates code written in the
-C language into a lower-level format that can be executed by the
-processor chip.  Its behavior is far more complicated than that of
-\col, as is clear from Figure~\ref{fig:gcc-ts}.
+It is a \emph{compiler}: a program that translates code written in a
+high-level language (C, in the case of \gcc) into a lower-level format
+that can be executed by the processor chip.  Its behavior is far more
+complicated than that of \col, as is clear from
+Figure~\ref{fig:gcc-ts}.
   \begin{figure}[t]
   \centering
     \includegraphics[width=\columnwidth]{figs/gccfullts}
@@ -135,14 +138,14 @@ The behavior of this program as it computes the singular values of
 this matrix is very interesting, as shown in Figure
 \ref{fig:svd-ts-colored}.  As the code moves though its different
 phases---diagonalizing the matrix, computing its transpose,
-multiplying, etc.---the processor utilization changes quite radically,
+multiplying, etc.---the processor utilization patterns change quite radically,
 as shown in Figure~\ref{fig:svd-ts-colored}.
 \begin{figure}[t]
     \centering
     \includegraphics[width=\columnwidth]{figs/SVD1RegimesColored}
     \caption{The instructions per CPU clock cycle (IPC) during the
       execution of \svd. Each point is the average IPC in a 100,000
-      instruction period.  The colors identify the different {\sl
+      instruction period.  The colors identify the different \emph{
         segments} of the signal that are discussed in the text.}
     \label{fig:svd-ts-colored}
   \end{figure}
@@ -151,7 +154,7 @@ instructions), roughly 1.8 instructions are executed per cycle, on the
 average, by the eight processing units on this chip.  After that, the
 IPC moves through a number of different oscillatory regimes, which we
 have color-coded in the figure in order to make textual
-cross-references easy to track and understand.
+cross-references easy to track.
 
 This wide range of behaviors provides a unique advantage, for the
 purposes of this paper, in that a number of different generating
