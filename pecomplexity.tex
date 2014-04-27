@@ -7,12 +7,13 @@ superscriptaddress,
 %runinaddress,
 %frontmatterverbose, 
 %preprint,
-%showpacs,preprintnumbers,
+showpacs,
+%preprintnumbers,
 nofootinbib,
 nobibnotes,
 %bibnotes,
  amsmath,amssymb,
-% aps,
+ aps,
 %pra,
 %prb,
 %rmp,
@@ -27,8 +28,10 @@ nobibnotes,
 %\usepackage[parfill]{parIEEEabrvskip}    % Activate to begin paragraphs with an empty line rather than an indent
 \usepackage{graphicx}
 \usepackage{hyperref}
-\usepackage{caption}
+\usepackage[sort&compress]{natbib}
+%\usepackage{caption}
 \usepackage{subcaption}
+\usepackage{microtype}
 \usepackage{dcolumn}% Align table columns on decimal point
 \usepackage{bm}% bold math
 %\usepackage{amssymb}
@@ -196,13 +199,13 @@ entropy, time-series analysis, predictibility
 \pacs{
 05.45.Tp    % Time series analysis (nonlinear dynamics)
 89.70.-a    % Information theory
-89.70.Hj    %   communication complexity
-89.70.Cf    %   entropy
-05.45.-a    % Nonlinear dynamics
+%89.70.Hj    %   communication complexity
+%89.70.Cf    %   entropy
+%05.45.-a    % Nonlinear dynamics
 89.75.Kd    %   Patterns (complex systems)
-95.75.Wx    % Time series analysis, time variability
+%95.75.Wx    % Time series analysis, time variability
 95.75.Pq    % Mathematical procedures and computer techniques
-07.05.-t    % Computers in experimental physics
+%07.05.-t    % Computers in experimental physics
 }
 
 \maketitle
@@ -228,7 +231,9 @@ We would also like to acknowledge the Santa Fe Institute whose interdisciplinary
 
 
 
-\bibliographystyle{aipauth4-1}
+
+%\bibliographystyle{aipauth4-1}
+\bibliographystyle{apsrev4-1}
 \bibliography{bibliofile}
 
 

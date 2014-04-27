@@ -234,7 +234,7 @@ occurring in the underlying process, then use that reconstruction to
 generate forecasts.  This section discusses the theory and
 implementation of a prediction strategy that is based on this idea.
 
-Delay-coordinate embedding~\cite{Sauer:1991lr,Takens:1981uq}
+Delay-coordinate embedding~\cite{packard80,Sauer:1991lr,Takens:1981uq}
 allows one to reconstruct a dynamical system's full state-space
 dynamics from a scalar time-series measurement---provided that some
 conditions hold regarding those data.  Specifically, if the underlying
@@ -265,26 +265,26 @@ this procedure, are shown in Figure~\ref{fig:embedding}.
  \begin{figure}
    \centering
 \begin{subfigure}{\columnwidth}
-    \includegraphics[width=\columnwidth]{figs/colipc3d.png}
+    \includegraphics[width=\columnwidth]{figs/colipc3d}
     \caption{\col }
     \label{fig:colEmbedding}
   \end{subfigure}%  \\
   
     \begin{subfigure}{\columnwidth}
-    \includegraphics[width=\columnwidth]{figs/gcc3dipc.png}
+    \includegraphics[width=\columnwidth]{figs/gcc3dipc}
     \caption{\gcc}
     \label{fig:gccEmbedding}
   \end{subfigure} 
   \\
   \begin{subfigure}{\columnwidth}
-    \includegraphics[width=\columnwidth]{figs/svd53dipc2.png}
+    \includegraphics[width=\columnwidth]{figs/svd53dipc2}
     \caption{\svdfive}
     \label{fig:svdfiveEmbedding}
   \end{subfigure}%   
 %  
  
    
-     %\includegraphics[width=\textwidth]{figs/colipc3d.png}
+     %\includegraphics[width=\textwidth]{colipc3d}
      \caption{3D projections of delay-coordinate embeddings of the
        traces from (a) Figure~\ref{fig:col-ts} (b)
        Figure~\ref{fig:gcc-ts} and (c) the fifth (green) segment of
@@ -371,71 +371,71 @@ all four methods for the \col, \gcc, and \svdfive time series.
   \centering
   
   \begin{subfigure}{0.6\columnwidth}
-    \includegraphics[width=\columnwidth]{figs/colRWForecast.png}
+    \includegraphics[width=\columnwidth]{figs/colRWForecast}
     \caption{\col\\ random walk }
     \label{fig:colRW}
   \end{subfigure}%
    \begin{subfigure}{0.6\columnwidth}
-    \includegraphics[width=\columnwidth]{figs/gccRWForecast.png}
+    \includegraphics[width=\columnwidth]{figs/gccRWForecast}
     \caption{\gcc\\ random walk }
     \label{fig:gccRW}
   \end{subfigure}% 
      \begin{subfigure}{0.6\columnwidth}
-    \includegraphics[width=\columnwidth]{figs/svdfiveRWForecast.png}
+    \includegraphics[width=\columnwidth]{figs/svdfiveRWForecast}
     \caption{\svdfive\\ random walk}
     \label{fig:svd5RW}
   \end{subfigure}%      
   \\  
       \begin{subfigure}{0.6\columnwidth}
-    \includegraphics[width=\columnwidth]{figs/colMeanForecast.png}
+    \includegraphics[width=\columnwidth]{figs/colMeanForecast}
     \caption{\col\\ na\"ive }
     \label{fig:colMEAN}
   \end{subfigure}%
    \begin{subfigure}{0.6\columnwidth}
-    \includegraphics[width=\columnwidth]{figs/gccMeanForecast.png}
+    \includegraphics[width=\columnwidth]{figs/gccMeanForecast}
     \caption{\gcc\\ na\"ive }
     \label{fig:gccMEAN}
   \end{subfigure}% 
      \begin{subfigure}{0.6\columnwidth}
-    \includegraphics[width=\columnwidth]{figs/svdfiveMeanForecast.png}
+    \includegraphics[width=\columnwidth]{figs/svdfiveMeanForecast}
     \caption{\svdfive\\ na\"ive }
     \label{fig:svd5MEAN}
   \end{subfigure}%      
   \\
     \begin{subfigure}{0.6\columnwidth}
-    \includegraphics[width=\columnwidth]{figs/colARIMAForecast.png}
+    \includegraphics[width=\columnwidth]{figs/colARIMAForecast}
     \caption{\col \\ ARIMA}
     \label{fig:colARIMA}
   \end{subfigure}
   \begin{subfigure}{0.6\columnwidth}
-    \includegraphics[width=\columnwidth]{figs/gccARIMAForecast.png}
+    \includegraphics[width=\columnwidth]{figs/gccARIMAForecast}
     \caption{\gcc \\ ARIMA }
     \label{fig:gccARIMA}
   \end{subfigure}%
   \begin{subfigure}{0.6\columnwidth}
-    \includegraphics[width=\columnwidth]{figs/svdfiveARIMAForecast.png}
+    \includegraphics[width=\columnwidth]{figs/svdfiveARIMAForecast}
     \caption{\svdfive \\ ARIMA }
     \label{fig:svd5ARIMA}
   \end{subfigure}%    
   \\
 
       \begin{subfigure}{0.6\columnwidth}
-    \includegraphics[width=\columnwidth]{figs/colLMAForecast.png}
+    \includegraphics[width=\columnwidth]{figs/colLMAForecast}
     \caption{\col \\ LMA}
     \label{fig:colLMA}
   \end{subfigure}
       \begin{subfigure}{0.6\columnwidth}
-    \includegraphics[width=\columnwidth]{figs/gccLMAForecast.png}
+    \includegraphics[width=\columnwidth]{figs/gccLMAForecast}
     \caption{\gcc \\ LMA}
     \label{fig:gccLMA}
   \end{subfigure}  
         \begin{subfigure}{0.6\columnwidth}
-    \includegraphics[width=\columnwidth]{figs/svdfiveLMAForecast.png}
+    \includegraphics[width=\columnwidth]{figs/svdfiveLMAForecast}
     \caption{\svdfive \\ LMA}
     \label{fig:svd5LMA}
   \end{subfigure}
   %\begin{subfigure}{0.5\textwidth}
-  %  \includegraphics[width=1.0\textwidth]{figs/LMA_vs_ARIMA}
+  %  \includegraphics[width=1.0\textwidth]{LMA_vs_ARIMA}
    \caption{Predicted ($p_j$) versus true values ($c_j$) for
      forecasts of \col, \gcc, and \svdfive.  
 % On this type of plot, a perfect prediction lies exactly on the
@@ -490,10 +490,13 @@ methods, prediction horizons, and signal scales.
 MASE scores for all 360 experiments are tabulated in the three
 middle columns in Table~\ref{tab:error}.
 \begin{table*}
+\caption{Mean
+absolute scaled error (MASE) scores and weighted permutation entropies for all eight
+   processes studied in this paper}
   \begin{center}
-  \begin{tabular}{|c|c|c|c|c|}
-  \hline Signal & LMA  & ARIMA & na\"{i}ve  & Weighted Permutation \\ 
-  &  MASE & MASE  & MASE &  Entropy \\ \hline
+  \begin{tabular*}{\textwidth}{@{\extracolsep{\fill} } ccccc}
+  \hline\hline Signal & LMA MASE  & ARIMA MASE & na\"{i}ve MASE  & Weighted Permutation Entropy \\ 
+  \hline
  \col           & $ 0.050 \pm0.002  $ & $0.599  \pm 0.211 $ & $0.571\pm0.002$&  $0.513 \pm 0.003$ \\
 
 \gcc           & $ 1.530\pm 0.021$ & $1.837 \pm0.016 $ & $0.951 \pm 0.001$ & $0.943 \pm 0.001$ \\
@@ -507,13 +510,10 @@ middle columns in Table~\ref{tab:error}.
  
 \svdfive     & $ 0.718\pm 0.048 $ & $2.370  \pm 0.051 $ & $20.870 \pm 0.192$&  $0.678 \pm 0.007$ \\
  \svdsix     & $ 0.739\pm 0.068 $ & $ 1.438\pm 0.061$ & $2.197\pm0.083$&  $0.748 \pm 0.011$ \\
-  \hline
-  \end{tabular}
+  \hline\hline
+  \end{tabular*}
   \end{center}
  \label{default}
- \caption{Mean
-absolute scaled error (MASE) scores and weighted permutation entropies for all eight
-   processes studied in this paper}
  \label{tab:error}
   \end{table*}%
 Comparing these with the geometry of the plots in
@@ -560,18 +560,18 @@ account, as discussed at more length in Section~\ref{sec:results}.
 %\begin{figure}
 %   \centering
 %\begin{subfigure}{\columnwidth}
-%    \includegraphics[width=\columnwidth]{figs/%colPredShortTS}
+%    \includegraphics[width=\columnwidth]{%colPredShortTS}
 %    \caption{\col }
 %    \label{fig:lmacol}
 %  \end{subfigure}%  
 %  
 %    \begin{subfigure}{\columnwidth}
-%    \includegraphics[width=\columnwidth]{figs/%colPredShortTS}
+%    \includegraphics[width=\columnwidth]{%colPredShortTS}
 %    \caption{\gcc}
 %    \label{fig:lmagcc}
 %  \end{subfigure} 
 %  \begin{subfigure}{\columnwidth}
-%%    \includegraphics[width=\columnwidth]{figs/%colPredShortTS}
+%%    \includegraphics[width=\columnwidth]{%colPredShortTS}
 %    \caption{\svdfive}
 %    \label{fig:lmasvdfive}
 %  \end{subfigure}% 
@@ -583,7 +583,7 @@ account, as discussed at more length in Section~\ref{sec:results}.
 %
 %\begin{figure}[htbp]
 %  \centering
-%   \includegraphics[width=\textwidth]{figs/colPredShortTS}
+%   \includegraphics[width=\textwidth]{colPredShortTS}
 %    \caption{A forecast of the last 4,000 points of the %signal in
 %      Figure~\ref{fig:ipc} using an LMA-based strategy on %the
 %      embedding in Figure~\ref{fig:embedding}.  Red circles %and blue
@@ -594,7 +594,7 @@ account, as discussed at more length in Section~\ref{sec:results}.
 %
 %\begin{figure}[htbp]
 %  \centering
-%    \includegraphics[width=\textwidth]{figs/colPredShortTS}
+%    \includegraphics[width=\textwidth]{colPredShortTS}
 %     \caption{{\color{red} [[actually need to generate this %figure]]}An LMA-based forecast of the last 4,000 points of a
 %       processor-load performance trace from the \gcc
 %       benchmark.  Red circles and blue $\times$s are the %true and
