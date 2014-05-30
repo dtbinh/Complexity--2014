@@ -36,13 +36,13 @@ present---and the information in the present that is not contained in
 the past (aka ``the conditional entropy of the present given the
 past'').  The first part is known as the \emph{redundancy}, as it is
 information in the present that is also in the past.  The second part
-is the aforementioned \emph{Shannon entropy rate}.  We conjecture that 
-the more redundancy in a signal, the more predictable it is.  
-Redundancy is critical to prediction, in general.  And the specific 
-\emph{form} of the redundancy dictates whether a particular prediction 
-method will work well or poorly on the corresponding signal.  A linear 
-method cannot capture or make use of nonlinear redundancy, for 
-instance.  This issue is central to the claims in this paper and the 
+is the aforementioned \emph{Shannon entropy rate}.  We conjecture that
+the more redundancy in a signal, the more predictable it is.
+Redundancy is critical to prediction, in general.  And the specific
+\emph{form} of the redundancy dictates whether a particular prediction
+method will work well or poorly on the corresponding signal.  A linear
+method cannot capture or make use of nonlinear redundancy, for
+instance.  This issue is central to the claims in this paper and the
 discussion in the following section.
 
 Previous approaches to measuring temporal complexity via the Shannon
@@ -124,7 +124,7 @@ by the switching rather than the stochastic fluctuations. To
 accomplish this, the \emph{weight} of a permutation is taken into
 account:
 \begin{align*}
-  w(x_{i+1}^\ell) = \frac{1}{\ell} \sum_{j = i}^{i+\ell}
+  w(x_{i+1}^\ell) = \frac{1}{\ell} \sum_{j = i + 1}^{i+\ell}
                       \left( x_j - \bar{x}_{i+1}^\ell \right)^2
 \end{align*}
 where $x_{i+1}^\ell$ is a sequence of values $x_{i+1}, \ldots,
@@ -257,7 +257,7 @@ makes no assumptions about the generating process.
 %
 %
 %%%FIGURE INTENT
-%%This figure shows that entropy changs over time with the signal as well as why the regimes for \svd were chosen. 
+%%This figure shows that entropy changs over time with the signal as well as why the regimes for \svd were chosen.
 %%%%%%%%%%%%%%%%%%
 %\begin{figure}[htbp]
 %  \centering
@@ -273,7 +273,7 @@ makes no assumptions about the generating process.
 %%Liz commented this image out temporarily so that her mac doesn't hang
 %%when she scrolls past p12
 %% We decided to skip the figure completely, since we took out
-%% all stuff about PE as regime-shift detection.  
+%% all stuff about PE as regime-shift detection.
 %% [[should add that as future work, though.]]
 %  \includegraphics[width=\columnwidth]{figs/SVD_wwpe}
 %  \caption{The weighted permutation entropy of one run of SVD. The gray bands are regions where the window overlaps regimes. The window size used is 5,000 $\times$ 100,000 instructions and the word length is $6$. For reference the instructions per cycle of \svd are plotted as a ghost behind this plot. Each color on the ghosted time series corresonds to the different regimes as determined by visual inspection. From left to right each change in color represents a change in regime for 6 regimes in total.}\label{fig:wwpe}
