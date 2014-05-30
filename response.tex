@@ -1,6 +1,9 @@
 \documentclass[12pt]{article}
 
 \usepackage{amsmath}
+\usepackage{xcolor}
+
+\newcommand{\alert}[1]{{\color{red}#1}}
 
 \title{Response to the Reviewers}
 \author{Joshua Garland, Ryan James, and Elizabeth Bradley}
@@ -27,6 +30,9 @@ reasonable. While I don't get the impression that this is a breakthrough paper I
 can still recommend the manuscript for publication in PRE if the issues listed
 below are addressed thoroughly.}
 
+We thank the reviewer for their kind words and appreciate the time they put in
+to reviewing our work.
+
 \noindent\emph{Major issues:}
 
 \emph{I don't get the reason for normalizing the three methods by the random
@@ -41,11 +47,23 @@ authors explicitly exclude one value because of the effect caused by the
 normalization). And it is not that the random walk predictor is the one standard
 method that all other methods have to compete against.}
 
+While we recognize the drawbacks inherent in using the industry-standard error
+metric MASE, we chose it over other error metrics due to some of its favorable
+qualities; namely that it is scale-free and comparable across different time
+series. In our opinion this made it the superior candidate despite the bias it
+can introduce.
+
 \emph{In many parts the article reads almost like a review. There is a lot of
 unnecessary redundancy (the entropy rate is quite low). In particular, the main
 point (``The aim of the paper is not ... but ...'') is repeated far too many
 times. The paper while easy to read could be shortened considerably without any
 loss of information.}
+
+Due to the broad selection of fields that this work draws upon, we thought it
+necessary to provide background for each of them in case the reader is not
+familiar with some subset of them. While this necessitated some redundancy,
+\alert{we have made an effort to trim the fat and make the review portions more
+streamlined.}
 
 \noindent\emph{Minor issues:}
 
@@ -53,12 +71,22 @@ loss of information.}
 connection to the problem at hand. The only connection is `undecidability' but
 there are many other examples for that.}
 
-\emph{Page 10: `error between the predictions and the true continuations' -->
-`error of the predictions with respect to the true continuations' Figure 6 on
-Page 11: It would be more intuitive to turn this into a `table of figures'
-with the four methods as row labels on the left and the three systems as column
-labels at the top. Also: Caption `for forecast of ... and all four prediction
-strategies'.}
+Our intent in mentioning this theoretical result was to side-step the possible
+response of simply ``always use the most sophisticated prediction scheme''. This
+corollary implies that no matter how sophisticated and broad a scheme we
+construct, it will not be the optimal one for some time series. Thus there is a
+real need for determining when a better scheme exists. \alert{We have modified
+the paragraph to make this point more clear.}
+
+\emph{Page 10: `error between the predictions and the true continuations'
+$\rightarrow$ `error of the predictions with respect to the true continuations'
+Figure 6 on Page 11: It would be more intuitive to turn this into a `table of
+figures' with the four methods as row labels on the left and the three systems
+as column labels at the top. Also: Caption `for forecast of ... and all four
+prediction strategies'.}
+
+We have modified the text as the reviewer suggested, and agree that it reads
+more clearly now. \alert{We have also modified the figure as suggested.}
 
 \emph{First equation on Page 14: Shouldn't the index $j$ run from $i+1$ to
 $i+\ell$ (instead of from $i$ to $i+\ell$)? You normalize by $\ell$ (not
