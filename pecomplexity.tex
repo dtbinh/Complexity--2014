@@ -5,7 +5,7 @@ superscriptaddress,
 %groupedaddress,
 %unsortedaddress,
 %runinaddress,
-%frontmatterverbose, 
+%frontmatterverbose,
 %preprint,
 showpacs,
 %preprintnumbers,
@@ -42,6 +42,8 @@ nobibnotes,
 \usepackage{pifont} % check and x marks
 \usepackage{color}
 \usepackage{listings}
+\usepackage{rotating}
+\usepackage{array,booktabs}
 \lstset{language=C}
 
 \newcommand{\cmark}{\ding{51}}
@@ -128,10 +130,10 @@ nobibnotes,
 \title{
 %Determinism, Complexity, and Predictability in Computer Performance\\
 %Quantifying structured complexity and its role in predictability: With applications to predicting computer performance.
-%\\ 
+%\\
 Quantifying Time-Series Predictability through Structural Complexity
-%\\ 
-%Quantifying Predictability using Structural Complexity 
+%\\
+%Quantifying Predictability using Structural Complexity
 %\\Decoding Predictability in Complicated Real-Valued Time Series: The balance between complexity and temporal structure
 %\\Decoding Complicated Time Series: The balance between complexity and temporal structure and the implications for predictability
 }
@@ -173,7 +175,7 @@ Quantifying Time-Series Predictability through Structural Complexity
 
 This paper provides insight into when, why, and how forecast
 strategies fail when they are applied to complicated time series. We
-conjecture that the inherent complexity of a time series —-- which
+conjecture that the inherent complexity of a time series --- which
 results from the dimension, nonlinearity, and non-stationarity of the
 generating process, as well as from measurement issues like noise,
 aggregation, and finite data length --- is both empirically
@@ -193,7 +195,10 @@ more predictive structure than that method can capture and exploit.
 \vspace{0.1in}
 \noindent
 {\bf Keywords}: entropy, permutation entropy, weighted permutation
-entropy, time-series analysis, predictibility
+entropy, time-series analysis, predictability
+
+\preprint{Santa Fe Institute Working Paper XX-XX-XXX}
+\preprint{arxiv.org:XXXX.XXXX [nlin.CD]}
 
 \end{abstract}
 \pacs{

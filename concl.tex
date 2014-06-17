@@ -13,24 +13,22 @@ know why: is the reason that the time series contains no predictive
 structure---i.e., that no model will work---or is the model that s/he
 is using simply not good enough?
 
-In this paper, we have argued that redundancy~\cite{crutchfield2003}
-is a useful definition of the inherent predictability of a time
-series.  To operationalize that definition, we use an approximation of
-the Kolmogorov-Sinai entropy~\cite{lind95}, estimated using a weighted
-version of the permutation entropy of~\cite{bandt2002per}.  This WPE
-technique---an ordinal calculation of forward information transfer in
-a time series---is ideal for our purposes because it works with
-real-valued data and is known to converge to the true entropy value.
-Using a variety of forecast models and more than a hundred time-series
-data sets from a computer-performance experiment, we have shown that
-prediction accuracy is indeed correlated with weighted permutation
-entropy: the higher the WPE, in general, the higher the prediction
-error.  There are some exceptions: \svdone is easier to predict than
-its WPE value suggests using any of the three forecast strategies
-studied here.  Conversely, forecast errors for the \col and \svdfive
-signals are higher than the corresponding WPEs suggest---except for
-the nonlinear LMA predictor.  On the whole, though, signals with
-higher weighted permutation entropy are harder to predict.
+In this paper, we have argued that redundancy~\cite{crutchfield2003} is a useful
+definition of the inherent predictability of a time series.  To operationalize
+that definition, we use an approximation of the Kolmogorov-Sinai
+entropy~\cite{lind95}, estimated using a weighted version of the permutation
+entropy of~\cite{bandt2002per}.  This WPE technique---an ordinal calculation of
+forward information transfer in a time series---is ideal for our purposes
+because it works with real-valued data and is known to converge to the true
+entropy value. Using a variety of forecast models and more than a hundred time-
+series data sets from a computer-performance experiment, we have shown that
+prediction accuracy is indeed correlated with weighted permutation entropy: the
+higher the WPE, in general, the higher the prediction error.  Supporting our
+hypothesis, forecast errors for the \col and \svdfive signals are higher than
+the corresponding WPEs suggest---except for the nonlinear LMA predictor.  There
+are some exceptions: \svdone is easier to predict than its WPE value suggests
+using any of the three forecast strategies studied here.  On the whole, though,
+signals with higher weighted permutation entropy are harder to predict.
 
 % Further, the persistent WPE values of 0.5--0.6 for the {\tt
 %   col\_major} trace are consistent with dynamical chaos, further
@@ -45,7 +43,7 @@ method is inadequate to the task and that one should seek another
 method.  The nonlinear LMA method, for instance, performs better in
 most cases because it is more general.  (This is particularly apparent
 in the \col and \svdfive examples.)
-% , where the other two methods do not perform well.)  
+% , where the other two methods do not perform well.)
 The \naive ~method, which simply predicts the mean, can work very well
 on noisy signals because it effects a filtering operation.  The simple
 random-walk strategy outperforms LMA, ARIMA, and the \naive ~method on

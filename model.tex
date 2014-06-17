@@ -1,17 +1,17 @@
 \section{Modeling }\label{sec:model}
-% 
+%
 % {\color{blue} EDITABLE}
-% 
+%
 % Section outline:
-% 
+%
 % \begin{enumerate}
 % \item \cmark section intro
 % \item \cmark fix order from simplest to most complex
-% \item Description of DCE and parameter estimation  
-% \item\cmark Description of auto ARIMA 
+% \item Description of DCE and parameter estimation
+% \item\cmark Description of auto ARIMA
 % \item \cmark Description of the two naive methods (random walk and mean), make sure to explain that these methods are naive and simple but not necessarily bad.
-% \item\cmark Add a section talking about evaluation methods i.e., MASE, this text is currently written and just sitting at the beginning of the results. 
-% 
+% \item\cmark Add a section talking about evaluation methods i.e., MASE, this text is currently written and just sitting at the beginning of the results.
+%
 % \end{enumerate}
 
 In this section, we describe the four different forecasting methods
@@ -85,10 +85,10 @@ Of course, methods that could capture and exploit the geometry of the
 data, or its temporal patterns, would be far more effective in the
 situations described in the previous paragraph.  The ARIMA and LMA
 methods introduced in Sections~\ref{sec:arima} and~\ref{sec:lma} are
-designed to do exactly that. 
+designed to do exactly that.
 % Note, though, that periodic patterns
 %appear only in signals that are at the low end of the %complexity
-%spectrum. 
+%spectrum.
 However, if a signal contains little predictive structure, forecast
 strategies like ARIMA and LMA have nothing to work with and thus will
 often be outperformed by the two simple strategies described in this
@@ -133,9 +133,9 @@ and~\ref{sec:results}.
 %variance as the data.
 %% if you leave this in, you'll need to explain a lot about the data
 %% and the calculation
-%% $\{\epsilon_i\}\sim WN(0,\sigma^2)$.  
+%% $\{\epsilon_i\}\sim WN(0,\sigma^2)$.
 %To remove nonstationarities in the data, one can detrend it using a
-%differencing operation: $(1-B^d)x_i$.  
+%differencing operation: $(1-B^d)x_i$.
 %
 %A strategy that incorporates all three of these features is called a
 %\emph{nonseasonal ARIMA} model of order $(p,d,q)$:
@@ -269,21 +269,21 @@ this procedure, are shown in Figure~\ref{fig:embedding}.
     \caption{\col }
     \label{fig:colEmbedding}
   \end{subfigure}%  \\
-  
+
     \begin{subfigure}{\columnwidth}
     \includegraphics[width=\columnwidth]{figs/gcc3dipc}
     \caption{\gcc}
     \label{fig:gccEmbedding}
-  \end{subfigure} 
+  \end{subfigure}
   \\
   \begin{subfigure}{\columnwidth}
     \includegraphics[width=\columnwidth]{figs/svd53dipc2}
     \caption{\svdfive}
     \label{fig:svdfiveEmbedding}
-  \end{subfigure}%   
-%  
- 
-   
+  \end{subfigure}%
+%
+
+
      %\includegraphics[width=\textwidth]{colipc3d}
      \caption{3D projections of delay-coordinate embeddings of the
        traces from (a) Figure~\ref{fig:col-ts} (b)
@@ -295,7 +295,7 @@ this procedure, are shown in Figure~\ref{fig:embedding}.
 %The coordinates of each point in these plots are differently delayed
 %elements of the instructions per cycle time series $X_{i,obs}$: that
 %is, $X_{i,obs}$ on the first axis, $X_{i+\tau,obs}$ on the second,
-%$X_{i+2\tau,obs}$ on the third, and so on.  
+%$X_{i+2\tau,obs}$ on the third, and so on.
 %
 
 Geometric structure in these kinds of plots is an indication of
@@ -306,9 +306,9 @@ predictions (e.g.,~\cite{weigend-book,casdagli-eubank92,Smith199250}).
 One of the most straightforward of these is the \emph{Lorenz method of
   analogues} (LMA), which is essentially nearest-neighbor prediction
 in the embedded\footnote{Lorenz's original formulation used the full
-  system state space; 
+  system state space;
 %
-%According to \cite{kantz97}, 
+%According to \cite{kantz97},
 %
 this method was first extended to embedded dynamics by
 Pikovsky~\cite{pikovsky86-sov}, but is also related to the prediction
@@ -345,7 +345,7 @@ questions.
 To study the relationship between predictability and complexity, we
 use the four methods outlined above to generate predictions of all 360
 traces described in Section~\ref{sec:methods}, then calculate the
-error between the predictions and the true continuations.
+error of the predictions with respect to the true continuations.
 Specifically, we split each time series into two pieces: the first
 90\%, referred to as the ``initial training" signal and denoted
 $\{x_i\}_{i=1}^{n}$, and the last 10\%, known as the ``test" signal
@@ -369,7 +369,7 @@ Figure~\ref{fig:forecast-example} shows example forecasts made using
 all four methods for the \col, \gcc, and \svdfive time series.
 \begin{figure*}[htbp]
   \centering
-  
+
   \begin{subfigure}{0.6\columnwidth}
     \includegraphics[width=\columnwidth]{figs/colRWForecast}
     \caption{\col\\ random walk }
@@ -379,13 +379,13 @@ all four methods for the \col, \gcc, and \svdfive time series.
     \includegraphics[width=\columnwidth]{figs/gccRWForecast}
     \caption{\gcc\\ random walk }
     \label{fig:gccRW}
-  \end{subfigure}% 
+  \end{subfigure}%
      \begin{subfigure}{0.6\columnwidth}
     \includegraphics[width=\columnwidth]{figs/svdfiveRWForecast}
     \caption{\svdfive\\ random walk}
     \label{fig:svd5RW}
-  \end{subfigure}%      
-  \\  
+  \end{subfigure}%
+  \\
       \begin{subfigure}{0.6\columnwidth}
     \includegraphics[width=\columnwidth]{figs/colMeanForecast}
     \caption{\col\\ na\"ive }
@@ -395,12 +395,12 @@ all four methods for the \col, \gcc, and \svdfive time series.
     \includegraphics[width=\columnwidth]{figs/gccMeanForecast}
     \caption{\gcc\\ na\"ive }
     \label{fig:gccMEAN}
-  \end{subfigure}% 
+  \end{subfigure}%
      \begin{subfigure}{0.6\columnwidth}
     \includegraphics[width=\columnwidth]{figs/svdfiveMeanForecast}
     \caption{\svdfive\\ na\"ive }
     \label{fig:svd5MEAN}
-  \end{subfigure}%      
+  \end{subfigure}%
   \\
     \begin{subfigure}{0.6\columnwidth}
     \includegraphics[width=\columnwidth]{figs/colARIMAForecast}
@@ -416,7 +416,7 @@ all four methods for the \col, \gcc, and \svdfive time series.
     \includegraphics[width=\columnwidth]{figs/svdfiveARIMAForecast}
     \caption{\svdfive \\ ARIMA }
     \label{fig:svd5ARIMA}
-  \end{subfigure}%    
+  \end{subfigure}%
   \\
 
       \begin{subfigure}{0.6\columnwidth}
@@ -428,7 +428,7 @@ all four methods for the \col, \gcc, and \svdfive time series.
     \includegraphics[width=\columnwidth]{figs/gccLMAForecast}
     \caption{\gcc \\ LMA}
     \label{fig:gccLMA}
-  \end{subfigure}  
+  \end{subfigure}
         \begin{subfigure}{0.6\columnwidth}
     \includegraphics[width=\columnwidth]{figs/svdfiveLMAForecast}
     \caption{\svdfive \\ LMA}
@@ -437,7 +437,7 @@ all four methods for the \col, \gcc, and \svdfive time series.
   %\begin{subfigure}{0.5\textwidth}
   %  \includegraphics[width=1.0\textwidth]{LMA_vs_ARIMA}
    \caption{Predicted ($p_j$) versus true values ($c_j$) for
-     forecasts of \col, \gcc, and \svdfive.  
+     forecasts of \col, \gcc, and \svdfive and all four prediction strategies.
 % On this type of plot, a perfect prediction lies exactly on the
 % diagonal.
 %
@@ -445,7 +445,37 @@ all four methods for the \col, \gcc, and \svdfive time series.
 }
 \label{fig:forecast-example}
   %\end{subfigure}
-\end{figure*} 
+\end{figure*}
+
+\begin{table*}
+  \renewcommand{\arraystretch}{1.25}
+  \begin{tabular}{lccc}
+    & {\large \col} & {\large \gcc} & {\large \svdfive} \\
+    & & & \\
+    \begin{sideways}\large random walk\end{sideways} &
+    \includegraphics[width=0.6\columnwidth]{figs/colRWForecast} &
+    \includegraphics[width=0.6\columnwidth]{figs/gccRWForecast} &
+    \includegraphics[width=0.6\columnwidth]{figs/svdfiveRWForecast} \\
+    \begin{sideways}\large na\"ive\end{sideways} &
+    \includegraphics[width=0.6\columnwidth]{figs/colMeanForecast} &
+    \includegraphics[width=0.6\columnwidth]{figs/gccMeanForecast} &
+    \includegraphics[width=0.6\columnwidth]{figs/svdfiveMeanForecast} \\
+    \begin{sideways}\large ARIMA\end{sideways} &
+    \includegraphics[width=0.6\columnwidth]{figs/colARIMAForecast} &
+    \includegraphics[width=0.6\columnwidth]{figs/gccARIMAForecast} &
+    \includegraphics[width=0.6\columnwidth]{figs/svdfiveARIMAForecast} \\
+    \begin{sideways}\large LMA\end{sideways} &
+    \includegraphics[width=0.6\columnwidth]{figs/colLMAForecast} &
+    \includegraphics[width=0.6\columnwidth]{figs/gccLMAForecast} &
+    \includegraphics[width=0.6\columnwidth]{figs/svdfiveLMAForecast}
+  \label{fig:forecast-example}
+  \end{tabular}
+  \caption{Predicted ($p_j$) versus true values ($c_j$) for forecasts of \col,
+     \gcc, and \svdfive and all four prediction strategies.
+  }
+  \label{fig:forecast-example}
+\end{table*}
+
 In these images, the vertical axis is the prediction $p_j$ and the
 horizontal axis is the true continuation $c_j$.  On such a plot, a
 perfect prediction would lie on the diagonal.  LMA, for instance,
@@ -466,18 +496,18 @@ effect is largely the same\footnote{The temporal \emph{ordering} of
 
 As a numerical measure of prediction accurary, we calculate the mean
 absolute scaled error (MASE) between the true and predicted signals:
-% 
+%
 $$MASE = \sum_{j=n+1}^{k+n+1}\frac{|p_j-c_j|
 }{\frac{k}{n-1}\sum^n_{i=2}|x_{i}-x_{i-1}|}$$
-% 
+%
 This error metric was introduced in \cite{MASE} as a ``generally
 applicable measurement of forecast accuracy without the problems seen
 in the other measurements."  MASE is a normalized measure: the scaling
 term in the denominator
-% 
+%
 % of the MASE value
-% $$\frac{1}{n-1}\sum^n_{i=2}|X_{i,obs}-X_{i-1,obs}|$$ 
-% 
+% $$\frac{1}{n-1}\sum^n_{i=2}|X_{i,obs}-X_{i-1,obs}|$$
+%
 is the average in-sample forecast error for a random-walk prediction
 over the initial training signal $\{x_i\}^n_{i=1}$.  That is, $MASE<1$ means that the
 prediction error in question was, on the average, smaller than the
@@ -495,7 +525,7 @@ absolute scaled error (MASE) scores and weighted permutation entropies for all e
    processes studied in this paper}
   \begin{center}
   \begin{tabular*}{\textwidth}{@{\extracolsep{\fill} } ccccc}
-  \hline\hline Signal & LMA MASE  & ARIMA MASE & na\"{i}ve MASE  & Weighted Permutation Entropy \\ 
+  \hline\hline Signal & LMA MASE  & ARIMA MASE & na\"{i}ve MASE  & Weighted Permutation Entropy \\
   \hline
  \col           & $ 0.050 \pm0.002  $ & $0.599  \pm 0.211 $ & $0.571\pm0.002$&  $0.513 \pm 0.003$ \\
 
@@ -504,10 +534,10 @@ absolute scaled error (MASE) scores and weighted permutation entropies for all e
 \svdone     & $ 0.827\pm 0.076$ & $ 0.714\pm 0.075 $ & $2.676\pm4.328$&  $0.957 \pm 0.016$ \\
 
  \svdtwo    & $1.279 \pm0.020 $ & $2.163 \pm0.027 $ &  $3.054\pm0.040$ &   $0.846 \pm0.004$ \\
- 
+
 \svdthree     & $0.619 \pm0.021 $ & $0.713 \pm 0.010 $ & $31.386\pm 0.282$ &  $0.716 \pm 0.006$ \\
  \svdfour     & $ 0.779\pm0.036 $ & $0.979 \pm0.032 $ & $2.661\pm0.074$ & $0.825 \pm 0.008$ \\
- 
+
 \svdfive     & $ 0.718\pm 0.048 $ & $2.370  \pm 0.051 $ & $20.870 \pm 0.192$&  $0.678 \pm 0.007$ \\
  \svdsix     & $ 0.739\pm 0.068 $ & $ 1.438\pm 0.061$ & $2.197\pm0.083$&  $0.748 \pm 0.011$ \\
   \hline\hline
@@ -555,7 +585,7 @@ account, as discussed at more length in Section~\ref{sec:results}.
 
 
 %---works quite well on the trace in Figure~%\ref{fig:ipc}, as%
-%shown in Figure~\ref{fig:lmacol}. 
+%shown in Figure~\ref{fig:lmacol}.
 %
 %\begin{figure}
 %   \centering
@@ -563,18 +593,18 @@ account, as discussed at more length in Section~\ref{sec:results}.
 %    \includegraphics[width=\columnwidth]{%colPredShortTS}
 %    \caption{\col }
 %    \label{fig:lmacol}
-%  \end{subfigure}%  
-%  
+%  \end{subfigure}%
+%
 %    \begin{subfigure}{\columnwidth}
 %    \includegraphics[width=\columnwidth]{%colPredShortTS}
 %    \caption{\gcc}
 %    \label{fig:lmagcc}
-%  \end{subfigure} 
+%  \end{subfigure}
 %  \begin{subfigure}{\columnwidth}
 %%    \includegraphics[width=\columnwidth]{%colPredShortTS}
 %    \caption{\svdfive}
 %    \label{fig:lmasvdfive}
-%  \end{subfigure}% 
+%  \end{subfigure}%
 %  \caption{{\color{red} [[If Liz thinks we should %include these I actually need to generate this %figure]]}An LMA-based forecast of
 %       processor-efficiency performance trace from the%\col ,\gcc and \svdfive generating processes.  Red %circles and blue $\times$s are the true and
 %       predicted values, respectively; vertical bars %show where these
@@ -609,9 +639,9 @@ account, as discussed at more length in Section~\ref{sec:results}.
 %Figure~\ref{fig:lmasvdfive} is clearly a better %prediction than Figure~\ref{fig:gccLMA} but not nearly as good as the \col forecast.
 
 
-%This gets at the utility of the contribution of this %paper: These time series all come from the same system---computers---but they are not equally predictable (at this point by LMA). For a practitioner is it the case that 
+%This gets at the utility of the contribution of this %paper: These time series all come from the same system---computers---but they are not equally predictable (at this point by LMA). For a practitioner is it the case that
 %  Our
-%conjecture is that while they come from similar systems \gcc produces processor load traces on the top of the complexity spectrum whereas \col produces processor loads with complexity in the mid to low region of the complexity spectrum. If this is the case then \gcc might be much better predicted using a method like Random Walk or \naive which can effectively predict in the presence of complexity. This is explored more rigorously in the results Section of this paper (Section \ref{sec:results}. So that we don't have to compare the forecast accuarcy by visual comparing the predictions we calculate a figure of merit to compare the predictions. 
+%conjecture is that while they come from similar systems \gcc produces processor load traces on the top of the complexity spectrum whereas \col produces processor loads with complexity in the mid to low region of the complexity spectrum. If this is the case then \gcc might be much better predicted using a method like Random Walk or \naive which can effectively predict in the presence of complexity. This is explored more rigorously in the results Section of this paper (Section \ref{sec:results}. So that we don't have to compare the forecast accuarcy by visual comparing the predictions we calculate a figure of merit to compare the predictions.
 
 
 
