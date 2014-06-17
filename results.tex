@@ -25,17 +25,17 @@
 %\end{enumerate}
 %\end{enumerate}
 
-%BRAINSTORMING 
+%BRAINSTORMING
 %\begin{itemize}
 %\cmark\item The kind of complexity present matters, i.e., that is whether the complexity is structured or not.
-%\cmark\item Quantifying structured and unstructured complexity is nontrivial in the case of real-valued noisy time series but WPE does this. 
-%\item Maybe plot a big chunk of \col and a big chunk of \gcc together and show that they both look complex. 
+%\cmark\item Quantifying structured and unstructured complexity is nontrivial in the case of real-valued noisy time series but WPE does this.
+%\item Maybe plot a big chunk of \col and a big chunk of \gcc together and show that they both look complex.
 
-%\cmark\item \gcc appears visually very complex, *and* according to WPE this complexity is unstructured. And a constant, linear and nonlinear prediction strategy all fail. We should be able to conclude that guessing random values is the best we can do as is shown by MASE 
+%\cmark\item \gcc appears visually very complex, *and* according to WPE this complexity is unstructured. And a constant, linear and nonlinear prediction strategy all fail. We should be able to conclude that guessing random values is the best we can do as is shown by MASE
 
-%\cmark\item \col is also complex (can even be chaotic/ point to CHAOS paper) but the complexity is structured according to WPE and as such that complexity is usable for prediction 
+%\cmark\item \col is also complex (can even be chaotic/ point to CHAOS paper) but the complexity is structured according to WPE and as such that complexity is usable for prediction
 
-%\cmark\item \col brings about the point nicely that some prediction strategies cannot utilize the processes internal information transfer method. That is a nonlinear internal information transfer system cannot be predicted effectively with a linear strategy. This gives a practitioner leverage on when to give up and when to keep working. 
+%\cmark\item \col brings about the point nicely that some prediction strategies cannot utilize the processes internal information transfer method. That is a nonlinear internal information transfer system cannot be predicted effectively with a linear strategy. This gives a practitioner leverage on when to give up and when to keep working.
 
 %\end{itemize}
 
@@ -78,7 +78,7 @@ conjectures offered in Section \ref{sec:intro}, namely:
 \end{enumerate}
 
 %This portion should justify the following claim%%%%%%%%%%%%%%%%%%%%%%
-%\item The existence of predictable structure in noisy real-valued time series is quantifiable by WPE and as a result WPE is correlated with prediction accuracy (MASE)  
+%\item The existence of predictable structure in noisy real-valued time series is quantifiable by WPE and as a result WPE is correlated with prediction accuracy (MASE)
 %%%%%%%%%%%%%%%%%%%%%%%%%
 
 
@@ -86,7 +86,7 @@ conjectures offered in Section \ref{sec:intro}, namely:
 
 
 %\item First paragraph: WPE is a good measure of predictability.  Figure:
-%best athlete MASE vs. its WPE. 
+%best athlete MASE vs. its WPE.
 
 
 %\item Quantifying structured and unstructured complexity is
@@ -108,23 +108,22 @@ calculated the WPE of each time series using a wordlength of six, as
 described in Section~\ref{sec:meaComplex}.  In order to assess the
 run-to-run variability of these results, we repeated all of these
 calculations on 15 separate trials: i.e., 15 different runs of each
-program.  
+program.
 
-Figure~\ref{fig:wpe_vs_mase_best} shows the \emph{best} of these 45
-predictions for each system: that is, the lowest error over all 15
-trials and all three methods for each of the eight programs.  The WPE
-is plotted against the corresponding MASE value here in order to bring
-out the correlation between these two quantities.
+Figure~\ref{fig:wpe_vs_mase_best} shows the \emph{best} of these predictions for
+each trial of each system: that is, the lowest error over all three methods for
+each of the eight programs.  The WPE is plotted against the corresponding MASE
+value here in order to bring out the correlation between these two quantities.
 \begin{figure}[htbp]
   \centering
-  \includegraphics[width=\columnwidth]{figs/prediction_vs_entropy}
+  \includegraphics[width=\columnwidth]{figs/new_prediction_vs_entropy}
   \caption{Weighted permutation entropy vs. mean absolute scaled error
-    (MASE) of the best prediction of each system.
-% 
-% (across all trials and all prediction methods) 
-% 
-The dashed line is a least-squares linear fit of all the points except
-{\tt dgesdd$_1$}, which we have excluded for reasons explained in the
+    (MASE) of the best prediction of each trial for each system.
+%
+% (across all trials and all prediction methods)
+%
+The dashed line is a least-squares linear fit of all the points except those
+from {\tt dgesdd$_1$}, which we have excluded for reasons explained in the
 text.}
   \label{fig:wpe_vs_mase_best}
 \end{figure}
@@ -159,16 +158,16 @@ set of experiments.
 \caption{WPE vs. MASE for all trials, methods, and systems---with the
   exception of \svdone, \svdthree, and \svdfive are omitted from the
   top plot for scale reasons.
-% 
+%
 % ; their MASE scores are $2.676 \pm 4.328$, $31.39 \pm 0.282$, and
-%   $20.87 \pm 0.192$ respectively. 
-% 
+%   $20.87 \pm 0.192$ respectively.
+%
 Numerical values, including means and standard deviations of the
 errors, can be found in Table~\ref{tab:error}.  The dashed line is the
 same as in the previous figure.
 }
     \label{fig:wpe_vs_mase_all}
-\end{figure} 
+\end{figure}
 There are 15 points in each cluster, one for each trial.  (The points
 in Figure~\ref{fig:wpe_vs_mase_best} are the leftmost of the points
 for the corresponding system in any of the three plots in
@@ -212,7 +211,7 @@ uses a prediction technique that is based a nonlinear model
 much better: $0.050 \pm 0.001$.  This prediction is 20 times more
 accurate than a random-walk forecast, which is more in line with the
 level of predictive structure that the low WPE value suggests is
-present in the signal.  
+present in the signal.
 
 The dashed line in Figures~\ref{fig:wpe_vs_mase_best}
 and~\ref{fig:wpe_vs_mase_all} is a heuristic that captures the
@@ -252,9 +251,9 @@ series.  As mentioned above, though, the effectiveness of any
 prediction strategy depends on how well it leverages the available
 information: methods that use linear models, for instance, may fail
 when applied to nonlinear processes.
-% 
-% (This is the basis for the second conjecture above.)  
-% 
+%
+% (This is the basis for the second conjecture above.)
+%
 This match between model and task is an issue in the \svdfive
 experiments as well.  The MASE scores of the \naive ~and ARIMA
 predictions for this system are $20.870 \pm 0.192$ and $2.370 \pm
@@ -327,7 +326,7 @@ closeup in Figure~\ref{fig:svdone-ts},
   \centering
     \includegraphics[width=\columnwidth]{figs/svdonets2}
 \caption{A small portion of the \svdone time series}\label{fig:svdone-ts}
-\end{figure} 
+\end{figure}
 is not quite to the level of the worst-case signal described above,
 but it still poses a serious challenge to random-walk prediction.  It
 is dominated by a noisy regime (between $\approx$1.86 and
@@ -353,6 +352,6 @@ in Figure~\ref{fig:wpe_vs_mase_best}.
 
 
 
-%is in large part one of the major findings of this work. More specifically, say we tried to predict an arbitrary noisy real-valued time series with an ``out-of-the-box" prediction strategy like ARIMA as proposed in \cite{autoArima} and say we got inconsistent and bad forecasts, (i.e., perform worse than the na\"ive random walk strategy ($MAS>1$). How do we determine if the prediction strategy is not adequate for the prediction task, or if the signal is simply too complex to predict. If a signal is too complex and too little forward information transfer is present we may not be able to do better than the random walk, in which case we should not worry ourselves over finding a more complicated prediction strategy. However, if we measure the complexity to be low, $\textrm{WPE}<0.85$ (see Fig.~\ref{fig:pred_vs_wpe}) we can most likely do much better than the random walk and should search for more adequate prediction strategies. 
+%is in large part one of the major findings of this work. More specifically, say we tried to predict an arbitrary noisy real-valued time series with an ``out-of-the-box" prediction strategy like ARIMA as proposed in \cite{autoArima} and say we got inconsistent and bad forecasts, (i.e., perform worse than the na\"ive random walk strategy ($MAS>1$). How do we determine if the prediction strategy is not adequate for the prediction task, or if the signal is simply too complex to predict. If a signal is too complex and too little forward information transfer is present we may not be able to do better than the random walk, in which case we should not worry ourselves over finding a more complicated prediction strategy. However, if we measure the complexity to be low, $\textrm{WPE}<0.85$ (see Fig.~\ref{fig:pred_vs_wpe}) we can most likely do much better than the random walk and should search for more adequate prediction strategies.
 
 

@@ -47,11 +47,12 @@ authors explicitly exclude one value because of the effect caused by the
 normalization). And it is not that the random walk predictor is the one standard
 method that all other methods have to compete against.}
 
-While we recognize the drawbacks inherent in using the industry-standard error
-metric MASE, we chose it over other error metrics due to some of its favorable
+While we recognize the drawbacks inherent in using the standard error metric
+MASE, we chose it over other error metrics due to some of its favorable
 qualities; namely that it is scale-free and comparable across different time
 series. In our opinion this made it the superior candidate despite the bias it
-can introduce.
+can introduce. For a complete comparison of MASE relative to other error
+metrics, please see the citation contained within our paper.
 
 \emph{In many parts the article reads almost like a review. There is a lot of
 unnecessary redundancy (the entropy rate is quite low). In particular, the main
@@ -103,7 +104,14 @@ used for the prediction. But for ill-matched datasets and models like in the
 cases mentioned above this is just not the case so it is not a surprise that the
 forecast errors are higher.}
 
+You are absolutely correct, and we've adjusted the text accordingly.
+
 \section*{Response to the Second Referee}
+
+We thank the reviewer for taking the time to both read our paper and provide us
+with valuable feedback. While we agree with several of the reviewers criticisms,
+and have taken steps to address them, we disagree that doing so changes the
+nature of the paper to the point of requiring a new submission.
 
 \emph{The problem of time series prediction is considered in the paper of J.
 Garland et al. Namely, the authors suggest to quantify predictability in advance
@@ -121,6 +129,8 @@ universal linear function with fixed coefficients. This is what I can understand
 from the entire paper, though the problem is not so definitely described in the
 Introduction.}
 
+We have modified the introduction to make our goals more clearly defined.
+
 \emph{I think that the possibility to estimate the best prediction error in
 advance from a relatively simple WPE characteristic would be interesting and
 useful, if it could hold true for a wide class of systems. Such a question would
@@ -131,11 +141,26 @@ systems''). Other aspects of the paper are not so important, in my view, despite
 some of them are fresh and interesting (e.g. taking a computer as an object of
 prediction). My critical remarks are listed below.}
 
+As we stated on page 19 of the manuscript, we believe that due to the broad
+spectrum of behaviors exhibited by the computer performance data these results
+will hold for time series drawn from other physical systems. We are aware that
+this claim may not be true, and believe that to be critical follow up work.
+However, we have included here some preliminary results that support our claim
+by analyzing a classical random walk, three time series derived from the classic
+Lorenz attractor, and the time series used in the SFI prediction competition.
+Though we are not prepared to fully discuss or publish the results regarding
+these systems, we hope that the preliminary findings are enough to justify our
+claim for the reviewer.
+
 \emph{1) Introduction is too long, but the main problem is not formulated
 definitely enough. I see that the main point is the approximately linear (or at
 least one-to-one) relationship between WPE and the best prediction error. This
 aim is not claimed explicitly in the Introduction. All other aspects of the
 manuscript do not seem important enough to be published in a separate article.}
+
+We have modified the manuscript to make it more clear that our goal is to derive
+a criterion for best-case prediction error in a model-free way. We have also
+shortened it.
 
 \emph{2) In particular, two primary findings mentioned on page 2 (Introduction)
 are formulated quite vaguely. The first part of the first finding reads ``(i)
@@ -155,6 +180,13 @@ However, it seems also obvious and directly follows from the definition of KS-
 entropy and its discussion in many papers including [Boffetta et al.] cited
 above.}
 
+While we agree that on the surface these claims are both trivial and reasonably
+well known in theory and for toy models, our specific intent is that these also
+hold and can be practically applied via the WPE in real-world systems with
+potentially both dynamical and observational noise. We also greatly appreciated
+being informed about Boffetta et al's paper, and have included a citation to it
+in our paper.
+
 \emph{3) By the way, the authors call ``fully complex'' the white noise process,
 i.e. they equate predictability and complexity. However, they do not even
 mention another approach to the notion of complexity which ascribes low
@@ -162,6 +194,9 @@ complexity to the white noise [the works e.g. by C.R. Shalizi and J. Crutchfield
 carried out in the Santa Fe Institute from where one of the authors is]. It
 would be appropriate to mention that ambiguity of the notion of complexity if
 the latter plays an important role in many formulations of the authors.}
+
+We have added a short paragraph discussing the differences in notions of
+complexity, and clarified our working definition of it as used for this paper.
 
 \emph{4) The second finding reads ``The way information is generated and
 processed internally by a system plays a crucial role in the success of
@@ -174,6 +209,11 @@ there is nothing to be proven here. Probably, the authors imply their particular
 benchmark signals (reflecting a computer behavior) but they do not claim that.
 Thus, both primary findings seem to provide nothing new.}
 
+It is indeed true that the way we worded this finding makes it sound trivial.
+Our intent, as we have modified the text to reflect, is that the appropriateness
+of a predictor can be discovered empirically via comparison with the WPE.
+\alert{i'm not entirely sure how to respond to this one correctly.}
+
 \emph{5) The benchmark system - a computer as an object of prediction - seems to
 be an unexpected and, probably, interesting choice but just as an additional
 illustration of a statement which should be first shown for well-controlled and
@@ -185,11 +225,23 @@ of the research is the relationship between WPE and the best prediction error
 (if any), selection of such a complicated object as computer performance
 variations only introduces its own difficulties into the problem.}
 
+As mentioned earlier in our response, we have included preliminary results
+regarding some simple systems here for the reviewer, and indeed the well-known
+results relating entropy and predictability hold for these systems. Because
+these results are not surprising, but rather simply confirming what is known in
+theory, we did not want to include them in the paper but rather focus on how
+these results still hold in the face of very ``dirty'' real-world data.
+
 \emph{6) The description of the choice of the benchmark system in the
 Introduction is too long. On the other hand, if the computer signals are the
 main interest of the work, then it should be claimed explicitly. Then, the paper
 should be rewritten and submitted to a kind of engineering journals where it
 might well be of interest.}
+
+Since our primary goal with this paper is the relationship between prediction
+error and WPE in noisy, real-world systems, and the practical applicability of
+this relationship, we have reduced the amount of space spent in the introduction
+discussing the particular time series we use.
 
 \emph{7) As for the choice of the four prediction techniques, some of them seem
 superfluous. E.g. naive approach is just a global AR model of the zero order.
@@ -202,15 +254,40 @@ inappropriateness of the entire ARIMA approach. Thus, linear ARIMA and nonlinear
 LMA might be sufficient (in combination with mathematical benchmark examples) to
 represent close-to-optimal prediction errors.}
 
+It is certainly true that the naive and random-walk predictors can be seen as
+subclasses of the ARIMA model. We have explicitly included them, however, since
+they are used (sometimes to great success) in practice. Further, we have used
+standard methods \alert{josh -- should we add some names here?} of fitting the
+parameters used in our ARIMA predictions, and we believe any inefficiencies of
+that parameter selection support our findings --- namely, if a particular
+selection of model parameters predicts poorly (compared to what the WPE value
+might suggest), it is an indication that the specific model, including
+parameters, is not optimal for the job. This might mean that a different
+parameter selection scheme is needed, or that the entire model is inappropriate.
+Unfortunately the WPE value alone is insufficient to differentiate these two
+situations.
+
 \emph{8) Conditions for inefficiency of simple prediction schemes (like naive
 and random-walk) discussed in the paper look rather obvious as well and do not
 give new information. Is it the purpose of the paper to discuss when and where a
 concrete simple prediction scheme fails?}
 
+The purpose of this short paragraph in this paper, which explains the
+efficiencies and inefficiencies of these simple prediction schemes, is present
+for two purposes. First, to explain why we have included these simple schemes
+rather than just the more complicated ones, and second to help in explaining the
+specific results obtained later in the paper.
+
 \emph{9) A better justification of the prediction error metrics could be also in
 order if this work is continued. At least, comparison of prediction errors
 quantified with different metrics seems necessary. Especially, taking into
 account the following major concerns.}
+
+We have strengthened our justification for the use of the MASE metric. The work
+we have cited which introduced MASE extensively compares it to other schemes and
+highlights the differences obtained therein. We further believe that a
+comparison of different prediction error metrics as they relate to WPE is best
+left as a sequel to this work.
 
 \noindent\emph{General remarks.}
 
@@ -228,6 +305,16 @@ possible prediction error from WPE seems impossible in general. It is good if
 such a decision is possible for a certain narrow class of systems. However, the
 authors do not even discuss to which class of systems their results apply.}
 
+It is certainly true that the specific relationship between WPE and MASE values
+is dependent on word length, though for any reasonable choice of $\ell$
+(discussion regarding reasonable values in the manuscript) we believe a similar
+relationship to hold. We also believe, due to the spectrum of time series
+behaviors we have included, that the curve is not highly dependent on which
+systems are considered. As stated before, we have hopefully assuaged the
+reviewers concern about this point by including here the WPE and MASE values for
+a variety of other time series, including a random walk, simple chaotic systems,
+as time series used in the SFI prediction contest.
+
 \emph{II) PE is invariant under an invertible nonlinear change of variables. The
 prediction error measured as the authors suggest is not invariant. Thus, such a
 simple change of variables can lead, at least, to a change in regression
@@ -237,6 +324,11 @@ that the fact that the authors observe a certain regression line at all seems to
 be due to small number of different signals they consider (only 7 or 8 different
 data points, such a small number of points may lie approximately near a straight
 line by chance).}
+
+Both WPE and MASE are sensitive to changes of variables, and from some initial
+testing they are so in complementary ways. This leads a change in variables
+to...  We have also redone our regression line to include all 105 WPE-MASE
+pairs, rather than just a representative from each program.
 
 \emph{To summarize, the paper shows that the authors are well familiar with the
 entire topic and highly qualified, they overview some well-known facts (WPE,
@@ -249,5 +341,10 @@ error for certain classes of systems (however, I doubt that it is possible to
 derive any simple and widely applicable relationship like the linear function
 suggested by the authors). Seemingly, it should then be a new paper which can be
 hardly considered as a revised version of the present manuscript.}
+
+It is our hope that between the additional preliminary results here, the
+modifications to the paper, as well as our clarifying the goals of our paper
+(understandably misunderstood in the draft), that the reviewer now considers the
+manuscript appropriate for publication in PRE.
 
 \end{document}

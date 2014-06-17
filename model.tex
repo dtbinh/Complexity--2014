@@ -446,6 +446,36 @@ all four methods for the \col, \gcc, and \svdfive time series.
 \label{fig:forecast-example}
   %\end{subfigure}
 \end{figure*}
+
+\begin{table*}
+  \renewcommand{\arraystretch}{1.25}
+  \begin{tabular}{lccc}
+    & {\large \col} & {\large \gcc} & {\large \svdfive} \\
+    & & & \\
+    \begin{sideways}\large random walk\end{sideways} &
+    \includegraphics[width=0.6\columnwidth]{figs/colRWForecast} &
+    \includegraphics[width=0.6\columnwidth]{figs/gccRWForecast} &
+    \includegraphics[width=0.6\columnwidth]{figs/svdfiveRWForecast} \\
+    \begin{sideways}\large na\"ive\end{sideways} &
+    \includegraphics[width=0.6\columnwidth]{figs/colMeanForecast} &
+    \includegraphics[width=0.6\columnwidth]{figs/gccMeanForecast} &
+    \includegraphics[width=0.6\columnwidth]{figs/svdfiveMeanForecast} \\
+    \begin{sideways}\large ARIMA\end{sideways} &
+    \includegraphics[width=0.6\columnwidth]{figs/colARIMAForecast} &
+    \includegraphics[width=0.6\columnwidth]{figs/gccARIMAForecast} &
+    \includegraphics[width=0.6\columnwidth]{figs/svdfiveARIMAForecast} \\
+    \begin{sideways}\large LMA\end{sideways} &
+    \includegraphics[width=0.6\columnwidth]{figs/colLMAForecast} &
+    \includegraphics[width=0.6\columnwidth]{figs/gccLMAForecast} &
+    \includegraphics[width=0.6\columnwidth]{figs/svdfiveLMAForecast}
+  \label{fig:forecast-example}
+  \end{tabular}
+  \caption{Predicted ($p_j$) versus true values ($c_j$) for forecasts of \col,
+     \gcc, and \svdfive and all four prediction strategies.
+  }
+  \label{fig:forecast-example}
+\end{table*}
+
 In these images, the vertical axis is the prediction $p_j$ and the
 horizontal axis is the true continuation $c_j$.  On such a plot, a
 perfect prediction would lie on the diagonal.  LMA, for instance,
