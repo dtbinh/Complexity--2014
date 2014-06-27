@@ -2,6 +2,7 @@
 
 \usepackage{amsmath}
 \usepackage{xcolor}
+\usepackage{graphicx}
 
 \newcommand{\alert}[1]{{\color{red}#1}}
 
@@ -146,12 +147,22 @@ As we stated on page 19 of the manuscript, we believe that due to the broad
 spectrum of behaviors exhibited by the computer performance data these results
 will hold for time series drawn from other physical systems. We are aware that
 this claim may not be true, and believe that to be critical follow up work.
-\alert{However, we have included here some preliminary results that support our
-claim by analyzing a classical random walk, three time series derived from the
-classic Lorenz attractor, and the time series used in the SFI prediction
-competition.} Though we are not prepared to fully discuss or publish the results
-regarding these systems, we hope that the preliminary findings are enough to
-justify our claim for the reviewer.
+However, we have included here some preliminary results that support our claim
+by analyzing a random walk, the Henon map, the Lorenz attractor, and a time
+series of voltages from a chaotic laser used in the SFI prediction competition.
+Though we are not prepared to fully discuss or publish the results regarding
+these systems, we hope that the preliminary findings are enough to support our
+claim of generality. The fit in this plot, of the form $y = a \log(b x + c)$, is
+based solely on the computer performance data. Despite this, the four
+supplemental time series fall within a narrow band around the fit. The use of
+this log fit --- now used in the paper instead of the linear one --- is also
+theoretically advantageous because any signal with zero entropy should be
+capable of being predicted perfectly and so should ideally have a MASE value of
+zero.
+
+\begin{center}
+    \includegraphics[width=\columnwidth]{figs/new_prediction_vs_entropy_extra_autolog}
+\end{center}
 
 \emph{1) Introduction is too long, but the main problem is not formulated
 definitely enough. I see that the main point is the approximately linear (or at
@@ -185,8 +196,8 @@ While we agree that on the surface these claims are both trivial and reasonably
 well known in theory and for toy models, our specific intent is that these also
 hold and can be practically applied via the WPE in real-world systems with
 potentially both dynamical and observational noise. We also greatly appreciated
-being informed about Boffetta et al's paper, \alert{and have included a citation
-to it in our paper.}
+being informed about Boffetta et al's paper, and have included a citation to it
+in our paper.
 
 \emph{3) By the way, the authors call ``fully complex'' the white noise process,
 i.e. they equate predictability and complexity. However, they do not even
@@ -196,8 +207,8 @@ carried out in the Santa Fe Institute from where one of the authors is]. It
 would be appropriate to mention that ambiguity of the notion of complexity if
 the latter plays an important role in many formulations of the authors.}
 
-\alert{We have added a short paragraph discussing the differences in notions of
-complexity, and clarified our working definition of it as used for this paper.}
+We have added a short discussion about the differences in notions of complexity,
+and clarified our working definition of it as used for this paper.
 
 \emph{4) The second finding reads ``The way information is generated and
 processed internally by a system plays a crucial role in the success of
