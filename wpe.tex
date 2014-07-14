@@ -36,14 +36,16 @@ present---and the information in the present that is not contained in
 the past (aka ``the conditional entropy of the present given the
 past'').  The first part is known as the \emph{redundancy}, as it is
 information in the present that is also in the past.  The second part
-is the aforementioned \emph{Shannon entropy rate}.  We conjecture that
-the more redundancy in a signal, the more predictable it is.
+is the aforementioned \emph{Shannon entropy rate}.  It seems obvious
+that the more redundancy in a signal, the more predictable it is.
 Redundancy is critical to prediction, in general.  And the specific
 \emph{form} of the redundancy dictates whether a particular prediction
 method will work well or poorly on the corresponding signal.  A linear
 method cannot capture or make use of nonlinear redundancy, for
-instance.  This issue is central to the claims in this paper and the
-discussion in the following section.
+instance.  This issue---which has been explored extensively using
+clean data and/or systems where the generating process is known, but
+not so much with empirical data from unknown systems---is central to
+the claims in this paper and the discussion in the following section.
 
 Previous approaches to measuring temporal complexity via the Shannon
 entropy rate \cite{Shannon1951, mantegna1994linguistic} required
@@ -114,15 +116,15 @@ Here we will be utilizing a variation of the basic permutation entropy
 technique, the \emph{weighted permutation entropy} (WPE), which was
 introduced in~\cite{fadlallah2013}.  The intent behind the weighting
 is to correct for observational noise that is larger than the trends
-in the data, but smaller than the larger scale features.  Consider,
+in the data, but smaller than the larger-scale features.  Consider,
 for example, a signal that switches between two fixed points and
-contains some additive noise. The PE is dominated by the noise about
-the fixed points driving it to $\approx 1$, which in some sense hides
-the fact that the signal is actually quite structured.  In this
-situation, the terms of the weighted permutation entropy are dominated
-by the switching rather than the stochastic fluctuations. To
-accomplish this, the \emph{weight} of a permutation is taken into
-account:
+contains some additive noise. The PE of such a signal will be
+dominated by the noise about the fixed points, driving it to $\approx
+1$---which in some sense hides the fact that the signal is actually
+quite structured.  In this situation, the terms of the weighted
+permutation entropy are dominated by the switching rather than the
+stochastic fluctuations. To accomplish this, the \emph{weight} of a
+permutation is taken into account:
 \begin{align*}
   w(x_{i+1}^\ell) = \frac{1}{\ell} \sum_{j = i + 1}^{i+\ell}
                       \left( x_j - \bar{x}_{i+1}^\ell \right)^2

@@ -4,31 +4,37 @@ Forecast strategies that are designed to capture predictive structure
 are ineffective when signal complexity outweighs information
 redundancy.  This poses a number of serious challenges in practice.
 Without knowing anything about the generating process, it is difficult
-to determine how much predictive structure is present in a given time
-series.  And even if predictive structure exists, a given forecast
-method may not work, simply because it cannot exploit the structure
-that is present (e.g., a linear model of a nonlinear process).  If a
-forecast model is not producing good results, a practitioner needs to
-know why: is the reason that the time series contains no predictive
-structure---i.e., that no model will work---or is the model that s/he
-is using simply not good enough?
+to determine how much predictive structure is present in a noisy,
+real-world time series.  And even if predictive structure exists, a
+given forecast method may not work, simply because it cannot exploit
+the structure that is present (e.g., a linear model of a nonlinear
+process).  If a forecast model is not producing good results, a
+practitioner needs to know why: is the reason that the data contain no
+predictive structure---i.e., that no model will work---or is the model
+that s/he is using simply not good enough?
 
-In this paper, we have argued that redundancy~\cite{crutchfield2003} is a useful
-definition of the inherent predictability of a time series.  To operationalize
-that definition, we use an approximation of the Kolmogorov-Sinai
-entropy~\cite{lind95}, estimated using a weighted version of the permutation
-entropy of~\cite{bandt2002per}.  This WPE technique---an ordinal calculation of
-forward information transfer in a time series---is ideal for our purposes
-because it works with real-valued data and is known to converge to the true
-entropy value. Using a variety of forecast models and more than a hundred time-
-series data sets from a computer-performance experiment, we have shown that
-prediction accuracy is indeed correlated with weighted permutation entropy: the
-higher the WPE, in general, the higher the prediction error.  Supporting our
-hypothesis, forecast errors for the \col and \svdfive signals are higher than
-the corresponding WPEs suggest---except for the nonlinear LMA predictor.  There
-are some exceptions: \svdone is easier to predict than its WPE value suggests
-using any of the three forecast strategies studied here.  On the whole, though,
-signals with higher weighted permutation entropy are harder to predict.
+In this paper, we have argued that redundancy~\cite{crutchfield2003}
+is a useful definition of the inherent predictability of an empirical
+time series.  To operationalize that definition, we use an
+approximation of the Kolmogorov-Sinai entropy~\cite{lind95}, estimated
+using a weighted version of the permutation entropy
+of~\cite{bandt2002per}.  This WPE technique---an ordinal calculation
+of forward information transfer in a time series---is ideal for our
+purposes because it works with real-valued data and is known to
+converge to the true entropy value. Using a variety of forecast models
+and more than a hundred time-series data sets from a
+computer-performance experiment, we have shown that prediction
+accuracy is indeed correlated with weighted permutation entropy: the
+higher the WPE, in general, the higher the prediction error.  The
+relationship is roughly logarithmic, which makes sense because any
+signal with zero entropy should be perfectly predictable, and so
+should ideally have a MASE value of zero.  Supporting our hypothesis,
+forecast errors for the \col and \svdfive signals are higher than the
+corresponding WPEs suggest---except for the nonlinear LMA predictor.
+There are some exceptions: \svdone is easier to predict than its WPE
+value suggests using any of the three forecast strategies studied
+here.  On the whole, though, signals with higher weighted permutation
+entropy are harder to predict.
 
 % Further, the persistent WPE values of 0.5--0.6 for the {\tt
 %   col\_major} trace are consistent with dynamical chaos, further
@@ -50,14 +56,39 @@ random-walk strategy outperforms LMA, ARIMA, and the \naive ~method on
 the \gcc signal, which is extremely complex---i.e., extremely low
 redundancy.
 %  \naive ~wins on \svdone with the exception to the 5 outliers.
-The dashed line in Figures~\ref{fig:wpe_vs_mase_best}
+The curve in Figures~\ref{fig:wpe_vs_mase_best}
 and~\ref{fig:wpe_vs_mase_all} operationalizes the discussion in this
 paragraph.  It is a preliminary, but potentially useful, empirical
 guideline for knowing when a model is not well-matched to the task at
-hand: a MASE score that is more than $3.58 \cdot \mathrm{WPE} - 1.91$,
-where $\mathrm{WPE}$ is that of the corresponding signal, is an
-indication that that time series has more predictive structure than
-that forecast model can capture and exploit.
+hand: a MASE score that is significantly higher than [[$3.58 \cdot
+    \mathrm{WPE} - 1.91$]], where $\mathrm{WPE}$ is that of the
+corresponding signal, is an indication that that time series has more
+predictive structure than that forecast model can capture and exploit.
+
+[[This paragraph duplicates material in the last paragraph of this
+    section.  Some of it needs to be here rather than there, judging
+    by the ref's reactions.  But the later paragraph has a nice
+    concluding tone, so need to figure out what goes where.]]
+
+This curve was determined empirically using a finite set of forecast
+methods and data sets---the latter drawn from a single experimental
+system.  Computer dynamics spans the full range of behavior reported
+in the nonlinear dynamics literature.  Standard nonlinear time-series
+analysis of data from these systems has confirmed the existence of
+fixed points, periodic orbits of different periods, chaotic
+trajectories with various Lyapunov exponents, etc. in their dynamics.
+While it is certainly possible that the nonlinear dynamics of computer
+performance is subtly different from the nonlinear dynamics of other
+systems---in a manner that cannot be detected by traditional nonlinear
+time-series analysis---we believe that our results will hold for time
+series drawn from other physical systems.  We are certainly aware that
+this claim may not be true, however, and we are in the process of a
+follow-up study exploring a broader range of applications.
+Preliminary results of this study show that MASE vs. WPE points for
+data from the SFI prediction competition \cite{sfi} fall in the shaded
+region on Figure [[what]]\footnote{Synthetic data from paradigmatic
+  systems like the Henon map \cite{henon} and the Lorenz system
+  \cite{lorenz63} also fit this pattern.}.
 
 Given that information is a fundamental limitation in predictability,
 then gathering and using more information is an obvious next step.

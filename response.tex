@@ -266,13 +266,14 @@ we use in this paper.
 
 The original wording of this finding did make it sound trivial.  Our
 intent, as we have modified the text to reflect, is that the
-appropriateness of a predictor can be discovered \emph{empirically}
-via comparison with the WPE.  Previous explorations, in contrast, have
-used clean data and/or systems where the generating process is known.
-The paragraph that we have added to the introduction (immediately
-following these two claims) should hopefully make this more clear.
-\alert{Ryan said: ``i'm not entirely sure how to respond to this one
-  correctly.''  Liz asks: do you mean in the rebuttal or in the text?}
+appropriateness of a predictor can be discovered \emph{empirically},
+via comparison with the WPE.  Previous explorations have used clean
+data and/or systems where the generating process is known.  Our work
+makes neither of these assumptions.  The paragraph that we have added
+to the introduction (immediately following these two claims) should
+hopefully make this more clear.  \alert{Ryan said: ``i'm not entirely
+  sure how to respond to this one correctly.''  Liz asks: do you mean
+  in the rebuttal or in the text?}
 
 \emph{5) The benchmark system - a computer as an object of prediction
   - seems to be an unexpected and, probably, interesting choice but
@@ -429,27 +430,44 @@ for generality and point to future work.
   (only 7 or 8 different data points, such a small number of points
   may lie approximately near a straight line by chance).}
 
-Both WPE and MASE are sensitive to changes of variables, and from some
-initial testing they are so in complementary ways. This leads a change
-in variables to...  We have also redone our regression line to include
-all 105 WPE-MASE pairs, rather than just a representative from each
-program.
+Both WPE and MASE are sensitive to changes of variables; our initial
+testing, however, indicates they are so \emph{in complementary ways},
+so the shape of the WPE vs. MASE curve is [[largely invariant with
+    respect to changes in what]] \alert{Ryan wrote: ``This leads a
+  change in variables to...''  What should go in here?  What variables
+  is he talking about?  Did we actually do that test (varying them)?
+  What should we say about that word ``largely''?}
 
-\emph{To summarize, the paper shows that the authors are well familiar with the
-entire topic and highly qualified, they overview some well-known facts (WPE,
-various prediction techniques, etc) and ``invent'' an unexpected test system
-(computer performance data), they report about their attempts to play around
-with all that staff. However, their results do not seem to provide any new
-information to a specialist. Probably, this work can be continued to get some
-more reliable results about concrete relationship between WPE and prediction
-error for certain classes of systems (however, I doubt that it is possible to
-derive any simple and widely applicable relationship like the linear function
-suggested by the authors). Seemingly, it should then be a new paper which can be
-hardly considered as a revised version of the present manuscript.}
+The fit of the regression line was not a function of the small number
+of points; when we included all 105 WPE-MASE pairs, rather than just a
+representative from each program, the slope of the fit changed by 2\%
+and the y intercept by 1\%.
 
-It is our hope that between the additional preliminary results here, the
-modifications to the paper, as well as our clarifying the goals of our paper
-(understandably misunderstood in the draft), that the reviewer now considers the
-manuscript appropriate for publication in PRE.
+We have revised the Figure, and the associated text, to include all
+105 points.  We have also moved from a linear fit to a log fit in this
+curve to better match the theoretical relationship between MASE and
+WPE, as mentioned above.  Finally, we now show a ``fuzzy'' version of
+the fitted curve in an effort to emphasize that the fundamental claim
+of the paper is not related to the crispness of the fit.
+
+\emph{To summarize, the paper shows that the authors are well familiar
+  with the entire topic and highly qualified, they overview some
+  well-known facts (WPE, various prediction techniques, etc) and
+  ``invent'' an unexpected test system (computer performance data),
+  they report about their attempts to play around with all that
+  staff. However, their results do not seem to provide any new
+  information to a specialist. Probably, this work can be continued to
+  get some more reliable results about concrete relationship between
+  WPE and prediction error for certain classes of systems (however, I
+  doubt that it is possible to derive any simple and widely applicable
+  relationship like the linear function suggested by the
+  authors). Seemingly, it should then be a new paper which can be
+  hardly considered as a revised version of the present manuscript.}
+
+It is our hope that between the additional preliminary results here,
+the modifications to the paper, as well as our clarifying the goals of
+our paper (understandably misunderstood in the draft), that the
+reviewer now considers the manuscript appropriate for publication in
+PRE.
 
 \end{document}
