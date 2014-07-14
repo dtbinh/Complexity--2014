@@ -140,18 +140,18 @@ these eight systems is roughly proportional to the log of the weighted
 permutation entropy, which is consistent with our first conjecture.
 The dashed line in the figure, a least-squares fit of $y = a \log(b x
 + c)$ to these errors\footnote{with the exception of {\tt dgesdd$_1$},
-  for reasons described below} captures this rough
-proportionality\footnote{The logarithmic fit is appropriate here
-  because any signal with zero entropy should be perfectly
-  predictable, and so should ideally have a MASE value of zero.}.
-This is not a formal result.  The forecast methods and data sets used
-here were chosen to span the space of standard prediction strategies
-and the range of dynamical behaviors, but they do not cover those
-spaces exhaustively.  Our goal here is an\emph{empirical} assessment
-of the relationship between predictability and complexity, not formal
-results about a ``best'' predictor for a given time series.  There may
-be other methods that produce lower MASE values than those in
-Figure~\ref{fig:wpe_vs_mase_best}, but the sparseness of the points
+  for reasons described below} captures this relationship between WPE
+and [[best-case]] prediction error\footnote{The logarithmic fit is
+  appropriate here because any signal with zero entropy should be
+  perfectly predictable, and so should ideally have a MASE value of
+  zero.}.  This is not a formal result.  The forecast methods and data
+sets used here were chosen to span the space of standard prediction
+strategies and the range of dynamical behaviors, but they do not cover
+those spaces exhaustively.  Our goal here is an\emph{empirical}
+assessment of the relationship between predictability and complexity,
+not formal results about a ``best'' predictor for a given time series.
+There may be other methods that produce lower MASE values than those
+in Figure~\ref{fig:wpe_vs_mase_best}, but the sparseness of the points
 above and below the curve in this plot strongly suggests a pattern of
 (inverse) correlation between the underlying predictability of a time
 series and its WPE.  The rest of this section describes our results in
@@ -175,9 +175,9 @@ set of experiments.
 %   $20.87 \pm 0.192$ respectively.
 %
 Numerical values, including means and standard deviations of the
-errors, can be found in Table~\ref{tab:error}.  The dashed curve is the
-same as in the previous figure.
-}
+errors, can be found in Table~\ref{tab:error}.  The dashed curve [[and
+    shaded regions?  check in all captions]] is the same as in the
+previous figure.  }
     \label{fig:wpe_vs_mase_all}
 \end{figure}
 There are 15 points in each cluster, one for each trial.  [[(The
@@ -250,28 +250,28 @@ very tightly in the lower left quadrant of the LMA and \naive ~MASE
 vs. WPE plots, but spread out horizontally in the ARIMA plot.  This is
 because of the way that these models are built \cite{autoARIMA}.  If a
 KPSS test of the time series in question indicates that it is
-nonstationary, an integration term is added to the model.  This test
-gives mixed results in the case of the \col process, flagging five of
-the 15 trials as stationary and ten as nonstationary.  ARIMA models
-without an integration term perform more poorly on this signal, which
-increases the error, thereby spreading out the points\footnote{We
-  tested this hypothesis by forcing the inclusion of an integration
-  term in the five cases where a KPSS test indicated that such a term
-  was not needed.  This action removed the spread, pushing all 15 of
-  the \col ARIMA points in Figure~\ref{fig:wpe_vs_mase_all} into a
-  tight cluster.}.  \alert{This paragraph probably needs more, in
-  response to the ref's gritch about fitting.}
+nonstationary, the ARIMA recipe adds an integration term to the model.
+This test gives mixed results in the case of the \col process,
+flagging five of the 15 trials as stationary and ten as nonstationary.
+ARIMA models without an integration term perform more poorly on this
+signal, which increases the error, thereby spreading out the
+points\footnote{We tested this hypothesis by forcing the inclusion of
+  an integration term in the five cases where a KPSS test indicated
+  that such a term was not needed.  This action removed the spread,
+  pushing all 15 of the \col ARIMA points in
+  Figure~\ref{fig:wpe_vs_mase_all} into a tight cluster.}.
+\alert{This paragraph probably needs more, in response to the ref's
+  gritch about fitting.}
 
 The WPE of \svdfive ($0.677 \pm 0.006$) is higher than that of {\tt
   col\_major}.  This indicates that the rate of forward information
 transfer of the underlying process is lower, but that time-series data
 observed from this system still contain a significant amount of
-structure that can, in theory, be leveraged to predict the future
-course of the time series.  As mentioned above, though, the
-effectiveness of any prediction strategy depends on how well it
-leverages the information that is available in the data: methods that
-use linear models, for instance, may fail when applied to nonlinear
-processes.
+structure that can, in theory, be used to predict the future course of
+the time series.  As mentioned above, though, the effectiveness of any
+prediction strategy depends on how well it leverages the information
+that is available in the data: methods that use linear models, for
+instance, may fail when applied to nonlinear processes.
 %
 % (This is the basis for the second conjecture above.)
 %
@@ -364,12 +364,13 @@ the \svdone MASE values.  For all of these reasons, we view \svdone as
 an outlier and exclude it from the fit calculation of the dashed curve
 in Figure~\ref{fig:wpe_vs_mase_best}.
 
-[[Short paragraph about how MASE has its drawbacks but is the best
-    overall choice here because it is scale free and can compare
-    across signals.  Point to the MASE paper for extensive evaluation
-    and comparison wrt other metrics. We are in the process of
-    repeating this study with other metrics, other forecast methods,
-    and time-series data from other systems.  Segue to next section.]]
+[[Even though MASE has weaknesses, we concur with \cite{mase} that it
+    is an effective way to compare prediction error across time series
+    of different lengths and different scales.  Point to that paper
+    for extensive evaluation and comparison wrt other metrics. We are
+    in the process of repeating our own study with other metrics,
+    other forecast methods, and time-series data from other systems.
+    Segue to next section.]]
 
 %This portion should justify the following claim%%%%%%%%%%%%%%%%%%%%%%
 %\item The way structure/information/complexity is processed internally by a given process plays a crucial role in predictability.

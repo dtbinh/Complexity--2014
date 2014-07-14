@@ -28,8 +28,9 @@ accuracy is indeed correlated with weighted permutation entropy: the
 higher the WPE, in general, the higher the prediction error.  The
 relationship is roughly logarithmic, which makes sense because any
 signal with zero entropy should be perfectly predictable, and so
-should ideally have a MASE value of zero.  Supporting our hypothesis,
-forecast errors for the \col and \svdfive signals are higher than the
+should ideally have a MASE value of zero.  [[Are there other reasons
+    this shape makes sense?]]  Supporting our hypothesis, forecast
+errors for the \col and \svdfive signals are higher than the
 corresponding WPEs suggest---except for the nonlinear LMA predictor.
 There are some exceptions: \svdone is easier to predict than its WPE
 value suggests using any of the three forecast strategies studied
@@ -56,14 +57,16 @@ random-walk strategy outperforms LMA, ARIMA, and the \naive ~method on
 the \gcc signal, which is extremely complex---i.e., extremely low
 redundancy.
 %  \naive ~wins on \svdone with the exception to the 5 outliers.
-The curve in Figures~\ref{fig:wpe_vs_mase_best}
-and~\ref{fig:wpe_vs_mase_all} operationalizes the discussion in this
-paragraph.  It is a preliminary, but potentially useful, empirical
+The dashed curve and shaded region in
+Figures~\ref{fig:wpe_vs_mase_best} and~\ref{fig:wpe_vs_mase_all}
+operationalize the discussion in this paragraph.  These geometric
+features are a preliminary, but potentially useful, empirical
 guideline for knowing when a model is not well-matched to the task at
-hand: a MASE score that is significantly higher than [[$3.58 \cdot
-    \mathrm{WPE} - 1.91$]], where $\mathrm{WPE}$ is that of the
-corresponding signal, is an indication that that time series has more
-predictive structure than that forecast model can capture and exploit.
+hand: [[a MASE score that is significantly higher than $3.58 \cdot
+    \mathrm{WPE} - 1.91$, where $\mathrm{WPE}$ is that of the
+    corresponding signal]] [[need to reword]], is an indication that
+that time series has more predictive structure than that forecast
+model can capture and exploit.
 
 [[This paragraph duplicates material in the last paragraph of this
     section.  Some of it needs to be here rather than there, judging
@@ -137,17 +140,18 @@ patterns (dynamical chaos, periodicities, noise, etc.) are generic, we
 believe that our results will generalize beyond this particular
 system.  Testing that claim with different examples is another
 important next step---and one that will be critical to validating our
-claims about the utility of the dashed line as a heuristic for
-determining whether a particular forecast method is well-matched to a
-particular task.  Of particular interest would be the class of
-so-called \emph{hybrid systems}~\cite{hybrid}, which exhibit discrete transitions
-between different continuous regimes---e.g., a lathe that has an
-intermittent instability or traffic at an internet router, whose
-characteristic normal traffic patterns shift radically during an
-attack.  Effective modeling and prediction of these kinds of systems
-is quite difficult; doing so adaptively and automatically---in the
-manner that is alluded to at the end of the previous paragraph---would
-be an even more important challenge.
+claims about the utility of the shaded region around the dashed curve
+in Figure [[what]] as a heuristic for determining whether a particular
+forecast method is well-matched to a particular task.  Of particular
+interest would be the class of so-called \emph{hybrid
+  systems}~\cite{hybrid}, which exhibit discrete transitions between
+different continuous regimes---e.g., a lathe that has an intermittent
+instability or traffic at an internet router, whose characteristic
+normal traffic patterns shift radically during an attack.  Effective
+modeling and prediction of these kinds of systems is quite difficult;
+doing so adaptively and automatically---in the manner that is alluded
+to at the end of the previous paragraph---would be an even more
+important challenge.
 
 % The way structure, information and complexity are processed by a
 % generating process play a crucial role in the success of a given
