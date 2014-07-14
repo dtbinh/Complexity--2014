@@ -4,11 +4,12 @@ Modeling time-series data for the purposes of prediction dates back at
 least to Yule's 1927 invention of autoregression~\cite{Yule27}.  Since
 then, hundreds, if not thousands, of strategies have been developed
 for a wide variety of prediction tasks.  The purpose of this paper is
-not to add a new weapon to this arsenal, nor to assess or compare the
-effectiveness of existing methods.  Our goals are more general:
-\emph{(i)} to empirically quantify the predictive structure that is
-present in a real-valued scalar time series and \emph{(ii)} to explore
-how the performance of prediction methods is related to that inherent
+not to add a new weapon to this arsenal, nor to do any sort of
+theoretical assessment or comparison of existing methods.  Our goals
+are focused more on the \emph{practice} of predication: \emph{(i)} to
+empirically quantify the predictive structure that is present in a
+real-valued scalar time series and \emph{(ii)} to explore how the
+performance of prediction methods is related to that inherent
 complexity.  It would, of course, be neither practical nor interesting
 to report results for every existing forecast method; instead, we
 choose a representative set, as described in Section~\ref{sec:model}.
@@ -83,9 +84,9 @@ paragraphs are based on specific assumptions about the underlying
 generating process and knowledge about what will happen to the error
 if those assumptions hold or fail.  Model-free information analysis
 moves away from those restrictions.  Our approach falls into this
-class.  Our goal is to empirically measure the inherent complexity of
-a time series, then correlate that complexity with the predictive
-accuracy of forecasts made using a number of different methods.  
+class.  Our goal is to measure the inherent complexity of an empirical
+time series, then correlate that complexity with the predictive
+accuracy of forecasts made using a number of different methods.
 
 We build on the notion of \emph{redundancy} that was introduced on
 page~\pageref{page:redundancy}, which formally quantifies how
@@ -128,13 +129,14 @@ even if the dynamics are known, these partitions are difficult to
 compute and often have fractal boundaries~\cite{eisele1999}.
 
 We sidestep these issues by using a variant of the \emph{permutation
-  entropy} of Bandt and Pompe~\cite{bandt2002per} to estimate the value
-of the Kolmogorov-Sinai entropy of a real-valued time series---and
-thus the redundancy in that data, which we show to be an effective proxy for
-predictability.  This differs from existing approaches in a number of
-ways.  It does not rely on generating partitions---and thus does not
-introduce bias into the results if one does not know the dynamics or
-cannot compute the partition.  It makes no assumptions about, and
+  entropy} of Bandt and Pompe~\cite{bandt2002per} to estimate the
+value of the Kolmogorov-Sinai entropy of a real-valued time
+series---and thus the redundancy in that data, which our results
+confirm to be an effective proxy for predictability.  This differs
+from existing approaches in a number of ways.  It does not rely on
+generating partitions---and thus does not introduce bias into the
+results if one does not know the dynamics or cannot compute the
+partition.  Permutation entropy makes no assumptions about, and
 requires no knowledge of, the underlying generating process: linear,
 nonlinear, the Lyapunov spectrum, etc.  These features make our
 approach applicable to noisy real-valued time series from all classes

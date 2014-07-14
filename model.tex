@@ -331,10 +331,13 @@ that structure can be captured and used by LMA---is apropos of the
 central question treated in this paper.  It may be that \gcc has some
 redundancy that LMA cannot exploit, or that the structure in \svdfive
 is effectively obfuscated, from the standpoint of the LMA method, by
-noise.  By quantifying the balance between redundancy (that is,
-predictive structure) and entropy for these real-valued time series,
-as shown in Section~\ref{sec:results}, we can begin to answer these
-questions.
+noise.  Without any knowledge of the generating process, answers to
+these questions can only be derived from the data, with all of the
+attendant problems (noise, sampling issues, etc.)  By quantifying the
+balance between redundancy (that is, predictive structure) and entropy
+for these real-valued time series, as shown in
+Section~\ref{sec:results}, we can begin to answer these questions
+in an effective and practical manner.
 
 % If enough predictive structure is present in these embeddings, that
 % structure can be used to build an effective forecast model.
@@ -475,7 +478,6 @@ all four methods for the \col, \gcc, and \svdfive time series.
   }
   \label{fig:forecast-example}
 \end{table*}
-
 In these images, the vertical axis is the prediction $p_j$ and the
 horizontal axis is the true continuation $c_j$.  On such a plot, a
 perfect prediction would lie on the diagonal.  LMA, for instance,
