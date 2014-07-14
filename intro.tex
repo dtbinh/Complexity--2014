@@ -44,6 +44,49 @@
 %
 %\noindent ****SECTION START****
 
+%<<<<<<< HEAD
+%Complicated time-series data are ubiquitous in modern scientific research.  The
+%complexity of these data spans a wide %range.  On the low end of this spectrum
+%are time series that exhibit perfect %predictive structure, i.e, signals whose
+%future values can be successfully %predicted from past values.  Signals like %this
+%can be viewed as the product of an %underlying process that generates %information
+%and/or transmits it from the past to the %future in a perfectly predictable
+%fashion.  Constant or periodic signals, %for example, fall in this class.  On the
+%opposite end of this spectrum are signals %that are what we call \emph{fully
+%complex}, where the underlying generating %process transmits no information at
+%all from the past to the future.  White %noise processes fall in this class.  In
+%fully complex signals, knowledge of the %past gives no insight into the future,
+%regardless of what model one chooses to %use. Signals in the midrange of this
+%spectrum---e.g., deterministic chaos---%pose interesting challenges from a
+%modeling perspective.  In these signals, %enough information is being transmitted
+%%from the past to the future that an \emph{ideal} model---one that captures the
+%generating process---can forecast the future behavior of the observed system
+%with high accuracy. Though this notion of complexity differs from that
+%considered by e.g. \cite{Shalizi2008}, which would consider a time series
+%without any statistical regularities to be non-complex, it has been extensively
+%considered by Boffetta et al~\cite{boffetta02}.
+%
+%As a corollary of the undecidability of the halting
+%problem~\cite{halting-problem}, however, no single forecasting schema
+%is ideal for all noise-free deterministic
+%signals~\cite{weigend93}---let alone all real-world time-series
+%data sets.  This leads naturally to an important and challenging
+%question: given a complicated real-valued time series, does there
+%exist a forecast model that can leverage the information (if any) that
+%is being transmitted from past to future by the underlying generating
+%process?  A first step in answering this question is to reliably
+%quantify where on the complexity spectrum a given time series falls; a
+%second step is to determine how complexity and predictability are
+%related.  These are the goals of this paper.
+%
+%In particular, we wish to determine---without knowing anything about
+%the generating process---whether a time series is too complex to successfully
+%predict.  An important practical corollary to this is a strategy for
+%assessing appropriateness of forecast methods.  If the forecast
+%produced by a particular method is poor but the time series contains a
+%significant amount of predictive structure, one can reasonably conclude that that method is inadequate
+%to the task and that one should seek another method.
+%=======
 Complicated time-series data are ubiquitous in modern scientific
 research.  The complexity of these data spans a wide range.  On the
 low end of this spectrum are time series that exhibit perfect
@@ -100,6 +143,7 @@ formalize that strategy.
 % We have two goals in this paper: to determine---without knowing
 % anything about the generating process---whether an empirical time
 % series is too complex to successfully predict.
+%>>>>>>> %1574864f4a0a007a6917eac812688ba02a5de1d5
 
 The information in an observation can be partitioned into two pieces:
 redundancy and entropy generation~\cite{crutchfield2003}.
