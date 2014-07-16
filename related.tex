@@ -60,7 +60,7 @@ building an autoregressive model, for example, it is common to
 calculate forecast errors and verify that they are normally distributed.
 If they are not, that suggests that there is structure in the time
 series that the model-building process was unable to capture and use.
-The problem with this approach is lack of generality.  
+The problem with this approach is lack of generality.
 \label{page:normal-errors}
 Normally distributed errors indicate that a model has captured the
 structure in the data insofar as is possible, \emph{given the
@@ -95,16 +95,16 @@ information propagates forward through a time series:
 % values
 i.e., the mutual information between the past $n$ observations and the
 current one.
-% took this out because DCE hasn't been introduced yet: 
-% 
+% took this out because DCE hasn't been introduced yet:
+%
 % For example,
 % this would be the amount of information that delay coordinate
 % embedding captures.
 The redundancy of i.i.d. random processes, for instance, is zero,
 since all observations in such a process are independent of one
 another.  On the other hand, deterministic systems---including chaotic
-ones---have high redundancy that is maximal in the infinite limit, 
-and thus they can be perfectly predicted if observed for long 
+ones---have high redundancy that is maximal in the infinite limit,
+and thus they can be perfectly predicted if observed for long
 enough~\cite{weigend93}.  In practice, it is
 quite difficult to estimate the redundancy of an arbitrary,
 real-valued time series.  Doing so requires knowing either the
@@ -115,7 +115,7 @@ the generating system is stochastic.
 
 The notion of complexity used here differs from that considered by
 e.g. \cite{Shalizi2008}, which would consider a time series without
-any statistical regularities to be non-complex.  
+any statistical regularities to be non-complex.
 
 Using entropy and redundancy to quantify the inherent predictability
 of a time series is not a new idea.  Past methods for this, however,
@@ -147,18 +147,26 @@ approach applicable to noisy real-valued time series from all classes
 of systems.
 
 As a final note: there has been prior work under a similar title to
-ours~\cite{haven2005}, but there are only superficial similarities
-between the two research projects.  Haven \emph{et al.} utilize the
-relative entropy to quantify the difference in predictability between
-two distributions: one evolved from a small ensemble of past states
-using the known dynamical system, and the other the observed
-distribution. Our work quantifies the predictability of a single
-observed time series using weighted permutation entropy and makes no
-assumptions about the generating process.  More closely related is the
-work by Boffetta et al.~\cite{boffetta02}.  \alert{[[Sentences from
-      Ryan explaining exactly what the difference is.]]]}
-
-
+ours~\cite{haven2005}, but there are only superficial similarities between the
+two research projects. Haven \emph{et al.} utilize the relative entropy to
+quantify the difference in predictability between two distributions: one evolved
+from a small ensemble of past states using the known dynamical system, and the
+other the observed distribution. Our work quantifies the predictability of a
+single observed time series using weighted permutation entropy and makes no
+assumptions about the generating process. More closely related is the work by
+Boffetta et al.~\cite{boffetta02}. There, they investigate the scaling behavior
+of finite-size Lyapunov exponents (FSLE) and $\epsilon$-entropy for a wide
+variety of systems. The scaling of these measures acts as a general proxy for
+the theoretical ability to predict the future behavior of those systems. Though
+in broad strokes our work is similar to theirs, it differs in two fundamental
+ways. First, we consider with real-world data, e.g. stock prices, where we do
+not necessarily have the ability to perturb or otherwise interact with the
+system of interest, nor can we get an arbitrary amount of data which might be
+needed to estimate the $\epsilon$-entropy for small $\epsilon$. Second, we tie
+information, in the form of the weighted permutation entropy, directly to
+prediction error via MASE values. Though FSLE and $\epsilon$-entropy allow for
+the comparison of predictability between systems, they do not directly provide
+an estimate of prediction error.
 
 
 
