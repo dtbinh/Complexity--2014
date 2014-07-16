@@ -123,7 +123,7 @@ Figure~\ref{fig:wpe_vs_mase_best} plots the WPE values versus the
 corresponding MASE values of the best prediction of each time series.
 \begin{figure}[htbp]
   \centering
-  \includegraphics[width=\columnwidth]{figs/new_prediction_vs_entropy_autolog}
+  \includegraphics[width=\columnwidth]{figs/new_prediction_vs_entropy}
   \caption{Weighted permutation entropy vs. mean absolute scaled error
     (MASE) of the best prediction of each time series.
 %
@@ -131,8 +131,8 @@ corresponding MASE values of the best prediction of each time series.
 %
 The dashed curve is a least-squares log fit of all the points except
 those from {\tt dgesdd$_1$}, which we have excluded for reasons
-explained in the text.  [[Say what the colored region is and why we
-    included it.]]}
+explained in the text.  The shaded region boundaries reflect the
+standard deviation of the model in its parameter space.}
   \label{fig:wpe_vs_mase_best}
 \end{figure}
 As the plot shows, the best-case prediction error for each trace from
@@ -141,9 +141,13 @@ permutation entropy, which is consistent with our first conjecture.
 The dashed line in the figure, a least-squares fit of $y = a \log(b x
 + c)$ to these errors\footnote{with the exception of {\tt dgesdd$_1$},
   for reasons described below} captures this relationship between WPE
-and prediction error\footnote{The logarithmic fit is appropriate here
-  because any signal with zero entropy should be perfectly
-  predictable, and so should ideally have a MASE value of zero.}.
+and prediction error quite nicely.  The logarithmic shape of this
+curve makes sense here because any signal with zero entropy should be
+perfectly predictable, and so should ideally have a MASE value of
+zero.  The shaded region shows the standard deviation of the model in
+its parameter space: i.e., $y = a \log(b x + c)$ with $\pm$ one
+standard deviation on each of the three parameters.
+
 This is not a formal result.  The forecast methods and data sets used
 here were chosen to span the space of standard prediction strategies
 and the range of dynamical behaviors, but they do not cover those
@@ -175,10 +179,8 @@ set of experiments.
 %   $20.87 \pm 0.192$ respectively.
 %
 Numerical values, including means and standard deviations of the
-errors, can be found in Table~\ref{tab:error}.  The dashed curve [[and
-    shaded regions?  need to check this throughout the text and in all
-    captions after we finalize the plot]] is the same as in the
-previous figure.  }
+errors, can be found in Table~\ref{tab:error}.  The dashed curve and
+shaded region is the same as in the previous figure.  }
     \label{fig:wpe_vs_mase_all}
 \end{figure}
 There are 15 points in each cluster, one for each trial.  (The points
@@ -191,8 +193,8 @@ cases---\arima predictions of {\tt col\_major}, for instance---the
 MASE variance is larger, which spreads out the clusters horizontally.
 The distribution of the cluster \emph{positions} is quite different in
 the three plots.  The mean MASE scores of predictions generated with
-the nonlinear LMA method are generally closer to the [[dashed curve]];
-the \arima method clusters are more widely spread, the \naive ~clusters
+the nonlinear LMA method are generally closer to the dashed curve; the
+\arima method clusters are more widely spread, the \naive ~clusters
 even more so.  This geometric validation of the second conjecture in
 this paper is discussed in more detail in the following paragraphs.
 
@@ -214,7 +216,7 @@ This disparity---WPE values that suggest a high rate of forward
 information transfer in the signal, but predictions with comparatively
 poor MASE scores---is obvious in the geometry of the top two images in
 Figure~\ref{fig:wpe_vs_mase_all}, where the \col clusters are far to
-the right of the [[dashed curve]].  \emph{This indicates that these
+the right of the dashed curve.  \emph{This indicates that these
   methods are not leveraging the available information in the signal}.
 The dynamics of \col may be complicated, but they are not
 unstructured.  This signal is nonlinear and
@@ -226,26 +228,28 @@ linear model (\arima)---the MASE score is much better: $0.050 \pm
 forecast, which is more in line with the level of predictive structure
 that the low WPE value suggests is present in the signal.
 
-The [[dashed curve]] in Figures~\ref{fig:wpe_vs_mase_best}
+The dashed curve in Figures~\ref{fig:wpe_vs_mase_best}
 and~\ref{fig:wpe_vs_mase_all} is a heuristic that captures the
 argument at the end of the previous paragraph.  It can allow
 practitioners to recognize when a prediction method is not well
 matched to the task at hand: that is, when the time series has more
 predictive structure than the method is able to use.  When the
-predictions are well below [[that curve]] (as in the top and middle
-images in Figure~\ref{fig:wpe_vs_mase_all}), one should try a
-different method.  Conversely, the position of the LMA cluster---well
-to the left of the other two, near the [[dashed curve]]---reflects
-this method's ability to capture and exploit the structure that is
-present in this signal.  [[Liz to wordsmith: Again, this curve was
-    determined from a finite set of methods and data.  But we worked
-    hard to make these experiments representative and comprehensive:
-    forecast methods from simple to sophisticated; time-series data
-    from a system whose behavior spans the dynamical behavior space.
-    While we are cautiously opmistic about its generality, more
-    exploration will be required to firm up that conclusion.  Say that
-    Henon, Lorenz and SFI A fall within the colored region too, and
-    that we're working on a broader study.]]
+predictions are well below that curve (as in the top and middle images
+in Figure~\ref{fig:wpe_vs_mase_all}), one should try a different
+method.  Conversely, the position of the LMA cluster---well to the
+left of the other two, near the dashed curve---reflects this method's
+ability to capture and exploit the structure that is present in this
+signal.  [[Liz to wordsmith: Again, this curve was determined from a
+    finite set of methods and data.  But we worked hard to make these
+    experiments representative and comprehensive: forecast methods
+    from simple to sophisticated; time-series data from a system whose
+    behavior spans the dynamical behavior space.  While we are
+    cautiously opmistic about its generality, more exploration will be
+    required to firm up that conclusion.  Say that Henon, Lorenz and
+    SFI A fall within the colored region too, as do nonlinear
+    transformations of \svdtwo and \svdsix.  Add here how much the fit
+    changed with those additions.  As we add examples to this list,
+    this empirical result will firm up.]]
 
 Note that the \col points (blue {\color{blue}$+$} icons) are clustered
 very tightly in the lower left quadrant of the LMA and \naive ~MASE

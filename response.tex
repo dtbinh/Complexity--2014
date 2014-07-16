@@ -175,12 +175,11 @@ holds for a time series of voltages from a chaotic laser used in the
 SFI prediction competition, for instance.  (It also holds for various
 paradigmatic systems, such as the Henon map and the Lorenz system, as
 discussed in a later section of this response.)  The image below is an
-augmented version of our \alert{revised Figure 6 [[This needs to be
-      regenerated with the new error bars]]} that includes all of
-these examples.
+augmented version of our revised Figure 7 that includes all of these
+examples.
 
 \begin{center}
-    \includegraphics[width=0.8\columnwidth]{figs/new_prediction_vs_entropy_extra_autolog}
+    \includegraphics[width=0.8\columnwidth]{figs/new_prediction_vs_entropy_extras}
 \end{center}
 
 \noindent The dashed curve in this plot (and in Figure 6) was fit
@@ -381,10 +380,10 @@ the ARIMA family will work and one should try a nonlinear model.
 % Unfortunately the WPE value alone is insufficient to differentiate
 % these two situations.  It can identify both, but cannot distinguish.
 
-We have \alert{Someone needs to do this: [[changed the term used in
-      the paper to AutoARIMA]]} in order to make it clear that this
-refers not to the general class of these models, but to a particular
-member of that class chosen via a particular procedure.
+We have changed the term used in the paper to {\tt auto.arima} in
+order to make it clear that this refers not to the general class of
+these models, but to a particular member of that class chosen via a
+particular procedure.
 
 \smallskip
 
@@ -444,9 +443,17 @@ WPE values depend not only on wordlength, but also on \emph{data}
 length---since one needs more data to get good statistics on the words
 for the PE calculation.  These two interacting knobs are not easy to
 set.  Perhaps as a result of this, wordlength choices are rarely
-justified in the permutation entropy literature.  \alert{[[Can you
-      guys please extract a few representatively bad quotes from some
-      of the PE papers and put them in here?]]}
+justified in the permutation entropy literature.  
+
+The extent of the discussion in [Bandt \& Pompe, {\sl PRL}, 2002], for
+instance---the paper in which PE was proposed---is ``Our entropies are
+calculated for different [$\ell$] but we do not to determine a limit
+for large [$\ell$], although this is an interesting theoretical
+problem.  ``For practical purposes, we recommend 3\dots7...''  The
+corresponding discussion in [Cao {\sl et al.}, {\sl PRE}, 2004] reads
+``In their paper, Bandt \& Pompe recommended [$\ell$] of 3-7.  We
+often found that 3 and 4 may still be too small, and a value of 5, 6,
+or 7 seems to be the most suitable....''
 
 The right thing to do, as we argued in Section [[what]], is to compute
 PE across a \emph{range} of wordlengths ($\ell$) and look for a flat
@@ -464,11 +471,13 @@ equivalence classes are difficult to define.  We addressed
 this---insofar as is possible in an experimental context---by choosing
 a range of time-series data sets whose behavior spans a wide range of
 dynamical behaviors.  For all of these examples---as well as for the
-three additional ones constructed for this rebuttal letter (Henon,
-Lorenz, SFI A)---the pattern (Figure 6) was consistent.  This strongly
-suggests, but of course does not prove, that our approach is general.
-As the reviewer suggested, this will require extensive study and
-evaluation in future work.
+39 additional ones\footnote{Henon, Lorenz, SFI A, random walk,
+  nonlinear transformations of the 30 [[svdtwo]] and [[svdsix]]
+  signals} constructed for this rebuttal letter---the pattern in
+Figure 7 remained virtually unchanged, as described in the following
+entry.  This strongly suggests, but of course does not prove, that our
+approach is general.  As the reviewer suggested, this will require
+extensive study and evaluation in future work.
 
 \smallskip
 
@@ -483,15 +492,21 @@ evaluation in future work.
   (only 7 or 8 different data points, such a small number of points
   may lie approximately near a straight line by chance).}
 
-\alert{response and modification of text both are pending experiments}
+\alert{Liz to fix following text, now that we have these experiments}
 
 PE is invariant under an invertible nonlinear transformation of the
 values in the time series, but WPE is not.  But MASE varies \emph{in a
   complementary way}.  Ryan will do $x(t)$ and $5e^{x(t)}$ and show
-that it's on the curve.  This is consistent with our claim of
-generality; this is just another time series.  A xform like this
-effectively changes the generating process, but our model-free result
-handles it.
+that it's on the curve.  
+
+% Ryan will insert figure here with x(t) = svdone and svdsix
+% \begin{center}
+%     \includegraphics[width=0.8\columnwidth]{figs/new_prediction_vs_entropy_extras}
+% \end{center}
+
+This is consistent with our claim of generality; this is just another
+time series.  A xform like this effectively changes the generating
+process, but our model-free result handles it.
 
 The fit of the regression line was not a function of the small number
 of points; when we included all 105 WPE-MASE pairs, rather than just a
@@ -504,6 +519,13 @@ curve to better match the theoretical relationship between MASE and
 WPE, as mentioned above.  Finally, we now show a ``fuzzy'' version of
 the fitted curve in an effort to emphasize that the fundamental claim
 of the paper is not related to the crispness of the fit.
+
+\alert{Need the change and the confidence stuff for this: Fit changed
+  by [[what]] when we redid it with these 34 new points.}  It now
+reflects a map, a flow, a purely stochastic signal, a variety of
+real-world data from two different systems (laser, computer), and
+nonlinear transformations of that real-world data.  Seems pretty
+compelling.
 
 \emph{To summarize, the paper shows that the authors are well familiar
   with the entire topic and highly qualified, they overview some

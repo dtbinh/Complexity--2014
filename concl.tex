@@ -26,18 +26,22 @@ and more than a hundred time-series data sets from a
 computer-performance experiment, we have shown that prediction
 accuracy is indeed correlated with weighted permutation entropy: the
 higher the WPE, in general, the higher the prediction error.  The
-relationship is roughly logarithmic.  [[This is just an observed result.
-It makes sense because, firstly, any signal with zero entropy should
-be perfectly predictable, and so should ideally have a MASE value of
-zero.  As the entropy rises, the MASE value rise: slowly at first
-because the signal still has lots of info, then more rapidly because
-[[why]], and finally saturating at [[what]] because of [[why]].
-Supporting our hypothesis, forecast errors for the \col and \svdfive
-signals are higher than the corresponding WPEs suggest---except for
-the nonlinear LMA predictor.  There are some exceptions: \svdone is
-easier to predict than its WPE value suggests using any of the three
-forecast strategies studied here.  On the whole, though, signals with
-higher weighted permutation entropy are harder to predict.
+relationship is roughly logarithmic.  
+
+[[Maybe put (or reiterate) the ``range of examples'' material here.
+    This is just an observed result.  It makes sense because any
+    signal with zero entropy should be perfectly predictable, and so
+    should ideally have a MASE value of zero.  As the entropy rises,
+    the MASE value rise: slowly at first---where the signal is not
+    very complex---and then more rapidly after WPE $\approx$ 0.5.  We
+    are in the process of exploring the theory behind this shape, as
+    well as testing other shapes.  Supporting our hypothesis, forecast
+    errors for the \col and \svdfive signals are higher than the
+    corresponding WPEs suggest---except for the nonlinear LMA
+    predictor.  There are some exceptions: \svdone is easier to
+    predict than its WPE value suggests using any of the three
+    forecast strategies studied here.  On the whole, though, signals
+    with higher weighted permutation entropy are harder to predict.
 
 % Further, the persistent WPE values of 0.5--0.6 for the {\tt
 %   col\_major} trace are consistent with dynamical chaos, further
@@ -64,11 +68,11 @@ Figures~\ref{fig:wpe_vs_mase_best} and~\ref{fig:wpe_vs_mase_all}
 operationalize the discussion in this paragraph.  These geometric
 features are a preliminary, but potentially useful, empirical
 guideline for knowing when a model is not well-matched to the task at
-hand: [[a MASE score that is significantly higher than $3.58 \cdot
-    \mathrm{WPE} - 1.91$, where $\mathrm{WPE}$ is that of the
-    corresponding signal]] [[need to reword]], is an indication that
-that time series has more predictive structure than that forecast
-model can capture and exploit.
+hand: a MASE score that is significantly\footnote{more than one
+  $\sigma$ out} higher than [[$3.58 \cdot \mathrm{WPE} - 1.91$]],
+where $\mathrm{WPE}$ is that of the corresponding signal, is an
+indication that that time series has more predictive structure than
+that forecast model can capture and exploit.
 
 [[This paragraph duplicates material in the last paragraph of this
     section.  Some of it needs to be here rather than there, judging
@@ -90,10 +94,10 @@ series drawn from other physical systems.  We are certainly aware that
 this claim may not be true, however, and we are in the process of a
 follow-up study exploring a broader range of applications.
 Preliminary results of this study show that MASE vs. WPE points for
-data from the SFI prediction competition \cite{weigend-book} fall in the shaded
-region on Figure [[what]]\footnote{Synthetic data from paradigmatic
-  systems like the H\'{e}non map \cite{henon} and the Lorenz system
-  \cite{lorenz} also fit this pattern.}.
+data from the SFI prediction competition \cite{weigend-book} fall in
+the shaded region on Figure [[what]]\footnote{Synthetic data from
+  paradigmatic systems like the H\'{e}non map \cite{henon} and the
+  Lorenz system \cite{lorenz} also fit this pattern.}.
 
 Given that information is a fundamental limitation in predictability,
 then gathering and using more information is an obvious next step.
