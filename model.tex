@@ -25,18 +25,19 @@ predictive accuracy.  These methods include:
   observed signal as the forecast,
 
 \item The \emph{ARIMA} (auto-regressive integrated moving average)
-  method, a common linear forecast strategy, and
+  method, a common linear forecast strategy, built using the
+  \emph{AutoARIMA} procedure \cite{arima}, and
 
 \item The \emph{LMA} (Lorenz method of analogues) method, which uses a
   near-neighbor forecast strategy on a dynamical reconstruction of the
   signal.
 \end{itemize}
-ARIMA is based on standard autoregressive techniques.  LMA is designed
-to capture and exploit the deterministic structure of a signal from a
-nonlinear dynamical system.  The \naive ~and random-walk methods,
-somewhat surprisingly, often outperform these more-sophisticated
-prediction strategies in the case of highly complex signals, as
-discussed below.
+ARIMA models are based on standard autoregressive techniques.  LMA is
+designed to capture and exploit the deterministic structure of a
+signal from a nonlinear dynamical system.  The \naive ~and random-walk
+methods, somewhat surprisingly, often outperform these
+more-sophisticated prediction strategies in the case of highly complex
+signals, as discussed below.
 
 \subsection{Two Simple Prediction Strategies}
 \label{sec:simple}
@@ -83,7 +84,7 @@ regime shifts.
 
 Of course, methods that could capture and exploit the geometry of the
 data, or its temporal patterns, would be far more effective in the
-situations described in the previous paragraph.  The ARIMA and LMA
+situations described in the previous paragraph.  The AutoARIMA and LMA
 methods introduced in Sections~\ref{sec:arima} and~\ref{sec:lma} are
 designed to do exactly that.
 % Note, though, that periodic patterns
@@ -120,7 +121,7 @@ and~\ref{sec:results}.
 %of the autoregressive schema~\cite{weigend93}, which forecasts the
 %next time step through a weighted average of past observations: $$p_i
 %= \phi(B^p)x_{i}$$ where $\phi(\cdot)$ is a polynomial of degree $p$
-%that is fit to the past $p+1$ [[???]] values of $x_i$ via the
+%that is fit to the past $p+1$ [???] values of $x_i$ via the
 %backshift operator $B$ \footnote{I changed the superscript to $k$ to
 %  make this definition general---not connected to any of the terms
 %  that have specific meanings later in this section.}:
@@ -156,11 +157,11 @@ and~\ref{sec:results}.
 %\Theta(B^Q)\theta(B^q)\epsilon_i$$
 %%
 %Here $\Phi(\cdot)$ and $\Theta(\cdot)$ are polynomials of degree $P$
-%and $Q$, respectively [[which accomplish what purpose?  why?  how?
-%    where did $D$ come from and what does it do?]].  $m$ is the
-%seasonal frequency [[shouldn't this be ``period''?]].  [[Explain why
+%and $Q$, respectively [which accomplish what purpose?  why?  how?
+%    where did $D$ come from and what does it do?].  $m$ is the
+%seasonal frequency [shouldn't this be ``period''?].  [Explain why
 %    one should choose $P=Q=m$, since that's what the equation below
-%    implicitly does.]]  To use a seasonal ARIMA model, one first uses
+%    implicitly does.]  To use a seasonal ARIMA model, one first uses
 %the detrending term to remove nonstationarity: $$\hat{x_i} =
 %(1-B^m)^D(1-B^d) x_{i}$$ and then creates the forecast $p_i$ by
 %evaluating $$\Phi(B^m)\phi(B^p)\hat{X_i} =
@@ -194,12 +195,13 @@ linear predictors.  Fitting such a model to a dataset involves
 choosing values for the various free parameters in the autoregressive,
 detrending, moving average, and filtering terms.  We employ the
 automated fitting techniques described in~\cite{autoARIMA} to
-accomplish this.  This procedure uses sophisticated methods---KPSS
-unit-root tests~\cite{KPSSunit}, a customization of the Canova-Hansen
+accomplish this, producing what we call an \emph{AutoARIMA model}.
+This procedure uses sophisticated methods---KPSS unit-root
+tests~\cite{KPSSunit}, a customization of the Canova-Hansen
 test~\cite{Canova1995}, and the Akaike information
-criterion~\cite{akaike1974}, conditioned on the maximum likelihood
-of the model fitted to the detrended data---to select good values for
-the free parameters of the ARIMA model.
+criterion~\cite{akaike1974}, conditioned on the maximum likelihood of
+the model fitted to the detrended data---to select good values for the
+free parameters of the AutoARIMA model.
 
 ARIMA forecasting is a common and time-tested procedure.  Its
 adjustments for seasonality, nonstationarity, and noise make it an
@@ -210,11 +212,11 @@ linear fit is inappropriate and ARIMA forecasts can be inaccurate.
 Another weakness of this method is prediction horizon: an ARIMA
 forecast is guaranteed to converge to the mean after some number of
 predictions, depending on model order.  To sidestep this issue, we
-build forecasts in a stepwise fashion: i.e., fit the model to the
-existing data, use that model to perform a one-step prediction, rebuild it
-using the latest observations, and iterate until the desired
-prediction horizon is reached.  (For consistency, we take the same
-approach with the other three models in this study as well, even
+build forecasts in a stepwise fashion: i.e., fit the AutoARIMA model
+to the existing data, use that model to perform a one-step prediction,
+rebuild it using the latest observations, and iterate until the
+desired prediction horizon is reached.  (For consistency, we take the
+same approach with the other three models in this study as well, even
 though doing so amounts to artificially hobbling LMA.)
 
 \subsection{A Nonlinear Prediction Strategy}
@@ -407,17 +409,17 @@ all four methods for the \col, \gcc, and \svdfive time series.
   \\
     \begin{subfigure}{0.6\columnwidth}
     \includegraphics[width=\columnwidth]{figs/colARIMAForecast}
-    \caption{\col \\ ARIMA}
+    \caption{\col \\ AutoARIMA}
     \label{fig:colARIMA}
   \end{subfigure}
   \begin{subfigure}{0.6\columnwidth}
     \includegraphics[width=\columnwidth]{figs/gccARIMAForecast}
-    \caption{\gcc \\ ARIMA }
+    \caption{\gcc \\ AutoARIMA }
     \label{fig:gccARIMA}
   \end{subfigure}%
   \begin{subfigure}{0.6\columnwidth}
     \includegraphics[width=\columnwidth]{figs/svdfiveARIMAForecast}
-    \caption{\svdfive \\ ARIMA }
+    \caption{\svdfive \\ AutoARIMA }
     \label{fig:svd5ARIMA}
   \end{subfigure}%
   \\
@@ -463,7 +465,7 @@ all four methods for the \col, \gcc, and \svdfive time series.
     \includegraphics[width=0.6\columnwidth]{figs/colMeanForecast} &
     \includegraphics[width=0.6\columnwidth]{figs/gccMeanForecast} &
     \includegraphics[width=0.6\columnwidth]{figs/svdfiveMeanForecast} \\
-    \begin{sideways}\large ARIMA\end{sideways} &
+    \begin{sideways}\large AutoARIMA\end{sideways} &
     \includegraphics[width=0.6\columnwidth]{figs/colARIMAForecast} &
     \includegraphics[width=0.6\columnwidth]{figs/gccARIMAForecast} &
     \includegraphics[width=0.6\columnwidth]{figs/svdfiveARIMAForecast} \\
@@ -481,7 +483,7 @@ all four methods for the \col, \gcc, and \svdfive time series.
 In these images, the vertical axis is the prediction $p_j$ and the
 horizontal axis is the true continuation $c_j$.  On such a plot, a
 perfect prediction would lie on the diagonal.  LMA, for instance,
-generates a very accurate prediction of the \col data, while ARIMA
+generates a very accurate prediction of the \col data, while AutoARIMA
 does not.  Horizontal lines result when a constant predictor (e.g.,
 \naive) is used on a non-constant signal.  Point clouds reflect the
 structure of the distribution of the errors---roughly normally
@@ -489,11 +491,11 @@ distributed, for example, in the case of LMA on \gcc.  Note that the
 shapes of Figures~\ref{fig:colRW} and~\ref{fig:colARIMA} are
 reminiscent of the projected embedding in Figure~\ref{fig:embedding}a.
 For a random-walk predictor, a $p_j$ vs. $c_j$ plot is equivalent to a
-two-dimensional embedding with $\tau=1$.  For ARIMA, the
+two-dimensional embedding with $\tau=1$.  For AutoARIMA, the
 correspondence is not quite as simple, since the $p_j$ values are
 linear combinations of a number of past values of the $c_j$, but the
 effect is largely the same\footnote{The temporal \emph{ordering} of
-  the points on the ARIMA $p_j$ vs. $c_j$ plot does not match that of
+  the points on the AutoARIMA $p_j$ vs. $c_j$ plot does not match that of
   a projected embedding of the time series, however.}.
 
 As a numerical measure of prediction accurary, we calculate the mean
@@ -527,7 +529,7 @@ absolute scaled error (MASE) scores and weighted permutation entropies for all e
    processes studied in this paper}
   \begin{center}
   \begin{tabular*}{\textwidth}{@{\extracolsep{\fill} } ccccc}
-  \hline\hline Signal & LMA MASE  & ARIMA MASE & na\"{i}ve MASE  & Weighted Permutation Entropy \\
+  \hline\hline Signal & LMA MASE  & AutoARIMA MASE & na\"{i}ve MASE  & Weighted Permutation Entropy \\
   \hline
  \col           & $ 0.050 \pm0.002  $ & $0.599  \pm 0.211 $ & $0.571\pm0.002$&  $0.513 \pm 0.003$ \\
 
@@ -550,18 +552,18 @@ absolute scaled error (MASE) scores and weighted permutation entropies for all e
   \end{table*}%
 Comparing these with the geometry of the plots in
 Figure~\ref{fig:forecast-example}, one can see some obvious
-correspondences.  The average LMA MASE score for the \col signals
-was $0.050$, for instance, while ARIMA scored much worse ($0.599$).
+correspondences.  The average LMA MASE score for the \col signals was
+$0.050$, for instance, while AutoARIMA scored much worse ($0.599$).
 That is, LMA performed roughly 20 times better on \col signals than a
-random-walk predictor, while ARIMA only outperformed random walk by a
-factor of 1.7.  This is in accordance with the visual appearance of
-the corresponding images in Figure~\ref{fig:forecast-example}.  While
-the correspondence between MASE score and the visual appearance of
-these kinds of plots is clear cut in this case, that is not always so.
-The plots of LMA predictions of \col and \svdfive both lie near the
-diagonal, for instance, but the corresponding MASE scores were very
-different: $0.050$ for \col and $0.718$ for \svdfive (resp., 20 and
-1.4 times better than random-walk forecasts of the same signals).
+random-walk predictor, while AutoARIMA only outperformed random walk
+by a factor of 1.7.  This is in accordance with the visual appearance
+of the corresponding images in Figure~\ref{fig:forecast-example}.
+While the correspondence between MASE score and the visual appearance
+of these kinds of plots is clear cut in this case, that is not always
+so.  The plots of LMA predictions of \col and \svdfive both lie near
+the diagonal, for instance, but the corresponding MASE scores were
+very different: $0.050$ for \col and $0.718$ for \svdfive (resp., 20
+and 1.4 times better than random-walk forecasts of the same signals).
 This is a result of the normalization in the MASE score calculation.
 Recall from Section~\ref{sec:simple} that the random-walk method
 performs especially poorly on signals that oscillate rapidly.  \col
@@ -570,20 +572,21 @@ denominator of the three MASE scores in the first row of the
 Table---is pathologically high, which skews those scores down.
 Random-walk prediction is very effective for the \svdfive signal, on
 the other hand, so the denominator is small and the MASE scores are
-skewed upwards.  Normalization is, as is often the case, a double-edged
-sword.  Here, it facilitates comparisons across signals of different
-types and lengths, but its particular pathologies must be taken into
-account, as discussed at more length in Section~\ref{sec:results}.
+skewed upwards.  Normalization is, as is often the case, a
+double-edged sword.  Here, it facilitates comparisons across signals
+of different types and lengths, but its particular pathologies must be
+taken into account, as discussed at more length in
+Section~\ref{sec:results}.
 
 % Table \ref{tab:error} provides the MASE distributions
-% {\color{red}[[Joshua: Ryan, Is this the right word? we give mean $\pm$
-%       std. dev but some have very skewed right tails]]} for each of
+% {\color{red}[Joshua: Ryan, Is this the right word? we give mean $\pm$
+%       std. dev but some have very skewed right tails]} for each of
 % the eight signals and three prediction strategies, these are averaged
 % over 15 runs of each signal-method combination. For later comparison,
 % Table \ref{tab:error} also has the complexity measure we introduce in
 % Section \ref{sec:meaComplex}.
 
-%[[and cherry pick a few examples of \gcc and \col to put in the text ]]
+%[and cherry pick a few examples of \gcc and \col to put in the text ]
 
 
 %---works quite well on the trace in Figure~%\ref{fig:ipc}, as%
@@ -607,7 +610,7 @@ account, as discussed at more length in Section~\ref{sec:results}.
 %    \caption{\svdfive}
 %    \label{fig:lmasvdfive}
 %  \end{subfigure}%
-%  \caption{{\color{red} [[If Liz thinks we should %include these I actually need to generate this %figure]]}An LMA-based forecast of
+%  \caption{{\color{red} [If Liz thinks we should %include these I actually need to generate this %figure]}An LMA-based forecast of
 %       processor-efficiency performance trace from the%\col ,\gcc and \svdfive generating processes.  Red %circles and blue $\times$s are the true and
 %       predicted values, respectively; vertical bars %show where these
 %       values differ.}\label{fig:lmapredictions}
@@ -627,7 +630,7 @@ account, as discussed at more length in Section~\ref{sec:results}.
 %\begin{figure}[htbp]
 %  \centering
 %    \includegraphics[width=\textwidth]{colPredShortTS}
-%     \caption{{\color{red} [[actually need to generate this %figure]]}An LMA-based forecast of the last 4,000 points of a
+%     \caption{{\color{red} [actually need to generate this %figure]}An LMA-based forecast of the last 4,000 points of a
 %       processor-load performance trace from the \gcc
 %       benchmark.  Red circles and blue $\times$s are the %true and
 %       predicted values, respectively; vertical bars show %where these

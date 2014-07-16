@@ -168,16 +168,6 @@ for the experiments in the following section.  This value represents a
 good balance between accurate ordinal statistics and finite-data
 effects.
 
-As a final note: there has been prior work under a similar title to
-ours~\cite{haven2005}, but there are only superficial similarities
-between the two research projects.  Haven \emph{et al.} utilize the
-relative entropy to quantify the difference in predictability between
-two distributions: one evolved from a small ensemble of past
-states using the known dynamical system, and the other the
-observed distribution. Our work quantifies the predictability of a
-single observed time series using weighted permutation entropy and
-makes no assumptions about the generating process.
-
 % was a good choice, because with $\ell \geq 7$ many signals had
 % entropies plummet due to finite data effects and so with a word length
 % of 6 we are capturing as much structure as possible without
@@ -246,12 +236,12 @@ makes no assumptions about the generating process.
 %length 4 are computed and the WPE is calculated. The gray bands denote regions
 %where the 5,000 value window overlapped visually-distinct regimes. It can be
 %seen that the behaviors of the weighted permutation entropy vary between
-%regimes. [[I think here it would be good to add a paragraph explaining the windowed WPE was used for regime choices on SVD...emphasizing  that over a time series permutation entropy fluctuates illustrating within a single time series different levels of complexity and predictability exist. Maybe point at some of the predicting predictability papers.]]
+%regimes. [I think here it would be good to add a paragraph explaining the windowed WPE was used for regime choices on SVD...emphasizing  that over a time series permutation entropy fluctuates illustrating within a single time series different levels of complexity and predictability exist. Maybe point at some of the predicting predictability papers.]
 %
 %%\begin{figure}[htbp]
 %%  \centering
 %%  \includegraphics[width=1.0\textwidth]{figs/SVD_wwpe}
-%%  \caption{[[Joshua: I think adding the colored SVD trace to this would be %good or putting it above this figure]]The weighted permutation entropy of %one run of SVD. The gray bands
+%%  \caption{[Joshua: I think adding the colored SVD trace to this would be %good or putting it above this figure]The weighted permutation entropy of %one run of SVD. The gray bands
 %%    are regions where the window overlaps regimes. The window size used is
 %%    $5,000 \times 100,000$ instructions and the word length is $4$.}
 %%  \label{fig:wwpe}
@@ -276,7 +266,7 @@ makes no assumptions about the generating process.
 %%when she scrolls past p12
 %% We decided to skip the figure completely, since we took out
 %% all stuff about PE as regime-shift detection.
-%% [[should add that as future work, though.]]
+%% [should add that as future work, though.]
 %  \includegraphics[width=\columnwidth]{figs/SVD_wwpe}
 %  \caption{The weighted permutation entropy of one run of SVD. The gray bands are regions where the window overlaps regimes. The window size used is 5,000 $\times$ 100,000 instructions and the word length is $6$. For reference the instructions per cycle of \svd are plotted as a ghost behind this plot. Each color on the ghosted time series corresonds to the different regimes as determined by visual inspection. From left to right each change in color represents a change in regime for 6 regimes in total.}\label{fig:wwpe}
 %\end{figure}

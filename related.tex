@@ -113,6 +113,10 @@ exponents of the system.  Both of these calculations are
 difficult---the latter particularly so if the data are very noisy or
 the generating system is stochastic.
 
+The notion of complexity used here differs from that considered by
+e.g. \cite{Shalizi2008}, which would consider a time series without
+any statistical regularities to be non-complex.  
+
 Using entropy and redundancy to quantify the inherent predictability
 of a time series is not a new idea.  Past methods for this, however,
 (e.g.,~\cite{Shannon1951, mantegna1994linguistic}) have hinged on
@@ -141,4 +145,21 @@ requires no knowledge of, the underlying generating process: linear,
 nonlinear, the Lyapunov spectrum, etc.  These features make our
 approach applicable to noisy real-valued time series from all classes
 of systems.
+
+As a final note: there has been prior work under a similar title to
+ours~\cite{haven2005}, but there are only superficial similarities
+between the two research projects.  Haven \emph{et al.} utilize the
+relative entropy to quantify the difference in predictability between
+two distributions: one evolved from a small ensemble of past states
+using the known dynamical system, and the other the observed
+distribution. Our work quantifies the predictability of a single
+observed time series using weighted permutation entropy and makes no
+assumptions about the generating process.  More closely related is the
+work by Boffetta et al.~\cite{boffetta02}.  \alert{[[Sentences from
+      Ryan explaining exactly what the difference is.]]]
+
+
+
+
+
 

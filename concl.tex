@@ -26,16 +26,18 @@ and more than a hundred time-series data sets from a
 computer-performance experiment, we have shown that prediction
 accuracy is indeed correlated with weighted permutation entropy: the
 higher the WPE, in general, the higher the prediction error.  The
-relationship is roughly logarithmic, which makes sense because any
-signal with zero entropy should be perfectly predictable, and so
-should ideally have a MASE value of zero.  [[Are there other reasons
-    this shape makes sense?]]  Supporting our hypothesis, forecast
-errors for the \col and \svdfive signals are higher than the
-corresponding WPEs suggest---except for the nonlinear LMA predictor.
-There are some exceptions: \svdone is easier to predict than its WPE
-value suggests using any of the three forecast strategies studied
-here.  On the whole, though, signals with higher weighted permutation
-entropy are harder to predict.
+relationship is roughly logarithmic.  [[This is just an observed result.
+It makes sense because, firstly, any signal with zero entropy should
+be perfectly predictable, and so should ideally have a MASE value of
+zero.  As the entropy rises, the MASE value rise: slowly at first
+because the signal still has lots of info, then more rapidly because
+[[why]], and finally saturating at [[what]] because of [[why]].
+Supporting our hypothesis, forecast errors for the \col and \svdfive
+signals are higher than the corresponding WPEs suggest---except for
+the nonlinear LMA predictor.  There are some exceptions: \svdone is
+easier to predict than its WPE value suggests using any of the three
+forecast strategies studied here.  On the whole, though, signals with
+higher weighted permutation entropy are harder to predict.
 
 % Further, the persistent WPE values of 0.5--0.6 for the {\tt
 %   col\_major} trace are consistent with dynamical chaos, further
@@ -53,9 +55,9 @@ in the \col and \svdfive examples.)
 % , where the other two methods do not perform well.)
 The \naive ~method, which simply predicts the mean, can work very well
 on noisy signals because it effects a filtering operation.  The simple
-random-walk strategy outperforms LMA, ARIMA, and the \naive ~method on
-the \gcc signal, which is extremely complex---i.e., extremely low
-redundancy.
+random-walk strategy outperforms LMA, AutoARIMA, and the \naive
+~method on the \gcc signal, which is extremely complex---i.e.,
+extremely low redundancy.
 %  \naive ~wins on \svdone with the exception to the 5 outliers.
 The dashed curve and shaded region in
 Figures~\ref{fig:wpe_vs_mase_best} and~\ref{fig:wpe_vs_mase_all}

@@ -4,16 +4,16 @@
 
 %BRAINSTORMING
 %\begin{itemize}
-%\item Complexity need not be hard to predict (can %point at the simple predictions paper) [[move to %introduction]]
-%\item random walk for example is best predicted by %guess what just happend[[move to introduction]]
-%\item The kind of complexity present matters, i.e., %that is whether the complexity is structured or not.%[[use here and mention in intro]]
+%\item Complexity need not be hard to predict (can %point at the simple predictions paper) 
+%\item random walk for example is best predicted by %guess what just happend
+%\item The kind of complexity present matters, i.e., %that is whether the complexity is structured or not.%
 
 
 
 
 
 
-%\item \col brings about the point nicely that some %prediction strategies cannot utilize the processes internal information transfer method. That is a nonlinear internal information transfer system cannot be predicted effectively with a linear strategy. This gives a practitioner leverage on when to give up and when to keep working. [[use in this section as bridge to next section]]
+%\item \col brings about the point nicely that some %prediction strategies cannot utilize the processes internal information transfer method. That is a nonlinear internal information transfer system cannot be predicted effectively with a linear strategy. This gives a practitioner leverage on when to give up and when to keep working. 
 
 %\end{itemize}
 
@@ -24,7 +24,7 @@
 %and summary of the results that indicate that they're deterministic
 %nonlinear dynamical systems.  Given that, we should be able to
 %predict.  What benefits would accrue if we could do so: power mgmt,
-%end world hunger [[this is my primary goal everyday :)]], etc.
+%end world hunger [this is my primary goal everyday :)], etc.
 %\end{it}
 %Things to add to introduction
 %\begin{enumerate}
@@ -108,16 +108,6 @@ that an \emph{ideal} model---one that captures the generating
 process---can forecast the future behavior of the observed system with
 high accuracy. 
 
-{\color{red} Though this notion of complexity differs from that
-  considered by e.g. \cite{Shalizi2008}, which would consider a time
-  series without any statistical regularities to be non-complex, it
-  has been extensively considered by Boffetta et al~\cite{boffetta02}.
-  I still don't understand how this sentence both addresses the
-  reviewer's pointing us to this paper and flows, logically.  Either
-  way, it is out of place.  It should be in a part of this paper that
-  gives citations, not one that lays out context in a general manner,
-  without citations.}
-
 % As a corollary of the undecidability of the halting
 % problem~\cite{halting-problem}, however, no single forecasting schema
 % is ideal for all noise-free deterministic
@@ -154,15 +144,19 @@ the complexity spectrum mentioned above.  We define \emph{complexity}
 as a particular approximation of Kolmogorov-Sinai
 entropy~\cite{lind95}.  That is, we view a random-walk time series
 (which exhibits high entropy) as purely complex, whereas a low-entropy
-periodic signal is on the low end of the complexity spectrum.  We
-argue that an extension of \emph{permutation
-  entropy}~\cite{bandt2002per}---a method for approximating the
-entropy through ordinal analysis---is an effective way to assess the
-complexity of a given time series.  Permutation entropy is ideal for
-our purposes because it works with real-valued data and is known to
-converge to the true entropy value. Other existing techniques either
-require specific knowledge of the generating process or produce biased
-values of the entropy~\cite{bollt2001}.
+periodic signal is on the low end of the complexity spectrum.
+\alert{This differs from the notion of complexity used by
+  e.g. \cite{Shalizi2008}, which would consider a time series without
+  any statistical regularities to be non-complex.  Liz moved this
+  here.  Is there a better place for it?}  We argue that an extension
+of \emph{permutation entropy}~\cite{bandt2002per}---a method for
+approximating the entropy through ordinal analysis---is an effective
+way to assess the complexity of a given time series.  Permutation
+entropy is ideal for our purposes because it works with real-valued
+data and is known to converge to the true entropy value. Other
+existing techniques either require specific knowledge of the
+generating process or produce biased values of the
+entropy~\cite{bollt2001}.
 
 We focus on real-valued, scalar, time-series data.
 %
@@ -204,7 +198,7 @@ a good forecast method.  It would also be useful to know if a given
 method is inadequate---that is, if an alternative method could do
 better and so one should continue searching.
 
-%[[Introduce and make it clear why we choose comp. perf. as test bed.]]
+%[Introduce and make it clear why we choose comp. perf. as test bed.]
 
 For the purposes of this study, we require a broad array of
 time-series datasets from across the complexity spectrum.  We chose to
