@@ -55,7 +55,7 @@ in the \col and \svdfive examples.)
 % , where the other two methods do not perform well.)
 The \naive ~method, which simply predicts the mean, can work very well
 on noisy signals because it effects a filtering operation.  The simple
-random-walk strategy outperforms LMA, AutoARIMA, and the \naive
+random-walk strategy outperforms LMA, \arima, and the \naive
 ~method on the \gcc signal, which is extremely complex---i.e.,
 extremely low redundancy.
 %  \naive ~wins on \svdone with the exception to the 5 outliers.
@@ -93,7 +93,7 @@ Preliminary results of this study show that MASE vs. WPE points for
 data from the SFI prediction competition \cite{weigend-book} fall in the shaded
 region on Figure [[what]]\footnote{Synthetic data from paradigmatic
   systems like the H\'{e}non map \cite{henon} and the Lorenz system
-  \cite{lorenz63} also fit this pattern.}.
+  \cite{lorenz} also fit this pattern.}.
 
 Given that information is a fundamental limitation in predictability,
 then gathering and using more information is an obvious next step.

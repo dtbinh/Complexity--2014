@@ -105,7 +105,7 @@ to WPE.
 % and the prediction method.  
 % 
 Working from the first 90\% of each signal, we generated a prediction
-of the last 10\% using the \naive, AutoARIMA, and LMA prediction methods,
+of the last 10\% using the \naive, \arima, and LMA prediction methods,
 as described in Section~\ref{sec:accuracy}, then calculated the MASE
 value of those predictions.  We also calculated the WPE of each time
 series using a wordlength chosen via the procedure described in
@@ -187,21 +187,21 @@ for the corresponding trace in any of the three plots in
 Figure~\ref{fig:wpe_vs_mase_all}.)  The WPE values do not vary very
 much across trials.  For most traces, the variance in MASE scores is
 low as well, resulting in small, tight clusters.  In some
-cases---AutoARIMA predictions of {\tt col\_major}, for instance---the
+cases---\arima predictions of {\tt col\_major}, for instance---the
 MASE variance is larger, which spreads out the clusters horizontally.
 The distribution of the cluster \emph{positions} is quite different in
 the three plots.  The mean MASE scores of predictions generated with
 the nonlinear LMA method are generally closer to the [[dashed curve]];
-the AutoARIMA method clusters are more widely spread, the \naive ~clusters
+the \arima method clusters are more widely spread, the \naive ~clusters
 even more so.  This geometric validation of the second conjecture in
 this paper is discussed in more detail in the following paragraphs.
 
 Though \col is a very simple program, its dynamics are actually quite
 complicated, as discussed in Section~\ref{sec:intro}.  Recall from the
 graphical representations in the left-hand column of
-Figure~\ref{fig:forecast-example} that the \naive ~and AutoARIMA
+Figure~\ref{fig:forecast-example} that the \naive ~and \arima
 prediction methods do not perform as well on this signal as the
-nonlinear LMA method.  The MASE scores of the \naive ~and AutoARIMA
+nonlinear LMA method.  The MASE scores of the \naive ~and \arima
 predictions are $0.571 \pm 0.002$ and $0.599 \pm 0.211$, respectively,
 across all 15 trials.  That is, these methods are performing only
 $\approx 1.7$ times better than the random-walk method, a primitive
@@ -221,7 +221,7 @@ unstructured.  This signal is nonlinear and
 deterministic\cite{mytkowicz09}, and if one uses a prediction
 technique that is based a nonlinear model (LMA)---rather than a method
 that simply predicts the running mean (\naive) or one that uses a
-linear model (AutoARIMA)---the MASE score is much better: $0.050 \pm
+linear model (\arima)---the MASE score is much better: $0.050 \pm
 0.001$.  This prediction is 20 times more accurate than a random-walk
 forecast, which is more in line with the level of predictive structure
 that the low WPE value suggests is present in the signal.
@@ -249,10 +249,10 @@ present in this signal.  [[Liz to wordsmith: Again, this curve was
 
 Note that the \col points (blue {\color{blue}$+$} icons) are clustered
 very tightly in the lower left quadrant of the LMA and \naive ~MASE
-vs. WPE plots, but spread out horizontally in the AutoARIMA plot.
+vs. WPE plots, but spread out horizontally in the \arima plot.
 This is because of the way that these models are built
 \cite{autoARIMA}.  If a KPSS test of the time series in question
-indicates that it is nonstationary, the AutoARIMA recipe adds an
+indicates that it is nonstationary, the \arima recipe adds an
 integration term to the model.  This test gives mixed results in the
 case of the \col process, flagging five of the 15 trials as stationary
 and ten as nonstationary.  ARIMA models without an integration term
@@ -260,7 +260,7 @@ perform more poorly on this signal, which increases the error, thereby
 spreading out the points\footnote{We tested this hypothesis by forcing
   the inclusion of an integration term in the five cases where a KPSS
   test indicated that such a term was not needed.  This action removed
-  the spread, pushing all 15 of the \col AutoARIMA points in
+  the spread, pushing all 15 of the \col \arima points in
   Figure~\ref{fig:wpe_vs_mase_all} into a tight cluster.}.
 \alert{This paragraph probably needs more, in response to the ref's
   gritch about fitting.  We certainly want to call his attention to
@@ -279,7 +279,7 @@ instance, may fail when applied to nonlinear processes.
 % (This is the basis for the second conjecture above.)
 %
 This match between model and task is an issue in the \svdfive
-experiments as well.  The MASE scores of the \naive ~and AutoARIMA
+experiments as well.  The MASE scores of the \naive ~and \arima
 predictions for this system are $20.870 \pm 0.192$ and $2.370 \pm
 0.051$, respectively: that is, 20.87 and 2.37 times worse than a
 simple random walk forecast of the same signals\footnote{The \naive
@@ -295,7 +295,7 @@ LMA method produces a MASE score of $ 0.718\pm 0.048 $ and a cluster
 of results that is much closer to the dashed curve on the WPE-MASE
 plot.  Again, this validates our second conjecture: the LMA method can
 capture and reproduce the way in which the \svdfive system processes
-information, but the \naive ~and AutoARIMA prediction methods cannot.
+information, but the \naive ~and \arima prediction methods cannot.
 
 The WPE of \gcc is higher still: $0.943 \pm 0.001$.  This system
 transmits very little information forward in time and provides almost
@@ -303,7 +303,7 @@ no structure for prediction methods to work with.  Here, the \naive
 ~method performs best ($MASE=0.951 \pm 0.001$), simply because its
 calculation of the mean filters out the noise in the signal.  Since
 fitting a hyperplane using least squares should have similar effects,
-the fact that LMA outperforms AutoARIMA ($1.530 \pm 0.021$ vs. $1.837
+the fact that LMA outperforms \arima ($1.530 \pm 0.021$ vs. $1.837
 \pm 0.016$) is somewhat counterintuitive.  However, the small amount
 of predictive structure that is present in this signal is nonlinear
 (cf.,~\cite{mytkowicz09}), and LMA is designed to capture and exploit
@@ -314,14 +314,14 @@ Figure~\ref{fig:svd-ts-colored}---behaves very differently than the
 other seven systems in this study.  Though its weighted permutation
 entropy is very high ($0.957 \pm 0.016$), two of the three prediction
 methods do quite well on this signal, yielding MASE scores of $0.827
-\pm 0.076$ (LMA) and $0.714 \pm 0.075$ (AutoARIMA).  This pushes the
+\pm 0.076$ (LMA) and $0.714 \pm 0.075$ (\arima).  This pushes the
 corresponding clusters of points in the bottom two images in
 Figure~\ref{fig:wpe_vs_mase_all} well above the trend followed by the
 other seven signals.  The MASE scores of the predictions that were
 produced by the \naive ~method for this system, however, are highly
 inconsistent.  The majority of the blue diamond-shaped points on the
 top plot in Figure~\ref{fig:wpe_vs_mase_all} are clustered near a MASE
-score of 0.6, which is better than LMA and AutoARIMA.  In five of the
+score of 0.6, which is better than LMA and \arima.  In five of the
 15 \svdone trials, however, there were step changes in the signal.
 The \naive ~method has a very difficult time with signals like this,
 particularly if there are multiple step changes.  This raised the MASE
@@ -342,7 +342,7 @@ However, a random-walk forecast of this signal will be 180 degrees out
 of phase with the true continuation.  Since random-walk error appears
 in the denominator of the MASE score, this effect can shift points
 leftwards on a WPE vs. MASE plot, and that is exactly why the \svdone
-clusters for AutoARIMA and LMA are above the dashed curve in
+clusters for \arima and LMA are above the dashed curve in
 Figure~\ref{fig:wpe_vs_mase_all}.  This time series, which is shown in
 closeup in Figure~\ref{fig:svdone-ts},
 \begin{figure}[htbp]

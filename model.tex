@@ -26,7 +26,7 @@ predictive accuracy.  These methods include:
 
 \item The \emph{ARIMA} (auto-regressive integrated moving average)
   method, a common linear forecast strategy, built using the
-  \emph{AutoARIMA} procedure \cite{arima}, and
+  \emph{\arima} procedure \cite{autoARIMA}, and
 
 \item The \emph{LMA} (Lorenz method of analogues) method, which uses a
   near-neighbor forecast strategy on a dynamical reconstruction of the
@@ -84,7 +84,7 @@ regime shifts.
 
 Of course, methods that could capture and exploit the geometry of the
 data, or its temporal patterns, would be far more effective in the
-situations described in the previous paragraph.  The AutoARIMA and LMA
+situations described in the previous paragraph.  The \arima and LMA
 methods introduced in Sections~\ref{sec:arima} and~\ref{sec:lma} are
 designed to do exactly that.
 % Note, though, that periodic patterns
@@ -195,13 +195,13 @@ linear predictors.  Fitting such a model to a dataset involves
 choosing values for the various free parameters in the autoregressive,
 detrending, moving average, and filtering terms.  We employ the
 automated fitting techniques described in~\cite{autoARIMA} to
-accomplish this, producing what we call an \emph{AutoARIMA model}.
+accomplish this, producing what we call an \emph{\arima model}.
 This procedure uses sophisticated methods---KPSS unit-root
 tests~\cite{KPSSunit}, a customization of the Canova-Hansen
 test~\cite{Canova1995}, and the Akaike information
 criterion~\cite{akaike1974}, conditioned on the maximum likelihood of
 the model fitted to the detrended data---to select good values for the
-free parameters of the AutoARIMA model.
+free parameters of the \arima model.
 
 ARIMA forecasting is a common and time-tested procedure.  Its
 adjustments for seasonality, nonstationarity, and noise make it an
@@ -212,7 +212,7 @@ linear fit is inappropriate and ARIMA forecasts can be inaccurate.
 Another weakness of this method is prediction horizon: an ARIMA
 forecast is guaranteed to converge to the mean after some number of
 predictions, depending on model order.  To sidestep this issue, we
-build forecasts in a stepwise fashion: i.e., fit the AutoARIMA model
+build forecasts in a stepwise fashion: i.e., fit the \arima model
 to the existing data, use that model to perform a one-step prediction,
 rebuild it using the latest observations, and iterate until the
 desired prediction horizon is reached.  (For consistency, we take the
@@ -427,17 +427,17 @@ all four methods for the \col, \gcc, and \svdfive time series.
 %  \\
 %    \begin{subfigure}{0.6\columnwidth}
 %    \includegraphics[width=\columnwidth]{figs/colARIMAForecast}
-%    \caption{\col \\ AutoARIMA}
+%    \caption{\col \\ \arima}
 %    \label{fig:colARIMA}
 %  \end{subfigure}
 %  \begin{subfigure}{0.6\columnwidth}
 %    \includegraphics[width=\columnwidth]{figs/gccARIMAForecast}
-%    \caption{\gcc \\ AutoARIMA }
+%    \caption{\gcc \\ \arima }
 %    \label{fig:gccARIMA}
 %  \end{subfigure}%
 %  \begin{subfigure}{0.6\columnwidth}
 %    \includegraphics[width=\columnwidth]{figs/svdfiveARIMAForecast}
-%    \caption{\svdfive \\ AutoARIMA }
+%    \caption{\svdfive \\ \arima }
 %    \label{fig:svd5ARIMA}
 %  \end{subfigure}%
 %  \\
@@ -505,19 +505,19 @@ all four methods for the \col, \gcc, and \svdfive time series.
 In these images, the vertical axis is the prediction $p_j$ and the
 horizontal axis is the true continuation $c_j$.  On such a plot, a
 perfect prediction would lie on the diagonal.  LMA, for instance,
-generates a very accurate prediction of the \col data, while AutoARIMA
+generates a very accurate prediction of the \col data, while \arima
 does not.  Horizontal lines result when a constant predictor (e.g.,
 \naive) is used on a non-constant signal.  Point clouds reflect the
 structure of the distribution of the errors---roughly normally
 distributed, for example, in the case of LMA on \gcc.  Note that the
-shapes of Figures~\ref{fig:colRW} and~\ref{fig:colARIMA} are
+shapes of some of the plots in Figure~\ref{fig:forecast-example}, random walk and \arima on \col for example,  are
 reminiscent of the projected embedding in Figure~\ref{fig:embedding}a.
 For a random-walk predictor, a $p_j$ vs. $c_j$ plot is equivalent to a
-two-dimensional embedding with $\tau=1$.  For AutoARIMA, the
+two-dimensional embedding with $\tau=1$.  For \arima, the
 correspondence is not quite as simple, since the $p_j$ values are
 linear combinations of a number of past values of the $c_j$, but the
 effect is largely the same\footnote{The temporal \emph{ordering} of
-  the points on the AutoARIMA $p_j$ vs. $c_j$ plot does not match that of
+  the points on the \arima $p_j$ vs. $c_j$ plot does not match that of
   a projected embedding of the time series, however.}.
 
 As a numerical measure of prediction accurary, we calculate the mean
@@ -551,7 +551,7 @@ absolute scaled error (MASE) scores and weighted permutation entropies for all e
    processes studied in this paper}
   \begin{center}
   \begin{tabular*}{\textwidth}{@{\extracolsep{\fill} } ccccc}
-  \hline\hline Signal & LMA MASE  & AutoARIMA MASE & na\"{i}ve MASE  & Weighted Permutation Entropy \\
+  \hline\hline Signal & LMA MASE  & \arima MASE & na\"{i}ve MASE  & Weighted Permutation Entropy \\
   \hline
  \col           & $ 0.050 \pm0.002  $ & $0.599  \pm 0.211 $ & $0.571\pm0.002$&  $0.513 \pm 0.003$ \\
 
@@ -575,9 +575,9 @@ absolute scaled error (MASE) scores and weighted permutation entropies for all e
 Comparing these with the geometry of the plots in
 Figure~\ref{fig:forecast-example}, one can see some obvious
 correspondences.  The average LMA MASE score for the \col signals was
-$0.050$, for instance, while AutoARIMA scored much worse ($0.599$).
+$0.050$, for instance, while \arima scored much worse ($0.599$).
 That is, LMA performed roughly 20 times better on \col signals than a
-random-walk predictor, while AutoARIMA only outperformed random walk
+random-walk predictor, while \arima only outperformed random walk
 by a factor of 1.7.  This is in accordance with the visual appearance
 of the corresponding images in Figure~\ref{fig:forecast-example}.
 While the correspondence between MASE score and the visual appearance
