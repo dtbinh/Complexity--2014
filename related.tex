@@ -168,6 +168,15 @@ prediction error via MASE values. Though FSLE and $\epsilon$-entropy allow for
 the comparison of predictability between systems, they do not directly provide
 an estimate of prediction error.
 
+They don't do real predictions and they don't use real-world data.
+
+Also they had models so could generate as much data as needed to
+perform their calculations.  Not practical in real data.
+
+They never actually do prediction, just use FTLE as proxy.  This makes
+general sense if you've got a deterministic system, but not stochastic
+systems, where FTLEs don't reflect predictability.
+
 
 
 
