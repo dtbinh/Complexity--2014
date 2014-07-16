@@ -264,35 +264,53 @@ false-near(est)-neighbor(s) method of~\cite{KBA92} to estimate $m$.
 Some example plots of data from
 Figures~\ref{fig:col-ts}-\ref{fig:svd-ts-colored}, embedded following
 this procedure, are shown in Figure~\ref{fig:embedding}.
- \begin{figure}
-   \centering
-\begin{subfigure}{\columnwidth}
-    \includegraphics[width=\columnwidth]{figs/colipc3d}
-    \caption{\col }
-    \label{fig:colEmbedding}
-  \end{subfigure}%  \\
-
-    \begin{subfigure}{\columnwidth}
-    \includegraphics[width=\columnwidth]{figs/gcc3dipc}
-    \caption{\gcc}
-    \label{fig:gccEmbedding}
-  \end{subfigure}
-  \\
-  \begin{subfigure}{\columnwidth}
-    \includegraphics[width=\columnwidth]{figs/svd53dipc2}
-    \caption{\svdfive}
-    \label{fig:svdfiveEmbedding}
-  \end{subfigure}%
+% \begin{figure}
+%   \centering
+%\begin{subfigure}{\columnwidth}
+%    \includegraphics[width=\columnwidth]{figs/colipc3d}
+%    \caption{\col }
+%    \label{fig:colEmbedding}
+%  \end{subfigure}%  \\
 %
-
-
-     %\includegraphics[width=\textwidth]{colipc3d}
-     \caption{3D projections of delay-coordinate embeddings of the
+%    \begin{subfigure}{\columnwidth}
+%    \includegraphics[width=\columnwidth]{figs/gcc3dipc}
+%    \caption{\gcc}
+%    \label{fig:gccEmbedding}
+%  \end{subfigure}
+%  \\
+%  \begin{subfigure}{\columnwidth}
+%    \includegraphics[width=\columnwidth]{figs/svd53dipc2}
+%    \caption{\svdfive}
+%    \label{fig:svdfiveEmbedding}
+%  \end{subfigure}%
+%%
+%
+%
+%     %\includegraphics[width=\textwidth]{colipc3d}
+%     \caption{3D projections of delay-coordinate embeddings of the
+%       traces from (a) Figure~\ref{fig:col-ts} (b)
+%       Figure~\ref{fig:gcc-ts} and (c) the fifth (green) segment of
+%       Figure~\ref{fig:svd-ts-colored}.}
+% \label{fig:embedding}
+% \end{figure}
+ \begin{figure}[!ht]
+    \subfloat[\col\label{fig:colEmbedding}]{%
+      \includegraphics[width=\columnwidth]{figs/colipc3d}
+    }
+    \hfill
+    \subfloat[\gcc\label{fig:gccEmbedding}]{%
+      \includegraphics[width=\columnwidth]{figs/gcc3dipc}
+    }
+        \hfill
+    \subfloat[\svdfive \label{fig:svdfiveEmbedding}]{%
+      \includegraphics[width=\columnwidth]{figs/svd53dipc2}
+    }
+    \caption{3D projections of delay-coordinate embeddings of the
        traces from (a) Figure~\ref{fig:col-ts} (b)
        Figure~\ref{fig:gcc-ts} and (c) the fifth (green) segment of
        Figure~\ref{fig:svd-ts-colored}.}
- \label{fig:embedding}
- \end{figure}
+    \label{fig:embedding}
+  \end{figure}
 %% can cut for space if need be:
 %The coordinates of each point in these plots are differently delayed
 %elements of the instructions per cycle time series $X_{i,obs}$: that
@@ -372,104 +390,108 @@ accuracy of each model and for periodic refitting.
 
 Figure~\ref{fig:forecast-example} shows example forecasts made using
 all four methods for the \col, \gcc, and \svdfive time series.
-\begin{figure*}[htbp]
-  \centering
-
-  \begin{subfigure}{0.6\columnwidth}
-    \includegraphics[width=\columnwidth]{figs/colRWForecast}
-    \caption{\col\\ random walk }
-    \label{fig:colRW}
-  \end{subfigure}%
-   \begin{subfigure}{0.6\columnwidth}
-    \includegraphics[width=\columnwidth]{figs/gccRWForecast}
-    \caption{\gcc\\ random walk }
-    \label{fig:gccRW}
-  \end{subfigure}%
-     \begin{subfigure}{0.6\columnwidth}
-    \includegraphics[width=\columnwidth]{figs/svdfiveRWForecast}
-    \caption{\svdfive\\ random walk}
-    \label{fig:svd5RW}
-  \end{subfigure}%
-  \\
-      \begin{subfigure}{0.6\columnwidth}
-    \includegraphics[width=\columnwidth]{figs/colMeanForecast}
-    \caption{\col\\ na\"ive }
-    \label{fig:colMEAN}
-  \end{subfigure}%
-   \begin{subfigure}{0.6\columnwidth}
-    \includegraphics[width=\columnwidth]{figs/gccMeanForecast}
-    \caption{\gcc\\ na\"ive }
-    \label{fig:gccMEAN}
-  \end{subfigure}%
-     \begin{subfigure}{0.6\columnwidth}
-    \includegraphics[width=\columnwidth]{figs/svdfiveMeanForecast}
-    \caption{\svdfive\\ na\"ive }
-    \label{fig:svd5MEAN}
-  \end{subfigure}%
-  \\
-    \begin{subfigure}{0.6\columnwidth}
-    \includegraphics[width=\columnwidth]{figs/colARIMAForecast}
-    \caption{\col \\ AutoARIMA}
-    \label{fig:colARIMA}
-  \end{subfigure}
-  \begin{subfigure}{0.6\columnwidth}
-    \includegraphics[width=\columnwidth]{figs/gccARIMAForecast}
-    \caption{\gcc \\ AutoARIMA }
-    \label{fig:gccARIMA}
-  \end{subfigure}%
-  \begin{subfigure}{0.6\columnwidth}
-    \includegraphics[width=\columnwidth]{figs/svdfiveARIMAForecast}
-    \caption{\svdfive \\ AutoARIMA }
-    \label{fig:svd5ARIMA}
-  \end{subfigure}%
-  \\
-
-      \begin{subfigure}{0.6\columnwidth}
-    \includegraphics[width=\columnwidth]{figs/colLMAForecast}
-    \caption{\col \\ LMA}
-    \label{fig:colLMA}
-  \end{subfigure}
-      \begin{subfigure}{0.6\columnwidth}
-    \includegraphics[width=\columnwidth]{figs/gccLMAForecast}
-    \caption{\gcc \\ LMA}
-    \label{fig:gccLMA}
-  \end{subfigure}
-        \begin{subfigure}{0.6\columnwidth}
-    \includegraphics[width=\columnwidth]{figs/svdfiveLMAForecast}
-    \caption{\svdfive \\ LMA}
-    \label{fig:svd5LMA}
-  \end{subfigure}
-  %\begin{subfigure}{0.5\textwidth}
-  %  \includegraphics[width=1.0\textwidth]{LMA_vs_ARIMA}
-   \caption{Predicted ($p_j$) versus true values ($c_j$) for
-     forecasts of \col, \gcc, and \svdfive and all four prediction strategies.
-% On this type of plot, a perfect prediction lies exactly on the
-% diagonal.
+%\begin{figure*}[htbp]
+%  \centering
 %
+%  \begin{subfigure}{0.6\columnwidth}
+%    \includegraphics[width=\columnwidth]{figs/colRWForecast}
+%    \caption{\col\\ random walk }
+%    \label{fig:colRW}
+%  \end{subfigure}%
+%   \begin{subfigure}{0.6\columnwidth}
+%    \includegraphics[width=\columnwidth]{figs/gccRWForecast}
+%    \caption{\gcc\\ random walk }
+%    \label{fig:gccRW}
+%  \end{subfigure}%
+%     \begin{subfigure}{0.6\columnwidth}
+%    \includegraphics[width=\columnwidth]{figs/svdfiveRWForecast}
+%    \caption{\svdfive\\ random walk}
+%    \label{fig:svd5RW}
+%  \end{subfigure}%
+%  \\
+%      \begin{subfigure}{0.6\columnwidth}
+%    \includegraphics[width=\columnwidth]{figs/colMeanForecast}
+%    \caption{\col\\ na\"ive }
+%    \label{fig:colMEAN}
+%  \end{subfigure}%
+%   \begin{subfigure}{0.6\columnwidth}
+%    \includegraphics[width=\columnwidth]{figs/gccMeanForecast}
+%    \caption{\gcc\\ na\"ive }
+%    \label{fig:gccMEAN}
+%  \end{subfigure}%
+%     \begin{subfigure}{0.6\columnwidth}
+%    \includegraphics[width=\columnwidth]{figs/svdfiveMeanForecast}
+%    \caption{\svdfive\\ na\"ive }
+%    \label{fig:svd5MEAN}
+%  \end{subfigure}%
+%  \\
+%    \begin{subfigure}{0.6\columnwidth}
+%    \includegraphics[width=\columnwidth]{figs/colARIMAForecast}
+%    \caption{\col \\ AutoARIMA}
+%    \label{fig:colARIMA}
+%  \end{subfigure}
+%  \begin{subfigure}{0.6\columnwidth}
+%    \includegraphics[width=\columnwidth]{figs/gccARIMAForecast}
+%    \caption{\gcc \\ AutoARIMA }
+%    \label{fig:gccARIMA}
+%  \end{subfigure}%
+%  \begin{subfigure}{0.6\columnwidth}
+%    \includegraphics[width=\columnwidth]{figs/svdfiveARIMAForecast}
+%    \caption{\svdfive \\ AutoARIMA }
+%    \label{fig:svd5ARIMA}
+%  \end{subfigure}%
+%  \\
 %
-}
-\label{fig:forecast-example}
-  %\end{subfigure}
-\end{figure*}
+%      \begin{subfigure}{0.6\columnwidth}
+%    \includegraphics[width=\columnwidth]{figs/colLMAForecast}
+%    \caption{\col \\ LMA}
+%    \label{fig:colLMA}
+%  \end{subfigure}
+%      \begin{subfigure}{0.6\columnwidth}
+%    \includegraphics[width=\columnwidth]{figs/gccLMAForecast}
+%    \caption{\gcc \\ LMA}
+%    \label{fig:gccLMA}
+%  \end{subfigure}
+%        \begin{subfigure}{0.6\columnwidth}
+%    \includegraphics[width=\columnwidth]{figs/svdfiveLMAForecast}
+%    \caption{\svdfive \\ LMA}
+%    \label{fig:svd5LMA}
+%  \end{subfigure}
+%  %\begin{subfigure}{0.5\textwidth}
+%  %  \includegraphics[width=1.0\textwidth]{LMA_vs_ARIMA}
+%   \caption{Predicted ($p_j$) versus true values ($c_j$) for
+%     forecasts of \col, \gcc, and \svdfive and all four prediction strategies.
+%% On this type of plot, a perfect prediction lies exactly on the
+%% diagonal.
+%%
+%%
+%}
+%\label{fig:forecast-example}
+%  %\end{subfigure}
 
-\begin{table*}
+%\end{figure*}
+
+
+\newcolumntype{C}{>{\centering\arraybackslash} m{0.6\columnwidth} }
+\begin{figure*}
   \renewcommand{\arraystretch}{1.25}
-  \begin{tabular}{lccc}
+  \begin{tabular}{m{0.1\columnwidth}|CCC}
     & {\large \col} & {\large \gcc} & {\large \svdfive} \\
     & & & \\
-    \begin{sideways}\large random walk\end{sideways} &
+            \hline \\
+    \rotatebox{90}{\large{random walk}} &
     \includegraphics[width=0.6\columnwidth]{figs/colRWForecast} &
     \includegraphics[width=0.6\columnwidth]{figs/gccRWForecast} &
     \includegraphics[width=0.6\columnwidth]{figs/svdfiveRWForecast} \\
-    \begin{sideways}\large na\"ive\end{sideways} &
+    \rotatebox{90}{\large \naive} &
     \includegraphics[width=0.6\columnwidth]{figs/colMeanForecast} &
     \includegraphics[width=0.6\columnwidth]{figs/gccMeanForecast} &
     \includegraphics[width=0.6\columnwidth]{figs/svdfiveMeanForecast} \\
-    \begin{sideways}\large AutoARIMA\end{sideways} &
+    \rotatebox{90}{\large \arima} &
     \includegraphics[width=0.6\columnwidth]{figs/colARIMAForecast} &
     \includegraphics[width=0.6\columnwidth]{figs/gccARIMAForecast} &
     \includegraphics[width=0.6\columnwidth]{figs/svdfiveARIMAForecast} \\
-    \begin{sideways}\large LMA\end{sideways} &
+    \rotatebox{90}{\large LMA} &
     \includegraphics[width=0.6\columnwidth]{figs/colLMAForecast} &
     \includegraphics[width=0.6\columnwidth]{figs/gccLMAForecast} &
     \includegraphics[width=0.6\columnwidth]{figs/svdfiveLMAForecast}
@@ -479,7 +501,7 @@ all four methods for the \col, \gcc, and \svdfive time series.
      \gcc, and \svdfive and all four prediction strategies.
   }
   \label{fig:forecast-example}
-\end{table*}
+\end{figure*}
 In these images, the vertical axis is the prediction $p_j$ and the
 horizontal axis is the true continuation $c_j$.  On such a plot, a
 perfect prediction would lie on the diagonal.  LMA, for instance,
