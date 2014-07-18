@@ -303,7 +303,7 @@ information, but the \naive ~and \arima prediction methods cannot.
 
 The WPE of \gcc is higher still: $0.943 \pm 0.001$.  This system
 transmits very little information forward in time and provides almost
-no structure for prediction methods to work with.  Here, the \naive
+no structure for prediction methods to work with.  \alert{This needs to be reworded to reflect the typo, \naive is no longer the winner. MASE is $1.797 \pm 0.010$, rw actually wins $MASE = 1.1381 \pm 0.011$  Here, the \naive
 ~method performs best ($MASE=0.951 \pm 0.001$), simply because its
 calculation of the mean filters out the noise in the signal.  Since
 fitting a hyperplane using least squares should have similar effects,
@@ -311,7 +311,7 @@ the fact that LMA outperforms \arima ($1.530 \pm 0.021$ vs. $1.837
 \pm 0.016$) is somewhat counterintuitive.  However, the small amount
 of predictive structure that is present in this signal is nonlinear
 (cf.,~\cite{mytkowicz09}), and LMA is designed to capture and exploit
-that kind of structure.
+that kind of structure.}
 
 \svdone---the dark blue segment of
 Figure~\ref{fig:svd-ts-colored}---behaves very differently than the
