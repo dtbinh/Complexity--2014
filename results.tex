@@ -100,10 +100,10 @@ applied to time-series data from eight different systems: {\tt
 {\tt dgesdd} signal in Figure~\ref{fig:svd-ts-colored}.  The objective
 of these experiments was to explore how prediction accuracy is related
 to WPE.
-% 
+%
 % , and how that relationship depends on the generating process
-% and the prediction method.  
-% 
+% and the prediction method.
+%
 Working from the first 90\% of each signal, we generated a prediction
 of the last 10\% using the \naive, \arima, and LMA prediction methods,
 as described in Section~\ref{sec:accuracy}, then calculated the MASE
@@ -139,13 +139,13 @@ As the plot shows, the best-case prediction error for each trace from
 these eight systems is roughly proportional to the log of the weighted
 permutation entropy, which is consistent with our first conjecture.
 The dashed line in the figure, a least-squares fit of $y = a \log(b x
-+ c)$ to these errors\footnote{with the exception of {\tt dgesdd$_1$},
++ 1) + c x^16$ to these errors\footnote{with the exception of {\tt dgesdd$_1$},
   for reasons described below} captures this relationship between WPE
 and prediction error quite nicely.  The logarithmic shape of this
 curve makes sense here because any signal with zero entropy should be
 perfectly predictable, and so should ideally have a MASE value of
 zero.  The shaded region shows the standard deviation of the model in
-its parameter space: i.e., $y = a \log(b x + c)$ with $\pm$ one
+its parameter space: i.e., $y = a \log(b x + 1) + c x^16$ with $\pm$ one
 standard deviation on each of the three parameters.
 
 This is not a formal result.  The forecast methods and data sets used
@@ -170,10 +170,11 @@ set of experiments.
 %    \includegraphics[width=\columnwidth]{figs/ARIMA_prediction_vs_entropy}
 %    \includegraphics[width=\columnwidth]{figs/ARIMA_prediction_vs_entropy}
 %    \includegraphics[width=\columnwidth]{figs/LMA_prediction_vs_entropy}
-  \includegraphics[width=\columnwidth]{figs/new_predictions_vs_entropy3}
+  \includegraphics[width=\columnwidth]{figs/new_predictions_vs_entropy4a}
 \caption{WPE vs. MASE for all trials, methods, and systems---with the
   exception of \svdone, \svdthree, and \svdfive are omitted from the
-  top plot for scale reasons.
+  top plot for scale reasons. \alert{there's also a version with all plots
+  stacked (4x1) instead of (2x2)}
 %
 % ; their MASE scores are $2.676 \pm 4.328$, $31.39 \pm 0.282$, and
 %   $20.87 \pm 0.192$ respectively.

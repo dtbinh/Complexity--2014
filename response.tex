@@ -166,7 +166,7 @@ While it is certainly possible that the nonlinear dynamics of computer
 performance is subtly different from the nonlinear dynamics of other
 systems---in a manner that cannot be detected by traditional nonlinear
 time-series analysis---we believe that our results will hold for time
-series drawn from other physical systems.  
+series drawn from other physical systems.
 
 We are certainly aware that this claim may not be true, however, and
 we are in the process of the follow-up study suggested by the
@@ -185,7 +185,7 @@ examples.
 \noindent The dashed curve in this plot (and in Figure 6) was fit
 \emph{solely on the computer performance data}.  Nonetheless, the
 points from the other time series fall within a narrow band around the
-fit.  Note that this fit ($y = a \log(b x + c)$) is different than in
+fit.  Note that this fit ($y = a \log(b x + 1) + c x^16$) is different than in
 the submitted version.  A careful examination of the data, prompted by
 the reviewer's questions, suggested that this was a better match to
 the data; theoretically, too, a log fit is more appropriate because
@@ -363,7 +363,7 @@ It is certainly true that the naive and random-walk predictors can be
 seen as subclasses of the ARIMA model family.  We have explicitly
 included them, however, because they are used (sometimes to great
 success) in practice and because that made for a more comprehensive
-exploration.  
+exploration.
 
 The ``AutoARIMA'' method that was used to build all of the ARIMA
 models in this paper---another ``off the shelf'' method in the
@@ -443,7 +443,7 @@ WPE values depend not only on wordlength, but also on \emph{data}
 length---since one needs more data to get good statistics on the words
 for the PE calculation.  These two interacting knobs are not easy to
 set.  Perhaps as a result of this, wordlength choices are rarely
-justified in the permutation entropy literature.  
+justified in the permutation entropy literature.
 
 The extent of the discussion in [Bandt \& Pompe, {\sl PRL}, 2002], for
 instance---the paper in which PE was proposed---is ``Our entropies are
@@ -497,12 +497,12 @@ extensive study and evaluation in future work.
 PE is invariant under an invertible nonlinear transformation of the
 values in the time series, but WPE is not.  But MASE varies \emph{in a
   complementary way}.  Ryan will do $x(t)$ and $5e^{x(t)}$ and show
-that it's on the curve.  
+that it's on the curve.
 
 % Ryan will insert figure here with x(t) = svdone and svdsix
-% \begin{center}
-%     \includegraphics[width=0.8\columnwidth]{figs/new_prediction_vs_entropy_extras}
-% \end{center}
+\begin{center}
+    \includegraphics[width=0.8\columnwidth]{figs/nonlinear_transform_data}
+\end{center}
 
 This is consistent with our claim of generality; this is just another
 time series.  A xform like this effectively changes the generating
