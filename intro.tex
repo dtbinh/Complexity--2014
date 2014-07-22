@@ -127,8 +127,8 @@ for a given time series.  If the forecast produced by a particular
 method is poor, for instance, but the time series contains a
 significant amount of predictive structure, one can reasonably
 conclude that that method is inadequate to the task and that one
-should seek another method.  The goal of this paper is to explore and
-formalize that strategy.
+should seek another method.  The goal of this paper is to develop
+effective, practical heuristics for that strategy.
 
 % We have two goals in this paper: to determine---without knowing
 % anything about the generating process---whether an empirical time
@@ -157,7 +157,7 @@ existing techniques either require specific knowledge of the
 generating process or produce biased values of the
 entropy~\cite{bollt2001}.
 
-We focus on real-valued, scalar, time-series data.
+We focus on real-valued, scalar, time-series data from physical experiments.
 %
 % that appears complicated: i.e., not periodic, linear, constant, etc.
 %
@@ -165,25 +165,46 @@ We do not make any knowledge of the generating process or its
 properties: whether it is linear, nonlinear, deterministic,
 stochastic, stationary, non-stationary, etc.  To explore the
 relationship between complexity, predictive structure, and
-predictability, we generate forecasts for a variety of time-series
-datasets using four different prediction methods, then compare the
-accuracy of those predictions to the permutation entropy of the
-associated signals.  This results in two primary findings:
+predictability, we generate forecasts for a variety of experimental
+time-series datasets using four different prediction methods, then
+compare the accuracy of those predictions to the permutation entropy
+of the associated signals.  This results in two primary findings:
+% 
 \begin{enumerate}
-\item The complexity of a noisy real-valued time series is \emph{(i)}
-  quantifiable by permutation entropy and \emph{(ii)} correlated with
-  the accuracy of an appropriate predictor.
-\item The way information is generated and processed internally by a
-  system plays a crucial role in the success of different forecasting
-  schema---and in the choice of which one is appropriate for a given
-  empirical time series.
+% \item The complexity of a noisy real-valued time series can be
+%   effectively quantifiable by computing its permutation entropy.
+
+\item The permutation entropy of a noisy real-valued time series is
+  correlated with the accuracy of an appropriate predictor.
+
+\item The relationship between permutation entropy and prediction
+  accuracy is a useful empirical heuristic for identifying when there
+  is a mismatch between a time series from an unknown system and a
+  given prediction model.
 \end{enumerate}
+% 
 There has, of course, been a great deal of good work on different ways
 to measure the complexity of data, and previous explorations have
-confirmed repeatedly that complexity is a challenge to prediction, but
-this collection of issues has not been properly explored in the
-context of noisy, poorly sampled, real-world data from unknown
-systems.  That is the contribution of this paper.
+confirmed repeatedly that complexity is a challenge to prediction.  It
+is well known that the way information is generated and processed
+internally by a system plays a crucial role in the success of
+different forecasting methods---and in the choice of which method is
+appropriate for a given time series.  
+This constellation of issues has not been properly explored, however,
+in the context of noisy, poorly sampled, real-world data from unknown
+systems.  That exploration---and the development of strategies for
+putting its results into effective practice---is the primary
+contribution of this work.  The empirical results in the later
+sections of this paper not only elucidate the relationship between
+complexity and predictability.  The strategy that we derive from these
+results can also aid practitioners in choosing an appropriate
+prediction model for a given real-world noisy time series from an
+unknown system---a challenging task for which little guidance is
+currently available.
+
+\alert{With all the extra material above, the following paragraph now
+  feels repetitive.  Given that, and the reviewer's comment that the
+  intro is too long, I suggest that we merge it into a later section:}
 
 The forecast methods used in this study were chosen to be a
 representative sampling of standard prediction strategies, but they do
@@ -199,7 +220,10 @@ better and so one should continue searching.
 
 %[Introduce and make it clear why we choose comp. perf. as test bed.]
 
-For the purposes of this study, we require a broad array of
+\alert{This paragraph, too, might well be moved to the beginning of
+  section 3:}
+
+For the purposes of this study, we required a broad array of
 time-series datasets from across the complexity spectrum.  We chose to
 study sensor data from a computer-performance experiment.  While this
 is not a common laboratory experiment, it is a highly appropriate

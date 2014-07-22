@@ -84,9 +84,9 @@ paragraphs are based on specific assumptions about the underlying
 generating process and knowledge about what will happen to the error
 if those assumptions hold or fail.  Model-free information analysis
 moves away from those restrictions.  Our approach falls into this
-class.  Our goal is to measure the inherent complexity of an empirical
-time series, then correlate that complexity with the predictive
-accuracy of forecasts made using a number of different methods.
+class: we wish to measure the inherent complexity of an empirical time
+series, then correlate that complexity with the predictive accuracy of
+forecasts made using a number of different methods.
 
 We build on the notion of \emph{redundancy} that was introduced on
 page~\pageref{page:redundancy}, which formally quantifies how
@@ -112,10 +112,6 @@ Kolmogorov-Sinai entropy or the values of all positive Lyapunov
 exponents of the system.  Both of these calculations are
 difficult---the latter particularly so if the data are very noisy or
 the generating system is stochastic.
-
-The notion of complexity used here differs from that considered by
-e.g. \cite{Shalizi2008}, which would consider a time series without
-any statistical regularities to be non-complex.
 
 Using entropy and redundancy to quantify the inherent predictability
 of a time series is not a new idea.  Past methods for this, however,
@@ -146,37 +142,37 @@ nonlinear, the Lyapunov spectrum, etc.  These features make our
 approach applicable to noisy real-valued time series from all classes
 of systems.
 
-As a final note: there has been prior work under a similar title to
-ours~\cite{haven2005}, but there are only superficial similarities between the
-two research projects. Haven \emph{et al.} utilize the relative entropy to
-quantify the difference in predictability between two distributions: one evolved
-from a small ensemble of past states using the known dynamical system, and the
-other the observed distribution. Our work quantifies the predictability of a
-single observed time series using weighted permutation entropy and makes no
-assumptions about the generating process. More closely related is the work by
-Boffetta et al.~\cite{boffetta02}. There, they investigate the scaling behavior
-of finite-size Lyapunov exponents (FSLE) and $\epsilon$-entropy for a wide
-variety of systems. The scaling of these measures acts as a general proxy for
-the theoretical ability to predict the future behavior of those systems. Though
-in broad strokes our work is similar to theirs, it differs in two fundamental
-ways. First, we consider with real-world data, e.g. stock prices, where we do
-not necessarily have the ability to perturb or otherwise interact with the
-system of interest, nor can we get an arbitrary amount of data which might be
-needed to estimate the $\epsilon$-entropy for small $\epsilon$. Second, we tie
-information, in the form of the weighted permutation entropy, directly to
-prediction error via MASE values. Though FSLE and $\epsilon$-entropy allow for
-the comparison of predictability between systems, they do not directly provide
-an estimate of prediction error.
+There has been prior work under a similar title to
+ours~\cite{haven2005}, but there are only superficial similarities
+between the two research projects. Haven \emph{et al.} utilize the
+relative entropy to quantify the difference in predictability between
+two distributions: one evolved from a small ensemble of past states
+using the known dynamical system, and the other the observed
+distribution. Our work quantifies the predictability of a single
+observed time series using weighted permutation entropy and makes no
+assumptions about the generating process.
 
-They don't do real predictions and they don't use real-world data.
-
-Also they had models so could generate as much data as needed to
-perform their calculations.  Not practical in real data.
-
-They never actually do prediction, just use FTLE as proxy.  This makes
-general sense if you've got a deterministic system, but not stochastic
-systems, where FTLEs don't reflect predictability.
-
+More closely related is the work by Boffetta \emph{et
+  al.}~\cite{boffetta02}, who investigate the scaling behavior of
+finite-time Lyapunov exponents (FTLE) and $\epsilon$-entropy for a
+wide variety of deterministic systems with known dynamics.  While the
+scaling of these measures acts as a general proxy for predictability
+bounds, this approach differs from our work in a number of fundamental
+ways.  First, we focus on real-world time-series data, where one does
+not necessarily have the ability to perturb or otherwise interact with
+the system of interest, nor can one obtain or manufacture the
+(possibly large) number of points that might be needed to estimate the
+$\epsilon$-entropy for small $\epsilon$.  Second, we tie
+information---in the form of the weighted permutation
+entropy---directly to prediction error via MASE values.  Though FTLE
+and $\epsilon$-entropy allow for the comparison of predictability
+between systems, they do not directly provide an estimate of
+prediction error.  [[Finally, our approach also holds for
+    \emph{stochastic} systems, where the computation of FTLEs makes no
+    sense and/or doesn't reflect predictability.  I remember someone
+    saying this but didn't see it here, so I added it.  Boffetta et
+    al. just do dynamical systems, yes?  And lambda of a stochastic
+    system wouldnt' make sense, yes?]]
 
 
 

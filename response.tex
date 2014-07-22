@@ -274,20 +274,37 @@ paper.
   they do not claim that.  Thus, both primary findings seem to provide
   nothing new.}
 
-The original wording of this finding did indeed make it sound trivial.
-Our intent, as we have modified the text to reflect, is that the
-appropriateness of a predictor can be discovered \emph{empirically},
-via comparison of its MASE value with the WPE.  Previous explorations
-of predictability have used clean data and/or systems where the
-generating process is known.  Our work makes neither of these
-assumptions.  \alert{[[Sentence from Josh here about why that's
-      important: given a time series from an unknown system, there's
-      no way a priori to know what model is right.  Point to the col
-      example in the text as an example of this.  But need to check
-      after inserting it to make sure that this point has not been
-      belabored too much already in this letter.]]}  The paragraph
-that we have added to the introduction (immediately following these
-two claims) should hopefully make this more clear.
+The reviewer is absolutely right.  This finding, as it was originally
+stated, is indeed trivial.  Our intent, as we have modified the text
+to reflect, is that the appropriateness of a predictor can be
+discovered \emph{empirically}, via comparison of its MASE value with
+its WPE value.  Previous explorations of predictability have used
+clean data and/or systems where the generating process is known.  Our
+work makes neither of these assumptions.
+
+Given a linear stochastic system, a linear stochastic prediction model
+should certainly be more productive than a nonlinear deterministic
+prediction model.  But in real-world data, the generating process is
+almost never known, and it can be very hard to evaluate a model that
+one has constructed.  Standard methods like the AIC approach used in
+ARIMA modeling make a choice from among a large class of possible
+models.  These selection algorithms rarely have a ``none of these are
+appropriate'' output; they simply choose the model that best satisfies
+their built-in criteria---even if none of the models in the class are
+really appropriate.
+
+The challenge for the practitioner is to know whether there is a
+mismatch between a particular time series and a particular forecast
+model: i.e., whether one can do better and should try another model,
+or whether the time series is so complicated that the model is doing
+as well as one could expect.  The WPE vs. MASE curve in our paper is
+an empirical heuristic that should help practitioners do that.
+
+We appreciate the reviewer alerting us to our muddy wording and
+thinking about these issues.  We have reworked the findings to clarify
+matters and also added an explanatory paragraph directly following
+those findings.  While this lengthened the introduction, we feel that
+it has focused and clarified the contribution of the work.
 
 \smallskip
 
@@ -545,5 +562,12 @@ It is our hope that these clarifications, the attendant modifications
 to the paper, and the additional preliminary results that we included
 in this rebuttal letter have convinced the reviewer that this
 manuscript is appropriate for publication in PRE.
+
+Because of the depth and extent of the revisions that we made in
+response to this reviewer's comments, we did not feel that it was
+effective to highlight the changes in a different color in the
+manuscript; please let us know if a more-detailed description of the
+changes would make the re-reading easier.
+
 
 \end{document}
