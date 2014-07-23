@@ -11,6 +11,53 @@
 
 % \subsection{Time Series Collection}
 
+For the purposes of this study, we required a broad array of
+time-series datasets from across the complexity spectrum.  We chose to
+study sensor data from a computer-performance experiment.  While this
+is not a common laboratory experiment, it is a highly appropriate
+choice here.  Computers are extremely complicated systems and their
+dynamics is surprisingly rich.
+% Modern microprocessor chips contain multiple processing units and
+% multi-layer memories, for instance, and they use complicated
+% hardware/software strategies to maximize performance by moving data
+% and threads of computation across those resources.  As a result, the
+The processor and memory loads during the execution of even a very
+simple program can exhibit dynamical chaos, for
+instance~\cite{mytkowicz09}.  Figure~\ref{fig:col-ipc} shows an
+example: a short segment of a performance trace of a short program
+that repeatedly initializes the upper triangle of a matrix in
+column-major order.
+%
+ \begin{figure}[htp]
+    \centering
+    \includegraphics[width=\columnwidth]{figs/colshortts}
+    % where an .eps filename suffix will be assumed under latex,
+    % and a .pdf suffix will be assumed for pdflatex
+    \caption{A short segment of a computer performance trace: the
+      instructions per CPU clock cycle (IPC) during the execution of
+      \col, a simple C program that repeatedly initializes a matrix in
+      column-major order, running on an Intel
+      i7\textsuperscript{\textregistered}-based machine.  Each point
+      is the average IPC in a 100,000 instruction period.}
+   \label{fig:col-ipc}
+  \end{figure}
+%
+A small change in the code can cause the dynamics to bifurcate to a
+periodic regime.  
+% 
+% Indeed, many computer performance traces exhibit
+% interesting regime changes as a program moves through the different
+% phases of its operation.
+By running different programs on the same computer, then, we can
+produce traces that span the whole range of the complexity spectrum,
+from completely predictable to completely unstructured---which makes
+this an ideal testbed for this study\footnote{Predicting the
+  \emph{state} of a computer, of course, would amount to solving the
+  halting problem.  What we are doing here is predicting computer
+  \emph{performance}, which does not violate the Rice-Shapiro
+  theorem~\cite{hopcroft2007}.}.
+% footnote to appease the theoretician in Josh
+
 The time-series data sets for these experiments were collected on an
 Intel Core\textsuperscript{\textregistered} i7-2600-based machine.
 % 
@@ -65,45 +112,48 @@ described in more depth in the rest of this section.
 % performance trace (Seen in Figures
 % \ref{fig:col-ts}-\ref{fig:svd-ts-colored}.
 
-\col is a simple C program that repeatedly initializes the upper
-triangle of a 2048 $\times$ 2048 matrix in column-major order.
+% Commented this out because the addition of the paragraph from the
+% introduction seemed like it could replace it
 % 
-% by looping over the following three lines of code:
-% \begin{lstlisting}
-%   for(i=0;i<2048;i++)
-%   	for(j=i;j<2048;j++)
-%   		data[j][i] = 0;
-% \end{lstlisting}
-% full listing
-% #define SIZE (2048)
-% 
-% int main(int argc, char ** argv)
-% {
-%   int i, j, n;
-%   static int data[SIZE][SIZE];
+% \col is a simple C program that repeatedly initializes the upper
+% triangle of a 2048 $\times$ 2048 matrix in column-major order.
+% % 
+% % by looping over the following three lines of code:
+% % \begin{lstlisting}
+% %   for(i=0;i<2048;i++)
+% %   	for(j=i;j<2048;j++)
+% %   		data[j][i] = 0;
+% % \end{lstlisting}
+% % full listing
+% % #define SIZE (2048)
+% % 
+% % int main(int argc, char ** argv)
+% % {
+% %   int i, j, n;
+% %   static int data[SIZE][SIZE];
+% %   
+% %   for(n=0;n<numInits;n++){  
+% %   for(i=0;i<SIZE;i++)
+% %   	for(j=i;j<SIZE;j++)
+% %   		data[j][i] = 0;
+% %   }
+% %   return 0;
+% % }
+% %
+% As mentioned in Section~\ref{sec:intro}, this simple program exhibits
+% surprisingly complicated behavior~\cite{mytkowicz09}.  A time series
+% of the processor performance during the execution of this program is
+% shown in Figure~\ref{fig:col-ts}.
+% \begin{figure}[htbp]
+%   \centering
+%     \includegraphics[width=\columnwidth]{figs/colFullTS}
+%     \caption{The instructions executed per CPU clock cycle (IPC) as
+%       the \col program runs.  Each point is the average IPC in a
+%       100,000 instruction period. Figure~\ref{fig:col-ipc} is a
+%       closeup of the first part of this signal.  }
+%     \label{fig:col-ts}
 %   
-%   for(n=0;n<numInits;n++){  
-%   for(i=0;i<SIZE;i++)
-%   	for(j=i;j<SIZE;j++)
-%   		data[j][i] = 0;
-%   }
-%   return 0;
-% }
-%
-As mentioned in Section~\ref{sec:intro}, this simple program exhibits
-surprisingly complicated behavior~\cite{mytkowicz09}.  A time series
-of the processor performance during the execution of this program is
-shown in Figure~\ref{fig:col-ts}.
-\begin{figure}[htbp]
-  \centering
-    \includegraphics[width=\columnwidth]{figs/colFullTS}
-    \caption{The instructions executed per CPU clock cycle (IPC) as
-      the \col program runs.  Each point is the average IPC in a
-      100,000 instruction period. Figure~\ref{fig:col-ipc} is a
-      closeup of the first part of this signal.  }
-    \label{fig:col-ts}
-  
-  \end{figure}
+%   \end{figure}
 
 The SPEC CPU2006 benchmark suite \cite{spec} is a collection of
 complicated programs that are used in the computer-science community
@@ -124,9 +174,7 @@ Figure~\ref{fig:gcc-ts}.
   \begin{figure}[t]
   \centering
     \includegraphics[width=\columnwidth]{figs/gccfullts}
-    \caption{The instructions per CPU clock cycle (IPC) during the
-      execution of \gcc. Each point is the average IPC in a 100,000
-      instruction period.}
+    \caption{An IPC trace during the execution of \gcc.}
     \label{fig:gcc-ts}
   \end{figure}
 Unlike \col, where the processor utilization is quite structured,
@@ -150,10 +198,9 @@ as shown in Figure~\ref{fig:svd-ts-colored}.
 \begin{figure}[t]
     \centering
     \includegraphics[width=\columnwidth]{figs/SVD1RegimesColored}
-    \caption{The instructions per CPU clock cycle (IPC) during the
-      execution of \svd. Each point is the average IPC in a 100,000
-      instruction period.  The colors identify the different
-      \emph{segments} of the signal that are discussed in the text.}
+    \caption{An IPC trace during the execution of \gcc.  The colors
+      identify the different \emph{segments} of the signal that are
+      discussed in the text.}
     \label{fig:svd-ts-colored}
   \end{figure}
 For the first $\sim$21,000 measurements (21,000 $\times$ 100,000
@@ -167,7 +214,7 @@ This wide range of behaviors provides a unique advantage, for the
 purposes of this paper, in that a number of different generating
 processes---with a wide range of complexities---are at work in
 different phases of a single time series.  The complexity of \col and
-\gcc in Figures~\ref{fig:col-ts} and \ref{fig:gcc-ts} appears to be
+\gcc in Figures~\ref{fig:col-ipc} and \ref{fig:gcc-ts} appears to be
 far more consistent over time---probably the result of a single
 generating process.  \svd, in contrast, has multiple regimes, each the
 result of a different generating process.  To take advantage of this,

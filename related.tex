@@ -6,7 +6,7 @@ then, hundreds, if not thousands, of strategies have been developed
 for a wide variety of prediction tasks.  The purpose of this paper is
 not to add a new weapon to this arsenal, nor to do any sort of
 theoretical assessment or comparison of existing methods.  Our goals
-are focused more on the \emph{practice} of predication\alert{should this be prediction}: \emph{(i)} to
+are focused more on the \emph{practice} of prediction: \emph{(i)} to
 empirically quantify the predictive structure that is present in a
 real-valued scalar time series and \emph{(ii)} to explore how the
 performance of prediction methods is related to that inherent
@@ -154,7 +154,7 @@ assumptions about the generating process.
 
 More closely related is the work by Boffetta \emph{et
   al.}~\cite{boffetta02}, who investigate the scaling behavior of
-finite-time Lyapunov exponents (FTLE) and $\epsilon$-entropy for a
+finite-size Lyapunov exponents (FSLE) and $\epsilon$-entropy for a
 wide variety of deterministic systems with known dynamics.  While the
 scaling of these measures acts as a general proxy for predictability
 bounds, this approach differs from our work in a number of fundamental
@@ -164,15 +164,15 @@ the system of interest, nor can one obtain or manufacture the
 (possibly large) number of points that might be needed to estimate the
 $\epsilon$-entropy for small $\epsilon$.  Second, we tie
 information---in the form of the weighted permutation
-entropy---directly to prediction error via MASE values.  Though FTLE
+entropy---directly to prediction error via MASE values.  Though FSLE
 and $\epsilon$-entropy allow for the comparison of predictability
 between systems, they do not directly provide an estimate of
-prediction error.  [[Finally, our approach also holds for
-    \emph{stochastic} systems, where the computation of FTLEs makes no
-    sense and/or doesn't reflect predictability.  I remember someone
-    saying this but didn't see it here, so I added it.  Boffetta et
-    al. just do dynamical systems, yes?  And lambda of a stochastic
-    system wouldnt' make sense, yes?]]
+prediction error.  \alert{Finally, our approach also holds for
+  \emph{stochastic} systems, where the computation of FTLEs makes no
+  sense and/or doesn't reflect predictability.  [[I remember someone
+      saying this but didn't see it here, so I added it.  Boffetta et
+      al. just do dynamical systems, yes?  And lambda of a stochastic
+      system wouldnt' make sense, yes?]]}
 
 
 

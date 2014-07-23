@@ -161,7 +161,7 @@ We focus on real-valued, scalar, time-series data from physical experiments.
 %
 % that appears complicated: i.e., not periodic, linear, constant, etc.
 %
-We do not make\alert{should this be assume instead of make} any knowledge of the generating process or its
+We do not assume any knowledge of the generating process or its
 properties: whether it is linear, nonlinear, deterministic,
 stochastic, stationary, non-stationary, etc.  To explore the
 relationship between complexity, predictive structure, and
@@ -189,83 +189,77 @@ confirmed repeatedly that complexity is a challenge to prediction.  It
 is well known that the way information is generated and processed
 internally by a system plays a crucial role in the success of
 different forecasting methods---and in the choice of which method is
-appropriate for a given time series.  
-This constellation of issues has not been properly explored, however,
-in the context of noisy, poorly sampled, real-world data from unknown
-systems.  That exploration---and the development of strategies for
-putting its results into effective practice---is the primary
-contribution of this work.  The empirical results in the later
-sections of this paper not only elucidate the relationship between
-complexity and predictability.  The strategy that we derive from these
-results can also aid practitioners in choosing an appropriate
-prediction model for a given real-world noisy time series from an
-unknown system---a challenging task for which little guidance is
-currently available.
+appropriate for a given time series.  This constellation of issues has
+not been properly explored, however, in the context of noisy, poorly
+sampled, real-world data from unknown systems.  That exploration---and
+the development of strategies for putting its results into effective
+practice---is the primary contribution of this work.  The empirical
+results in the later sections of this paper not only elucidate the
+relationship between complexity and predictability.  The strategy that
+we derive from these results can also aid practitioners in choosing an
+appropriate prediction model for a given real-world noisy time series
+from an unknown system---a challenging task for which little guidance
+is currently available.
 
-\alert{With all the extra material above, the following paragraph now
-  feels repetitive.  Given that, and the reviewer's comment that the
-  intro is too long, I suggest that we merge it into a later section:}
-
-The forecast methods used in this study were chosen to be a
-representative sampling of standard prediction strategies, but they do
-not, of course, cover that space exhaustively.  Our goal here is an
-empirical assessment of the relationship between predictability and
-complexity, not formal results about a ``best'' predictor for a given
-time series.  From a practitioner's standpoint, it would be useful to
-know \emph{ a priori} if a time series contains enough predictive
-structure to make it worth spending the time and effort searching for
-a good forecast method.  It would also be useful to know if a given
-method is inadequate---that is, if an alternative method could do
-better and so one should continue searching.
-
-%[Introduce and make it clear why we choose comp. perf. as test bed.]
-
-\alert{This paragraph, too, might well be moved to the beginning of
-  section 3:}
-
-For the purposes of this study, we required a broad array of
-time-series datasets from across the complexity spectrum.  We chose to
-study sensor data from a computer-performance experiment.  While this
-is not a common laboratory experiment, it is a highly appropriate
-choice here.  Computers are extremely complicated systems and their
-dynamics is surprisingly rich.
-% Modern microprocessor chips contain multiple processing units and
-% multi-layer memories, for instance, and they use complicated
-% hardware/software strategies to maximize performance by moving data
-% and threads of computation across those resources.  As a result, the
-The processor and memory loads during the execution of even a very
-simple program can exhibit dynamical chaos, for
-instance~\cite{mytkowicz09}.  Figure~\ref{fig:col-ipc} shows an
-example: a performance trace of a short program that repeatedly
-initializes the upper triangle of a matrix in column-major order.
-%
- \begin{figure}[htp]
-    \centering
-    \includegraphics[width=\columnwidth]{figs/colshortts}
-    % where an .eps filename suffix will be assumed under latex,
-    % and a .pdf suffix will be assumed for pdflatex
-    \caption{A computer performance trace: the processor load of \col,
-      a simple C program that repeatedly initializes a matrix in
-      column-major order, running on an Intel
-      i7\textsuperscript{\textregistered}-based machine.}
-   \label{fig:col-ipc}
-  \end{figure}
-%
-A small change in the code can cause the dynamics to bifurcate to a
-periodic regime.  
+% % Moved this to the beginning of forecasting section:
 % 
-% Indeed, many computer performance traces exhibit
-% interesting regime changes as a program moves through the different
-% phases of its operation.
-By running different programs on the same computer, then, we can
-produce traces that span the whole range of the complexity spectrum,
-from completely predictable to completely unstructured---which makes
-this an ideal testbed for this study\footnote{Predicting the
-  \emph{state} of a computer, of course, would amount to solving the
-  halting problem.  What we are doing here is predicting computer
-  \emph{performance}, which does not violate the Rice-Shapiro
-  theorem~\cite{hopcroft2007}.}.
-% footnote to appease the theoretician in Josh
+% The forecast methods used in this study were chosen to be a
+% representative sampling of standard prediction strategies, but they do
+% not, of course, cover that space exhaustively.  Our goal here is an
+% empirical assessment of the relationship between predictability and
+% complexity, not formal results about a ``best'' predictor for a given
+% time series.  From a practitioner's standpoint, it would be useful to
+% know \emph{ a priori} if a time series contains enough predictive
+% structure to make it worth spending the time and effort searching for
+% a good forecast method.  It would also be useful to know if a given
+% method is inadequate---that is, if an alternative method could do
+% better and so one should continue searching.
+
+% % Moved this to the beginning of methods section:
+% 
+% For the purposes of this study, we required a broad array of
+% time-series datasets from across the complexity spectrum.  We chose to
+% study sensor data from a computer-performance experiment.  While this
+% is not a common laboratory experiment, it is a highly appropriate
+% choice here.  Computers are extremely complicated systems and their
+% dynamics is surprisingly rich.
+% % Modern microprocessor chips contain multiple processing units and
+% % multi-layer memories, for instance, and they use complicated
+% % hardware/software strategies to maximize performance by moving data
+% % and threads of computation across those resources.  As a result, the
+% The processor and memory loads during the execution of even a very
+% simple program can exhibit dynamical chaos, for
+% instance~\cite{mytkowicz09}.  Figure~\ref{fig:col-ipc} shows an
+% example: a performance trace of a short program that repeatedly
+% initializes the upper triangle of a matrix in column-major order.
+% %
+%  \begin{figure}[htp]
+%     \centering
+%     \includegraphics[width=\columnwidth]{figs/colshortts}
+%     % where an .eps filename suffix will be assumed under latex,
+%     % and a .pdf suffix will be assumed for pdflatex
+%     \caption{A computer performance trace: the processor load of \col,
+%       a simple C program that repeatedly initializes a matrix in
+%       column-major order, running on an Intel
+%       i7\textsuperscript{\textregistered}-based machine.}
+%    \label{fig:col-ipc}
+%   \end{figure}
+% %
+% A small change in the code can cause the dynamics to bifurcate to a
+% periodic regime.  
+% % 
+% % Indeed, many computer performance traces exhibit
+% % interesting regime changes as a program moves through the different
+% % phases of its operation.
+% By running different programs on the same computer, then, we can
+% produce traces that span the whole range of the complexity spectrum,
+% from completely predictable to completely unstructured---which makes
+% this an ideal testbed for this study\footnote{Predicting the
+%   \emph{state} of a computer, of course, would amount to solving the
+%   halting problem.  What we are doing here is predicting computer
+%   \emph{performance}, which does not violate the Rice-Shapiro
+%   theorem~\cite{hopcroft2007}.}.
+% % footnote to appease the theoretician in Josh
 
 
 %The computer systems community has applied a variety of prediction
