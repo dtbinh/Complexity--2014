@@ -307,7 +307,7 @@ this procedure, are shown in Figure~\ref{fig:embedding}.
       \includegraphics[width=\columnwidth]{figs/svd53dipc2}
     }
     \caption{3D projections of delay-coordinate embeddings of the
-       traces from (a) Figure~\ref{fig:col-ts} (b)
+       traces from (a) Figure~\ref{fig:col-ipc} (b)
        Figure~\ref{fig:gcc-ts} and (c) the fifth (green) segment of
        Figure~\ref{fig:svd-ts-colored}.}
     \label{fig:embedding}
@@ -340,25 +340,25 @@ space of the given point, then taking that neighbor's path as the
 prediction---provides accurate forecasts when the generating process
 is a deterministic dynamical system.
 
-Since LMA does not rest on an assumption of linearity (as ARIMA does),
-it can handle both linear and nonlinear processes.  If the underlying
-generating process is nondeterministic, however, it can perform
-poorly.  In Figure~\ref{fig:embedding}b, for instance, little
-structure is visible, so LMA may not work well.  More structure
-appears to be present in~Figure~\ref{fig:embedding}c, but this
-reconstruction also appears to contain some noise.  The question as to
-how much structure is present in a reconstruction---and how much of
-that structure can be captured and used by LMA---is apropos of the
-central question treated in this paper.  It may be that \gcc has some
-redundancy that LMA cannot exploit, or that the structure in \svdfive
-is effectively obfuscated, from the standpoint of the LMA method, by
-noise.  Without any knowledge of the generating process, answers to
-these questions can only be derived from the data, with all of the
-attendant problems (noise, sampling issues, etc.)  By quantifying the
-balance between redundancy (that is, predictive structure) and entropy
-for these real-valued time series, as shown in
-Section~\ref{sec:results}, we can begin to answer these questions
-in an effective and practical manner.
+Since LMA does not rest on an assumption of linearity (as ARIMA models
+do), it can handle both linear and nonlinear processes.  If the
+underlying generating process is nondeterministic, however, it can
+perform poorly.  Figure~\ref{fig:embedding}b, for instance, appears to
+contain little structure, so LMA may not work well on this signal.
+More structure appears to be present in Figure~\ref{fig:embedding}c,
+but this reconstruction also appears to contain some noise.  The
+question as to how much structure is present in a reconstruction---and
+how much of that structure can be captured and used by LMA---is
+apropos of the central question treated in this paper.  It may be that
+\gcc has some redundancy that LMA cannot exploit, or that the
+structure in \svdfive is effectively obfuscated, from the standpoint
+of the LMA method, by noise.  Without any knowledge of the generating
+process, answers to these questions can only be derived from the data,
+with all of the attendant problems (noise, sampling issues, etc.)  By
+quantifying the balance between redundancy (that is, predictive
+structure) and entropy for these real-valued time series, as shown in
+Section~\ref{sec:results}, we can begin to answer these questions in
+an effective and practical manner.
 
 % If enough predictive structure is present in these embeddings, that
 % structure can be used to build an effective forecast model.
@@ -469,10 +469,7 @@ all four methods for the \col, \gcc, and \svdfive time series.
 %}
 %\label{fig:forecast-example}
 %  %\end{subfigure}
-
 %\end{figure*}
-
-
 \newcolumntype{C}{>{\centering\arraybackslash} m{0.6\columnwidth} }
 \begin{figure*}
   \renewcommand{\arraystretch}{1.25}
@@ -535,13 +532,14 @@ term in the denominator
 % $$\frac{1}{n-1}\sum^n_{i=2}|X_{i,obs}-X_{i-1,obs}|$$
 %
 is the average in-sample forecast error for a random-walk prediction
-over the initial training signal $\{x_i\}^n_{i=1}$.  That is, $MASE<1$ means that the
-prediction error in question was, on the average, smaller than the
-error of a random-walk forecast on the same data.  Analogously,
-$MASE>1$ means that the corresponding prediction method did
-\emph{worse}, on average, than the random-walk method.  We chose this
-error metric because it allows for fair comparison across varying
-methods, prediction horizons, and signal scales.
+over the initial training signal $\{x_i\}^n_{i=1}$.  That is, $MASE<1$
+means that the prediction error in question was, on the average,
+smaller than the error of a random-walk forecast on the same data.
+Analogously, $MASE>1$ means that the corresponding prediction method
+did \emph{worse}, on average, than the random-walk method.  We chose
+this error metric because it allows for fair comparison across varying
+methods, prediction horizons, and signal scales---attributes that are
+key to any broad study of predictability.
 
 MASE scores for all 360 experiments are tabulated in the three
 middle columns in Table~\ref{tab:error}.

@@ -39,51 +39,28 @@
 
 %\end{itemize}
 
-In this section, we offer an empirical validation of the two
-conjectures offered in Section \ref{sec:intro}, namely:
+In this section, we offer an empirical validation of the two findings
+introduced in Section \ref{sec:intro}, namely:
 
 \begin{enumerate}
+% \item The complexity of a noisy real-valued time series can be
+%   effectively quantifiable by computing its permutation entropy.
 
-\item That the weighted permutation entropy (WPE) of a noisy
-  real-valued time series from an unknown system is correlated with
-  prediction accuracy---i.e., that the predictable structure in an
-  empirical time-series data set can be quantified by its WPE.
+\item The weighted permutation entropy (WPE) of a noisy real-valued
+  time series from an unknown system is correlated with prediction
+  accuracy---i.e., the predictable structure in an empirical
+  time-series data set can be quantified by its WPE.
 
-%\subitem Simply reminders not to be included]]WPE can quantify when
-%a noisy real-valued time series is predictable.I am unsatisfied
-%with predictable in this sentence, need a better word to say "better
-%than random walk" or ``able to be forecast effectively" or ``has the
-%structural capacity to transmit information in a way that the time
-%series can be effectively forecast"
-
-%\item The existence of complex structure in a noisy real-valued time
-%series is quantifiable and this type of complexity is directly
-%correlated with predictability
-
-\item That the way information is generated and processed by an
-  unknown system is correlated with the effectiveness of a given
-  predictor on empirical time-series data from that system
-
-%\subitem Simply reminders not to be included]]We will have shown
-%that the existence whether linear or nonlinear is picked up on with
-%WPE but this point gets at whether the prediction model can use the
-%structure or not (linear can't use nonlinear structure). The right to
-%left shifts in \col and some of the \svd regimes and the lack of
-%shift in \gcc illustrate this nicely.
-
-%\subitem Simply reminders not to be included]]This is the linear vs
-%nonliear vs random we see with the right to left shifts with lower
-%complexity time series.
+\item The relationship between WPE and MASE is a useful empirical
+  heuristic for identifying mismatches between prediction models and
+  time-series data---i.e., there is structure in the data that the
+  model is unable to exploit.
 
 \end{enumerate}
 
 %This portion should justify the following claim%%%%%%%%%%%%%%%%%%%%%%
 %\item The existence of predictable structure in noisy real-valued time series is quantifiable by WPE and as a result WPE is correlated with prediction accuracy (MASE)
 %%%%%%%%%%%%%%%%%%%%%%%%%
-
-
-
-
 
 %\item First paragraph: WPE is a good measure of predictability.  Figure:
 %best athlete MASE vs. its WPE.
@@ -120,7 +97,8 @@ variability of these results, we repeated all of these calculations on
 % out the correlation between these two quantities.
 
 Figure~\ref{fig:wpe_vs_mase_best} plots the WPE values versus the
-corresponding MASE values of the best prediction of each time series.
+corresponding MASE values of the best prediction of each of the
+\alert{[[108?]]} time series in this study
 \begin{figure}[htbp]
   \centering
   \includegraphics[width=\columnwidth]{figs/new_prediction_vs_entropy}
@@ -129,29 +107,31 @@ corresponding MASE values of the best prediction of each time series.
 %
 % (across all trials and all prediction methods)
 %
-The dashed curve is a least-squares log fit of all the points except
-those from {\tt dgesdd$_1$}, which we have excluded for reasons
-explained in the text.  The shaded region boundaries reflect the
-standard deviation of the model in its parameter space.}
+The dashed curve is a least-squares \alert{[[log]]} fit of all the
+points except those from {\tt dgesdd$_1$}, which we have excluded for
+reasons explained in the text.  The shaded region boundaries reflect
+the standard deviation of the model in its parameter space.}
   \label{fig:wpe_vs_mase_best}
 \end{figure}
 As the plot shows, the best-case prediction error for each trace from
-these eight systems is roughly proportional to the log of the weighted
-permutation entropy, which is consistent with our first conjecture.
-The dashed line in the figure, a least-squares fit of $y = a \log(b x
-+ 1) + c x^16$ to these errors\footnote{with the exception of {\tt dgesdd$_1$},
-  for reasons described below} captures this relationship between WPE
-and prediction error quite nicely.  The logarithmic shape of this
-curve makes sense here because any signal with zero entropy should be
+these eight systems is roughly proportional to the \alert{[[log]]} of
+the weighted permutation entropy, which is consistent with our first
+conjecture.  \alert{We need to explain and justify this baroque curve
+  verrry carefully.  Occam's razor it is not.}  The dashed line in the
+figure, a least-squares fit of $y = a \log(b x + 1) + c x^{16}$ to
+these errors\footnote{with the exception of {\tt dgesdd$_1$}, for
+  reasons described below} captures this relationship between WPE and
+prediction error quite nicely.  The logarithmic shape of this curve
+makes sense here because any signal with zero entropy should be
 perfectly predictable, and so should ideally have a MASE value of
 zero.  The shaded region shows the standard deviation of the model in
-its parameter space: i.e., $y = a \log(b x + 1) + c x^16$ with $\pm$ one
-standard deviation on each of the three parameters.
+its parameter space: i.e., $y = a \log(b x + 1) + c x^{16}$ with $\pm$
+one standard deviation on each of the three parameters.
 
 This is not a formal result.  The forecast methods and data sets used
 here were chosen to span the space of standard prediction strategies
 and the range of dynamical behaviors, but they do not cover those
-spaces exhaustively.  Our goal here is an\emph{empirical} assessment
+spaces exhaustively.  Our goal here is an \emph{empirical} assessment
 of the relationship between predictability and complexity, not formal
 results about a ``best'' predictor for a given time series.  There may
 be other methods that produce lower MASE values than those in

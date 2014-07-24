@@ -62,8 +62,8 @@ spurious dynamics~\cite{bollt2001}.  The field of symbolic dynamics
 offers discretization methods that do not disturb the intrinsic
 behavior.  These methods are, however, fragile in the face of noise;
 worse yet, they require knowledge of the underlying system.  This is
-not useful in our context, where we want to measure the entropy to
-quantify predictability of an arbitrary time-series.
+not useful in our context, where the target of study is experimental
+time-series data.
 
 Bandt and Pompe introduced the \emph{permutation entropy} (PE) as a
 ``natural complexity measure for time series''
@@ -163,10 +163,10 @@ increasing $\ell$, but that can require an arbitrarily long time
 series. In practice, what one should do is calculate the
 \emph{persistent} permutation entropy by increasing $\ell$ until the
 result converges, but data length issues can intrude before that
-convergence is reached.  We used this approach to choose $\ell = 6$
-for the experiments in the following section.  This value represents a
+convergence is reached.  We used this approach, which represents a
 good balance between accurate ordinal statistics and finite-data
-effects.
+effects, to choose $\ell$ values for the experiments in the following
+section.  
 
 % was a good choice, because with $\ell \geq 7$ many signals had
 % entropies plummet due to finite data effects and so with a word length

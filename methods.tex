@@ -69,9 +69,9 @@ We gathered performance traces during the execution of three different
 programs---the simple \col loop whose performance is depicted in
 Figure~\ref{fig:col-ipc}, as well as two more-complex programs: one
 from the SPEC 2006CPU benchmark suite (\gcc), and one from the LAPACK
-linear algebra package (\svd).  In these experiments, the scalar
-observation $x_i$ was a measurement of the processor performance at
-time $i$ during the execution of each program.  
+linear algebra package (\svd).  In all of these experiments, the
+scalar observation $x_i$ was a measurement of the processor
+performance at time $i$ during the execution of each program.
 % 
 % To record these measurements, we used the {\tt libpfm4} library, via
 % PAPI
@@ -87,12 +87,14 @@ time $i$ during the execution of each program.
 %   besides the one used here.}, which we had programmed to count how
 % many instructions were executed in each clock cycle (IPC).  
 % 
-For an in-depth description of this experimental setup,
+% These traces, and the processes that generated them, are described
+% briefly in the rest of this section.
+% 
+For statistical validation, we collected 15 performance traces from
+each of the three programs.  For an in-depth description of this
+experimental setup,
 % including discussion of the implications of the sampling interval,
-please see \cite{zach-IDA10,mytkowicz09,todd-phd}.  For statistical
-validation, we collected 15 performance traces from each of the three
-programs.  These traces, and the processes that generated them, are
-described in more depth in the rest of this section.
+please see \cite{zach-IDA10,mytkowicz09,todd-phd}.  
 
 
 % Obviously using a system to measure itself can cause
@@ -190,7 +192,7 @@ choose $M=750$ and $N=1000$ and generate the matrix entries randomly.
 %   time series.}. 
 % 
 The behavior of this program as it computes the singular values of
-this matrix is very interesting, as shown in Figure
+this matrix is very interesting, as is clearly visible in Figure
 \ref{fig:svd-ts-colored}.  As the code moves though its different
 phases---diagonalizing the matrix, computing its transpose,
 multiplying, etc.---the processor utilization patterns change quite radically,
@@ -210,21 +212,22 @@ IPC moves through a number of different oscillatory regimes, which we
 have color-coded in the figure in order to make textual
 cross-references easy to track.
 
-This wide range of behaviors provides a unique advantage, for the
-purposes of this paper, in that a number of different generating
-processes---with a wide range of complexities---are at work in
-different phases of a single time series.  The complexity of \col and
-\gcc in Figures~\ref{fig:col-ipc} and \ref{fig:gcc-ts} appears to be
-far more consistent over time---probably the result of a single
-generating process.  \svd, in contrast, has multiple regimes, each the
-result of a different generating process.  To take advantage of this,
-we split the signal into six different segments, thereby obtaining an
-array of examples for the analyses in the following sections.  For
-notational convenience, we refer to these 90 time-series data
-sets\footnote{15 runs, each with six regimes} as {\tt dgesdd$_i$},
-with $i \in \{1\dots6\}$ where $i$ corresponds to one of the six
-segments of the signal, ordered from left to right.  These segments,
-which were determined visually, are shown in different colors in
+The wide range of behaviors in Figure~\ref{fig:svd-ts-colored}
+provides a unique advantage, for the purposes of this paper, in that a
+number of different generating processes---with a wide range of
+complexities---are at work in different phases of a single time
+series.  The complexity of \col and \gcc in Figures~\ref{fig:col-ipc}
+and \ref{fig:gcc-ts} appears to be far more consistent over
+time---probably the result of a single generating process.  \svd, in
+contrast, has multiple regimes, each the result of a different
+generating process.  To take advantage of this, we split the signal
+into six different segments, thereby obtaining an array of examples
+for the analyses in the following sections.  For notational
+convenience, we refer to these 90 time-series data sets\footnote{15
+  runs, each with six regimes} as {\tt dgesdd$_i$}, with $i \in
+\{1\dots6\}$ where $i$ corresponds to one of the six segments of the
+signal, ordered from left to right.  These segments, which were
+determined visually, are shown in different colors in
 Figure~\ref{fig:svd-ts-colored}.  Visual decomposition is subjective,
 of course, particularly since the regimes exhibit some fractal
 structure.  Thus, it may be the case that more than one generating

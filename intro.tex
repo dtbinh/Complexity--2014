@@ -128,7 +128,7 @@ method is poor, for instance, but the time series contains a
 significant amount of predictive structure, one can reasonably
 conclude that that method is inadequate to the task and that one
 should seek another method.  The goal of this paper is to develop
-effective, practical heuristics for that strategy.
+effective heuristics to put that strategy into practice.
 
 % We have two goals in this paper: to determine---without knowing
 % anything about the generating process---whether an empirical time
@@ -174,13 +174,14 @@ of the associated signals.  This results in two primary findings:
 % \item The complexity of a noisy real-valued time series can be
 %   effectively quantifiable by computing its permutation entropy.
 
-\item The permutation entropy of a noisy real-valued time series is
-  correlated with the accuracy of an appropriate predictor.
+\item The permutation entropy of a noisy real-valued time series from
+  an unknown system is correlated with the accuracy of an appropriate
+  predictor.
 
 \item The relationship between permutation entropy and prediction
-  accuracy is a useful empirical heuristic for identifying when there
-  is a mismatch between a time series from an unknown system and a
-  given prediction model.
+  accuracy is a useful empirical heuristic for identifying mismatches
+  between prediction models and time-series data.
+
 \end{enumerate}
 % 
 There has, of course, been a great deal of good work on different ways
