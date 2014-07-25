@@ -216,13 +216,13 @@ The wide range of behaviors in Figure~\ref{fig:svd-ts-colored}
 provides a unique advantage, for the purposes of this paper, in that a
 number of different generating processes---with a wide range of
 complexities---are at work in different phases of a single time
-series.  The complexity of \col and \gcc in Figures~\ref{fig:col-ipc}
-and \ref{fig:gcc-ts} appears to be far more consistent over
-time---probably the result of a single generating process.  \svd, in
-contrast, has multiple regimes, each the result of a different
-generating process.  To take advantage of this, we split the signal
-into six different segments, thereby obtaining an array of examples
-for the analyses in the following sections.  For notational
+series.  The \col and \gcc traces in Figures~\ref{fig:col-ipc} and
+\ref{fig:gcc-ts} appear to be far more consistent over time---probably
+the result of a single generating process with consistent complexity.
+\svd, in contrast, has multiple regimes, each the result of a
+different generating process.  To take advantage of this, we split the
+signal into six different segments, thereby obtaining an array of
+examples for the analyses in the following sections.  For notational
 convenience, we refer to these 90 time-series data sets\footnote{15
   runs, each with six regimes} as {\tt dgesdd$_i$}, with $i \in
 \{1\dots6\}$ where $i$ corresponds to one of the six segments of the

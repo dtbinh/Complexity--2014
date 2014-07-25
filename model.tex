@@ -39,6 +39,20 @@ methods, somewhat surprisingly, often outperform these
 more-sophisticated prediction strategies in the case of highly complex
 signals, as discussed below.
 
+These four forecast methods were chosen to be a representative
+sampling of standard prediction strategies, but they do not, of
+course, cover that space exhaustively.  Our goal here is an empirical
+assessment of the relationship between predictability and complexity,
+not formal results about a ``best'' predictor for a given time series.
+From a practitioner's standpoint, it would be useful to know \emph{ a
+  priori} if a time series contains enough predictive structure to
+make it worth spending the time and effort searching for a good
+forecast method.  It would also be useful to know if a given method is
+inadequate---that is, if an alternative method could do better and so
+one should continue searching.  \alert{[[need to check that this is not
+    redundant, given the other text in this section (and elsewhere in
+    the paper).  it may be better to put this in the conclusion.]]}
+
 \subsection{Two Simple Prediction Strategies}
 \label{sec:simple}
 
@@ -366,6 +380,10 @@ an effective and practical manner.
 \subsection{Assessing Prediction Accuracy}
 \label{sec:accuracy}
 
+\alert{We need to go through this section and the results section,
+  rewriting as necessary to account for our addition of RW to the
+  table}
+
 To study the relationship between predictability and complexity, we
 use the four methods outlined above to generate predictions of all 360
 traces described in Section~\ref{sec:methods}, then calculate the
@@ -494,9 +512,9 @@ all four methods for the \col, \gcc, and \svdfive time series.
     \includegraphics[width=0.6\columnwidth]{figs/gccLMAForecast} &
     \includegraphics[width=0.6\columnwidth]{figs/svdfiveLMAForecast}
   \end{tabular}
-  \caption{Predicted ($p_j$) versus true values ($c_j$) for forecasts of \col,
-     \gcc, and \svdfive and all four prediction strategies.
-  }
+  \caption{Predicted ($p_j$) versus true values ($c_j$) for forecasts
+    of \col, \gcc, and \svdfive made using each of the four 
+    strategies studied here.  }
   \label{fig:forecast-example}
 \end{figure*}
 In these images, the vertical axis is the prediction $p_j$ and the
@@ -544,9 +562,9 @@ key to any broad study of predictability.
 MASE scores for all 360 experiments are tabulated in the three
 middle columns in Table~\ref{tab:error}.
 \begin{table*}
-\caption{Mean
-absolute scaled error (MASE) scores and weighted permutation entropies for all eight
-   processes studied in this paper}
+\caption{Mean absolute scaled error (MASE) scores and weighted
+  permutation entropies for all eight processes studied in this paper.
+  LMA $=$ Lorenz method of analogues; RW $=$ random-walk prediction.}
   \begin{center}
   \begin{tabular*}{\textwidth}{@{\extracolsep{\fill} } cccccc}
   \hline\hline Signal & LMA MASE & \arima MASE & na\"{i}ve MASE & RW MASE & WPE \\
