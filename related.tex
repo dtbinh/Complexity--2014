@@ -153,7 +153,7 @@ observed time series using weighted permutation entropy and makes no
 assumptions about the generating process.
 
 More closely related is the work by Boffetta \emph{et
-  al.}~\cite{boffetta02}, who investigate the scaling behavior of
+al.}~\cite{boffetta02}, who investigate the scaling behavior of
 finite-size Lyapunov exponents (FSLE) and $\epsilon$-entropy for a
 wide variety of deterministic systems with known dynamics.  While the
 scaling of these measures acts as a general proxy for predictability
@@ -162,17 +162,13 @@ ways.  First, we focus on real-world time-series data, where one does
 not necessarily have the ability to perturb or otherwise interact with
 the system of interest, nor can one obtain or manufacture the
 (possibly large) number of points that might be needed to estimate the
-$\epsilon$-entropy for small $\epsilon$.  Second, we tie
-information---in the form of the weighted permutation
-entropy---directly to prediction error via MASE values.  Though FSLE
-and $\epsilon$-entropy allow for the comparison of predictability
-between systems, they do not directly provide an estimate of
-prediction error.  \alert{Finally, our approach also holds for
-  \emph{stochastic} systems, where the computation of FTLEs makes no
-  sense and/or doesn't reflect predictability.  [[I remember someone
-      saying this but didn't see it here, so I added it.  Boffetta et
-      al. just do dynamical systems, yes?  And lambda of a stochastic
-      system wouldnt' make sense, yes?]]}
-
-
+$\epsilon$-entropy for small $\epsilon$.  Second, we tie information
+---in the form of the weighted permutation entropy---directly to
+prediction error via MASE values.  Though FSLE and $\epsilon$-entropy
+allow for the comparison of predictability between systems, they do
+not directly provide an estimate of prediction error.  Finally, our
+approach also holds for \emph{stochastic} systems, where the
+computation of FSLEs makes no sense and/or doesn't reflect
+predictability, and Boffetta et al.'s analysis requires knowledge of
+the noise and its interaction with the system.
 
