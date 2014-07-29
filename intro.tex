@@ -96,7 +96,7 @@ viewed as the product of an underlying process that generates
 information and/or transmits it from the past to the future in a
 perfectly predictable fashion.  Constant or periodic signals, for
 example, fall in this class.  On the opposite end of this spectrum are
-signals that are what one can call \emph{fully complex}, where the
+signals that are what one could call \emph{fully complex}, where the
 underlying generating process transmits no information at all from the
 past to the future.  White noise processes fall in this class.  In
 fully complex signals, knowledge of the past gives no insight into the
@@ -106,7 +106,7 @@ interesting challenges from a modeling perspective.  In these signals,
 enough information is being transmitted from the past to the future
 that an \emph{ideal} model---one that captures the generating
 process---can forecast the future behavior of the observed system with
-high accuracy. 
+high accuracy.
 
 % As a corollary of the undecidability of the halting
 % problem~\cite{halting-problem}, however, no single forecasting schema
@@ -115,20 +115,20 @@ high accuracy.
 % data sets.  
 
 This leads naturally to an important and challenging question: given a
-noisy real-valued empirical time series, does there exist a forecast
-model that can leverage the information (if any) that is being
-transmitted from past to future by the underlying generating process?
-A first step in answering this question is to reliably quantify where
-on the complexity spectrum a given time series falls; a second step is
-to determine how complexity and predictability are related in these
-kinds of data sets.  With these answers in hand, one can develop a
-practical strategy for assessing appropriateness of forecast methods
-for a given time series.  If the forecast produced by a particular
-method is poor, for instance, but the time series contains a
-significant amount of predictive structure, one can reasonably
-conclude that that method is inadequate to the task and that one
-should seek another method.  The goal of this paper is to develop
-effective heuristics to put that strategy into practice.
+noisy real-valued time series from an unknown system, does there exist
+a forecast model that can leverage the information (if any) that is
+being transmitted from past to future by the underlying generating
+process?  A first step in answering this question is to reliably
+quantify where on the complexity spectrum a given time series falls; a
+second step is to determine how complexity and predictability are
+related in these kinds of data sets.  With these answers in hand, one
+can develop a practical strategy for assessing appropriateness of
+forecast methods for a given time series.  If the forecast produced by
+a particular method is poor, for instance, but the time series
+contains a significant amount of predictive structure, one can
+reasonably conclude that that method is inadequate to the task and
+that one should seek another method.  The goal of this paper is to
+develop effective heuristics to put that strategy into practice.
 
 % We have two goals in this paper: to determine---without knowing
 % anything about the generating process---whether an empirical time
@@ -188,13 +188,13 @@ There has, of course, been a great deal of good work on different ways
 to measure the complexity of data, and previous explorations have
 confirmed repeatedly that complexity is a challenge to prediction.  It
 is well known that the way information is generated and processed
-internally by a system plays a crucial role in the success of
+internally by a system plays a critical role in the success of
 different forecasting methods---and in the choice of which method is
 appropriate for a given time series.  This constellation of issues has
 not been properly explored, however, in the context of noisy, poorly
-sampled, real-world data from unknown systems.  That exploration---and
+sampled, real-world data from unknown systems.  That exploration, and
 the development of strategies for putting its results into effective
-practice---is the primary contribution of this work.  The empirical
+practice, is the primary contribution of this work.  The empirical
 results in the later sections of this paper not only elucidate the
 relationship between complexity and predictability.  The strategy that
 we derive from these results can also aid practitioners in choosing an
@@ -294,10 +294,10 @@ The rest of the paper is organized as follows.
 Section~\ref{sec:related} discusses previous results on generating
 partitions, local modeling, and error distribution analysis, and
 situates this work in that context. Section~\ref{sec:methods} covers
-the experimental setup and methods used to collect each time
-series. Section~\ref{sec:model} describes the prediction models used
-in this study.  Section~\ref{sec:meaComplex} reviews permutation
-entropy, the technique that we use to measure complexity.  In
+the experimental setup and methods used to collect the time-series
+data. Section~\ref{sec:model} describes the prediction models used in
+this study.  Section~\ref{sec:meaComplex} reviews permutation entropy,
+the technique that we use to measure complexity.  In
 Section~\ref{sec:results}, we estimate the complexity of each
 empirical time series and compare that complexity to the accuracy of
 predictions produced by the methods of Section~\ref{sec:model},

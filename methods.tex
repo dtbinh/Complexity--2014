@@ -67,11 +67,11 @@ Intel Core\textsuperscript{\textregistered} i7-2600-based machine.
 % 
 We gathered performance traces during the execution of three different
 programs---the simple \col loop whose performance is depicted in
-Figure~\ref{fig:col-ipc}, as well as two more-complex programs: one
-from the SPEC 2006CPU benchmark suite (\gcc), and one from the LAPACK
-linear algebra package (\svd).  In all of these experiments, the
-scalar observation $x_i$ was a measurement of the processor
-performance at time $i$ during the execution of each program.
+Figure~\ref{fig:col-ipc} and two more-complex programs: one from the
+SPEC 2006CPU benchmark suite (\gcc), and one from the LAPACK linear
+algebra package (\svd).  In all of these experiments, the scalar
+observation $x_i$ was a measurement of the processor performance at
+time $i$ during the execution of each program.
 % 
 % To record these measurements, we used the {\tt libpfm4} library, via
 % PAPI
@@ -91,8 +91,8 @@ performance at time $i$ during the execution of each program.
 % briefly in the rest of this section.
 % 
 For statistical validation, we collected 15 performance traces from
-each of the three programs.  For an in-depth description of this
-experimental setup,
+each of the three programs.  For an in-depth description of the
+experimental setup used to gather these data,
 % including discussion of the implications of the sampling interval,
 please see \cite{zach-IDA10,mytkowicz09,todd-phd}.  
 
@@ -169,10 +169,11 @@ a member of that suite.
 % on AMD Opteron processors\cite{spec}. 
 % 
 It is a \emph{compiler}: a program that translates code written in a
-high-level language (C, in the case of \gcc) into a lower-level format
-that can be executed by the processor chip.  Its behavior is far more
-complicated than that of \col, as is clear from
-Figure~\ref{fig:gcc-ts}.
+high-level language 
+% (C, in the case of \gcc) 
+into a lower-level format that can be executed by the processor chip.
+Its behavior is far more complicated than that of \col, as is clear
+from Figure~\ref{fig:gcc-ts}.
   \begin{figure}[t]
   \centering
     \includegraphics[width=\columnwidth]{figs/gccfullts}
@@ -184,8 +185,9 @@ Unlike \col, where the processor utilization is quite structured,
 
 \svd is a Fortran program from the LAPACK linear algebra package
 \cite{lapack}.  It calculates the singular value decomposition of a
-rectangular $M$ by $N$ matrix with real-valued entries.  For our experiments, we
-choose $M=750$ and $N=1000$ and generate the matrix entries randomly.
+rectangular $M$ by $N$ matrix with real-valued entries.  For our
+experiments, we chose $M=750$ and $N=1000$ and generated the matrix
+entries randomly.
 % 
 % \footnote{Multiple randomly generated matrices were
 %   investigated but no measurable effect was present in the resulting
@@ -193,10 +195,7 @@ choose $M=750$ and $N=1000$ and generate the matrix entries randomly.
 % 
 The behavior of this program as it computes the singular values of
 this matrix is very interesting, as is clearly visible in Figure
-\ref{fig:svd-ts-colored}.  As the code moves though its different
-phases---diagonalizing the matrix, computing its transpose,
-multiplying, etc.---the processor utilization patterns change quite radically,
-as shown in Figure~\ref{fig:svd-ts-colored}.
+\ref{fig:svd-ts-colored}.  
 \begin{figure}[t]
     \centering
     \includegraphics[width=\columnwidth]{figs/SVD1RegimesColored}
@@ -205,16 +204,19 @@ as shown in Figure~\ref{fig:svd-ts-colored}.
       discussed in the text.}
     \label{fig:svd-ts-colored}
   \end{figure}
-For the first $\sim$21,000 measurements (21,000 $\times$ 100,000
-instructions), roughly 1.8 instructions are executed per cycle, on the
-average, by the eight processing units on this chip.  After that, the
-IPC moves through a number of different oscillatory regimes, which we
-have color-coded in the figure in order to make textual
-cross-references easy to track.
+As the code moves though its different phases---diagonalizing the
+matrix, computing its transpose, multiplying, etc.---the processor
+utilization patterns change quite radically.  For the first
+$\sim$21,000 measurements (21,000 $\times$ 100,000 instructions),
+roughly 1.8 instructions are executed per cycle, on the average, by
+the eight processing units on this chip.  After that, the IPC moves
+through a number of different oscillatory regimes, which we have
+color-coded in the figure in order to make textual cross-references
+easy to track.
 
 The wide range of behaviors in Figure~\ref{fig:svd-ts-colored}
-provides a unique advantage, for the purposes of this paper, in that a
-number of different generating processes---with a wide range of
+provides a distinct advantage, for the purposes of this paper, in that
+a number of different generating processes---with a wide range of
 complexities---are at work in different phases of a single time
 series.  The \col and \gcc traces in Figures~\ref{fig:col-ipc} and
 \ref{fig:gcc-ts} appear to be far more consistent over time---probably

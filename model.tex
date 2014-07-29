@@ -97,7 +97,7 @@ random-walk method is an advantage, since it can respond quickly to
 regime shifts.
 
 Of course, methods that could capture and exploit the geometry of the
-data, or its temporal patterns, would be far more effective in the
+data and/or its temporal patterns would be far more effective in the
 situations described in the previous paragraph.  The \arima and LMA
 methods introduced in Sections~\ref{sec:arima} and~\ref{sec:lma} are
 designed to do exactly that.
@@ -184,11 +184,11 @@ and~\ref{sec:results}.
 %%%%%%%%%%%%%%%%%%%%%%%%
 
 A simple and yet powerful way to capture and exploit the structure of
-data is to fit a hyperplane to the dataset and then use it to make
-predictions.  The roots of this approach date back to the original
-autoregressive schema~\cite{weigend93}, which forecasts the next time
-step through a weighted average of past observations: $$p_i =
-\sum_{j=1}^{i-1} a_j x_j$$ The weighting coefficients $a_j$ are
+data is to fit a hyperplane to the known points and then use it to
+make predictions.  The roots of this approach date back to the
+original autoregressive schema~\cite{weigend93}, which forecasts the
+next time step through a weighted average of past observations: $$p_i
+= \sum_{j=1}^{i-1} a_j x_j$$ The weighting coefficients $a_j$ are
 generally computed using either an ordinary least squares approach, or
 with the method of moments using the Yule-Walker equations.  To
 account for noise in the data, one can add a so-called ``moving
@@ -209,13 +209,13 @@ linear predictors.  Fitting such a model to a dataset involves
 choosing values for the various free parameters in the autoregressive,
 detrending, moving average, and filtering terms.  We employ the
 automated fitting techniques described in~\cite{autoARIMA} to
-accomplish this, producing what we call an \emph{\arima model}.
-This procedure uses sophisticated methods---KPSS unit-root
-tests~\cite{KPSSunit}, a customization of the Canova-Hansen
+accomplish this, producing what we will call an ``\arima model''in the
+rest of this paper.  This procedure uses sophisticated methods---KPSS
+unit-root tests~\cite{KPSSunit}, a customization of the Canova-Hansen
 test~\cite{Canova1995}, and the Akaike information
 criterion~\cite{akaike1974}, conditioned on the maximum likelihood of
 the model fitted to the detrended data---to select good values for the
-free parameters of the \arima model.
+free parameters of the ARIMA model.
 
 ARIMA forecasting is a common and time-tested procedure.  Its
 adjustments for seasonality, nonstationarity, and noise make it an
@@ -228,11 +228,11 @@ forecast is guaranteed to converge (to the mean, to a constant value,
 or to a linear trend) after some number of predictions, depending on
 model order.  To sidestep this issue, we build forecasts in a stepwise
 fashion: i.e., fit the \arima model to the existing data, use that
-model to perform a one-step prediction, rebuild it using the latest
-observations, and iterate until the desired prediction horizon is
-reached.  For consistency, we take the same approach with the other
-three models in this study as well, even though doing so amounts to
-artificially hobbling LMA.
+model to perform a one-step prediction, rebuild the \arima model using
+the latest observations, and iterate until the desired prediction
+horizon is reached.  For consistency, we take the same approach with
+the other three models in this study as well, even though doing so
+amounts to artificially hobbling LMA.
 
 \subsection{A Nonlinear Prediction Strategy}
 \label{sec:lma}
@@ -263,21 +263,21 @@ delay-coordinate map
 F(\tau,m)(\vec{X}) = ([x_{i} ~ x_{i+\tau} ~ \dots ~x_{i+m\tau}])
 \]
 from a $d$-dimensional smooth compact manifold $M$ to
-$\mathbb{R}^{2d+1}$ is a diffeomorphism on $M$---in other words, that
+$\mathbb{R}^{2d+1}$ is a diffeomorphism on $M$: in other words, that
 the reconstructed dynamics and the true (hidden) dynamics have the
-same topology.  This is an extremely powerful result: among other
+same topology.  This is an extremely powerful result; among other
 things, it means that one can model the full system dynamics, up to
-diffeomorphism, without measuring---or even knowing---every one of its
-state variables.
+diffeomorphism, without measuring---or even knowing---anything about
+the state variables.
 
 The first step in the delay-coordinate embedding process is to
 estimate values for the two free parameters in the map: the delay
 $\tau$ and the dimension $m$.  We follow standard procedures for this,
 choosing the first minimum in the time-delayed mutual information as
 an estimate of $\tau$~\cite{fraser-swinney} and using the
-false-near(est)-neighbor(s) method of~\cite{KBA92} to estimate $m$.
-Some example plots of data from
-Figures~\ref{fig:col-ts}-\ref{fig:svd-ts-colored}, embedded following
+false-near(est)-neighbor method of~\cite{KBA92} to estimate $m$.  Some
+example plots of data from
+Figures~\ref{fig:col-ipc}-\ref{fig:svd-ts-colored}, embedded following
 this procedure, are shown in Figure~\ref{fig:embedding}.
 % \begin{figure}
 %   \centering
@@ -357,21 +357,21 @@ is a deterministic dynamical system.
 Since LMA does not rest on an assumption of linearity (as ARIMA models
 do), it can handle both linear and nonlinear processes.  If the
 underlying generating process is nondeterministic, however, it can
-perform poorly.  Figure~\ref{fig:embedding}b, for instance, appears to
-contain little structure, so LMA may not work well on this signal.
-More structure appears to be present in Figure~\ref{fig:embedding}c,
+perform poorly.  Figure~\ref{fig:embedding}(b), for instance, appears
+to contain little structure, so LMA may not work well on this signal.
+More structure appears to be present in Figure~\ref{fig:embedding}(c),
 but this reconstruction also appears to contain some noise.  The
-question as to how much structure is present in a reconstruction---and
-how much of that structure can be captured and used by LMA---is
-apropos of the central question treated in this paper.  It may be that
-\gcc has some redundancy that LMA cannot exploit, or that the
-structure in \svdfive is effectively obfuscated, from the standpoint
-of the LMA method, by noise.  Without any knowledge of the generating
-process, answers to these questions can only be derived from the data,
-with all of the attendant problems (noise, sampling issues, etc.)  By
-quantifying the balance between redundancy (that is, predictive
-structure) and entropy for these real-valued time series, as shown in
-Section~\ref{sec:results}, we can begin to answer these questions in
+question as to how much structure is present in a reconstruction, and
+how much of that structure can be captured and used by LMA, is apropos
+of the central question treated in this paper.  It may be that \gcc
+has some redundancy that LMA cannot exploit, or that the structure in
+\svdfive is effectively obfuscated, from the standpoint of the LMA
+method, by noise.  Without any knowledge of the generating process,
+answers to these questions can only be derived from the data, with all
+of the attendant problems (noise, sampling issues, and so on).  By
+quantifying the balance between redundancy, predictive structure, and
+entropy for these real-valued time series---as shown in
+Section~\ref{sec:results}---we can begin to answer these questions in
 an effective and practical manner.
 
 % If enough predictive structure is present in these embeddings, that
@@ -379,10 +379,6 @@ an effective and practical manner.
 
 \subsection{Assessing Prediction Accuracy}
 \label{sec:accuracy}
-
-\alert{We need to go through this section and the results section,
-  rewriting as necessary to account for our addition of RW to the
-  table}
 
 To study the relationship between predictability and complexity, we
 use the four methods outlined above to generate predictions of all 360
@@ -521,15 +517,16 @@ In these images, the vertical axis is the prediction $p_j$ and the
 horizontal axis is the true continuation $c_j$.  On such a plot, a
 perfect prediction would lie on the diagonal.  LMA, for instance,
 generates a very accurate prediction of the \col data, while \arima
-does not.  Horizontal lines result when a constant predictor (e.g.,
-\naive) is used on a non-constant signal.  Point clouds reflect the
-structure of the distribution of the errors---roughly normally
+does not.  Horizontal lines result when a constant predictor like the
+\naive ~method is used on a non-constant signal.  Point clouds reflect
+the structure of the distribution of the errors---roughly normally
 distributed, for example, in the case of LMA on \gcc.  Note that the
-shapes of some of the plots in Figure~\ref{fig:forecast-example}, random walk and \arima on \col for example,  are
-reminiscent of the projected embedding in Figure~\ref{fig:embedding}a.
-For a random-walk predictor, a $p_j$ vs. $c_j$ plot is equivalent to a
-two-dimensional embedding with $\tau=1$.  For \arima, the
-correspondence is not quite as simple, since the $p_j$ values are
+shapes of some of the plots in Figure~\ref{fig:forecast-example}
+(e.g., random walk and \arima on \col) are reminiscent of the
+projected embedding in Figure~\ref{fig:embedding}(a).  Indeed, for a
+random-walk predictor, a $p_j$ vs. $c_j$ plot is technically
+equivalent to a two-dimensional embedding with $\tau=1$.  For \arima,
+the correspondence is not quite as simple, since the $p_j$ values are
 linear combinations of a number of past values of the $c_j$, but the
 effect is largely the same\footnote{The temporal \emph{ordering} of
   the points on the \arima $p_j$ vs. $c_j$ plot does not match that of
@@ -543,8 +540,8 @@ $$MASE = \sum_{j=n+1}^{k+n+1}\frac{|p_j-c_j|
 %
 This error metric was introduced in \cite{MASE} as a ``generally
 applicable measurement of forecast accuracy without the problems seen
-in the other measurements."  MASE is a normalized measure: the scaling
-term in the denominator
+in the other measurements."  Like many error metrics, MASE is a
+normalized measure: the scaling term in the denominator
 %
 % of the MASE value
 % $$\frac{1}{n-1}\sum^n_{i=2}|X_{i,obs}-X_{i-1,obs}|$$
@@ -554,17 +551,22 @@ over the initial training signal $\{x_i\}^n_{i=1}$.  That is, $MASE<1$
 means that the prediction error in question was, on the average,
 smaller than the error of a random-walk forecast on the same data.
 Analogously, $MASE>1$ means that the corresponding prediction method
-did \emph{worse}, on average, than the random-walk method.  We chose
-this error metric because it allows for fair comparison across varying
-methods, prediction horizons, and signal scales---attributes that are
-key to any broad study of predictability.
+did \emph{worse}, on average, than the random-walk method.  While its
+comparative nature is somewhat different than traditional metrics like
+normalized root mean squared error, MASE has the significant advantage
+of allowing one to make a fair comparison across varying methods,
+prediction horizons, and signal scales---attributes that are key to
+any broad study of predictability.
 
-MASE scores for all 360 experiments are tabulated in the three
-middle columns in Table~\ref{tab:error}.
+MASE scores for all 360 experiments are tabulated in the four middle
+columns in Table~\ref{tab:error}.
 \begin{table*}
 \caption{Mean absolute scaled error (MASE) scores and weighted
   permutation entropies for all eight processes studied in this paper.
-  LMA $=$ Lorenz method of analogues; RW $=$ random-walk prediction.}
+  LMA $=$ Lorenz method of analogues; RW $=$ random-walk prediction.
+  \alert{please reorder the columns from left to right to match the
+    order in which the methods were introduced, rather than in the
+    reverse of that order}}
   \begin{center}
   \begin{tabular*}{\textwidth}{@{\extracolsep{\fill} } cccccc}
   \hline\hline Signal & LMA MASE & \arima MASE & na\"{i}ve MASE & RW MASE & WPE \\
@@ -591,32 +593,37 @@ middle columns in Table~\ref{tab:error}.
   \end{center}
  \label{tab:error}
   \end{table*}%
-Comparing these with the geometry of the plots in
-Figure~\ref{fig:forecast-example}, one can see some obvious
-correspondences.  The average LMA MASE score for the \col signals was
-$0.050$, for instance, while \arima scored much worse ($0.599$).
-That is, LMA performed roughly 20 times better on \col signals than a
-random-walk predictor, while \arima only outperformed random walk
-by a factor of 1.7.  This is in accordance with the visual appearance
-of the corresponding images in Figure~\ref{fig:forecast-example}.
-While the correspondence between MASE score and the visual appearance
-of these kinds of plots is clear cut in this case, that is not always
-so.  The plots of LMA predictions of \col and \svdfive both lie near
-the diagonal, for instance, but the corresponding MASE scores were
-very different: $0.050$ for \col and $0.718$ for \svdfive (resp., 20
-and 1.4 times better than random-walk forecasts of the same signals).
-This is a result of the normalization in the MASE score calculation.
-Recall from Section~\ref{sec:simple} that the random-walk method
-performs especially poorly on signals that oscillate rapidly.  \col
-fits this description, so the random-walk error on this signal---the
-denominator of the three MASE scores in the first row of the
-Table---is pathologically high, which skews those scores down.
-Random-walk prediction is very effective for the \svdfive signal, on
-the other hand, so the denominator is small and the MASE scores are
-skewed upwards.  Normalization is, as is often the case, a
-double-edged sword.  Here, it facilitates comparisons across signals
-of different types and lengths, but its particular pathologies must be
-taken into account, as discussed at more length in
+In view of the discussion at the end of the previous paragraph, the
+fact that the values in the second-from-right column are not
+identically equal to 1.00 may be somewhat surprising.  \alert{[[Need
+      to add a sentence here...presumably it's because not all RW
+      forecasts are the same?  Why is this more of an issue in
+      \svdthree?]]}  Comparing the values in Table~\ref{tab:error}
+with the geometry of the plots in Figure~\ref{fig:forecast-example},
+one can see some obvious correspondences.  The average LMA MASE score
+for the \col signals was $0.050$, for instance, while \arima scored
+much worse ($0.599$).  That is, LMA performed roughly 20 times better
+on \col signals than a random-walk predictor, while \arima only
+outperformed random walk by a factor of 1.7.  This is in accordance
+with the visual appearance of the corresponding images in
+Figure~\ref{fig:forecast-example}.  While the correspondence between
+MASE score and the visual appearance of these kinds of plots is clear
+cut in this case, that is not always so.  The plots of LMA predictions
+of \col and \svdfive both lie near the diagonal, for instance, but the
+corresponding MASE scores were very different: $0.050$ for \col and
+$0.718$ for \svdfive (resp., 20 and 1.4 times better than random-walk
+forecasts of the same signals).  This is a result of the normalization
+in the MASE score calculation.  Recall from Section~\ref{sec:simple}
+that the random-walk method performs especially poorly on signals that
+oscillate rapidly.  \col fits this description, so the random-walk
+error on this signal---the denominator of the four MASE scores in the
+first row of the Table---is pathologically high, which skews those
+scores down.  Random-walk prediction is very effective for the
+\svdfive signal, on the other hand, so the denominator is small and
+the MASE scores are skewed upwards.  Normalization is, as is often the
+case, a double-edged sword.  Here, it facilitates comparisons across
+signals of different types and lengths, but its particular pathologies
+must be taken into account, as discussed at more length in
 Section~\ref{sec:results}.
 
 % Table \ref{tab:error} provides the MASE distributions

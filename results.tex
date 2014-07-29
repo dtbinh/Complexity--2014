@@ -56,8 +56,8 @@ introduced in Section \ref{sec:intro}, namely:
 
 \item The relationship between WPE and MASE is a useful empirical
   heuristic for identifying mismatches between prediction models and
-  time-series data---i.e., there is structure in the data that the
-  model is unable to exploit.
+  time-series data---i.e., when there is structure in the data that
+  the model is unable to exploit.
 
 \end{enumerate}
 
@@ -110,26 +110,32 @@ corresponding MASE values of the best prediction of each of the
 %
 % (across all trials and all prediction methods)
 %
-The dashed curve is a least-squares \alert{[[log]]} fit of all the
-points except those from {\tt dgesdd$_1$}, which we have excluded for
-reasons explained in the text.  The shaded region boundaries reflect
-the standard deviation of the model in its parameter space.}
+The solid curve is a least-squares log fit of these points.
+% 
+% of all the points except those from {\tt dgesdd$_1$}, which we have
+% excluded for reasons explained in the text.
+% 
+The dashed curves reflect the standard deviation of the model in its
+parameter space.  The meaning of the shaded region is explained in the
+text.}
   \label{fig:wpe_vs_mase_best}
 \end{figure}
-As the plot shows, the best-case prediction error for each trace from
-these eight systems is roughly proportional to the \alert{[[log]]} of
-the weighted permutation entropy, which is consistent with our first
-conjecture.  \alert{We need to explain and justify this baroque curve
-  verrry carefully.  Occam's razor it is not.}  The dashed line in the
-figure, a least-squares fit of $y = a \log(b x + 1) + c x^{16}$ to
-these errors\footnote{with the exception of {\tt dgesdd$_1$}, for
-  reasons described below} captures this relationship between WPE and
-prediction error quite nicely.  The logarithmic shape of this curve
-makes sense here because any signal with zero entropy should be
-perfectly predictable, and so should ideally have a MASE value of
-zero.  The shaded region shows the standard deviation of the model in
-its parameter space: i.e., $y = a \log(b x + 1) + c x^{16}$ with $\pm$
-one standard deviation on each of the three parameters.
+\alert{As the plot shows, the best-case prediction error for each trace from
+these eight systems is roughly proportional to the log of the weighted
+permutation entropy, which is consistent with our first conjecture.}
+The dashed line in the figure, a least-squares fit of $y = a \log(b x
++ 1)$ to these errors,
+% 
+% \footnote{with the exception of {\tt
+%     dgesdd$_1$}, for reasons described below} 
+% 
+captures this relationship between WPE and prediction error quite
+nicely.  The logarithmic shape of this curve makes sense here because
+any signal with zero entropy should be perfectly predictable, and so
+should ideally have a MASE value of zero.  The shaded region shows the
+standard deviation of the model in its parameter space: i.e., $y = a
+\log(b x + 1) + c x^{16}$ with $\pm$ one standard deviation on each of
+the three parameters.
 
 This is not a formal result.  The forecast methods and data sets used
 here were chosen to span the space of standard prediction strategies

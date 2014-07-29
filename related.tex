@@ -82,11 +82,11 @@ determinism and stochasticity present in a time series.
 The model-based error analysis methods described in the previous three
 paragraphs are based on specific assumptions about the underlying
 generating process and knowledge about what will happen to the error
-if those assumptions hold or fail.  Model-free information analysis
-moves away from those restrictions.  Our approach falls into this
-class: we wish to measure the inherent complexity of an empirical time
-series, then correlate that complexity with the predictive accuracy of
-forecasts made using a number of different methods.
+if those assumptions hold or fail.  Model-\emph{free} information
+analysis moves away from those restrictions.  Our approach falls into
+this class: we wish to measure the inherent complexity of an empirical
+time series, then correlate that complexity with the predictive
+accuracy of forecasts made using a number of different methods.
 
 We build on the notion of \emph{redundancy} that was introduced on
 page~\pageref{page:redundancy}, which formally quantifies how
@@ -103,15 +103,14 @@ current one.
 The redundancy of i.i.d. random processes, for instance, is zero,
 since all observations in such a process are independent of one
 another.  On the other hand, deterministic systems---including chaotic
-ones---have high redundancy that is maximal in the infinite limit,
-and thus they can be perfectly predicted if observed for long
-enough~\cite{weigend93}.  In practice, it is
-quite difficult to estimate the redundancy of an arbitrary,
-real-valued time series.  Doing so requires knowing either the
-Kolmogorov-Sinai entropy or the values of all positive Lyapunov
-exponents of the system.  Both of these calculations are
-difficult---the latter particularly so if the data are very noisy or
-the generating system is stochastic.
+ones---have high redundancy that is maximal in the infinite limit, and
+thus they can be perfectly predicted if observed for long
+enough~\cite{weigend93}.  In practice, it is quite difficult to
+estimate the redundancy of an arbitrary, real-valued time series.
+Doing so requires knowing either the Kolmogorov-Sinai entropy or the
+values of all positive Lyapunov exponents of the system.  Both of
+these calculations are difficult, the latter particularly so if the
+data are very noisy or the generating system is stochastic.
 
 Using entropy and redundancy to quantify the inherent predictability
 of a time series is not a new idea.  Past methods for this, however,
@@ -140,9 +139,9 @@ partition.  Permutation entropy makes no assumptions about, and
 requires no knowledge of, the underlying generating process: linear,
 nonlinear, the Lyapunov spectrum, etc.  These features make our
 approach applicable to noisy real-valued time series from all classes
-of systems.
+of systems, deterministic and stochastic.
 
-There has been prior work under a similar title to
+There has been prior work under a very similar title to
 ours~\cite{haven2005}, but there are only superficial similarities
 between the two research projects. Haven \emph{et al.} utilize the
 relative entropy to quantify the difference in predictability between
@@ -152,23 +151,22 @@ distribution. Our work quantifies the predictability of a single
 observed time series using weighted permutation entropy and makes no
 assumptions about the generating process.
 
-More closely related is the work by Boffetta \emph{et
-al.}~\cite{boffetta02}, who investigate the scaling behavior of
+More closely related is the work of Boffetta \emph{et
+  al.}~\cite{boffetta02}, who investigate the scaling behavior of
 finite-size Lyapunov exponents (FSLE) and $\epsilon$-entropy for a
-wide variety of deterministic systems with known dynamics.  While the
-scaling of these measures acts as a general proxy for predictability
-bounds, this approach differs from our work in a number of fundamental
-ways.  First, we focus on real-world time-series data, where one does
-not necessarily have the ability to perturb or otherwise interact with
-the system of interest, nor can one obtain or manufacture the
-(possibly large) number of points that might be needed to estimate the
-$\epsilon$-entropy for small $\epsilon$.  Second, we tie information
----in the form of the weighted permutation entropy---directly to
-prediction error via MASE values.  Though FSLE and $\epsilon$-entropy
-allow for the comparison of predictability between systems, they do
-not directly provide an estimate of prediction error.  Finally, our
-approach also holds for \emph{stochastic} systems, where the
-computation of FSLEs makes no sense and/or doesn't reflect
-predictability, and Boffetta et al.'s analysis requires knowledge of
-the noise and its interaction with the system.
-
+wide variety of deterministic systems with known dynamics and additive
+noise.  While the scaling of these measures acts as a general proxy
+for predictability bounds, this approach differs from our work in a
+number of fundamental ways.  First, we focus on real-world time-series
+data, where one does not necessarily have the ability to perturb or
+otherwise interact with the system of interest, nor can one obtain or
+manufacture the (possibly large) number of points that might be needed
+to estimate the $\epsilon$-entropy for small $\epsilon$.  Second, we
+do not require \emph{a priori} knowledge about the noise and its
+interaction with the system.  Third, we tie information---in the form
+of the weighted permutation entropy---directly to prediction error via
+MASE values.  Though FSLE and $\epsilon$-entropy allow for the
+comparison of predictability between systems, they do not directly
+provide an estimate of prediction error.  Finally, our approach also
+holds for stochastic systems, where neither the FLSEs nor their
+relationship to predictability is well defined.
