@@ -82,7 +82,7 @@ to WPE.
 % and the prediction method.
 %
 Working from the first 90\% of each signal, we generated a prediction
-of the last 10\% using the \naive, \arima, and LMA prediction methods,
+of the last 10\% using the \naive, random walk, \arima, and LMA prediction methods,
 as described in Section~\ref{sec:accuracy}, then calculated the MASE
 value of those predictions.  We also calculated the WPE of each time
 series using a wordlength chosen via the procedure described in
@@ -105,20 +105,20 @@ the 120 time series in this study.
   \caption{Weighted permutation entropy vs. mean absolute scaled error
     (MASE) of the best prediction of each time series.  The solid
     curve is a least-squares log fit of these points.
-% 
+%
 % of all the points except those from {\tt dgesdd$_1$}, which we have
 % excluded for reasons explained in the text.
-% 
+%
 The dashed curves reflect the standard deviation of the model in its
 parameter space.  The meaning of the shaded region is explained in the
 text.}
   \label{fig:wpe_vs_mase_best}
 \end{figure}
-% 
+%
 % As the plot shows, the best-case prediction error for each trace from
 % these eight systems is roughly proportional to the log of the weighted
 % permutation entropy, which is consistent with our first conjecture.
-% 
+%
 There is an obvious upward trend, which is consistent with the notion
 that there is a pattern in the WPE-MASE relationship.  However, a
 simple linear fit is a bad idea here.  First, any signal with zero
@@ -207,12 +207,12 @@ When a practioner calculates an WPE vs. MASE value that is outside the
 shaded region, that should suggest to her that the prediction method
 is not well matched to the task at hand: that is, the time series has
 more predictive structure than the method is able to use.
-% 
+%
 % The idea behind the shaded region is to help practitioners identify
 % when there is predictive structure in the data that a given method is
 % not exploiting (viz., \arima on \svdsix)---i.e., that one could do
 % better with another forecast strategy.
-% 
+%
 In this case---e.g., \arima on \svdsix---she should try a different
 method.  The position of the LMA cluster for \svdsix, on the other
 hand, reflects this method's ability to capture and exploit the
@@ -221,11 +221,11 @@ this, which fall in the shaded region, should suggest to the
 practitioner that the prediction method is well-suited to the task.
 The following discussion lays out the details that underlie these
 claims.
-% 
+%
 % The dashed curve in Figures~\ref{fig:wpe_vs_mase_best}
 % and~\ref{fig:wpe_vs_mase_all} is a heuristic that captures the
-% argument at the end of the previous paragraph.  
-% 
+% argument at the end of the previous paragraph.
+%
 
 Though \col is a very simple program, its dynamics are actually quite
 complicated, as discussed in Section~\ref{sec:intro}.  Recall from
@@ -286,7 +286,7 @@ The WPE of \svdfive ($0.677 \pm 0.006$) is higher than that of {\tt
 transfer of the underlying process is lower, but that time-series data
 observed from this system still contain a significant amount of
 structure that can, in theory, be used to predict the future course of
-the time series.  
+the time series.
 % As mentioned above, though, the effectiveness of any prediction
 % strategy depends on how well it leverages the information that is
 % available in the data: methods that use linear models, for instance,
@@ -318,11 +318,11 @@ random-walk predictor is the winner, with a MASE of $1.1381 \pm
 will always be best, assuming that the training signal accurately
 reflects the overall behavior of the out-of-sample time series.
 \alert{feels like we should justify this a bit}
-% 
+%
 % The \naive ~method works fairly well too: $1.797 \pm 0.010$, simply
 % because its calculation of the mean filters out the noise in the
 % signal.
-% 
+%
 Since fitting a hyperplane using least squares should filter out some
 of the noise in the signal, the fact that LMA outperforms \arima
 ($1.530 \pm 0.021$ vs. $1.837 \pm 0.016$) may be somewhat
@@ -389,7 +389,7 @@ dip, which skews the associated MASE scores.  Signals like this are
 also problematic for the \naive ~prediction strategy, since the
 outliers have significant influence on the mean.  This compounds the
 effect of the skew in the scaling factor and exacerbates the spread in
-the \svdone MASE values.  
+the \svdone MASE values.
 
 % For all of these reasons, we view \svdone as an outlier and exclude it
 % from the fit calculation of the dashed curve in
