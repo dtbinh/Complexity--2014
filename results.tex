@@ -275,11 +275,12 @@ hypothesis by forcing the inclusion of an integration term in the five
 cases where a KPSS test indicated that such a term was not needed.
 This action removed the spread, pushing all 15 of the \col ~ \arima
 points in Figure~\ref{fig:wpe_vs_mase_all} into a tight cluster.
-\alert{This paragraph needs more, in response to the ref's gritch
-  about fitting: the stuff about \arima being an automated recipe that
-  can give bad results, and the fact that our technique can tell when
-  it does.  And we should call his attention to it in that part of the
-  response letter.}
+\alert{Josh to do: this paragraph needs more, in response to the ref's
+  gritch about fitting: the stuff about \arima being an automated
+  recipe that can give bad results, and the fact that our technique
+  can tell when it does.  Look at the response letter for context and
+  ammunition---and also put something in there that calls his
+  attention to this paragraph.}
 
 The WPE of \svdfive ($0.677 \pm 0.006$) is higher than that of {\tt
   col\_major}.  This indicates that the rate of forward information
@@ -329,13 +330,14 @@ of the noise in the signal, the fact that LMA outperforms \arima
 counterintuitive.  However, the small amount of predictive structure
 that is present in this signal is nonlinear (cf.,~\cite{mytkowicz09}),
 and LMA is designed to capture and exploit that kind of structure.
-Note that all four \gcc clusters are outside the shaded region; in the
-case of the random-walk prediction, for instance, the MASE value is
-$1.1381 \pm 0.011$.  This is due to nonstationarity in the signal: in
-particular, differences between the training and test signals.
-\svdtwo fits the same patterns, for the same reasons---and visibly so,
-in the red segment of Figure~\ref{fig:svd-ts-colored}, where the
-period and amplitude of the oscillations are decreasing.
+Note that all four \gcc clusters in Figure~\ref{fig:wpe_vs_mase_all}
+are outside the shaded region; in the case of the random-walk
+prediction, for instance, the MASE value is $1.1381 \pm 0.011$.  This
+is due to nonstationarity in the signal: in particular, differences
+between the training and test signals.  \svdtwo fits the same
+patterns, for the same reasons---and visibly so, in the red segment of
+Figure~\ref{fig:svd-ts-colored}, where the period and amplitude of the
+oscillations are decreasing.
 
 \svdone---the dark blue segment of
 Figure~\ref{fig:svd-ts-colored}---behaves very differently than the
@@ -344,11 +346,11 @@ entropy is very high ($0.957 \pm 0.016$), three of the four prediction
 methods do quite well on this signal, yielding mean MASE scores of
 0.714 (\arima), 0.827 (LMA), and 0.933 (random walk).  This pushes the
 corresponding clusters of points in Figure~\ref{fig:wpe_vs_mase_all}
-well above the trend followed by the other seven signals.  \alert{we
-  should add a sentence saying why we think this is so.}  The MASE
-scores of the predictions that were produced by the \naive ~method for
-this system, however, are highly inconsistent.  The majority of the
-blue diamond-shaped points on the top-left plot in
+well above the trend followed by the other seven signals.  The reasons
+for this are discussed in the following paragraph.  The MASE scores of
+the predictions that were produced by the \naive ~method for this
+system, however, are highly inconsistent.  The majority of the blue
+diamond-shaped points on the top-left plot in
 Figure~\ref{fig:wpe_vs_mase_all} are clustered near a MASE score of
 0.6, which is better than the other three methods.  In five of the 15
 \svdone trials, however, there were step changes in the signal.  The
@@ -408,15 +410,15 @@ significantly different from the first 90\%.  The deviation from 1.00
 will depend on the process---whether it has multiple regimes, what
 those regimes look like, and how it switches between them---as well as
 the experimental setup (e.g., sensor precision and data length).
-Nonetheless, this effect suggests another potential heuristic for
-time-series prediction: if a practitioner calculates a WPE $>$
-\alert{(lower bound)} for a time series, and a MASE significantly more
-than 1, \alert{why not just $MASE \neq 1.0$?}  this could be an
-indication that the signal is nonstationary.  We are in the process of
-exploring this idea.
+Nonetheless, this effect suggests another potentially useful
+heuristic: if the MASE of a random-walk prediction of a time series is
+significantly different from 1, this could be an indication that the
+signal is nonstationary.  \alert{Should we point back to the obvious
+  MASE wall in the figure to add weight to this?}  We are in the
+process of exploring this idea.
 
 Again, the curves in Figures~\ref{fig:wpe_vs_mase_best}
-and~\ref{fig:wpe_vs_mase_best} were determined from a finite set of
+and~\ref{fig:wpe_vs_mase_all} were determined from a finite set of
 methods and data.  We put a lot of thought and effort into making
 these experiments upon which these results are based both
 representative and comprehensive.  The forecast methods involved range
