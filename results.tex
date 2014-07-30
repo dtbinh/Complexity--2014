@@ -127,19 +127,19 @@ any curve fitted to these data should pass through the origin.
 Moreover, WPE does not grow without bound, so one would expect the
 patterns in the WPE-MASE pairs to reach some sort of asymptote.  For
 these reasons, we chose to fit a function of the form $y = a \log(b x
-+ 1)$ to these points, with $y =$ WPE and $x=$ MASE.  \alert{can we
-  cite a figure of merit for this fit?  we also need to say what $a$
-  and $b$ were.}  The solid curve in the figure shows this fit; the
-dashed curves show the standard deviation of this model in its
-parameter space: i.e., $y = a \log(b x + 1)$ with $\pm$ one standard
-deviation on each of the two parameters.  Points that fall within this
-deviation volume \alert{(light grey)} correspond to predictions that
-are comparable to the best ones found in this study; points that fall
-\emph{above} that volume \alert{(dark grey)} are better still.  We
-chose to truncate the shaded region because of a subtle point
-regarding the MASE of an ideal predictor, which should not be larger
-than 1 unless the training and test signals are different.  This is
-discussed at more length below.
++ 1)$ to these points, with $y =$ WPE and $x=$ MASE\footnote{The
+  specific values of the coefficiencts are $a=7.97 \times 10^{-2}$ and
+  $b=1.52 \times 10^3$.}.  The solid curve in the figure shows this
+fit; the dashed curves show the standard deviation of this model in
+its parameter space: i.e., $y = a \log(b x + 1)$ with $\pm$ one
+standard deviation on each of the two parameters.  Points that fall
+within this deviation volume (light grey) correspond to predictions
+that are comparable to the best ones found in this study; points that
+fall \emph{above} that volume (dark grey) are better still.  We chose
+to truncate the shaded region because of a subtle point regarding the
+MASE of an ideal predictor, which should not be larger than 1 unless
+the training and test signals are different.  This is discussed at
+more length below.
 
 The curves and regions in Figure~\ref{fig:wpe_vs_mase_best} are a
 graphical representation of the first finding.  This representation
@@ -255,10 +255,10 @@ that simply predicts the running mean (\naive) or the previous value
 score is much better: $0.050 \pm 0.001$.  This prediction is 20 times
 more accurate than a random-walk forecast, which is more in line with
 the level of predictive structure that the low WPE value suggests is
-present in the signal.  The random-walk MASE scores for \col are all
-$\approx 1$---as one would expect---pushing those points well below
-the shaded region.  Clearly the stationarity assumption on which this
-method is based does not hold for this signal.
+present in the signal.  The MASE scores of random-walk predictions of
+\col are all $\approx 1$---as one would expect---pushing those points
+well below the shaded region.  Clearly the stationarity assumption on
+which this method is based does not hold for this signal.
 
 Note that the \col points (blue {\color{blue}$+$} icons) are clustered
 very tightly in the lower left quadrant of the \naive, random-walk,
@@ -313,15 +313,15 @@ information, but the \naive ~and \arima prediction methods cannot.
 The WPE of \gcc is higher still: $0.943 \pm 0.001$.  This system
 transmits very little information forward in time and provides almost
 no structure for prediction methods to work with.  Here, the
-random-walk predictor is the winner, with a MASE of $1.1381 \pm
-0.011$.  This makes sense; in a fully complex signal, the random-walk
-will always be best, assuming that the training signal accurately
-reflects the overall behavior of the out-of-sample time series.
-\alert{feels like we should justify this a bit}
-%
-% The \naive ~method works fairly well too: $1.797 \pm 0.010$, simply
-% because its calculation of the mean filters out the noise in the
-% signal.
+random-walk predictor is the best of the methods used here.  This
+makes sense; in a fully complex signal, where there is no predictive
+structure to utilize, methods that depend on exploiting that
+structure---like ARIMA and LMA---will be outperformed by methods that
+do not rely on that structure.
+% 
+% in a fully complex signal, the MASE of a random-walk forecast will
+% always be $\approx 1$, assuming that the training signal accurately
+% reflects the overall behavior of the out-of-sample time series
 %
 Since fitting a hyperplane using least squares should filter out some
 of the noise in the signal, the fact that LMA outperforms \arima
@@ -329,10 +329,13 @@ of the noise in the signal, the fact that LMA outperforms \arima
 counterintuitive.  However, the small amount of predictive structure
 that is present in this signal is nonlinear (cf.,~\cite{mytkowicz09}),
 and LMA is designed to capture and exploit that kind of structure.
-\alert{this is still true, no?  or should we just say ``see, LMA does
-  better as one would expect because the signal is nonlinear?''  also,
-  we need to talk about the fact that the best of these points, and of
-  \svdtwo, is past the MASE wall and not in the shaded region.}
+Note that all four \gcc clusters are outside the shaded region; in the
+case of the random-walk prediction, for instance, the MASE value is
+$1.1381 \pm 0.011$.  This is due to nonstationarity in the signal: in
+particular, differences between the training and test signals.
+\svdtwo fits the same patterns, for the same reasons---and visibly so,
+in the red segment of Figure~\ref{fig:svd-ts-colored}, where the
+period and amplitude of the oscillations are decreasing.
 
 \svdone---the dark blue segment of
 Figure~\ref{fig:svd-ts-colored}---behaves very differently than the
