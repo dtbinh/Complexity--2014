@@ -49,9 +49,9 @@ From a practitioner's standpoint, it would be useful to know \emph{ a
 make it worth spending the time and effort searching for a good
 forecast method.  It would also be useful to know if a given method is
 inadequate---that is, if an alternative method could do better and so
-one should continue searching.  \alert{[[need to check that this is not
-    redundant, given the other text in this section (and elsewhere in
-    the paper).  it may be better to put this in the conclusion.]]}
+one should continue searching.  \alert{need to check that this is not
+  redundant, given the other text in this section (and elsewhere in
+  the paper).  it may be better to put this in the conclusion.}
 
 \subsection{Two Simple Prediction Strategies}
 \label{sec:simple}
@@ -381,9 +381,10 @@ an effective and practical manner.
 \label{sec:accuracy}
 
 To study the relationship between predictability and complexity, we
-use the four methods outlined above to generate predictions of all 360
-traces described in Section~\ref{sec:methods}, then calculate the
-error of the predictions with respect to the true continuations.
+use the four methods outlined above to generate predictions of all 120
+\alert{we had 360 there.  seems like it should be 8 times 15 which is
+  120.}  traces described in Section~\ref{sec:methods}, then calculate
+the error of the predictions with respect to the true continuations.
 Specifically, we split each time series into two pieces: the first
 90\%, referred to as the ``initial training" signal and denoted
 $\{x_i\}_{i=1}^{n}$, and the last 10\%, known as the ``test" signal
@@ -547,16 +548,16 @@ normalized measure: the scaling term in the denominator
 % $$\frac{1}{n-1}\sum^n_{i=2}|X_{i,obs}-X_{i-1,obs}|$$
 %
 is the average in-sample forecast error for a random-walk prediction
-over the initial training signal $\{x_i\}^n_{i=1}$.  That is, $MASE<1$
+over the initial training signal $\{x_i\}^n_{i=1}$.  That is, MASE$<1$
 means that the prediction error in question was, on the average,
-smaller than the error of a random-walk forecast on the same data.
-Analogously, $MASE>1$ means that the corresponding prediction method
-did \emph{worse}, on average, than the random-walk method.  While its
-comparative nature is somewhat different than traditional metrics like
-normalized root mean squared error, MASE has the significant advantage
-of allowing one to make a fair comparison across varying methods,
-prediction horizons, and signal scales---attributes that are key to
-any broad study of predictability.
+smaller than the average error of a random-walk forecast on the
+training data.  Analogously, MASE$>1$ means that the corresponding
+prediction method did \emph{worse}, on average, than the random-walk
+method.  While its comparative nature is somewhat different than
+traditional metrics like normalized root mean squared error, MASE has
+the significant advantage of allowing one to make a fair comparison
+across varying methods, prediction horizons, and signal
+scales---attributes that are key to any broad study of predictability.
 
 MASE scores for all 360 experiments are tabulated in the four middle
 columns in Table~\ref{tab:error}.
@@ -594,37 +595,43 @@ columns in Table~\ref{tab:error}.
  \label{tab:error}
   \end{table*}%
 In view of the discussion at the end of the previous paragraph, the
-fact that the values in the second-from-right column are not
-identically equal to 1.00 may be somewhat surprising.  \alert{[[Need
-      to add a sentence here...presumably it's because not all RW
-      forecasts are the same?  Why is this more of an issue in
-      \svdthree?]]}  Comparing the values in Table~\ref{tab:error}
-with the geometry of the plots in Figure~\ref{fig:forecast-example},
-one can see some obvious correspondences.  The average LMA MASE score
-for the \col signals was $0.050$, for instance, while \arima scored
-much worse ($0.599$).  That is, LMA performed roughly 20 times better
-on \col signals than a random-walk predictor, while \arima only
-outperformed random walk by a factor of 1.7.  This is in accordance
-with the visual appearance of the corresponding images in
-Figure~\ref{fig:forecast-example}.  While the correspondence between
-MASE score and the visual appearance of these kinds of plots is clear
-cut in this case, that is not always so.  The plots of LMA predictions
-of \col and \svdfive both lie near the diagonal, for instance, but the
-corresponding MASE scores were very different: $0.050$ for \col and
-$0.718$ for \svdfive (resp., 20 and 1.4 times better than random-walk
-forecasts of the same signals).  This is a result of the normalization
-in the MASE score calculation.  Recall from Section~\ref{sec:simple}
-that the random-walk method performs especially poorly on signals that
-oscillate rapidly.  \col fits this description, so the random-walk
-error on this signal---the denominator of the four MASE scores in the
-first row of the Table---is pathologically high, which skews those
-scores down.  Random-walk prediction is very effective for the
-\svdfive signal, on the other hand, so the denominator is small and
-the MASE scores are skewed upwards.  Normalization is, as is often the
-case, a double-edged sword.  Here, it facilitates comparisons across
-signals of different types and lengths, but its particular pathologies
-must be taken into account, as discussed at more length in
-Section~\ref{sec:results}.
+fact that the values in the second-from-\alert{left} column are not
+identically equal to 1.00 may be somewhat surprising.  This can happen
+due to differences between in-sample and out-of-sample forecasting;
+the last 10\% of \svdthree, for instance---the out-of-sample
+signal---was easier, on the average, for RW to predict than the first
+90\%. \alert{[[Liz to do: add pointer to Josh's paragraph for deeper
+      analysis]]}.
+
+Comparing the values in Table~\ref{tab:error} with the geometry of the
+plots in Figure~\ref{fig:forecast-example}, one can see some obvious
+correspondences.  The average LMA MASE score for the \col signals was
+$0.050$, for instance, while \arima scored much worse ($0.599$).  That
+is, LMA performed roughly 20 times better on \col signals than a
+random-walk predictor, while \arima only outperformed random walk by a
+factor of 1.7.  This is in accordance with the visual appearance of
+the corresponding images in Figure~\ref{fig:forecast-example}.  
+
+In other cases, the correspondence between MASE score and the visual
+appearance of these kinds of plots is not so clear cut.  The plots of
+LMA predictions of \col and \svdfive both lie near the diagonal, for
+instance, but the corresponding MASE scores were very different:
+$0.050$ for \col and $0.718$ for \svdfive (resp., 20 and 1.4 times
+better than random-walk forecasts of the same signals).  This is a
+result of the normalization in the MASE score calculation.  Recall
+from Section~\ref{sec:simple} that the random-walk method performs
+especially poorly on signals that oscillate rapidly.  \col fits this
+description, so the random-walk error on this signal---the denominator
+of the four MASE scores in the first row of the Table---is
+pathologically high, which skews those scores down.  Random-walk
+prediction is very effective for the \svdfive signal, on the other
+hand, so the denominator is small and the MASE scores are skewed
+upwards.  
+
+Normalization is, as is often the case, a double-edged sword.  Here,
+it facilitates comparisons across signals of different types and
+lengths, but its particular pathologies must be taken into account, as
+discussed at more length in Section~\ref{sec:results}.
 
 % Table \ref{tab:error} provides the MASE distributions
 % {\color{red}[Joshua: Ryan, Is this the right word? we give mean $\pm$
