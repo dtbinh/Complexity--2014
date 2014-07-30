@@ -291,17 +291,15 @@ the time series.
 % available in the data: methods that use linear models, for instance,
 % may fail when applied to nonlinear processes.  (This is the basis
 % for the second conjecture above.)
-In the \svdfive results, this match between model and task manifests
-quite clearly.  The MASE scores of the \naive ~and \arima predictions
-for this system are $20.870 \pm 0.192$ and $2.370 \pm 0.051$,
-respectively: that is, 20.87 and 2.37 times worse than a simple random
-walk forecast of the same signals\footnote{The \naive ~MASE score is
-  large because of the bimodal nature of the distribution of the
-  values of the signal, which makes guessing the mean a particularly
-  bad strategy.  The same thing is true of the \svdthree signal.}.  As
-before, the positions of these points on a WPE vs. MASE
-plot---significantly below and to the right of the shaded
-region---should suggest to a practitioner that
+The MASE scores of the \naive ~and \arima predictions for this system
+are $20.870 \pm 0.192$ and $2.370 \pm 0.051$, respectively: that is,
+20.87 and 2.37 times worse than a simple random walk forecast of the
+same signals\footnote{The \naive ~MASE score is large because of the
+  bimodal nature of the distribution of the values of the signal,
+  which makes guessing the mean a particularly bad strategy.  The same
+  thing is true of the \svdthree signal.}.  As before, the positions
+of these points on a WPE vs. MASE plot---significantly below and to
+the right of the shaded region---should suggest to a practitioner that
 %  there is more structure in this signal than the corresponding
 % method is able to leverage, and that
 a different method might do better.  Indeed, for \svdfive, the LMA
@@ -398,18 +396,18 @@ The second effect that can skew MASE scores is nonstationarity.  Since
 this metric is normalized by the error of a random-walk forecast
 \emph{on the training signal}, differences between the test signal and
 training signal can create issues.  This is why the MASE values in
-Table~\ref{tab:errors} are $\neq 1.00$ for every random-walk forecast
-of every time series: the last 10\% of these signals is significantly
-different from the first 90\%.  The deviation from 1.00 will depend on
-the process (whether it has multiple regimes, what those regimes look
-like, and how it switches between them) as well as the experimental
-setup (e.g., sensor precision and data length).  Nonetheless, this
-effect suggests another potential heuristic for time-series
-prediction: if a practitioner calculates a WPE $>$ \alert{(lower
-  bound)} for a time series, and a MASE significantly more than 1,
-\alert{why not just $MASE \neq 1.0$?}  this could be an indication
-that the signal is nonstationary.  We are in the process of exploring
-this idea.
+Table~\ref{tab:error} are not identically one for every random-walk
+forecast of every time series: the last 10\% of these signals is
+significantly different from the first 90\%.  The deviation from 1.00
+will depend on the process---whether it has multiple regimes, what
+those regimes look like, and how it switches between them---as well as
+the experimental setup (e.g., sensor precision and data length).
+Nonetheless, this effect suggests another potential heuristic for
+time-series prediction: if a practitioner calculates a WPE $>$
+\alert{(lower bound)} for a time series, and a MASE significantly more
+than 1, \alert{why not just $MASE \neq 1.0$?}  this could be an
+indication that the signal is nonstationary.  We are in the process of
+exploring this idea.
 
 Again, the curves in Figures~\ref{fig:wpe_vs_mase_best}
 and~\ref{fig:wpe_vs_mase_best} were determined from a finite set of
@@ -420,9 +418,9 @@ methods and data.  [[But we worked hard to make these experiments
 about its generality, more exploration will be required to firm up
 that conclusion.  Our preliminary work along those lines shows that
 data from the Henon map \cite{henon}, the Lorenz system \cite{lorenz},
-and the SFI A data set \cite{sfi-data} all fall within the one-$sigma$
+and the SFI A data set \cite{sfi-data} all fall within the one-$\sigma$
 volume of the fit in Figures~\ref{fig:wpe_vs_mase_best}
-and~\ref{fig:wpe_vs_mase_best} region, as do various nonlinear
+and~\ref{fig:wpe_vs_mase_all} region, as do various nonlinear
 transformations of \svdtwo and \svdsix.
 
 Of course, the geometry of the curves and bounds do not hold for other
@@ -434,9 +432,7 @@ hold for the MASE error metric.  Even though this metric has its
 weaknesses, we concur with \cite{MASE} that it is an effective way to
 compare prediction error across time-series data of different lengths
 and different scales.  [[Point to that paper for extensive evaluation
-    and comparison wrt other metrics.]]  We are in the process of
-repeating our own study with other metrics, other forecast methods,
-and time-series data from other systems.  [[Segue to next section.]]
+    and comparison wrt other metrics.]]  
 
 %This portion should justify the following claim%%%%%%%%%%%%%%%%%%%%%%
 %\item The way structure/information/complexity is processed internally by a given process plays a crucial role in predictability.
