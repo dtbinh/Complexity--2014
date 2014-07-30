@@ -599,9 +599,9 @@ fact that the values in the second-from-\alert{left} column are not
 identically equal to 1.00 may be somewhat surprising.  This can happen
 due to differences between in-sample and out-of-sample forecasting;
 the last 10\% of \svdthree, for instance---the out-of-sample
-signal---was easier, on the average, for RW to predict than the first
-90\%. \alert{[[Liz to do: add pointer to Josh's paragraph for deeper
-      analysis]]}.
+signal---was more amenable to random-walk prediction, on the average,
+than the first 90\%.  See Section~\ref{sec:results} for a deeper
+discussion of this effect.
 
 Comparing the values in Table~\ref{tab:error} with the geometry of the
 plots in Figure~\ref{fig:forecast-example}, one can see some obvious
@@ -630,8 +630,9 @@ upwards.
 
 Normalization is, as is often the case, a double-edged sword.  Here,
 it facilitates comparisons across signals of different types and
-lengths, but its particular pathologies must be taken into account, as
-discussed at more length in Section~\ref{sec:results}.
+lengths, but its particular pathologies must be taken into account
+when analyzing the results, as discussed at more length in
+Section~\ref{sec:results}.
 
 % Table \ref{tab:error} provides the MASE distributions
 % {\color{red}[Joshua: Ryan, Is this the right word? we give mean $\pm$

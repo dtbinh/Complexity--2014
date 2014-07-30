@@ -140,7 +140,6 @@ chose to truncate the shaded region because of a subtle point
 regarding the MASE of an ideal predictor, which should not be larger
 than 1 unless the training and test signals are different.  This is
 discussed at more length below.
-%[[make sure that's true]]
 
 The curves and regions in Figure~\ref{fig:wpe_vs_mase_best} are a
 graphical representation of the first finding.  This representation
@@ -217,9 +216,11 @@ more predictive structure than the method is able to use.
 In this case---e.g., \arima on \svdsix---she should try a different
 method.  The position of the LMA cluster for \svdsix, on the other
 hand, reflects this method's ability to capture and exploit the
-structure that is present in this signal and suggests to the
-practitioner that [[she really can't do any better]].  The following
-discussion addresses the details that underlie these claims.
+structure that is present in this signal.  WPE vs. MASE values like
+this, which fall in the shaded region, should suggest to the
+practitioner that the prediction method is well-suited to the task.
+The following discussion lays out the details that underlie these
+claims.
 % 
 % The dashed curve in Figures~\ref{fig:wpe_vs_mase_best}
 % and~\ref{fig:wpe_vs_mase_all} is a heuristic that captures the
@@ -329,7 +330,9 @@ counterintuitive.  However, the small amount of predictive structure
 that is present in this signal is nonlinear (cf.,~\cite{mytkowicz09}),
 and LMA is designed to capture and exploit that kind of structure.
 \alert{this is still true, no?  or should we just say ``see, LMA does
-  better as one would expect because the signal is nonlinear?''}
+  better as one would expect because the signal is nonlinear?''  also,
+  we need to talk about the fact that the best of these points, and of
+  \svdtwo, is past the MASE wall and not in the shaded region.}
 
 \svdone---the dark blue segment of
 Figure~\ref{fig:svd-ts-colored}---behaves very differently than the
@@ -411,28 +414,32 @@ exploring this idea.
 
 Again, the curves in Figures~\ref{fig:wpe_vs_mase_best}
 and~\ref{fig:wpe_vs_mase_best} were determined from a finite set of
-methods and data.  [[But we worked hard to make these experiments
-    representative and comprehensive: forecast methods from simple to
-    sophisticated; time-series data from a system whose behavior spans
-    the dynamical behavior space.]]  While we are cautiously optmistic
-about its generality, more exploration will be required to firm up
-that conclusion.  Our preliminary work along those lines shows that
-data from the Henon map \cite{henon}, the Lorenz system \cite{lorenz},
-and the SFI A data set \cite{sfi-data} all fall within the one-$\sigma$
+methods and data.  We put a lot of thought and effort into making
+these experiments upon which these results are based both
+representative and comprehensive.  The forecast methods involved range
+from the simple to the sophisticated; the time-series data was sampled
+from a system whose behavior spans the dynamical behavior space.
+While we are cautiously optimistic about the generality of our
+conclusions, more exploration will be required before we can make any
+such claim.  Our preliminary work along those lines shows that data
+from the Henon map \cite{henon}, the Lorenz system \cite{lorenz}, and
+the SFI A data set \cite{sfi-data} all fall within the one-$\sigma$
 volume of the fit in Figures~\ref{fig:wpe_vs_mase_best}
 and~\ref{fig:wpe_vs_mase_all} region, as do various nonlinear
 transformations of \svdtwo and \svdsix.
 
-Of course, the geometry of the curves and bounds do not hold for other
-error metrics.  The positions of the WPE vs. error points---and the
-reasons to choose a particular function to fit to them, or a
-theoretical bound on the meaning of the results---may change if one
-calculates error in a different way.  The results presented here only
-hold for the MASE error metric.  Even though this metric has its
-weaknesses, we concur with \cite{MASE} that it is an effective way to
-compare prediction error across time-series data of different lengths
-and different scales.  [[Point to that paper for extensive evaluation
-    and comparison wrt other metrics.]]  
+Of course, the geometry of these curves and bounds do not necessarily
+extend to other error metrics.  The positions of the WPE vs. error
+points---and the reasons to choose a particular function to fit to
+them or impute theoretical bounds on the meaning of the results---may
+change if one calculates error using a procedure other than the one
+described in Section~\ref{sec:accuracy}.  The MASE error metric, as
+discussed above, has its weaknesses.  Even so, we concur with
+\cite{MASE} that it is an effective way to compare prediction error
+across time-series data of different lengths and different scales, and
+we are convinced by the extensive evaluations that are offered in that
+paper, as well as the comparisons of MASE to other metrics, that its
+strengths far outweigh its weaknesses.
 
 %This portion should justify the following claim%%%%%%%%%%%%%%%%%%%%%%
 %\item The way structure/information/complexity is processed internally by a given process plays a crucial role in predictability.
