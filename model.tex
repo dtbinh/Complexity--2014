@@ -560,7 +560,41 @@ scales---attributes that are key to any broad study of predictability.
 
 MASE scores for all 360 experiments are tabulated in the four middle
 columns in Table~\ref{tab:error}.
-\begin{table*}
+%\begin{table*}
+%\caption{Mean absolute scaled error (MASE) scores and weighted
+%  permutation entropies for all eight processes studied in this paper.
+%  LMA $=$ Lorenz method of analogues; RW $=$ random-walk prediction.
+%  \alert{please reorder the columns from left to right to match the
+%    order in which the methods were introduced, rather than in the
+%    reverse of that order}}
+%  \begin{center}
+%  \begin{tabular*}{\textwidth}{@{\extracolsep{\fill} } cccccc}
+%  \hline\hline Signal & LMA MASE & \arima MASE & na\"{i}ve MASE & RW MASE & WPE \\
+%  \hline
+%
+%  \col       & $0.050 \pm 0.002$ & $0.599 \pm 0.211$ & $0.571 \pm 0.002$  & $1.001 \pm 0.002$ & $0.513 \pm 0.003$ \\
+%
+%  \gcc       & $1.530 \pm 0.021$ & $1.837 \pm 0.016$ & $1.797 \pm 0.010$  & $1.138 \pm 0.011$ & $0.943 \pm 0.001$ \\
+%
+%  \svdone    & $0.827 \pm 0.076$ & $0.714 \pm 0.075$ & $2.676 \pm 4.328$  & $0.933 \pm 0.095$ & $0.957 \pm 0.016$ \\
+%
+%  \svdtwo    & $1.279 \pm 0.020$ & $2.163 \pm 0.027$ & $3.054 \pm 0.040$  & $1.125 \pm 0.012$ & $0.846 \pm 0.004$ \\
+%
+%  \svdthree  & $0.619 \pm 0.021$ & $0.713 \pm 0.010$ & $31.386 \pm 0.282$ & $0.707 \pm 0.009$ & $0.716 \pm 0.006$ \\
+%
+%  \svdfour   & $0.779 \pm 0.036$ & $0.979 \pm 0.032$ & $2.661 \pm 0.074$  & $1.034 \pm 0.035$ & $0.825 \pm 0.008$ \\
+%
+%  \svdfive   & $0.718 \pm 0.048$ & $2.370 \pm 0.051$ & $20.870 \pm 0.192$ & $1.001 \pm 0.047$ & $0.678 \pm 0.007$ \\
+%
+%  \svdsix    & $0.739 \pm 0.068$ & $1.438 \pm 0.061$ & $2.197 \pm 0.083$  & $1.060 \pm 0.055$ & $0.748 \pm 0.011$ \\
+%
+%  \hline\hline
+%  \end{tabular*}
+%  \end{center}
+% \label{tab:error}
+%  \end{table*}%
+%  
+ \begin{table*}
 \caption{Mean absolute scaled error (MASE) scores and weighted
   permutation entropies for all eight processes studied in this paper.
   LMA $=$ Lorenz method of analogues; RW $=$ random-walk prediction.
@@ -569,30 +603,26 @@ columns in Table~\ref{tab:error}.
     reverse of that order}}
   \begin{center}
   \begin{tabular*}{\textwidth}{@{\extracolsep{\fill} } cccccc}
-  \hline\hline Signal & LMA MASE & \arima MASE & na\"{i}ve MASE & RW MASE & WPE \\
-  \hline
-
-  \col       & $0.050 \pm 0.002$ & $0.599 \pm 0.211$ & $0.571 \pm 0.002$  & $1.001 \pm 0.002$ & $0.513 \pm 0.003$ \\
-
-  \gcc       & $1.530 \pm 0.021$ & $1.837 \pm 0.016$ & $1.797 \pm 0.010$  & $1.138 \pm 0.011$ & $0.943 \pm 0.001$ \\
-
-  \svdone    & $0.827 \pm 0.076$ & $0.714 \pm 0.075$ & $2.676 \pm 4.328$  & $0.933 \pm 0.095$ & $0.957 \pm 0.016$ \\
-
-  \svdtwo    & $1.279 \pm 0.020$ & $2.163 \pm 0.027$ & $3.054 \pm 0.040$  & $1.125 \pm 0.012$ & $0.846 \pm 0.004$ \\
-
-  \svdthree  & $0.619 \pm 0.021$ & $0.713 \pm 0.010$ & $31.386 \pm 0.282$ & $0.707 \pm 0.009$ & $0.716 \pm 0.006$ \\
-
-  \svdfour   & $0.779 \pm 0.036$ & $0.979 \pm 0.032$ & $2.661 \pm 0.074$  & $1.034 \pm 0.035$ & $0.825 \pm 0.008$ \\
-
-  \svdfive   & $0.718 \pm 0.048$ & $2.370 \pm 0.051$ & $20.870 \pm 0.192$ & $1.001 \pm 0.047$ & $0.678 \pm 0.007$ \\
-
-  \svdsix    & $0.739 \pm 0.068$ & $1.438 \pm 0.061$ & $2.197 \pm 0.083$  & $1.060 \pm 0.055$ & $0.748 \pm 0.011$ \\
-
-  \hline\hline
+  \hline\hline 
+Signal & RW MASE & na\"{i}ve MASE & \arima MASE & LMA MASE & WPE \\
+\hline
+  \col       & $1.001 \pm 0.002$ & $0.571 \pm 0.002$  & $0.599 \pm 0.211$ & $0.050 \pm 0.002$ & $0.513 \pm 0.003$ \\
+  \gcc       & $1.138 \pm 0.011$ & $1.797 \pm 0.010$  & $1.837 \pm 0.016$ & $1.530 \pm 0.021$ & $0.943 \pm 0.001$ \\
+  \svdone    & $0.933 \pm 0.095$ & $2.676 \pm 4.328$  & $0.714 \pm 0.075$ & $0.827 \pm 0.076$ & $0.957 \pm 0.016$ \\
+  \svdtwo    & $1.125 \pm 0.012$ & $3.054 \pm 0.040$  & $2.163 \pm 0.027$ & $1.279 \pm 0.020$ & $0.846 \pm 0.004$ \\
+  \svdthree  & $0.707 \pm 0.009$ & $31.386 \pm 0.282$ & $0.713 \pm 0.010$ & $0.619 \pm 0.021$ & $0.716 \pm 0.006$ \\
+  \svdfour   & $1.034 \pm 0.035$ & $2.661 \pm 0.074$  & $0.979 \pm 0.032$ & $0.779 \pm 0.036$ & $0.825 \pm 0.008$ \\
+  \svdfive   & $1.001 \pm 0.047$ & $20.870 \pm 0.192$ & $2.370 \pm 0.051$ & $0.718 \pm 0.048$ & $0.678 \pm 0.007$ \\
+  \svdsix    & $1.060 \pm 0.055$ & $2.197 \pm 0.083$  & $1.438 \pm 0.061$ & $0.739 \pm 0.068$ & $0.748 \pm 0.011$ \\  
+    \hline\hline
   \end{tabular*}
   \end{center}
  \label{tab:error}
   \end{table*}%
+  
+  
+  
+  
 In view of the discussion at the end of the previous paragraph, the
 fact that the values in the second-from-\alert{left} column are not
 identically equal to 1.00 may be somewhat surprising.  This can happen

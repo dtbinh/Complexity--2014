@@ -282,6 +282,26 @@ points in Figure~\ref{fig:wpe_vs_mase_all} into a tight cluster.
   ammunition---and also put something in there that calls his
   attention to this paragraph.}
 
+
+The discussion in the previous paragraph brings to light an interesting feature of our proposed heuristic. The \arima method that was used to build all of the ARIMA
+models in this paper, follows the procedure outlined
+in Section V B to choose values for the model parameters. Sometimes the choices made by that procedure produce a sub-optimal predictor, however there is nothing to say whether a different model from the ARIMA class would work better. Inappropriate MASE scores (compared to
+what the WPE value might suggest) may suggest an inappropriateness in the order selection and parameter estimation procedure. During the fitting process of \arima many entire subclasses of ARIMA models are eliminated based on various tests, such as the KPSS test. If these tests give erroneous results then entire subclasses of ARIMA models are never even considered, even if they would have been more likely. Our heuristic may be able to flag when this has occured. By examining the MASE vs WPE scores of \col, for example, we were able to see that, while all signal complexities were the same some of the signals were being forecast much worse by \arima. This suggested to us that the signals that were being forecast badly could be forecast better, sure enough by adjusting a single parameter in the fitting process we received on average predictions that was twice as good for these signals.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 The WPE of \svdfive ($0.677 \pm 0.006$) is higher than that of {\tt
   col\_major}.  This indicates that the rate of forward information
 transfer of the underlying process is lower, but that time-series data

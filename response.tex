@@ -379,13 +379,12 @@ this is a good testbed for exploring the problem at hand.
 It is certainly true that the naive and random-walk predictors can be
 seen as subclasses of the ARIMA model family.  We have explicitly
 included them, however, because they are used (sometimes to great
-success) in practice and because that made for a more comprehensive
-exploration.
+success) in practice and because that made for a more comprehensive exploration.
 
-The ``AutoARIMA'' method that was used to build all of the ARIMA
+The {\tt auto.arima} method that was used to build all of the ARIMA
 models in this paper---another ``off the shelf'' method in the
 modeling and prediction communities---follows the procedure outlined
-in Section \alert{[[blah]]} to choose values for the model parameters.
+in Section V B to choose values for the model parameters.
 Sometimes the choices made by that procedure (e.g., setting a
 particular parameter to zero) produce a naive or random-walk
 predictor.  Our method can help practioners know whether this is a
