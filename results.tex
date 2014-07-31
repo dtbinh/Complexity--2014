@@ -171,7 +171,7 @@ set of experiments.
   \includegraphics[width=1.7\columnwidth]{figs/new_predictions_vs_entropy4a}
 \caption{WPE vs. MASE for all trials, methods, and systems---with the
   exception of \svdone, \svdthree, and \svdfive are omitted from the
-  top-left plot for scale reasons, as described in the text.
+  top-right plot for scale reasons, as described in the text.
 %
 % ; their MASE scores are $2.676 \pm 4.328$, $31.39 \pm 0.282$, and
 %   $20.87 \pm 0.192$ respectively.
@@ -203,7 +203,7 @@ region.  \emph{These predictions are not as good as our heuristic
   suggests they could be.}  Focusing in on any single cluster of
 points makes this clear: LMA works best for \svdsix, for instance,
 followed by the random-walk prediction method, then \arima and \naive.
-When a practioner calculates an WPE vs. MASE value that is outside the
+When a practitioner calculates an WPE vs. MASE value that is outside the
 shaded region, that should suggest to her that the prediction method
 is not well matched to the task at hand: that is, the time series has
 more predictive structure than the method is able to use.
@@ -243,7 +243,7 @@ spectrum described in Section~\ref{sec:intro}.
 This disparity---WPE values that suggest a high rate of forward
 information transfer in the signal, but predictions with comparatively
 poor MASE scores---is obvious in the geometry of the two left-hand
-images in Figure~\ref{fig:wpe_vs_mase_all}, where the \col clusters
+and the upper-right hand images in Figure~\ref{fig:wpe_vs_mase_all}, where the \col clusters
 are far to the right of and/or below the dashed curve.  Again, this
 indicates that these methods are not leveraging the available
 information in the signal.  The dynamics of \col may be complicated,
@@ -285,12 +285,12 @@ points in Figure~\ref{fig:wpe_vs_mase_all} into a tight cluster.
 
 The discussion in the previous paragraph brings to light an interesting feature of our proposed heuristic. The \arima algorithm that was used to build all of the ARIMA
 models in this paper, follows the procedure outlined
-in Section V B to choose values for the model parameters.  
-As discussed previously, this algorithm employs sophisticated tests, such as the KPSS test, to intelligently traverse and reduce model space and then uses well-known criterion for choosing the most-likely of the remaining models. However, it is quite possible that this procedure can choose a sub-optimal fit. Specifically, if the initial space of models being searched is not broad enough, or if one of the preliminary tests gives an erroneous result, then the best ARIMA model may be excluded or eliminated before likelihood is even examined. This circumstance is hard to detect. Maximal-likelihood  tests, such as AIC used in \arima, can only conclude which of the models provided is ``most likely"---but cannot conclude that \emph{none} of the models are likely. In contrast,  
-%Sometimes the choices made by that procedure produce a sub-optimal predictor, however there is nothing to say whether a different model from the ARIMA class would work better. 
+in Section V B to choose values for the model parameters.
+As discussed previously, this algorithm employs sophisticated tests, such as the KPSS test, to intelligently traverse and reduce model space and then uses well-known criterion for choosing the most-likely of the remaining models. However, it is quite possible that this procedure can choose a sub-optimal fit. Specifically, if the initial space of models being searched is not broad enough, or if one of the preliminary tests gives an erroneous result, then the best ARIMA model may be excluded or eliminated before likelihood is even examined. This circumstance is hard to detect. Maximal-likelihood  tests, such as AIC used in \arima, can only conclude which of the models provided is ``most likely"---but cannot conclude that \emph{none} of the models are likely. In contrast,
+%Sometimes the choices made by that procedure produce a sub-optimal predictor, however there is nothing to say whether a different model from the ARIMA class would work better.
 inappropriate MASE scores (compared to
-what the WPE value might suggest) may suggest an inappropriateness in the order selection and parameter estimation procedure, which would flag to a practitioner to reevaluate the appropriateness of fit. For example, 
-%During the fitting process of \arima many subclasses of ARIMA models are eliminated based on various tests, such as the KPSS test. If these tests give erroneous results then entire subclasses of ARIMA models are never even considered. Our heuristic may be able to flag when this has occurred. 
+what the WPE value might suggest) may suggest an inappropriateness in the order selection and parameter estimation procedure, which would flag to a practitioner to reevaluate the appropriateness of fit. For example,
+%During the fitting process of \arima many subclasses of ARIMA models are eliminated based on various tests, such as the KPSS test. If these tests give erroneous results then entire subclasses of ARIMA models are never even considered. Our heuristic may be able to flag when this has occurred.
 by examining the \arima MASE scores vs. WPE values of \col, we were able to see that, while all signal complexities were the same, some of the signals had much higher MASE values. This suggested to us inappropriate parameter selection for these time series. We then went back and manually assisted the automated fitting procedure, resulting in models with consistent MASE vs WPE score, and improved forecasts.
 
 
@@ -344,7 +344,7 @@ makes sense; in a fully complex signal, where there is no predictive
 structure to utilize, methods that depend on exploiting that
 structure---like ARIMA and LMA---will be outperformed by methods that
 do not rely on that structure.
-% 
+%
 % in a fully complex signal, the MASE of a random-walk forecast will
 % always be $\approx 1$, assuming that the training signal accurately
 % reflects the overall behavior of the out-of-sample time series
@@ -375,7 +375,7 @@ well above the trend followed by the other seven signals.  The reasons
 for this are discussed in the following paragraph.  The MASE scores of
 the predictions that were produced by the \naive ~method for this
 system, however, are highly inconsistent.  The majority of the blue
-diamond-shaped points on the top-left plot in
+diamond-shaped points on the top-right plot in
 Figure~\ref{fig:wpe_vs_mase_all} are clustered near a MASE score of
 0.6, which is better than the other three methods.  In five of the 15
 \svdone trials, however, there were step changes in the signal.  The
@@ -456,7 +456,7 @@ from the Henon map \cite{henon}, the Lorenz system \cite{lorenz}, and
 the SFI A data set \cite{sfi-data} all fall within the one-$\sigma$
 volume of the fit in Figures~\ref{fig:wpe_vs_mase_best}
 and~\ref{fig:wpe_vs_mase_all} region, as do various nonlinear
-transformations of \svdtwo and \svdsix.
+transformations of \svdtwo, \svdfive and \svdsix.
 
 Of course, the geometry of these curves and bounds do not necessarily
 extend to other error metrics.  The positions of the WPE vs. error
