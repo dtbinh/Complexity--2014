@@ -142,7 +142,7 @@ We thank the reviewer for taking the time to read our paper and
 provide us with valuable feedback.  The questions raised in this
 review caused us to completely rethink the results, the fits, the
 findings, and the conclusions---hence the long delay in resubmitting
-this new version.
+this new version, and the length and depth of this response letter.
 
 \smallskip
 
@@ -228,7 +228,7 @@ original version; this is discussed further below.
   do not seem important enough to be published in a separate article.}
 
 We have shortened the introduction and modified the manuscript
-throughout to make it more clear that our goal is to derive a
+throughout to make it more clear that our goal was to derive a
 practical criterion for best-case prediction error in a model-free
 way, and to test it in the context of empirical data.  We have also
 changed the title to line up with this goal.
@@ -257,15 +257,15 @@ changed the title to line up with this goal.
 
 These claims have indeed been explored extensively in theory and in
 toy models.  Our specific goal, which was not well explained in the
-submitted version, is to show that those claims also hold---and can be
-practically applied---in real-world time-series data that may contain
-dynamical and/or observational noise.  This has not, to our knowledge,
-received much attention in the literature.  We have added a paragraph
-to the introduction that hopefully makes all of this more clear.
+submitted version, was to show that those claims also hold---and can
+be practically applied---in real-world time-series data that may
+contain dynamical and/or observational noise.  This has not, to our
+knowledge, received much attention in the literature.  We have added a
+paragraph to the introduction that hopefully makes all of this more
+clear.
 
 We appreciate being informed about the Boffetta et al.  paper, and we
-have included a discussion of it at the end of the related-work
-section.
+have included a discussion of it at the end of Section II.
 
 \smallskip
 
@@ -280,9 +280,8 @@ section.
   formulations of the authors.}
 
 We have added a short discussion about the differences in notions and
-definitions of complexity to the introduction and related-work
-sections and clarified the working definition that we use in this
-paper.
+definitions of complexity to Sections I and II and clarified the
+working definition that we use in our work.
 
 \smallskip
 
@@ -301,11 +300,12 @@ paper.
 
 The reviewer is absolutely right.  This finding, as it was originally
 stated, is indeed trivial.  Our intent, as we have modified the text
-to reflect, is that the appropriateness of a predictor can be
-discovered \emph{empirically}, via comparison of its MASE value with
-its WPE value.  Previous explorations of predictability have used
-clean data and/or systems where the generating process is known.  Our
-work makes neither of these assumptions.
+to reflect, is that the appropriateness of a predictor for a given
+time series can be discovered \emph{empirically}, via comparison of
+its MASE value with the WPE value of the data.  Previous explorations
+of predictability have used clean data and/or systems where the
+generating process is known.  Our work makes neither of these
+assumptions.
 
 Given a linear stochastic system, a linear stochastic prediction model
 should certainly be more productive than a nonlinear deterministic
@@ -318,13 +318,14 @@ appropriate'' output; they simply choose the model that best satisfies
 their built-in criteria---even if none of the models in the class are
 really appropriate.
 
-The challenge for the practitioner is to know whether there is a
-mismatch between a particular time series from an unknown system and a
-particular forecast model: i.e., whether one can do better and should
-try another model, or whether the time series is so complicated that
-the model under consideration is doing as well as one could expect.
-The curves and shaded regions on the WPE vs. MASE plots in our paper
-are an empirical heuristic that should help practitioners do that.
+The challenge that this poses for a practitioner is to know whether
+there is a mismatch between a particular time series from an unknown
+system and a particular forecast model: i.e., whether one can do
+better and should try another model, or whether the time series is so
+complicated that the model under consideration is doing as well as one
+could expect.  The curves and shaded regions on the WPE vs. MASE plots
+in our paper are an empirical heuristic that should help practitioners
+do that.
 
 We appreciate the reviewer alerting us to our muddy wording and
 thinking about these issues.  We have reworked the findings to clarify
@@ -354,20 +355,21 @@ time-series analysis techniques on performance data measured from
 running computers produce clean and consistent results, as mentioned
 above: fixed points, bifurcations, chaotic attractors, and so on.
 
-Well-known systems are certainly good testcases, but complicated,
+Well-known systems are certainly good test cases, but complicated,
 unknown systems are where prediction really matters---especially
 systems where a good prediction can make a practical difference (e.g.,
 reallocation of resources in a computer to suit the dynamically
-changing needs of a program).  As mentioned above, the relationship
-posited in our paper does indeed hold for paradigmatic systems like
-the H\'{e}non map and the Lorenz equations.  We had not included these
-examples in our paper because they simply confirmed well-known
-results, and because our focus was on confirming those results in the
-context of noisy, real-world data.  The penultimate paragraph of the
-results section now explains that the WPE vs. MASE relationship for
-these two synthetic examples (as well as for the Santa Fe ``A'' data
-set and for various nonlinear transformations of our original data)
-all follow the empirically determined pattern in our paper.
+changing needs of a program).  The relationship posited in our paper
+does indeed hold for paradigmatic systems like the H\'{e}non map and
+the Lorenz equations.  We had not included these examples in our paper
+because they simply confirmed well-known results, and because our
+focus was on confirming those results in the context of noisy,
+real-world data.  The penultimate paragraph of the results section now
+explains that the WPE vs. MASE relationship for these two synthetic
+examples (as well as for the Santa Fe ``A'' data set, for a
+white-noise process, and for various nonlinear transformations of our
+original data) all follow the empirically determined pattern in our
+paper.
 
 \smallskip
 
@@ -377,14 +379,14 @@ all follow the empirically determined pattern in our paper.
   explicitly. Then, the paper should be rewritten and submitted to a
   kind of engineering journals where it might well be of interest.}
 
-The primary goal of this paper is to explore the relationship between
-prediction error and WPE in noisy, real-world systems, and the
-practical applicability of this relationship.  Accordingly, we have
-cut down on the level of detail regarding the benchmark system and
-pointed interested readers to our other papers for the engineering
-details.  We did not feel that removing all of this material would
-be effective, however, because it helps the reader understand why
-this is a good testbed for exploring the problem at hand.
+The primary goal of this paper was to explore the relationship between
+prediction error and WPE in noisy, real-world systems, and to assess
+the practical applicability of this relationship.  Accordingly, we
+have cut down on the level of detail regarding the benchmark system
+and pointed interested readers to our other papers for the engineering
+details.  We did not feel that removing all of this material would be
+effective, however, because it helps the reader understand why this is
+a good testbed for exploring the problem at hand.
 
 \smallskip
 
@@ -404,8 +406,9 @@ this is a good testbed for exploring the problem at hand.
 It is certainly true that the naive and random-walk predictors can be
 seen as subclasses of the ARIMA model family.  We have explicitly
 included them, however, because they are used (sometimes to great
-success) in practice and because that made for a more comprehensive
-exploration.
+success) in practice, because that made for a more-comprehensive
+exploration, and because of a subtle issue regarding model building
+procedures.
 
 The {\tt auto.arima} method that was used to build all of the ARIMA
 models in this paper---another ``off the shelf'' method in the
@@ -455,14 +458,14 @@ help in explaining the specific results described later in the paper.
 
 We have extended the justification for our use of the MASE metric; see
 the last paragraph in the results section.  As mentioned there, the
-paper in which MASE was introduced---[Hyndman and Koehler, 2006], our
-reference [21]---includes an extensive evaluation of this metric, as
-well as a comprehensive comparison to other metrics.  If the reviewer
-thinks that it would strengthen our paper, we can recapitulate more of
-that material in our paper.  As part of our current work on this
-topic, we are evaluating how other choices of metric affect the shape
-of our curves, but we feel that a comprehensive study of this issue is
-best left as a sequel to this work.
+paper in which MASE was introduced---our reference [21]---includes an
+extensive evaluation of this metric, as well as a comprehensive
+comparison to other metrics.  If the reviewer thinks that it would
+strengthen our paper, we can recapitulate more of that material in our
+paper.  As part of our current work on this topic, we are evaluating
+how other choices of metric affect the shape of our curves, but we
+feel that a comprehensive study of this issue is best left as a sequel
+to this work.
 
 \smallskip
 
@@ -487,27 +490,28 @@ best left as a sequel to this work.
 
 WPE values depend not only on wordlength, but also on \emph{data}
 length, since one needs more data to get good statistics on the words
-for the PE calculation.  These two interacting knobs are not easy to
-set.  Perhaps as a result of this, wordlength choices are rarely
-justified in the permutation entropy literature.  The extent of the
-discussion in [Bandt \& Pompe, {\sl PRL}, 2002], for instance---the
-paper in which PE was proposed---is ``Our entropies are calculated for
-different [$\ell$] but we do not to determine a limit for large
-[$\ell$], although this is an interesting theoretical problem. For
-practical purposes, we recommend 3\dots7...''  The corresponding
-discussion in [Cao {\sl et al.}, {\sl PRE}, 2004] reads ``In their
-paper, Bandt \& Pompe recommended [$\ell$] of 3-7.  We often found
-that 3 and 4 may still be too small, and a value of 5, 6, or 7 seems
-to be the most suitable....''
+for the PE calculation if those words are longer.  These two
+interacting knobs are not easy to set.  Perhaps as a result of this,
+wordlength choices are rarely justified in the permutation entropy
+literature.  The extent of the discussion in [Bandt \& Pompe, {\sl
+    PRL}, 2002], for instance---the paper in which PE was
+proposed---is ``Our entropies are calculated for different [$\ell$]
+but we do not determine a limit for large [$\ell$], although this is
+an interesting theoretical problem. For practical purposes, we
+recommend 3\dots7...''  The corresponding discussion in [Cao {\sl et
+    al.}, {\sl PRE}, 2004] reads ``In their paper, Bandt \& Pompe
+recommended [$\ell$] of 3-7.  We often found that 3 and 4 may still be
+too small, and a value of 5, 6, or 7 seems to be the most
+suitable....''
 
 The right thing to do, as we argued in the last paragraph of Section
 V, is to compute PE across a \emph{range} of wordlengths ($\ell$) and
 look for a flat spot in the curve of PE versus $\ell$.  We applied
-that approach \emph{individually} to each of the time series studied
-here to choose a $\ell$ value that was appropriate to each one.  All
-of those values ended up being 6, which is consistent with the
+that approach individually to each of the time series studied here to
+choose a $\ell$ value that was appropriate to that particular trace.
+(All of those values ended up being 6, which is consistent with the
 informal arguments in previous papers, but that was not an \emph{a
-  priori} or global choice.  We conjecture that a systematic approach
+  priori} or global choice.)  We conjecture that a systematic approach
 like this will mitigate any variation in the results, thereby
 preserving the shape of the WPE vs. MASE curve.  We have not yet
 confirmed that conjecture, but we are in the process of doing so.
@@ -523,7 +527,7 @@ dynamical behaviors.  For all of these examples---as well as for the
 % \footnote{H\'{e}non, Lorenz, SFI A, 
 %  nonlinear transformations of the 45 svdone, svdtwo and signals}
 constructed as a result of the reviewer's questions and described in
-various parts of this response letter---the pattern in Figure 7
+different parts of this response letter---the pattern in Figure 7
 remained virtually unchanged.  This strongly suggests, but of course
 does not prove, that our approach is general.  As the reviewer
 suggested, this will require extensive study and evaluation in future
@@ -572,17 +576,17 @@ included in the $y = a \log(b x + 1)$ fit, the coefficients
 \alert{barely change: $a$ by n\% and $b$ by n\%.  Ryan, what are these
   numbers?}
 
-This supports our claims of generality: a transformation like this
-effectively changes the generating process, but does not affect the
-performance of our model-free heuristic.  And the curves that capture
-that heuristic---which were derived from data from a single
-computer-performance experiment---do not only hold for traces from
-that experiment and transformed versions of them.  The preliminary
-results of our broader study, currently underway, indicate that they
-also hold for data from synthetic examples (the H\'{e}non map, the
-Lorenz equations, and the output of a purely stochastic random-walk
-process) and for real-world data from a different system (SFI data set
-A).  The image below shows some of these results:
+This series of experiments supports our claims of generality: a
+transformation like this effectively changes the generating process,
+but does not affect the performance of our model-free heuristic.  And
+the curves that capture that heuristic---which were derived from data
+from a single computer-performance experiment---do not only hold for
+traces from that experiment and transformed versions of them.  The
+preliminary results of our broader study, currently underway, indicate
+that they also hold for data from synthetic examples (the H\'{e}non
+map, the Lorenz equations, and the output of a purely stochastic
+random-walk process) and for real-world data from a different system
+(SFI data set A).  The image below shows some of these results:
 
 \begin{center}
     \includegraphics[width=0.8\columnwidth]{figs/new_prediction_vs_entropy_extras_with_nonlinear_all_points}
@@ -590,24 +594,28 @@ A).  The image below shows some of these results:
 
 The blue fit lines here are derived from the original 120 traces; the
 magenta one is fit to those traces plus the nonlinear transformations
-of {\tt dgesdd}$_2$, {\tt dgesdd}$_5$, and {\tt dgesdd}$_6$), a
-10,000-point orbit from the H\'{e}non map with $a=1.4$ and $b=0.3$,
-the $x$ coordinate of a 10,000-step 4th-order Runge-Kutta solution of
-the Lorenz equations with $r=28, \; \sigma=10, \; b=8/3$ and $\Delta
-t=0.01$, an \alert{nnn-point} random-walk time series generated
+of {\tt dgesdd}$_2$, {\tt dgesdd}$_5$, and {\tt dgesdd}$_6$, the $x$
+coordinate of a 10,000-point orbit from the H\'{e}non map with $a=1.4$
+and $b=0.3$, the $x$ coordinate of a 10,000-step 4th-order Runge-Kutta
+solution of the Lorenz equations with $r=28, \; \sigma=10, \; b=8/3$
+and $\Delta t=0.01$, a 10,000-point random-walk time series generated
 \alert{how, Ryan?}, and data set ``A'' from the Santa Fe Institute
-time-series competition website.  
+time-series competition website.
 
-Including these additional 49 points hardly changed the main central
-curve of the fit.  Indeed, doing so caused the one-$\sigma$ volume of
-that fit to shrink (viz., the dashed magenta curves inside the dashed
-blue curves).  That is, the additional points firmed up the findings.
-The magenta curve reflects a map, a flow, a purely stochastic signal,
-a variety of real-world data from two different systems (laser,
-computer), and nonlinear transformations of that real-world data
+Note that the inclusion of these additional 49 points hardly changed
+the main central curve of the fit.  Indeed, doing so caused the
+one-$\sigma$ volume of that fit to shrink (viz., the dashed magenta
+curves inside the dashed blue curves).  That is, the additional points
+firmed up the findings.  The magenta curve reflects a map, a flow, a
+purely stochastic signal, a variety of real-world data from two
+different systems (laser, computer), and nonlinear transformations of
+that real-world data---again, supporting the generality of our
+heuristic.
 
-We have added a sentence about these preliminary results to the
-penultimate paragraph in Section VI.
+We are in the process of broadening this study to other systems,
+transformations, and situations; in the meantime, we have added a
+sentence about these preliminary results to the penultimate paragraph
+in Section VI.
 
 \smallskip
 

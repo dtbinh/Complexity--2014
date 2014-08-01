@@ -286,8 +286,8 @@ The discussion in the previous paragraph highlights the second finding
 of this paper: the ability of our proposed heuristic to flag
 inappropriate models.  \arima is an automated, mechanical procedure
 for choosing parameters for an ARIMA model of a given data set.  While
-the tests and criteria employed by this algorithm are sophisticated
-(see Section~\ref{sec:arima}), the results can still be
+the tests and criteria employed by this algorithm
+(Section~\ref{sec:arima}) are sophisticated , the results can still be
 sub-optimal---if the initial space of models being searched is not
 broad enough, for instance, or if one of the preliminary tests gives
 an erroneous result.  \arima \emph{always} returns a model, and it can
@@ -298,13 +298,14 @@ of inappropriateness in the order selection and parameter estimation
 procedure.  A close examination of the \arima MASE scores and WPE
 values of the 15 \col traces, for instance, brought out such a
 situation: all of these signals had the same complexity, but some (the
-outliers in the blue cluster of $+$ points in the bottom-left panel of
-Figure~\ref{fig:what}) had much higher \arima MASE values, indicating
-a failure in the \arima process.  We then went back and manually
-assisted the automated fitting procedure---forcing inclusion of a term
-that is appropriate for a nonstationary signal.  In all cases, this
-produced ARIMA models with MASE scores in line with the others in that
-cluster.
+outliers in the blue cluster of {\color{blue}$+$} points in the
+bottom-left panel of Figure~\ref{fig:wpe_vs_mase_all}) had much higher
+MASE values, indicating a failure in the \arima process.  We then went
+back to the data, noticed some shifts of the baseline in those
+signals, and manually assisted the automated fitting procedure to
+force the inclusion of a term that is appropriate for a nonstationary
+signal.  In all cases, this produced ARIMA models with MASE scores in
+line with the others in that cluster.
 
 % The discussion in the previous paragraph brings to light an
 % interesting feature of our proposed heuristic. The \arima algorithm
@@ -465,11 +466,12 @@ those regimes look like, and how it switches between them---as well as
 the experimental setup (e.g., sensor precision and data length).  For
 the processes studied here, these effects do not cause the MASE values
 to exceed 1.15, but pathological situations (e.g., a huge switch in
-scale right at the training/test signal boundary) could produce higher
-values.  This suggests another potentially useful heuristic: if the
-MASE of a random-walk prediction of a time series is significantly
-different from 1, this could be an indication that the signal is
-nonstationary.  We are in the process of exploring this idea.
+scale right at the training/test signal boundary, or a signal that
+simply grows exponentially) could produce higher values.  This
+suggests another potentially useful heuristic: if the MASE of a
+random-walk prediction of a time series is significantly different
+from 1, this could be an indication that the signal is nonstationary.
+We are in the process of exploring this idea.
 
 Again, the curves in Figures~\ref{fig:wpe_vs_mase_best}
 and~\ref{fig:wpe_vs_mase_all} were determined from a finite set of
