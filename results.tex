@@ -292,15 +292,19 @@ sub-optimal---if the initial space of models being searched is not
 broad enough, for instance, or if one of the preliminary tests gives
 an erroneous result.  \arima \emph{always} returns a model, and it can
 be very hard to detect when that model is bad.  Our results suggest a
-way to do so: if the MASE score of an \arima model is out of line with
-the WPE value, that can be an indication of inappropriateness in the
-order selection and parameter estimation procedure.  By examining the
-\arima MASE scores vs. WPE values of \col, we were able to see that,
-while all signal complexities were the same, some of the signals had
-much higher MASE values. This suggested to us inappropriate parameter
-selection for these time series. We then went back and manually
-assisted the automated fitting procedure, resulting in models with
-consistent MASE vs WPE score, and improved forecasts.
+way to do so: if the MASE score of an auto-fitted model like \arima is
+out of line with the WPE value of the data, that can be an indication
+of inappropriateness in the order selection and parameter estimation
+procedure.  A close examination of the \arima MASE scores and WPE
+values of the 15 \col traces, for instance, brought out such a
+situation: all of these signals had the same complexity, but some (the
+outliers in the blue cluster of $+$ points in the bottom-left panel of
+Figure~\ref{fig:what}) had much higher \arima MASE values, indicating
+a failure in the \arima process.  We then went back and manually
+assisted the automated fitting procedure---forcing inclusion of a term
+that is appropriate for a nonstationary signal.  In all cases, this
+produced ARIMA models with MASE scores in line with the others in that
+cluster.
 
 % The discussion in the previous paragraph brings to light an
 % interesting feature of our proposed heuristic. The \arima algorithm
