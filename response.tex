@@ -356,14 +356,11 @@ posited in our paper does indeed hold for paradigmatic systems like
 the H\'{e}non map and the Lorenz equations.  We had not included these
 examples in our paper because they simply confirmed well-known
 results, and because our focus was on confirming those results in the
-context of noisy, real-world data.  
-
-
-\alert{[[Liz to do, then finish
-      this wording: We have added a sentence in the conclusion (or
-      maybe end of discussion) about the fact that the WPE vs. MASE
-      relationship for these synthetic examples follows the
-      empirically determined pattern in our paper.]]}
+context of noisy, real-world data.  The penultimate paragraph of the
+results section now explains that the WPE vs. MASE relationship for
+these two synthetic examples (as well as for the Santa Fe ``A'' data
+set and for various nonlinear transformations of our original data)
+all follow the empirically determined pattern in our paper.
 
 \smallskip
 
@@ -400,20 +397,24 @@ this is a good testbed for exploring the problem at hand.
 It is certainly true that the naive and random-walk predictors can be
 seen as subclasses of the ARIMA model family.  We have explicitly
 included them, however, because they are used (sometimes to great
-success) in practice and because that made for a more comprehensive exploration.
+success) in practice and because that made for a more comprehensive
+exploration.
 
 The {\tt auto.arima} method that was used to build all of the ARIMA
 models in this paper---another ``off the shelf'' method in the
 modeling and prediction communities---follows the procedure outlined
-in Section V B to choose values for the model parameters.
-Sometimes the choices made by that procedure (e.g., setting a
-particular parameter to zero) produce a naive or random-walk
-predictor.  Our method can help practioners know whether this is a
-good or bad thing.  If a particular model performs poorly (compared to
-what the WPE value might suggest), it may be an indication that the
-chosen parameter values were suboptimal---or even that no member of
-the ARIMA family will work and one should try a nonlinear model. A discussion to this effect has been added to Section
-VI in hopes of clarifying this completely valid concern and to illustrate that this is a feature of our proposed heuristic.
+in Section V B to choose values for the model parameters.  Sometimes
+the choices made by that procedure (e.g., setting a particular
+parameter to zero) produce a naive or random-walk predictor.  Our
+method can help practioners know whether this is a good or bad thing.
+If a particular model performs poorly, compared to what the WPE value
+might suggest, it may be an indication that the chosen parameter
+values were suboptimal---or even that no member of the ARIMA family
+will work and one should try a different class of model.  A discussion
+of these issues has been added to Section VI (page 18, left-hand
+column, ``The discussion in the previous paragraph...'') in the hopes
+of clarifying this completely valid concern and illustrating that this
+is a feature of our proposed heuristic.
 
 % Unfortunately the WPE value alone is insufficient to differentiate
 % these two situations.  It can identify both, but cannot distinguish.
@@ -432,10 +433,10 @@ particular procedure.
   scheme fails?}
 
 This short paragraph in this paper, which explains the efficiencies
-and inefficiencies of these schemes, was present for two purposes:
-first, to explain why we have included these simple prediction schemes
-and not just the more-complicated ones; second, to help in explaining
-the specific results described later in the paper.
+and inefficiencies of these schemes, was intended to serve two
+purposes: first, to explain why we have included these simple
+prediction schemes and not just the more-complicated ones; second, to
+help in explaining the specific results described later in the paper.
 
 \smallskip
 
@@ -445,16 +446,16 @@ the specific results described later in the paper.
   necessary. Especially, taking into account the following major
   concerns.}
 
-\alert{Liz to do: We have extended the justification for our use of
-  the MASE metric.}  The paper in which MASE was introduced---[Hyndman
-  and Koehler, 2006], our reference \alert{[[fill in]]}---includes an
-extensive evaluation of this metric, as well as a comprehensive
-comparison to other metrics.  If the reviewer thinks that it would
-strengthen our paper, we can recapitulate more of that material in our
-Section IVD. As part of our current work on this topic, we are
-evaluating how other choices of metric affect the shape of our curves,
-but we feel that a comprehensive study of this issue is best left as a
-sequel to this work.
+We have extended the justification for our use of the MASE metric; see
+the last paragraph in the results section.  As mentioned there, the
+paper in which MASE was introduced---[Hyndman and Koehler, 2006], our
+reference [21]---includes an extensive evaluation of this metric, as
+well as a comprehensive comparison to other metrics.  If the reviewer
+thinks that it would strengthen our paper, we can recapitulate more of
+that material in our paper.  As part of our current work on this
+topic, we are evaluating how other choices of metric affect the shape
+of our curves, but we feel that a comprehensive study of this issue is
+best left as a sequel to this work.
 
 \smallskip
 
@@ -478,29 +479,31 @@ sequel to this work.
   which class of systems their results apply.}
 
 WPE values depend not only on wordlength, but also on \emph{data}
-length---since one needs more data to get good statistics on the words
+length, since one needs more data to get good statistics on the words
 for the PE calculation.  These two interacting knobs are not easy to
 set.  Perhaps as a result of this, wordlength choices are rarely
-justified in the permutation entropy literature.
+justified in the permutation entropy literature.  The extent of the
+discussion in [Bandt \& Pompe, {\sl PRL}, 2002], for instance---the
+paper in which PE was proposed---is ``Our entropies are calculated for
+different [$\ell$] but we do not to determine a limit for large
+[$\ell$], although this is an interesting theoretical problem. For
+practical purposes, we recommend 3\dots7...''  The corresponding
+discussion in [Cao {\sl et al.}, {\sl PRE}, 2004] reads ``In their
+paper, Bandt \& Pompe recommended [$\ell$] of 3-7.  We often found
+that 3 and 4 may still be too small, and a value of 5, 6, or 7 seems
+to be the most suitable....''
 
-The extent of the discussion in [Bandt \& Pompe, {\sl PRL}, 2002], for
-instance---the paper in which PE was proposed---is ``Our entropies are
-calculated for different [$\ell$] but we do not to determine a limit
-for large [$\ell$], although this is an interesting theoretical
-problem. For practical purposes, we recommend 3\dots7...''  The
-corresponding discussion in [Cao {\sl et al.}, {\sl PRE}, 2004] reads
-``In their paper, Bandt \& Pompe recommended [$\ell$] of 3-7.  We
-often found that 3 and 4 may still be too small, and a value of 5, 6,
-or 7 seems to be the most suitable....''
-
-The right thing to do, as we argued in Section [[what]], is to compute
-PE across a \emph{range} of wordlengths ($\ell$) and look for a flat
-spot in the curve of PE versus $\ell$.  We used that method to choose
-individual $\ell$ values for each time series studied here.  We
-conjecture that a systematic approach like sill mitigate any variation
-in the results, thereby preserving the shape of the WPE vs. MASE
-curve.  We have not yet confirmed that conjecture, but we are in the
-process of doing so.
+The right thing to do, as we argued in the last paragraph of Section
+V, is to compute PE across a \emph{range} of wordlengths ($\ell$) and
+look for a flat spot in the curve of PE versus $\ell$.  We applied
+that approach \emph{individually} to each of the time series studied
+here to choose a $\ell$ value that was appropriate to each one.  All
+of those values ended up being 6, which is consistent with the
+informal arguments in previous papers, but that was not an \emph{a
+  priori} or global choice.  We conjecture that a systematic approach
+like this will mitigate any variation in the results, thereby
+preserving the shape of the WPE vs. MASE curve.  We have not yet
+confirmed that conjecture, but we are in the process of doing so.
 
 Regarding generality: the goal of this paper was to explore model-free
 heuristics for empirical time-series data, where one does not know
@@ -511,11 +514,11 @@ a range of time-series data sets whose behavior spans a wide range of
 dynamical behaviors.  For all of these examples---as well as for the
 39 additional ones\footnote{H\'{e}non, Lorenz, SFI A, random walk,
   nonlinear transformations of the 30 [[svdtwo]] and [[svdsix]]
-  signals} constructed for this rebuttal letter---the pattern in
-Figure 7 remained virtually unchanged, as described in the following
-entry.  This strongly suggests, but of course does not prove, that our
-approach is general.  As the reviewer suggested, this will require
-extensive study and evaluation in future work.
+  signals} constructed as a result of the reviewer's questions---the
+pattern in Figure 7 remained virtually unchanged, as described in the
+following entry.  This strongly suggests, but of course does not
+prove, that our approach is general.  As the reviewer suggested, this
+will require extensive study and evaluation in future work.
 
 \smallskip
 
