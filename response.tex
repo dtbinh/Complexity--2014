@@ -5,6 +5,13 @@
 \usepackage{graphicx}
 
 \newcommand{\alert}[1]{{\color{red}#1}}
+\newcommand{\svdone}{{\tt dgesdd}$_1$\xspace}
+\newcommand{\svdtwo}{{\tt dgesdd$_2$}\xspace}
+\newcommand{\svdthree}{{\tt dgesdd$_3$}\xspace}
+\newcommand{\svdfour}{{\tt dgesdd$_4$}\xspace}
+\newcommand{\svdfive}{{\tt dgesdd$_5$}\xspace}
+\newcommand{\svdsix}{{\tt dgesdd$_6$}\xspace}
+
 
 \title{Response to the Reviewers}
 \author{Joshua Garland, Ryan James, and Elizabeth Bradley}
@@ -512,13 +519,15 @@ equivalence classes are difficult to define.  We addressed
 this---insofar as is possible in an experimental context---by choosing
 a range of time-series data sets whose behavior spans a wide range of
 dynamical behaviors.  For all of these examples---as well as for the
-39 additional ones\footnote{H\'{e}non, Lorenz, SFI A, random walk,
-  nonlinear transformations of the 30 [[svdtwo]] and [[svdsix]]
-  signals} constructed as a result of the reviewer's questions---the
-pattern in Figure 7 remained virtually unchanged, as described in the
-following entry.  This strongly suggests, but of course does not
-prove, that our approach is general.  As the reviewer suggested, this
-will require extensive study and evaluation in future work.
+49 additional ones
+% \footnote{H\'{e}non, Lorenz, SFI A, 
+%  nonlinear transformations of the 45 svdone, svdtwo and signals}
+constructed as a result of the reviewer's questions and described in
+various parts of this response letter---the pattern in Figure 7
+remained virtually unchanged.  This strongly suggests, but of course
+does not prove, that our approach is general.  As the reviewer
+suggested, this will require extensive study and evaluation in future
+work.
 
 \smallskip
 
@@ -533,47 +542,74 @@ will require extensive study and evaluation in future work.
   (only 7 or 8 different data points, such a small number of points
   may lie approximately near a straight line by chance).}
 
-\alert{Liz to fix following text, now that we have these experiments}
+Regarding the second part of this point: we have revised the fits in
+Figures 6 and 7 in the paper, and the associated text, to include all
+120 points.  As mentioned above, we have also moved from a linear fit
+to a log fit of these points in order to better match the theoretical
+relationship between MASE and WPE.  We now show and discuss the
+one-$\sigma$ volume around that fit in an effort to emphasize that the
+fundamental claim of the paper is not related to the crispness of the
+fit.
 
-PE is invariant under an invertible nonlinear transformation of the
-values in the time series, but WPE is not.  But MASE varies \emph{in a
-  complementary way}.  Ryan will do $x(t)$ and $5e^{x(t)}$ and show
-that it's on the curve.
+Regarding the first part of this point: while PE is invariant under an
+invertible nonlinear transformation of the values in the time series,
+WPE is not---which amplifies the potential concerns about this issue.
+To explore this, we performed the invertible nonlinear transformation
+$f(x)=5e^{x(t)}$ on several of our traces ($x(t)=$ {\tt dgesdd}$_2$,
+{\tt dgesdd}$_5$, and {\tt dgesdd}$_6$).  The image below shows WPE
+vs. MASE results of the best predictor on these three traces, along
+with those on the untransformed originals:
 
-% Ryan will insert figure here with x(t) = svdone and svdsix
 \begin{center}
     \includegraphics[width=0.8\columnwidth]{figs/nonlinear_transform_data}
 \end{center}
 
-This is consistent with our claim of generality; this is just another
-time series.  A xform like this effectively changes the generating
-process, but our model-free result handles it.
+The WPE vs. MASE points of the transformed data move---upwards,
+generally---but they remain within the shaded region.  Indeed, the
+values for the transformed version of {\tt dgesdd}$_5$ (dark-green
+icons) move {\sl closer} to the curve.  When these 45 new points are
+included in the $y = a \log(b x + 1)$ fit, the coefficients
+\alert{barely change: $a$ by n\% and $b$ by n\%.  Ryan, what are these
+  numbers?}
 
-We have revised the Figure, and the associated text, to include all
-120 points.  We have also moved from a linear fit to a log fit in this
-curve to better match the theoretical relationship between MASE and
-WPE, as mentioned above.  Finally, we now show a ``fuzzy'' version of
-the fitted curve in an effort to emphasize that the fundamental claim
-of the paper is not related to the crispness of the fit.
-
-Furthermore, we have recomputed the fit using both the 120 computer performance
-data time-series as well as the 45 nonlinear transforms and the H\'{e}non, Lorenz,
-random walk, and SFI Data A time-series. Not only does the fit line hardly
-change, but the error bounds are contained completely within those provided by
-just the computer performance data. This can be seen in the following figure
-where the blue fit and bounds are those from the computer performance traces and
-the magenta ones are those including the additional 49 time-series.
+This supports our claims of generality: a transformation like this
+effectively changes the generating process, but does not affect the
+performance of our model-free heuristic.  And the curves that capture
+that heuristic---which were derived from data from a single
+computer-performance experiment---do not only hold for traces from
+that experiment and transformed versions of them.  The preliminary
+results of our broader study, currently underway, indicate that they
+also hold for data from synthetic examples (the H\'{e}non map, the
+Lorenz equations, and the output of a purely stochastic random-walk
+process) and for real-world data from a different system (SFI data set
+A).  The image below shows some of these results:
 
 \begin{center}
     \includegraphics[width=0.8\columnwidth]{figs/new_prediction_vs_entropy_extras_with_nonlinear_all_points}
 \end{center}
 
-\alert{Need the change and the confidence stuff for this: Fit changed
-  by [[what]] when we redid it with these 34 new points.}  It now
-reflects a map, a flow, a purely stochastic signal, a variety of
-real-world data from two different systems (laser, computer), and
-nonlinear transformations of that real-world data.  Seems pretty
-compelling.
+The blue fit lines here are derived from the original 120 traces; the
+magenta one is fit to those traces plus the nonlinear transformations
+of {\tt dgesdd}$_2$, {\tt dgesdd}$_5$, and {\tt dgesdd}$_6$), a
+10,000-point orbit from the H\'{e}non map with $a=1.4$ and $b=0.3$,
+the $x$ coordinate of a 10,000-step 4th-order Runge-Kutta solution of
+the Lorenz equations with $r=28, \; \sigma=10, \; b=8/3$ and $\Delta
+t=0.01$, an \alert{nnn-point} random-walk time series generated
+\alert{how, Ryan?}, and data set ``A'' from the Santa Fe Institute
+time-series competition website.  
+
+Including these additional 49 points hardly changed the main central
+curve of the fit.  Indeed, doing so caused the one-$\sigma$ volume of
+that fit to shrink (viz., the dashed magenta curves inside the dashed
+blue curves).  That is, the additional points firmed up the findings.
+The magenta curve reflects a map, a flow, a purely stochastic signal,
+a variety of real-world data from two different systems (laser,
+computer), and nonlinear transformations of that real-world data
+
+We have added a sentence about these preliminary results to the
+penultimate paragraph in Section VI.
+
+\smallskip
 
 \emph{To summarize, the paper shows that the authors are well familiar
   with the entire topic and highly qualified, they overview some
@@ -593,12 +629,5 @@ It is our hope that these clarifications, the attendant modifications
 to the paper, and the additional preliminary results that we included
 in this rebuttal letter have convinced the reviewer that this
 manuscript is appropriate for publication in PRE.
-
-Because of the depth and extent of the revisions that we made in
-response to this reviewer's comments, we did not feel that it was
-effective to highlight the changes in a different color in the
-manuscript; please let us know if a more-detailed description of the
-changes would make the re-reading easier.
-
 
 \end{document}
