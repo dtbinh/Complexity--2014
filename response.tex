@@ -57,9 +57,13 @@ scale free and comparable across different time series.  While MASE
 has its drawbacks, it was a very good fit to those requirements.  In
 our opinion, this outweighed its disadvantages.  There is a great deal
 of discussion of this cluster of issues in [Hyndman and Koehler, 2006]
-(our reference \alert{[[fill in]])}.  If the reviewer thinks that it
-would strengthen our paper, we can recapitulate some of that material
-in our Section IVD.
+(our reference [21]).  If the reviewer thinks that it would strengthen
+our paper, we can recapitulate some of that material in our Section
+IVD.
+
+Note that the fit in the revised version does not omit any points.
+
+\smallskip
 
 \emph{In many parts the article reads almost like a review. There is a
   lot of unnecessary redundancy (the entropy rate is quite low). In
@@ -92,6 +96,8 @@ Review E---and hence removed it.
 % determining when a better scheme exists. \alert{We have modified the
 %   paragraph to make this point more clear.}
 
+\smallskip
+
 \emph{Page 10: `error between the predictions and the true continuations'
 $\rightarrow$ `error of the predictions with respect to the true continuations'
 Figure 6 on Page 11: It would be more intuitive to turn this into a `table of
@@ -99,14 +105,18 @@ figures' with the four methods as row labels on the left and the three systems
 as column labels at the top. Also: Caption `for forecast of ... and all four
 prediction strategies'.}
 
-We have modified the text as the reviewer suggested, and agree that it reads
-more clearly now. We have also modified the figure as suggested.
+We have modified the text as the reviewer suggested and agree that it
+reads more clearly now. We have also modified the figure as suggested.
+
+\smallskip
 
 \emph{First equation on Page 14: Shouldn't the index $j$ run from $i+1$ to
 $i+\ell$ (instead of from $i$ to $i+\ell$)? You normalize by $\ell$ (not
 $\ell+1$) values.}
 
 Thank you for catching our mistake; we have corrected the equation.
+
+\smallskip
 
 \emph{Page 19: ``There are some exceptions: [...] Conversely, forecast errors
 for the \texttt{col\_major} and \texttt{dgesdd$_5$} signals are higher than the
@@ -122,7 +132,12 @@ You are absolutely correct and we've adjusted the text accordingly.
 \section*{Response to the Second Referee}
 
 We thank the reviewer for taking the time to read our paper and
-provide us with valuable feedback.
+provide us with valuable feedback.  The questions raised in this
+review caused us to completely rethink the results, the fits, the
+findings, and the conclusions---hence the long delay in resubmitting
+this new version.
+
+\smallskip
 
 \emph{The problem of time series prediction is considered in the paper
   of J.  Garland et al. Namely, the authors suggest to quantify
@@ -144,6 +159,8 @@ provide us with valuable feedback.
 
 We have modified the introduction in order to define our goals more
 clearly.
+
+\smallskip
 
 \emph{I think that the possibility to estimate the best prediction
   error in advance from a relatively simple WPE characteristic would
@@ -186,13 +203,13 @@ examples.
 \emph{solely on the computer performance data}.  Nonetheless, the
 points from the other time series fall within a narrow band around the
 fit.  Note that this fit ($y = a \log(b x + 1)$) is different than in
-the submitted version.  A careful examination of the data, prompted by
-the reviewer's questions, suggested that this was a better match to
-the data; theoretically, too, a log fit is more appropriate because
-any signal with zero entropy should be perfectly predictable, and so
-should ideally have a MASE value of zero.  Finally, note that there
-are a lot more points on this plot than in our original version; this
-is discussed further below.
+the submitted version.  A careful examination of the data and some
+careful thought about the meaning and theoretical bounds of
+MASE---prompted by the reviewer's questions---suggested that this was
+a better match to the data.  This analysis and consideration is
+chronicled in the third paragraph of the results section.  Finally,
+note that there are a lot more points on this plot than in our
+original version; this is discussed further below.
 
 \smallskip
 
@@ -206,7 +223,8 @@ is discussed further below.
 We have shortened the introduction and modified the manuscript
 throughout to make it more clear that our goal is to derive a
 practical criterion for best-case prediction error in a model-free
-way, and to test it in the context of empirical data.
+way, and to test it in the context of empirical data.  We have also
+changed the title to line up with this goal.
 
 \smallskip
 
@@ -231,8 +249,8 @@ way, and to test it in the context of empirical data.
   discussion in many papers including [Boffetta et al.] cited above.}
 
 These claims have indeed been explored extensively in theory and in
-toy models.  Our specific claim, which was not well explained in the
-submitted version, is that those claims also hold---and can be
+toy models.  Our specific goal, which was not well explained in the
+submitted version, is to show that those claims also hold---and can be
 practically applied---in real-world time-series data that may contain
 dynamical and/or observational noise.  This has not, to our knowledge,
 received much attention in the literature.  We have added a paragraph
@@ -256,7 +274,7 @@ section.
 
 We have added a short discussion about the differences in notions and
 definitions of complexity to the introduction and related-work
-section, and clarified the working definition that we use in this
+sections and clarified the working definition that we use in this
 paper.
 
 \smallskip
@@ -294,17 +312,17 @@ their built-in criteria---even if none of the models in the class are
 really appropriate.
 
 The challenge for the practitioner is to know whether there is a
-mismatch between a particular time series and a particular forecast
-model: i.e., whether one can do better and should try another model,
-or whether the time series is so complicated that the model is doing
-as well as one could expect.  The WPE vs. MASE curve in our paper is
-an empirical heuristic that should help practitioners do that.
+mismatch between a particular time series from an unknown system and a
+particular forecast model: i.e., whether one can do better and should
+try another model, or whether the time series is so complicated that
+the model under consideration is doing as well as one could expect.
+The curves and shaded regions on the WPE vs. MASE plots in our paper
+are an empirical heuristic that should help practitioners do that.
 
 We appreciate the reviewer alerting us to our muddy wording and
 thinking about these issues.  We have reworked the findings to clarify
 matters and also added an explanatory paragraph directly following
-those findings.  While this lengthened the introduction, we feel that
-it has focused and clarified the contribution of the work.
+those findings.  
 
 \smallskip
 
@@ -329,20 +347,23 @@ time-series analysis techniques on performance data measured from
 running computers produce clean and consistent results, as mentioned
 above: fixed points, bifurcations, chaotic attractors, and so on.
 
-Complicated, unknown systems are where prediction really
-matters---especially systems where a good prediction can make a
-practical difference (e.g., reallocation of resources in a computer to
-suit the dynamically changing needs of a program).  Well-known systems
-are certainly good testcases.  As is also mentioned above, the
-relationship posited in our paper does indeed hold for paradigmatic
-systems like the H\'{e}non map and the Lorenz equations.  We had not
-included these examples in our paper because they simply confirmed
-well-known results, and because our focus was on confirming those
-results in the context of noisy, real-world data.  \alert{[[Liz to do,
-      then finish this wording: We have added a sentence in the
-      conclusion (or maybe end of discussion) about the fact that the
-      WPE vs. MASE relationship for these synthetic examples follows
-      the empirically determined pattern in our paper.]]}
+Well-known systems are certainly good testcases, but complicated,
+unknown systems are where prediction really matters---especially
+systems where a good prediction can make a practical difference (e.g.,
+reallocation of resources in a computer to suit the dynamically
+changing needs of a program).  As mentioned above, the relationship
+posited in our paper does indeed hold for paradigmatic systems like
+the H\'{e}non map and the Lorenz equations.  We had not included these
+examples in our paper because they simply confirmed well-known
+results, and because our focus was on confirming those results in the
+context of noisy, real-world data.  
+
+
+\alert{[[Liz to do, then finish
+      this wording: We have added a sentence in the conclusion (or
+      maybe end of discussion) about the fact that the WPE vs. MASE
+      relationship for these synthetic examples follows the
+      empirically determined pattern in our paper.]]}
 
 \smallskip
 
