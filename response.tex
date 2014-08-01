@@ -173,7 +173,7 @@ we are in the process of the follow-up study suggested by the
 reviewer.  We have found that the relationship posited in our paper
 holds for a time series of voltages from a chaotic laser used in the
 SFI prediction competition, for instance.  (It also holds for various
-paradigmatic systems, such as the Henon map and the Lorenz system, as
+paradigmatic systems, such as the H\'{e}non map and the Lorenz system, as
 discussed in a later section of this response.)  The image below is an
 augmented version of our revised Figure 7 that includes all of these
 examples.
@@ -335,7 +335,7 @@ practical difference (e.g., reallocation of resources in a computer to
 suit the dynamically changing needs of a program).  Well-known systems
 are certainly good testcases.  As is also mentioned above, the
 relationship posited in our paper does indeed hold for paradigmatic
-systems like the Henon map and the Lorenz equations.  We had not
+systems like the H\'{e}non map and the Lorenz equations.  We had not
 included these examples in our paper because they simply confirmed
 well-known results, and because our focus was on confirming those
 results in the context of noisy, real-world data.  \alert{[[Liz to do,
@@ -391,7 +391,7 @@ predictor.  Our method can help practioners know whether this is a
 good or bad thing.  If a particular model performs poorly (compared to
 what the WPE value might suggest), it may be an indication that the
 chosen parameter values were suboptimal---or even that no member of
-the ARIMA family will work and one should try a nonlinear model. A discussion to this effect has been added to Section 
+the ARIMA family will work and one should try a nonlinear model. A discussion to this effect has been added to Section
 VI in hopes of clarifying this completely valid concern and to illustrate that this is a feature of our proposed heuristic.
 
 % Unfortunately the WPE value alone is insufficient to differentiate
@@ -400,7 +400,7 @@ VI in hopes of clarifying this completely valid concern and to illustrate that t
 We have changed the term used in the paper to {\tt auto.arima} in
 order to make it clear that this refers not to the general class of
 these models, but to a particular member of that class chosen via a
-particular procedure. 
+particular procedure.
 
 \smallskip
 
@@ -466,7 +466,7 @@ The extent of the discussion in [Bandt \& Pompe, {\sl PRL}, 2002], for
 instance---the paper in which PE was proposed---is ``Our entropies are
 calculated for different [$\ell$] but we do not to determine a limit
 for large [$\ell$], although this is an interesting theoretical
-problem.  ``For practical purposes, we recommend 3\dots7...''  The
+problem. For practical purposes, we recommend 3\dots7...''  The
 corresponding discussion in [Cao {\sl et al.}, {\sl PRE}, 2004] reads
 ``In their paper, Bandt \& Pompe recommended [$\ell$] of 3-7.  We
 often found that 3 and 4 may still be too small, and a value of 5, 6,
@@ -488,7 +488,7 @@ equivalence classes are difficult to define.  We addressed
 this---insofar as is possible in an experimental context---by choosing
 a range of time-series data sets whose behavior spans a wide range of
 dynamical behaviors.  For all of these examples---as well as for the
-39 additional ones\footnote{Henon, Lorenz, SFI A, random walk,
+39 additional ones\footnote{H\'{e}non, Lorenz, SFI A, random walk,
   nonlinear transformations of the 30 [[svdtwo]] and [[svdsix]]
   signals} constructed for this rebuttal letter---the pattern in
 Figure 7 remained virtually unchanged, as described in the following
@@ -525,17 +525,24 @@ This is consistent with our claim of generality; this is just another
 time series.  A xform like this effectively changes the generating
 process, but our model-free result handles it.
 
-The fit of the regression line was not a function of the small number
-of points; when we included all 105 WPE-MASE pairs, rather than just a
-representative from each program, the slope of the fit changed by 2\%
-and the y intercept by 1\%.
-
 We have revised the Figure, and the associated text, to include all
-105 points.  We have also moved from a linear fit to a log fit in this
+120 points.  We have also moved from a linear fit to a log fit in this
 curve to better match the theoretical relationship between MASE and
 WPE, as mentioned above.  Finally, we now show a ``fuzzy'' version of
 the fitted curve in an effort to emphasize that the fundamental claim
 of the paper is not related to the crispness of the fit.
+
+Furthermore, we have recomputed the fit using both the 120 computer performance
+data time-series as well as the 35 nonlinear transforms and the H\'{e}non, Lorenz,
+random walk, and SFI Data A time-series. Not only does the fit line hardly
+change, but the error bounds are contained completely within those provided by
+just the computer performance data. This can be seen in the following figure
+where the blue fit and bounds are those from the computer performance traces and
+the magenta ones are those including the additional 39 time-series.
+
+\begin{center}
+    \includegraphics[width=0.8\columnwidth]{figs/new_prediction_vs_entropy_extras_with_nonlinear_all_points}
+\end{center}
 
 \alert{Need the change and the confidence stuff for this: Fit changed
   by [[what]] when we redid it with these 34 new points.}  It now
