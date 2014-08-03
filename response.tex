@@ -142,7 +142,8 @@ We thank the reviewer for taking the time to read our paper and
 provide us with valuable feedback.  The questions raised in this
 review caused us to completely rethink the results, the fits, the
 findings, and the conclusions---hence the long delay in resubmitting
-this new version, and the length and depth of this response letter.
+this new version, the amount of rewritten material in the manuscript,
+and the length of this response letter.
 
 \smallskip
 
@@ -196,11 +197,12 @@ We are certainly aware that this claim may not be true, however, and
 we are in the process of the follow-up study suggested by the
 reviewer.  We have found that the relationship posited in our paper
 holds for a time series of voltages from a chaotic laser used in the
-SFI prediction competition, for instance.  (It also holds for various
-paradigmatic systems, such as the H\'{e}non map and the Lorenz system, as
-discussed in a later section of this response.)  The image below is an
-augmented version of our revised Figure 7 that includes all of these
-examples.
+SFI prediction competition, for instance.  It also holds for various
+paradigmatic systems, such as the H\'{e}non map, the Lorenz system,
+and a white-noise process.  The image below is an augmented version of
+our revised Figure 7 that includes all of these examples; details
+about each series and about the effects upon the fit are described
+later in this letter.
 
 \begin{center}
     \includegraphics[width=0.8\columnwidth]{figs/new_prediction_vs_entropy_extras}
@@ -209,14 +211,16 @@ examples.
 \noindent The dashed curve in this plot (and in Figure 6) was fit
 \emph{solely on the computer performance data}.  Nonetheless, the
 points from the other time series fall within a narrow band around the
-fit.  Note that this fit ($y = a \log(b x + 1)$) is different than in
-the submitted version.  A careful examination of the data and some
-careful thought about the meaning and theoretical bounds of
-MASE---prompted by the reviewer's questions---suggested that this was
-a better match to the data.  This analysis and consideration is
-chronicled in the third paragraph of the results section.  Finally,
-note that there are a lot more points on this plot than in our
-original version; this is discussed further below.
+fit.  
+
+Note that this fit ($y = a \log(b x + 1)$) is different than in the
+submitted version.  A careful examination of the data and some careful
+thought about the meaning and theoretical bounds of MASE---prompted by
+the reviewer's questions---suggested that this was a better match to
+the data.  This analysis and consideration is chronicled in the third
+paragraph of the results section.  Finally, note that there are a lot
+more points on this plot than in our original version; this is
+discussed further below.
 
 \smallskip
 
@@ -359,17 +363,17 @@ Well-known systems are certainly good test cases, but complicated,
 unknown systems are where prediction really matters---especially
 systems where a good prediction can make a practical difference (e.g.,
 reallocation of resources in a computer to suit the dynamically
-changing needs of a program).  The relationship posited in our paper
-does indeed hold for paradigmatic systems like the H\'{e}non map and
-the Lorenz equations.  We had not included these examples in our paper
-because they simply confirmed well-known results, and because our
-focus was on confirming those results in the context of noisy,
-real-world data.  The penultimate paragraph of the results section now
-explains that the WPE vs. MASE relationship for these two synthetic
-examples (as well as for the Santa Fe ``A'' data set, for a
-white-noise process, and for various nonlinear transformations of our
-original data) all follow the empirically determined pattern in our
-paper.
+changing needs of a program).  The relationship posited in our paper,
+as mentioned above, does indeed hold for paradigmatic systems like the
+H\'{e}non map and the Lorenz equations.  We had not included these
+examples in our paper because they simply confirmed well-known
+results, and because our focus was on confirming those results in the
+context of noisy, real-world data.  The penultimate paragraph of the
+results section now explains that the WPE vs. MASE relationship for
+these two synthetic examples (as well as for the Santa Fe ``A'' data
+set, for a white-noise process, and for various nonlinear
+transformations of our original data) all follow the empirically
+determined pattern in our paper.
 
 \smallskip
 
@@ -429,7 +433,7 @@ is a feature of our proposed heuristic.
 % Unfortunately the WPE value alone is insufficient to differentiate
 % these two situations.  It can identify both, but cannot distinguish.
 
-We have changed the term used in the paper to {\tt auto.arima} in
+We have also changed the term used in the paper to {\tt auto.arima} in
 order to make it clear that this refers not to the general class of
 these models, but to a particular member of that class chosen via a
 particular procedure.
@@ -457,15 +461,15 @@ help in explaining the specific results described later in the paper.
   concerns.}
 
 We have extended the justification for our use of the MASE metric; see
-the last paragraph in the results section.  As mentioned there, the
-paper in which MASE was introduced---our reference [21]---includes an
-extensive evaluation of this metric, as well as a comprehensive
-comparison to other metrics.  If the reviewer thinks that it would
-strengthen our paper, we can recapitulate more of that material in our
-paper.  As part of our current work on this topic, we are evaluating
-how other choices of metric affect the shape of our curves, but we
-feel that a comprehensive study of this issue is best left as a sequel
-to this work.
+the last paragraph in Section VI.  As mentioned there, the paper in
+which MASE was introduced---our reference [21]---includes an extensive
+evaluation of this metric, as well as a comprehensive comparison to
+other metrics.  If the reviewer thinks that it would strengthen our
+paper, we can recapitulate more of that material in our paper.  As
+part of our current work on this topic, we are evaluating how other
+choices of metric affect the shape of our curves, but we feel that a
+comprehensive study of this issue is best left as a sequel to this
+work.
 
 \smallskip
 
@@ -514,7 +518,7 @@ informal arguments in previous papers, but that was not an \emph{a
   priori} or global choice.)  We conjecture that a systematic approach
 like this will mitigate any variation in the results, thereby
 preserving the shape of the WPE vs. MASE curve.  We have not yet
-confirmed that conjecture, but we are in the process of doing so.
+confirmed that conjecture, but we are working on it.
 
 Regarding generality: the goal of this paper was to explore model-free
 heuristics for empirical time-series data, where one does not know
@@ -571,10 +575,7 @@ with those on the untransformed originals:
 The WPE vs. MASE points of the transformed data move---upwards,
 generally---but they remain within the shaded region.  Indeed, the
 values for the transformed version of {\tt dgesdd}$_5$ (dark-green
-icons) move {\sl closer} to the curve.  When these 45 new points are
-included in the $y = a \log(b x + 1)$ fit, the coefficients
-\alert{barely change: $a$ by n\% and $b$ by n\%.  Ryan, what are these
-  numbers?}
+icons) move {\sl closer} to the curve.  
 
 This series of experiments supports our claims of generality: a
 transformation like this effectively changes the generating process,
@@ -586,7 +587,7 @@ preliminary results of our broader study, currently underway, indicate
 that they also hold for data from synthetic examples (the H\'{e}non
 map, the Lorenz equations, and the output of a purely stochastic
 random-walk process) and for real-world data from a different system
-(SFI data set A).  The image below shows some of these results:
+(SFI data set A).  The image below shows these results:
 
 \begin{center}
     \includegraphics[width=0.8\columnwidth]{figs/new_prediction_vs_entropy_extras_with_nonlinear_all_points}
@@ -604,12 +605,12 @@ time-series competition website.
 
 Note that the inclusion of these additional 49 points hardly changed
 the main central curve of the fit.  Indeed, doing so caused the
-one-$\sigma$ volume of that fit to shrink (viz., the dashed magenta
-curves inside the dashed blue curves).  That is, the additional points
-firmed up the findings.  The magenta curve reflects a map, a flow, a
-purely stochastic signal, a variety of real-world data from two
-different systems (laser, computer), and nonlinear transformations of
-that real-world data---again, supporting the generality of our
+one-$\sigma$ volume of the fit to shrink (viz., the dashed magenta
+curves inside the dashed blue curves).  \emph{That is, the additional
+  points firmed up the findings.}  The magenta curve reflects a map, a
+flow, a purely stochastic signal, a variety of real-world data from
+two different systems (laser, computer), and nonlinear transformations
+of that real-world data---again, supporting the generality of our
 heuristic.
 
 We are in the process of broadening this study to other systems,
