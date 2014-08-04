@@ -114,18 +114,20 @@ signal by $1 - \frac{H(\ell)}{\log_2(\ell!)}$.
 
 Here we will be utilizing a variation of the basic permutation entropy
 technique, the \emph{weighted permutation entropy} (WPE), which was
-introduced in~\cite{fadlallah2013}.  \alert{We never actually say WHY
-  we use it.}  The intent behind the weighting is to correct for
-observational noise that is larger than the trends in the data, but
-smaller than the larger-scale features.  Consider, for example, a
-signal that switches between two fixed points and contains some
-additive noise. The PE of such a signal will be dominated by the noise
-about the fixed points, driving it to $\approx 1$---which in some
-sense hides the fact that the signal is actually quite structured.  In
-this situation, the terms of the weighted permutation entropy are
-dominated by the switching rather than the stochastic fluctuations. To
-accomplish this, the \emph{weight} of a permutation is taken into
-account:
+introduced in~\cite{fadlallah2013}.  The intent behind the weighting
+is to correct for observational noise that is larger than the trends
+in the data, but smaller than the larger-scale features.  Consider,
+for example, a signal that switches between two fixed points and
+contains some additive noise. The PE of such a signal will be
+dominated by the noise about the fixed points, driving it to $\approx
+1$---which in some sense hides the fact that the signal is actually
+quite structured.  In this situation, the terms of the weighted
+permutation entropy are dominated by the switching rather than the
+stochastic fluctuations.  The amplitude of the switches plays a key
+role in predictability, so weighting the scale of ordinal changes is
+important for quantifying predictive structure accurately.  To
+accomplish this, WPE takes into account the \emph{weight} of a
+permutation:
 \begin{align*}
   w(x_{i+1}^\ell) = \frac{1}{\ell} \sum_{j = i + 1}^{i+\ell}
                       \left( x_j - \bar{x}_{i+1}^\ell \right)^2

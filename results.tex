@@ -111,10 +111,9 @@ the 120 time series in this study.
 % excluded for reasons explained in the text.
 %
 The dashed curves reflect the standard deviation of the model in its
-parameter space.  The meaning of the shaded region is explained in the
-text. \alert{[[Do you think we should explain that here, rather than
-      punting to the text?  It is, after all, the primary claim of the
-      paper...]]}}
+parameter space.  Points that lie below and to the right of the shaded
+region indicate that the time series has more predictive structure
+than the forecast strategy is able to utilize.}
   \label{fig:wpe_vs_mase_best}
 \end{figure}
 %
@@ -136,14 +135,13 @@ WPE and $x=$ MASE.  The solid curve in the figure shows this fit; the
 dashed curves show the standard deviation of this model in its
 parameter space: i.e., $y = a \log(b x + 1)$ with $\pm$ one standard
 deviation on each of the two parameters.  Points that fall within this
-deviation volume (light grey) \alert{[[should we consider
-      crosshatching or something else, given the printing
-      wierdness?]]} correspond to predictions that are comparable to
-the best ones found in this study; points that fall \emph{above} that
-volume (dark grey) are better still.  We chose to truncate the shaded
-region because of a subtle point regarding the MASE of an ideal
-predictor, which should not be larger than 1 unless the training and
-test signals are different.  This is discussed at more length below.
+deviation volume (light grey) correspond to predictions that are
+comparable to the best ones found in this study; points that fall
+\emph{above} that volume (dark grey) are better still.  We chose to
+truncate the shaded region because of a subtle point regarding the
+MASE of an ideal predictor, which should not be larger than 1 unless
+the training and test signals are different.  This is discussed at
+more length below.
 
 The curves and regions in Figure~\ref{fig:wpe_vs_mase_best} are a
 graphical representation of the first finding.  This representation
@@ -417,10 +415,11 @@ system, however, are highly inconsistent.  The majority of the blue
 diamond-shaped points on the top-right plot in
 Figure~\ref{fig:wpe_vs_mase_all} are clustered near a MASE score of
 0.6, which is better than the other three methods.  In five of the 15
-\svdone trials, however, there were step changes in the signal.
-\alert{[[Seems like same thing as we pointed out and discussed in
-      \col.  We should either point out the correspondence or explain
-      why it's different.]]}  The \naive ~method has a very difficult
+\svdone trials, however, there were step changes in the signal.  This
+is a different nonstationarity than in the case of \col---large jump
+discontinuities rather than small shifts in the baseline---and not one
+that we were able to handle by simply forcing the ARIMA model to
+include a particular term.  The \naive ~method has a very difficult
 time with signals like this, particularly if there are multiple step
 changes.  This raised the MASE scores of these trials, pushing the
 corresponding points to the right\footnote{This includes the cluster
@@ -497,12 +496,13 @@ spans the dynamical behavior space.  While we are cautiously
 optimistic about the generality of our conclusions, more exploration
 will be required before we can make any such claim.  Our preliminary
 work along those lines shows that data from the H\'enon map
-\cite{henon}, the Lorenz system \cite{lorenz}, the SFI A data set\footnote{\alert{This dataset can be retrieved from \url{http://www-psych.stanford.edu/~andreas/Time-Series/SantaFe.html}.}}
-\cite{weigend-book,sfi-data},\alert{maybe make the website a footnote instead} and a random-walk process all fall
-within the one-$\sigma$ volume of the fit in
-Figures~\ref{fig:wpe_vs_mase_best} and~\ref{fig:wpe_vs_mase_all}
-region, as do various nonlinear transformations of \svdtwo, \svdfive
-and \svdsix.
+\cite{henon}, the Lorenz system \cite{lorenz}, the SFI A data
+set\footnote{This dataset can be retrieved from
+  \url{http://www-psych.stanford.edu/~andreas/Time-Series/SantaFe.html}.}
+\cite{weigend-book}, and a random-walk process all fall within the
+one-$\sigma$ volume of the fit in Figures~\ref{fig:wpe_vs_mase_best}
+and~\ref{fig:wpe_vs_mase_all} region, as do various nonlinear
+transformations of \svdtwo, \svdfive and \svdsix.
 
 Of course, the geometry of the curves and bounds in these figures do
 not necessarily extend to other error metrics.  The positions of the
