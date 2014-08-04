@@ -302,17 +302,19 @@ be very hard to detect when that model is bad.  Our results suggest a
 way to do so: if the MASE score of an auto-fitted model like \arima is
 out of line with the WPE value of the data, that can be an indication
 of inappropriateness in the order selection and parameter estimation
-procedure.  A close examination of the \arima MASE scores and WPE
-values of the 15 \col traces, for instance, brought out such a
-situation: all of these signals had the same complexity, but some (the
-outliers in the blue cluster of {\color{blue}$+$} points in the
-bottom-left panel of Figure~\ref{fig:wpe_vs_mase_all}) had much higher
-MASE values, indicating a failure in the \arima process.  We then went
-back to the data, noticed some shifts of the baseline in those
-signals, and manually assisted the automated fitting procedure to
-force the inclusion of a term that is appropriate for a nonstationary
-signal.  In all cases, this produced ARIMA models with MASE scores in
-line with the others in that cluster.
+procedure.  
+
+% A close examination of the \arima MASE scores and WPE values of the 15
+% \col traces, for instance, brought out such a situation: all of these
+% signals had the same complexity, but some (the outliers in the blue
+% cluster of {\color{blue}$+$} points in the bottom-left panel of
+% Figure~\ref{fig:wpe_vs_mase_all}) had much higher MASE values,
+% indicating a failure in the \arima process.  We then went back to the
+% data, noticed some shifts of the baseline in those signals, and
+% manually assisted the automated fitting procedure to force the
+% inclusion of a term that is appropriate for a nonstationary signal.
+% In all cases, this produced ARIMA models with MASE scores in line with
+% the others in that cluster.
 
 % The discussion in the previous paragraph brings to light an
 % interesting feature of our proposed heuristic. The \arima algorithm
@@ -485,21 +487,22 @@ We are in the process of exploring this idea and its relationship to
 the DVS fits mentioned in the fourth paragraph of
 Section~\ref{sec:related}.
 
-Again, the curves in Figures~\ref{fig:wpe_vs_mase_best}
-and~\ref{fig:wpe_vs_mase_all} were determined from a finite set of
+The curves in Figures~\ref{fig:wpe_vs_mase_best}
+and~\ref{fig:wpe_vs_mase_all} were determined from finite sets of
 methods and data.  We put a lot of thought and effort into making
-these experiments upon which these results are based both
-representative and comprehensive.  The forecast methods involved range
-from the simple to the sophisticated; the time-series data was sampled
-from a system whose behavior spans the dynamical behavior space.
-While we are cautiously optimistic about the generality of our
-conclusions, more exploration will be required before we can make any
-such claim.  Our preliminary work along those lines shows that data
-from the Henon map \cite{henon}, the Lorenz system \cite{lorenz}, and
-the SFI A data set \cite{weigend-book,sfi-data} all fall within the
-one-$\sigma$ volume of the fit in Figures~\ref{fig:wpe_vs_mase_best}
-and~\ref{fig:wpe_vs_mase_all} region, as do various nonlinear
-transformations of \svdtwo, \svdfive and \svdsix.
+these sets representative and comprehensive.  The forecast methods
+involved range from the simple to the sophisticated; the time-series
+data analyzed in this section was sampled from a system whose behavior
+spans the dynamical behavior space.  While we are cautiously
+optimistic about the generality of our conclusions, more exploration
+will be required before we can make any such claim.  Our preliminary
+work along those lines shows that data from the Henon map
+\cite{henon}, the Lorenz system \cite{lorenz}, the SFI A data set
+\cite{weigend-book,sfi-data}, and a white-noise process all fall
+within the one-$\sigma$ volume of the fit in
+Figures~\ref{fig:wpe_vs_mase_best} and~\ref{fig:wpe_vs_mase_all}
+region, as do various nonlinear transformations of \svdtwo, \svdfive
+and \svdsix.
 
 Of course, the geometry of the curves and bounds in these figures do
 not necessarily extend to other error metrics.  The positions of the
