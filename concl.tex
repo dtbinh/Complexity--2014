@@ -4,8 +4,6 @@
 % in the process of repeating our own study with other metrics, other
 % forecast methods, and time-series data from other systems.
 
-\alert{add FW stuff from section VI}
-
 Forecast strategies that are designed to capture predictive structure
 are ineffective when signal complexity outweighs information
 redundancy.  This poses a number of serious challenges in practice.
@@ -19,9 +17,9 @@ practitioner needs to know why: is the reason that the data contain no
 predictive structure---i.e., that no model will work---or is the model
 that s/he is using simply not good enough?
 
-In this paper, we have argued that redundancy is a useful definition
-of the inherent predictability of an empirical time series.  To
-operationalize that definition, we use an approximation of the
+In this paper, we have argued that redundancy is a useful proxy for
+the inherent predictability of an empirical time series.  To
+operationalize that relationship, we use an approximation of the
 Kolmogorov-Sinai entropy, estimated using a weighted version of the
 permutation entropy of~\cite{bandt2002per}.  This WPE technique---an
 ordinal calculation of forward information transfer in a time
@@ -54,17 +52,19 @@ extremely low redundancy.
 The curves and shaded regions in Figures~\ref{fig:wpe_vs_mase_best}
 and~\ref{fig:wpe_vs_mase_all} generalize and operationalize the
 discussion in the previous paragraph.  These geometric features are a
-preliminary, but potentially useful, empirical heurists for knowing
-when a model is not well-matched to the task at hand: a point that is
-below and/or to the right of the shaded regions on a plot like
-Figure~\ref{fig:wpe_vs_mase_best} indicates the time series has more
-predictive structure than the forecast model can capture and
+preliminary, but potentially useful, heuristic for knowing when a
+model is not well-matched to the task at hand: a point that is below
+and/or to the right of the shaded regions on a plot like
+Figure~\ref{fig:wpe_vs_mase_all} indicates that the time series has
+more predictive structure than the forecast model can capture and
 exploit---and that one would be well advised to try another method.
 
 These curves were determined empirically using a specific error metric
-and a finite set of forecast methods and time series traces.  If one
-uses a different error metric, the geometry---and the heuristic---will
-no longer apply.  And while the methods and traces were chosen to be
+and a finite set of forecast methods and time-series traces.  If one
+uses a different error metric, the geometry of the heuristic will be
+different---and may not even make sense, if one uses a metric that
+does not support comparison across different time series.  And while
+the methods and traces used in this study were chosen to be
 representative of the practice, they are of course not completely
 comprehensive.  It is certainly possible, for instance, that the
 nonlinear dynamics of computer performance is subtly different from
@@ -106,11 +106,11 @@ a broader study of data, forecast methods, and error metrics.
 Nonstationarity is a serious challenge in any time-series modeling
 problem.  Any regime shift that causes a change in the predictive
 structure between the training signal and the test signal, for
-instance, will skew the MASE score (and the points on the curve).
-This can destroy the utility of our heuristic.  \alert{Conversely,
-  though,} a MASE score of a random-walk prediction that is larger
-than 1---as mentioned at end of the previous section---can potentially
-be a good indicator that a signal is nonstationary.  Detecting regime
+instance, will skew the MASE score (and the points on the curve),
+obviating the utility of our heuristic.  \alert{Conversely, though,} a
+MASE score of a random-walk prediction that is larger than 1---as
+mentioned at end of the previous section---could potentially be a good
+indicator that a signal is nonstationary.  Detecting regime
 shifts---and adapting prediction models accordingly---is an important
 area of future work.  Indeed, one of the first applications of
 permutation entropy was to recognize the regime shift in brainwave
