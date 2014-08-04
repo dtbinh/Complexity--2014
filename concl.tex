@@ -4,6 +4,8 @@
 % in the process of repeating our own study with other metrics, other
 % forecast methods, and time-series data from other systems.
 
+\alert{add FW stuff from section VI}
+
 Forecast strategies that are designed to capture predictive structure
 are ineffective when signal complexity outweighs information
 redundancy.  This poses a number of serious challenges in practice.
@@ -17,21 +19,20 @@ practitioner needs to know why: is the reason that the data contain no
 predictive structure---i.e., that no model will work---or is the model
 that s/he is using simply not good enough?
 
-In this paper, we have argued that redundancy~\cite{crutchfield2003}
-is a useful definition of the inherent predictability of an empirical
-time series.  To operationalize that definition, we use an
-approximation of the Kolmogorov-Sinai entropy~\cite{lind95}, estimated
-using a weighted version of the permutation entropy
-of~\cite{bandt2002per}.  This WPE technique---an ordinal calculation
-of forward information transfer in a time series---is ideal for our
-purposes because it works with real-valued data and is known to
-converge to the true entropy value. Using a variety of forecast models
-and more than 150 time-series data sets from experiments and
-simulations, we have shown that prediction accuracy is indeed
-correlated with weighted permutation entropy: the higher the WPE, in
-general, the higher the prediction error.  The relationship is roughly
-logarithmic, which makes theoretical sense, given the nature of WPE,
-predictability, and MASE.
+In this paper, we have argued that redundancy is a useful definition
+of the inherent predictability of an empirical time series.  To
+operationalize that definition, we use an approximation of the
+Kolmogorov-Sinai entropy, estimated using a weighted version of the
+permutation entropy of~\cite{bandt2002per}.  This WPE technique---an
+ordinal calculation of forward information transfer in a time
+series---is ideal for our purposes because it works with real-valued
+data and is known to converge to the true entropy value. Using a
+variety of forecast models and more than 150 time-series data sets
+from experiments and simulations, we have shown that prediction
+accuracy is indeed correlated with weighted permutation entropy: the
+higher the WPE, in general, the higher the prediction error.  The
+relationship is roughly logarithmic, which makes theoretical sense,
+given the nature of WPE, predictability, and MASE.
 
 An important practical corollary to this empirical correlation of
 predictability and WPE is a practical strategy for assessing
@@ -68,11 +69,11 @@ representative of the practice, they are of course not completely
 comprehensive.  It is certainly possible, for instance, that the
 nonlinear dynamics of computer performance is subtly different from
 the nonlinear dynamics of other systems.  Our preliminary results on
-other systems (H\'enon, Lorenz, white noise, SFI ``A'', transformations
-of the computer performance data) lead us to believe that our results
-will generalize beyond the examples described in this paper.  We are
-in the process of following up on that exploration with a broader
-study of data, forecast methods, and error metrics.
+other systems (H\'enon, Lorenz, a white-noise process, SFI ``A'',
+transformations of the computer performance data) lead us to believe
+that our results will generalize beyond the examples described in this
+paper.  We are in the process of following up on that exploration with
+a broader study of data, forecast methods, and error metrics.
 
 % {\color{blue}agreed, I don't think it addds anything}\alert{I'm not
 %   sure this paragraph adds anything.  Can/should we remove it?  Given
@@ -103,32 +104,34 @@ study of data, forecast methods, and error metrics.
 %\end{it}
 
 Nonstationarity is a serious challenge in any time-series modeling
-problem.  [[Can destroy our heuristic: regime shifts can cause the
-    test signal to look different from the training signal, which can
-    skew the MASE score (and the points on the curve).  A RW MASE
-    score larger than 1, however, as mentioned at end of prev section,
-    can flag when this is happening.]]  Detecting regime shifts---and
-adapting prediction models accordingly---is an important area of
-future work.  Indeed, one of the first applications of permutation
-entropy was to recognize the regime shift in brainwave data that
-occurs when someone has a seizure~\cite{cao2004det}.  Recall that the
-signal in Figure~\ref{fig:svd-ts-colored} was especially useful for
-the study in this paper because it contained a number of different
-regimes.  We segmented this signal visually, but one could imagine
-using permutation entropy to do so instead.  Automating regime-shift
-detection would be an important step towards a fully adaptive modeling
-strategy, where old models are discarded and new ones are rebuilt
-whenever the time series enters a new regime.  WPE would be
-particularly powerful in this scenario, as its value can not only help
-with regime-shift detection, but also suggest what kind of model might
-work well in each new regime.  Of particular interest would be the
-class of so-called \emph{hybrid systems}~\cite{hybrid}, which exhibit
-discrete transitions between different continuous regimes---e.g., a
-lathe that has an intermittent instability or traffic at an internet
-router, whose characteristic normal traffic patterns shift radically
-during an attack.  Effective modeling and prediction of these kinds of
-systems is quite difficult; doing so adaptively and automatically---in
-the manner that is alluded to at the end of the previous
-paragraph---would be an even more important challenge.
+problem.  Any regime shift that causes a change in the predictive
+structure between the training signal and the test signal, for
+instance, will skew the MASE score (and the points on the curve).
+This can destroy the utility of our heuristic.  \alert{Conversely,
+  though,} a MASE score of a random-walk prediction that is larger
+than 1---as mentioned at end of the previous section---can potentially
+be a good indicator that a signal is nonstationary.  Detecting regime
+shifts---and adapting prediction models accordingly---is an important
+area of future work.  Indeed, one of the first applications of
+permutation entropy was to recognize the regime shift in brainwave
+data that occurs when someone has a seizure~\cite{cao2004det}.  Recall
+that the signal in Figure~\ref{fig:svd-ts-colored} was especially
+useful for the study in this paper because it contained a number of
+different regimes.  We segmented this signal visually, but one could
+imagine using permutation entropy to do so instead.  Automating
+regime-shift detection would be an important step towards a fully
+adaptive modeling strategy, where old models are discarded and new
+ones are rebuilt whenever the time series enters a new regime.  WPE
+would be particularly powerful in this scenario, as its value can not
+only help with regime-shift detection, but also suggest what kind of
+model might work well in each new regime.  Of particular interest
+would be the class of so-called \emph{hybrid systems}~\cite{hybrid},
+which exhibit discrete transitions between different continuous
+regimes---e.g., a lathe that has an intermittent instability or
+traffic at an internet router, whose characteristic normal traffic
+patterns shift radically during an attack.  Effective modeling and
+prediction of these kinds of systems is quite difficult; doing so
+adaptively and automatically---in the manner that is alluded to at the
+end of the previous paragraph---would be an interesting challenge.
 
 
