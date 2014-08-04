@@ -106,32 +106,35 @@ a broader study of data, forecast methods, and error metrics.
 Nonstationarity is a serious challenge in any time-series modeling
 problem.  Any regime shift that causes a change in the predictive
 structure between the training signal and the test signal, for
-instance, will skew the MASE score (and the points on the curve),
-obviating the utility of our heuristic.  \alert{Conversely, though,} a
-MASE score of a random-walk prediction that is larger than 1---as
-mentioned at end of the previous section---could potentially be a good
-indicator that a signal is nonstationary.  Detecting regime
-shifts---and adapting prediction models accordingly---is an important
-area of future work.  Indeed, one of the first applications of
-permutation entropy was to recognize the regime shift in brainwave
-data that occurs when someone has a seizure~\cite{cao2004det}.  Recall
-that the signal in Figure~\ref{fig:svd-ts-colored} was especially
-useful for the study in this paper because it contained a number of
-different regimes.  We segmented this signal visually, but one could
-imagine using permutation entropy to do so instead.  Automating
-regime-shift detection would be an important step towards a fully
-adaptive modeling strategy, where old models are discarded and new
-ones are rebuilt whenever the time series enters a new regime.  WPE
-would be particularly powerful in this scenario, as its value can not
-only help with regime-shift detection, but also suggest what kind of
-model might work well in each new regime.  Of particular interest
-would be the class of so-called \emph{hybrid systems}~\cite{hybrid},
-which exhibit discrete transitions between different continuous
-regimes---e.g., a lathe that has an intermittent instability or
-traffic at an internet router, whose characteristic normal traffic
-patterns shift radically during an attack.  Effective modeling and
-prediction of these kinds of systems is quite difficult; doing so
-adaptively and automatically---in the manner that is alluded to at the
-end of the previous paragraph---would be an interesting challenge.
+instance, may skew the MASE score and thereby obviate the utility of
+our heuristic.  Conversely, though, a MASE score of a random-walk
+prediction that is significantly different from 1.0---as mentioned at
+end of the previous section---could potentially be a good indicator of
+nonstationary.  
+
+Detecting regime shifts---and adapting prediction models
+accordingly---is an important area of future work.  Indeed, one of the
+first applications of permutation entropy was to recognize the regime
+shift in brainwave data that occurs when someone has a
+seizure~\cite{cao2004det}.  Recall that the signal in
+Figure~\ref{fig:svd-ts-colored} was especially useful for the study in
+this paper because it contained a number of different regimes.  We
+segmented this signal visually, but one could imagine using some
+combination of WPE and MASE to do so instead (e.g., in a sliding
+window).  Automating regime-shift detection would be an important step
+towards a fully adaptive modeling strategy, where old models are
+discarded and new ones are rebuilt whenever the time series enters a
+new regime.  WPE would be particularly powerful in this scenario, as
+its value can not only help with regime-shift detection, but also
+suggest what kind of model might work well in each new regime.  Of
+particular interest would be the class of so-called \emph{hybrid
+  systems}~\cite{hybrid}, which exhibit discrete transitions between
+different continuous regimes---e.g., a lathe that has an intermittent
+instability or traffic at an internet router, whose characteristic
+normal traffic patterns shift radically during an attack.  Effective
+modeling and prediction of these kinds of systems is quite difficult;
+doing so adaptively and automatically---in the manner that is alluded
+to at the end of the previous paragraph---would be an interesting
+challenge.
 
 
