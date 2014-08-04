@@ -41,8 +41,8 @@ forecast errors in those regions.  For example, Smith \emph{et al.}
 make in-sample forecasts using ensembles around selected points in
 order to predict the local predictability of that time
 series~\cite{Smith199250}.  This approach can be used to show that
-different portions of a time series can exhibit varying levels of
-local predictive uncertainty.  We expand on this finding later in this
+different portions of a time series exhibit varying levels of
+local predictive uncertainty.  We expand on this idea later in this
 paper with a time series that exhibits interesting regime shifts.
 
 Local model-based error analysis works quite well, but it only
@@ -57,10 +57,11 @@ Global model-based error analysis moves in this direction.  It uses
 out-of-sample error distributions, computed \emph{post facto} from a
 class of models, to determine which of those models was best.  After
 building an autoregressive model, for example, it is common to
-calculate forecast errors and verify that they are normally distributed.
-If they are not, that suggests that there is structure in the time
-series that the model-building process was unable to capture and use.
-The problem with this approach is lack of generality.
+calculate forecast errors and verify that they are normally
+distributed.  If they are not, that suggests that there is structure
+in the time series that the model-building process was unable to
+recognize, capture, and exploit.  The problem with this approach is
+lack of generality.
 \label{page:normal-errors}
 Normally distributed errors indicate that a model has captured the
 structure in the data insofar as is possible, \emph{given the
@@ -85,8 +86,9 @@ generating process and knowledge about what will happen to the error
 if those assumptions hold or fail.  Model-\emph{free} information
 analysis moves away from those restrictions.  Our approach falls into
 this class: we wish to measure the inherent complexity of an empirical
-time series, then correlate that complexity with the predictive
-accuracy of forecasts made using a number of different methods.
+time series, then study the correlation of that complexity with the
+predictive accuracy of forecasts made using a number of different
+methods.
 
 We build on the notion of \emph{redundancy} that was introduced on
 page~\pageref{page:redundancy}, which formally quantifies how
@@ -157,18 +159,18 @@ finite-size Lyapunov exponents (FSLE) and $\epsilon$-entropy for a
 wide variety of deterministic systems with known dynamics and additive
 noise.  While the scaling of these measures acts as a general proxy
 for predictability bounds, this approach differs from our work in a
-number of fundamental ways.  First, Boffetta \emph{et al.} is a
-theoretical study; they do not work with any real predictions.  We
-focus on real-world time-series data, where one does not necessarily
-have the ability to perturb or otherwise interact with the system of
-interest, nor can one obtain or manufacture the (possibly large)
-number of points that might be needed to estimate the
-$\epsilon$-entropy for small $\epsilon$.  Second, we do not require
-\emph{a priori} knowledge about the noise and its interaction with the
-system.  Third, we tie information---in the form of the weighted
-permutation entropy---directly to prediction error via calculated
-values of a specific error metric.  Though FSLE and $\epsilon$-entropy
-allow for the comparison of predictability between systems, they do
-not directly provide an estimate of prediction error.  Finally, our
-approach also holds for stochastic systems, where neither the FLSEs
-nor their relationship to predictability is well defined.
+number of fundamental ways.  First, \cite{boffetta02} is a theoretical
+study that does not involve any actual predictions.  We focus on
+real-world time-series data, where one does not necessarily have the
+ability to perturb or otherwise interact with the system of interest,
+nor can one obtain or manufacture the (possibly large) number of
+points that might be needed to estimate the $\epsilon$-entropy for
+small $\epsilon$.  Second, we do not require \emph{a priori} knowledge
+about the noise and its interaction with the system.  Third, we tie
+information---in the form of the weighted permutation
+entropy---directly to prediction error via calculated values of a
+specific error metric.  Though FSLE and $\epsilon$-entropy allow for
+the comparison of predictability between systems, they do not directly
+provide an estimate of prediction error.  Finally, our approach also
+holds for stochastic systems, where neither the FLSEs nor their
+relationship to predictability is well defined.

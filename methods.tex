@@ -24,8 +24,8 @@ dynamics is surprisingly rich.
 The processor and memory loads during the execution of even a very
 simple program can exhibit dynamical chaos, for
 instance~\cite{mytkowicz09}.  Figure~\ref{fig:col-ipc} shows an
-example: a short segment of a performance trace of a short program
-that repeatedly initializes the upper triangle of a matrix in
+example: a short segment of a performance trace of a four-line C
+program that repeatedly initializes the upper triangle of a matrix in
 column-major order.
 %
  \begin{figure}[htp]
@@ -35,10 +35,9 @@ column-major order.
     % and a .pdf suffix will be assumed for pdflatex
     \caption{A short segment of a computer performance trace: the
       instructions per CPU clock cycle (IPC) during the execution of
-      \col, a simple C program that repeatedly initializes a matrix in
-      column-major order, running on an Intel
-      i7\textsuperscript{\textregistered}-based machine.  Each point
-      is the average IPC in a 100,000 instruction period.}
+      \col, a simple program that repeatedly initializes a matrix in
+      column-major order.  Each point is the average IPC in a 100,000
+      instruction period.}
    \label{fig:col-ipc}
   \end{figure}
 %
@@ -221,10 +220,10 @@ complexities---are at work in different phases of a single time
 series.  The \col and \gcc traces in Figures~\ref{fig:col-ipc} and
 \ref{fig:gcc-ts} appear to be far more consistent over time---probably
 the result of a single generating process with consistent complexity.
-\svd, in contrast, has multiple regimes, each the result of a
-different generating process.  To take advantage of this, we split the
-signal into six different segments, thereby obtaining an array of
-examples for the analyses in the following sections.  For notational
+\svd, in contrast, has multiple regimes, each the result of different
+generating processes.  To take advantage of this, we split the signal
+into six different segments, thereby obtaining an array of examples
+for the analyses in the following sections.  For notational
 convenience, we refer to these 90 time-series data sets\footnote{15
   runs, each with six regimes} as {\tt dgesdd$_i$}, with $i \in
 \{1\dots6\}$ where $i$ corresponds to one of the six segments of the

@@ -101,12 +101,12 @@ underlying generating process transmits no information at all from the
 past to the future.  White noise processes fall in this class.  In
 fully complex signals, knowledge of the past gives no insight into the
 future, regardless of what model one chooses to use. Signals in the
-midrange of this spectrum---e.g., deterministic chaos---pose
-interesting challenges from a modeling perspective.  In these signals,
-enough information is being transmitted from the past to the future
-that an \emph{ideal} model---one that captures the generating
-process---can forecast the future behavior of the observed system with
-high accuracy.
+midrange of this spectrum, e.g., deterministic chaos, pose interesting
+challenges from a modeling perspective.  In these signals, enough
+information is being transmitted from the past to the future that an
+\emph{ideal} model---one that captures the generating process---can
+forecast the future behavior of the observed system with high
+accuracy.
 
 % As a corollary of the undecidability of the halting
 % problem~\cite{halting-problem}, however, no single forecasting schema
@@ -117,7 +117,7 @@ high accuracy.
 This leads naturally to an important and challenging question: given a
 noisy real-valued time series from an unknown system, does there exist
 a forecast model that can leverage the information (if any) that is
-being transmitted from past to future by the underlying generating
+being transmitted forward in time by the underlying generating
 process?  A first step in answering this question is to reliably
 quantify where on the complexity spectrum a given time series falls; a
 second step is to determine how complexity and predictability are
@@ -163,12 +163,12 @@ We focus on real-valued, scalar, time-series data from physical experiments.
 %
 We do not assume any knowledge of the generating process or its
 properties: whether it is linear, nonlinear, deterministic,
-stochastic, stationary, non-stationary, etc.  To explore the
-relationship between complexity, predictive structure, and
-predictability, we generate forecasts for a variety of experimental
-time-series datasets using four different prediction methods, then
-compare the accuracy of those predictions to the permutation entropy
-of the associated signals.  This results in two primary findings:
+stochastic, etc.  To explore the relationship between complexity,
+predictive structure, and actual predictability, we generate forecasts
+for a variety of experimental time-series datasets using four
+different prediction methods, then compare the accuracy of those
+predictions to the permutation entropy of the associated signals.
+This results in two primary findings:
 % 
 \begin{enumerate}
 % \item The complexity of a noisy real-valued time series can be

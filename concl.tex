@@ -1,16 +1,8 @@
 \section{ Conclusions \& Future Work }\label{sec:conc}
 
-\alert{Liz is working on this; don't read yet}
-
-[[To address the shortcomings mentioned in the previous section, we
-    are in the process of repeating our own study with other metrics,
-    other forecast methods, and time-series data from other systems,
-    as described in the following section.]]
-
-[[Add sentence about ``this curve doesn't hold for nonstationary data,''
-talk about what effects that has, tie back to the points to the right
-of the MASE wall, and opine about how one might know that this was
-happening (and what one might do if it did).]]
+% To address the shortcomings mentioned in the previous section, we are
+% in the process of repeating our own study with other metrics, other
+% forecast methods, and time-series data from other systems.
 
 Forecast strategies that are designed to capture predictive structure
 are ineffective when signal complexity outweighs information
@@ -34,30 +26,12 @@ of~\cite{bandt2002per}.  This WPE technique---an ordinal calculation
 of forward information transfer in a time series---is ideal for our
 purposes because it works with real-valued data and is known to
 converge to the true entropy value. Using a variety of forecast models
-and more than a hundred time-series data sets from a
-computer-performance experiment, we have shown that prediction
-accuracy is indeed correlated with weighted permutation entropy: the
-higher the WPE, in general, the higher the prediction error.  The
-relationship is roughly logarithmic.  
-
-[[Maybe put (or reiterate) the ``range of examples'' material here.
-    This is just an observed result.  It makes sense because any
-    signal with zero entropy should be perfectly predictable, and so
-    should ideally have a MASE value of zero.  As the entropy rises,
-    the MASE value rise: slowly at first---where the signal is not
-    very complex---and then more rapidly after WPE $\approx$ 0.5.  We
-    are in the process of exploring the theory behind this shape, as
-    well as testing other shapes.  Supporting our hypothesis, forecast
-    errors for the \col and \svdfive signals are higher than the
-    corresponding WPEs suggest---except for the nonlinear LMA
-    predictor.  There are some exceptions: \svdone is easier to
-    predict than its WPE value suggests using any of the three
-    forecast strategies studied here.  On the whole, though, signals
-    with higher weighted permutation entropy are harder to predict.
-
-% Further, the persistent WPE values of 0.5--0.6 for the {\tt
-%   col\_major} trace are consistent with dynamical chaos, further
-% corroborating the results of~\cite{mytkowicz09}.
+and more than 150 time-series data sets from experiments and
+simulations, we have shown that prediction accuracy is indeed
+correlated with weighted permutation entropy: the higher the WPE, in
+general, the higher the prediction error.  The relationship is roughly
+logarithmic, which makes theoretical sense, given the nature of WPE,
+predictability, and MASE.
 
 An important practical corollary to this empirical correlation of
 predictability and WPE is a practical strategy for assessing
@@ -75,54 +49,45 @@ random-walk strategy outperforms LMA, \arima, and the \naive
 ~method on the \gcc signal, which is extremely complex---i.e.,
 extremely low redundancy.
 %  \naive ~wins on \svdone with the exception to the 5 outliers.
-The dashed curve and shaded region in
-Figures~\ref{fig:wpe_vs_mase_best} and~\ref{fig:wpe_vs_mase_all}
-operationalize the discussion in this paragraph.  These geometric
-features are a preliminary, but potentially useful, empirical
-guideline for knowing when a model is not well-matched to the task at
-hand: a MASE score that is significantly\footnote{more than one
-  $\sigma$ out} higher than [[$3.58 \cdot \mathrm{WPE} - 1.91$]],
-where $\mathrm{WPE}$ is that of the corresponding signal, is an
-indication that that time series has more predictive structure than
-that forecast model can capture and exploit.
 
-[[This paragraph duplicates material in the last paragraph of this
-    section.  Some of it needs to be here rather than there, judging
-    by the ref's reactions.  But the later paragraph has a nice
-    concluding tone, so need to figure out what goes where.]]
+The curves and shaded regions in Figures~\ref{fig:wpe_vs_mase_best}
+and~\ref{fig:wpe_vs_mase_all} generalize and operationalize the
+discussion in the previous paragraph.  These geometric features are a
+preliminary, but potentially useful, empirical heurists for knowing
+when a model is not well-matched to the task at hand: a point that is
+below and/or to the right of the shaded regions on a plot like
+Figure~\ref{fig:wpe_vs_mase_best} indicates the time series has more
+predictive structure than the forecast model can capture and
+exploit---and that one would be well advised to try another method.
 
-This curve was determined empirically using a finite set of forecast
-methods and data sets---the latter drawn from a single experimental
-system.  Computer dynamics spans the full range of behavior reported
-in the nonlinear dynamics literature.  Standard nonlinear time-series
-analysis of data from these systems has confirmed the existence of
-fixed points, periodic orbits of different periods, chaotic
-trajectories with various Lyapunov exponents, etc. in their dynamics.
-While it is certainly possible that the nonlinear dynamics of computer
-performance is subtly different from the nonlinear dynamics of other
-systems---in a manner that cannot be detected by traditional nonlinear
-time-series analysis---we believe that our results will hold for time
-series drawn from other physical systems.  We are certainly aware that
-this claim may not be true, however, and we are in the process of a
-follow-up study exploring a broader range of applications.
-Preliminary results of this study show that MASE vs. WPE points for
-data from the SFI prediction competition \cite{weigend-book} fall in
-the shaded region on Figure [[what]]\footnote{Synthetic data from
-  paradigmatic systems like the H\'{e}non map \cite{henon} and the
-  Lorenz system \cite{lorenz} also fit this pattern.}.
+These curves were determined empirically using a specific error metric
+and a finite set of forecast methods and time series traces.  If one
+uses a different error metric, the geometry---and the heuristic---will
+no longer apply.  And while the methods and traces were chosen to be
+representative of the practice, they are of course not completely
+comprehensive.  It is certainly possible, for instance, that the
+nonlinear dynamics of computer performance is subtly different from
+the nonlinear dynamics of other systems.  Our preliminary results on
+other systems (Henon, Lorenz, white noise, SFI ``A'', transformations
+of the computer performance data) lead us to believe that our results
+will generalize beyond the examples described in this paper.  We are
+in the process of following up on that exploration with a broader
+study of data, forecast methods, and error metrics.
 
-Given that information is a fundamental limitation in predictability,
-then gathering and using more information is an obvious next step.
-But there is an equally obvious tension here between data length and
-prediction speed: a forecast that requires half a second to compute is
-not useful for the purposes of real-time control of a computer system
-with a MHz clock rate, for instance.  Another alternative is to sample
-several system variables simultaneously and build multivariate models.
-This is a particular challenge in nonlinear LMA-type models, since
-multivariate delay-coordinate embedding (e.g.,
-\cite{cao-multivariate-embedding,deyle-sugihara2011}) can be
-computationally prohibitive.  We are working on alternative methods
-that sidestep that complexity.
+\alert{I'm not sure this paragraph adds anything.  Can/should we
+  remove it?  Given that information is a fundamental limitation in
+  predictability, then gathering and using more information is an
+  obvious next step.  But there is an equally obvious tension here
+  between data length and prediction speed: a forecast that requires
+  half a second to compute is not useful for the purposes of real-time
+  control of a computer system with a MHz clock rate, for instance.
+  Another alternative is to sample several system variables
+  simultaneously and build multivariate models.  This is a particular
+  challenge in nonlinear LMA-type models, since multivariate
+  delay-coordinate embedding (e.g.,
+  \cite{cao-multivariate-embedding,deyle-sugihara2011}) can be
+  computationally prohibitive.  We are working on alternative methods
+  that sidestep that complexity.}
 
 %Paragraphs on the issues that come up, including one about the "amount
 %of info" one: if one could sample more variables, for instance, one
@@ -137,40 +102,32 @@ that sidestep that complexity.
 %\end{it}
 
 Nonstationarity is a serious challenge in any time-series modeling
-problem.  Indeed, one of the first applications of permutation entropy
-was to recognize the regime shift in brainwave data that occurs when
-someone has a seizure~\cite{cao2004det}.  Recall that the signal in
-Figure~\ref{fig:svd-ts-colored} was especially useful for the study in
-this paper because it contained a number of different regimes.  We
-segmented this signal visually, but one could imagine using
-permutation entropy to do so instead.  Automating regime-shift
+problem.  [[Can destroy our heuristic: regime shifts can cause the
+    test signal to look different from the training signal, which can
+    skew the MASE score (and the points on the curve).  A RW MASE
+    score larger than 1, however, as mentioned at end of prev section,
+    can flag when this is happening.]]  Detecting regime shifts---and
+adapting prediction models accordingly---is an important area of
+future work.  Indeed, one of the first applications of permutation
+entropy was to recognize the regime shift in brainwave data that
+occurs when someone has a seizure~\cite{cao2004det}.  Recall that the
+signal in Figure~\ref{fig:svd-ts-colored} was especially useful for
+the study in this paper because it contained a number of different
+regimes.  We segmented this signal visually, but one could imagine
+using permutation entropy to do so instead.  Automating regime-shift
 detection would be an important step towards a fully adaptive modeling
 strategy, where old models are discarded and new ones are rebuilt
 whenever the time series enters a new regime.  WPE would be
 particularly powerful in this scenario, as its value can not only help
 with regime-shift detection, but also suggest what kind of model might
-work well in each new regime.
+work well in each new regime.  Of particular interest would be the
+class of so-called \emph{hybrid systems}~\cite{hybrid}, which exhibit
+discrete transitions between different continuous regimes---e.g., a
+lathe that has an intermittent instability or traffic at an internet
+router, whose characteristic normal traffic patterns shift radically
+during an attack.  Effective modeling and prediction of these kinds of
+systems is quite difficult; doing so adaptively and automatically---in
+the manner that is alluded to at the end of the previous
+paragraph---would be an even more important challenge.
 
-All of the experiments described in this paper involve a particular
-physical system.  We chose that system because its behavior spans a
-broad spectrum of classical time series patterns.  Since these
-patterns (dynamical chaos, periodicities, noise, etc.) are generic, we
-believe that our results will generalize beyond this particular
-system.  Testing that claim with different examples is another
-important next step---and one that will be critical to validating our
-claims about the utility of the shaded region around the dashed curve
-in Figure [[what]] as a heuristic for determining whether a particular
-forecast method is well-matched to a particular task.  Of particular
-interest would be the class of so-called \emph{hybrid
-  systems}~\cite{hybrid}, which exhibit discrete transitions between
-different continuous regimes---e.g., a lathe that has an intermittent
-instability or traffic at an internet router, whose characteristic
-normal traffic patterns shift radically during an attack.  Effective
-modeling and prediction of these kinds of systems is quite difficult;
-doing so adaptively and automatically---in the manner that is alluded
-to at the end of the previous paragraph---would be an even more
-important challenge.
 
-% The way structure, information and complexity are processed by a
-% generating process play a crucial role in the success of a given
-% prediction scheme.

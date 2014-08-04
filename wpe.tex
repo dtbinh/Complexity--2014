@@ -2,7 +2,7 @@
 
 
 Estimating the entropy of an arbitrary, real-valued time series is a
-real challenge.  Our approach to this problem, which is the topic of
+significant challenge.  Our approach to this problem, which is the topic of
 this section, draws upon methods and results from a variety of fields
 including time-series analysis, dynamical systems, and stochastic
 processes.
@@ -34,19 +34,18 @@ into two components: the information shared with past
 observations---e.g., the mutual information between the past and
 present---and the information in the present that is not contained in
 the past (aka ``the conditional entropy of the present given the
-past'').  The first part is known as the \emph{redundancy}, as it is
+past'').  The first part is known as the \emph{redundancy}:
 information in the present that is also in the past.  The second part
 is the aforementioned Shannon entropy rate.  It seems obvious that the
-more redundancy in a signal, the more predictable it should be.
-Redundancy is critical to prediction, in general.  And the specific
-\emph{form} of the redundancy should dictate whether a particular
-prediction method will work well or poorly on the corresponding
-signal.  A linear method cannot capture or make use of nonlinear
-redundancy, for instance.  This issue---which has been explored
-extensively using clean data and/or systems where the generating
-process is known, but not so much with empirical data from unknown
-systems---is central to the claims in this paper and the discussion in
-the following section.
+more redundancy in a signal, the more predictable it should be.  And
+the specific \emph{form} of the redundancy should dictate whether a
+particular prediction method will work well or poorly on the
+corresponding signal.  A linear method cannot capture or make use of
+nonlinear redundancy, for instance.  This issue---which has been
+explored extensively using clean data and/or systems where the
+generating process is known, but not so much with empirical data from
+unknown systems---is central to the claims in this paper and the
+discussion in the following section.
 
 Previous approaches to measuring temporal complexity via the Shannon
 entropy rate \cite{Shannon1951, mantegna1994linguistic} required
@@ -115,17 +114,18 @@ signal by $1 - \frac{H(\ell)}{\log_2(\ell!)}$.
 
 Here we will be utilizing a variation of the basic permutation entropy
 technique, the \emph{weighted permutation entropy} (WPE), which was
-introduced in~\cite{fadlallah2013}.  The intent behind the weighting
-is to correct for observational noise that is larger than the trends
-in the data, but smaller than the larger-scale features.  Consider,
-for example, a signal that switches between two fixed points and
-contains some additive noise. The PE of such a signal will be
-dominated by the noise about the fixed points, driving it to $\approx
-1$---which in some sense hides the fact that the signal is actually
-quite structured.  In this situation, the terms of the weighted
-permutation entropy are dominated by the switching rather than the
-stochastic fluctuations. To accomplish this, the \emph{weight} of a
-permutation is taken into account:
+introduced in~\cite{fadlallah2013}.  \alert{We never actually say WHY
+  we use it.}  The intent behind the weighting is to correct for
+observational noise that is larger than the trends in the data, but
+smaller than the larger-scale features.  Consider, for example, a
+signal that switches between two fixed points and contains some
+additive noise. The PE of such a signal will be dominated by the noise
+about the fixed points, driving it to $\approx 1$---which in some
+sense hides the fact that the signal is actually quite structured.  In
+this situation, the terms of the weighted permutation entropy are
+dominated by the switching rather than the stochastic fluctuations. To
+accomplish this, the \emph{weight} of a permutation is taken into
+account:
 \begin{align*}
   w(x_{i+1}^\ell) = \frac{1}{\ell} \sum_{j = i + 1}^{i+\ell}
                       \left( x_j - \bar{x}_{i+1}^\ell \right)^2
@@ -164,10 +164,10 @@ increasing $\ell$, but that can require an arbitrarily long time
 series. In practice, what one should do is calculate the
 \emph{persistent} permutation entropy by increasing $\ell$ until the
 result converges, but data length issues can intrude before that
-convergence is reached.  We used this approach, which represents a
-good balance between accurate ordinal statistics and finite-data
-effects, to choose $\ell$ values for the experiments in the following
-section.  
+convergence is reached.  We used this approach, which we believe
+strikes a good balance between accurate ordinal statistics and
+finite-data effects, to choose $\ell$ values for the experiments in
+the following section.
 
 % was a good choice, because with $\ell \geq 7$ many signals had
 % entropies plummet due to finite data effects and so with a word length

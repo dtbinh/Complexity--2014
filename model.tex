@@ -25,7 +25,7 @@ predictive accuracy.  These methods include:
   observed signal as the forecast,
 
 \item The \emph{ARIMA} (auto-regressive integrated moving average)
-  method, a common linear forecast strategy, built using the
+  method, a common linear forecast strategy, instatiated via the
   \emph{\arima} procedure \cite{autoARIMA}, and
 
 \item The \emph{LMA} (Lorenz method of analogues) method, which uses a
@@ -209,10 +209,10 @@ linear predictors.  Fitting such a model to a dataset involves
 choosing values for the various free parameters in the autoregressive,
 detrending, moving average, and filtering terms.  We employ the
 automated fitting techniques described in~\cite{autoARIMA} to
-accomplish this, producing what we will call an ``\arima model''in the
-rest of this paper.  This procedure uses sophisticated methods---KPSS
-unit-root tests~\cite{KPSSunit}, a customization of the Canova-Hansen
-test~\cite{Canova1995}, and the Akaike information
+accomplish this, producing what we will call an ``\arima model'' in
+the rest of this paper.  This procedure uses sophisticated
+methods---KPSS unit-root tests~\cite{KPSSunit}, a customization of the
+Canova-Hansen test~\cite{Canova1995}, and the Akaike information
 criterion~\cite{akaike1974}, conditioned on the maximum likelihood of
 the model fitted to the detrended data---to select good values for the
 free parameters of the ARIMA model.
@@ -351,26 +351,28 @@ work of Sugihara \& May~\cite{sugihara90}}
 space~\cite{lorenz-analogues}.  Even this simple algorithm---which
 builds predictions by finding the nearest neighbor in the embedded
 space of the given point, then taking that neighbor's path as the
-prediction---provides accurate forecasts when the generating process
-is a deterministic dynamical system.
+prediction---provides remarkably accurate forecasts when the
+generating process is a deterministic dynamical system.
 
 Since LMA does not rest on an assumption of linearity (as ARIMA models
 do), it can handle both linear and nonlinear processes.  If the
 underlying generating process is nondeterministic, however, it can
 perform poorly.  Figure~\ref{fig:embedding}(b), for instance, appears
-to contain little structure, so LMA may not work well on this signal.
-More structure appears to be present in Figure~\ref{fig:embedding}(c),
-but this reconstruction also appears to contain some noise.  The
-question as to how much structure is present in a reconstruction, and
-how much of that structure can be captured and used by LMA, is apropos
-of the central question treated in this paper.  It may be that \gcc
-has some redundancy that LMA cannot exploit, or that the structure in
-\svdfive is effectively obfuscated, from the standpoint of the LMA
-method, by noise.  Without any knowledge of the generating process,
-answers to these questions can only be derived from the data, with all
-of the attendant problems (noise, sampling issues, and so on).  By
-quantifying the balance between redundancy, predictive structure, and
-entropy for these real-valued time series---as shown in
+to contain little structure, so one might not expect LMA to work well
+on this signal.  More structure appears to be present in
+Figure~\ref{fig:embedding}(c), but this reconstruction also appears to
+contain some noise.  The question as to how much structure is present
+in a reconstruction, and how much of that structure can be captured
+and used by LMA, is apropos of the central question treated in this
+paper.  It may be that \gcc has some redundancy that LMA cannot
+exploit, or that the structure in \svdfive is effectively obfuscated,
+from the standpoint of the LMA method, by noise.  
+
+Without any knowledge of the generating process, answers to these
+questions can only be derived from the data, with all of the attendant
+problems (noise, sampling issues, and so on).  By quantifying the
+balance between redundancy, predictive structure, and entropy for
+these real-valued time series---as shown in
 Section~\ref{sec:results}---we can begin to answer these questions in
 an effective and practical manner.
 
@@ -385,7 +387,7 @@ use the four methods outlined above to generate predictions of all 120
 traces described in Section~\ref{sec:methods}, then calculate the
 error of the predictions with respect to the true continuations.
 Specifically, we split each time series into two pieces: the first
-90\%, referred to as the ``initial training" signal and denoted
+90\%, referred to here as the ``initial training" signal and denoted
 $\{x_i\}_{i=1}^{n}$, and the last 10\%, known as the ``test" signal
 $\{c_j\}_{j=n+1}^{k+n+1}$.  The initial training signal is used to
 build the model, following the procedures described in the previous
@@ -617,10 +619,6 @@ Signal & RW MASE & na\"{i}ve MASE & \arima MASE & LMA MASE & WPE \\
   \end{center}
  \label{tab:error}
   \end{table*}%
-  
-  
-  
-  
 In view of the discussion at the end of the previous paragraph, the
 fact that the values in the second-from-left column are not
 identically equal to 1.00 may be somewhat surprising.  This can happen
@@ -642,7 +640,7 @@ the corresponding images in Figure~\ref{fig:forecast-example}.
 In other cases, the correspondence between MASE score and the visual
 appearance of these kinds of plots is not so clear cut.  The plots of
 LMA predictions of \col and \svdfive both lie near the diagonal, for
-instance, but the corresponding MASE scores were very different:
+instance, but the corresponding MASE scores are very different:
 $0.050$ for \col and $0.718$ for \svdfive (resp., 20 and 1.4 times
 better than random-walk forecasts of the same signals).  This is a
 result of the normalization in the MASE score calculation.  Recall
@@ -653,7 +651,7 @@ of the four MASE scores in the first row of the Table---is
 pathologically high, which skews those scores down.  Random-walk
 prediction is very effective for the \svdfive signal, on the other
 hand, so the denominator is small and the MASE scores are skewed
-upwards.  
+upwards.
 
 Normalization is, as is often the case, a double-edged sword.  Here,
 it facilitates comparisons across signals of different types and
