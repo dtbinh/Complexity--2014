@@ -823,48 +823,7 @@ please see
 % performance trace (Seen in Figures
 % \ref{fig:col-ts}-\ref{fig:svd-ts-colored}.
 
-% Commented this out because the addition of the paragraph from the
-% introduction seemed like it could replace it
-% 
-% \col is a simple C program that repeatedly initializes the upper
-% triangle of a 2048 $\times$ 2048 matrix in column-major order.
-% % 
-% % by looping over the following three lines of code:
-% % \begin{lstlisting}
-% %   for(i=0;i<2048;i++)
-% %   	for(j=i;j<2048;j++)
-% %   		data[j][i] = 0;
-% % \end{lstlisting}
-% % full listing
-% % #define SIZE (2048)
-% % 
-% % int main(int argc, char ** argv)
-% % {
-% %   int i, j, n;
-% %   static int data[SIZE][SIZE];
-% %   
-% %   for(n=0;n<numInits;n++){  
-% %   for(i=0;i<SIZE;i++)
-% %   	for(j=i;j<SIZE;j++)
-% %   		data[j][i] = 0;
-% %   }
-% %   return 0;
-% % }
-% %
-% As mentioned in Section~\ref{sec:intro}, this simple program exhibits
-% surprisingly complicated behavior~\cite{mytkowicz09}.  A time series
-% of the processor performance during the execution of this program is
-% shown in Figure~\ref{fig:col-ts}.
-% \begin{figure}[htbp]
-%   \centering
-%     \includegraphics[width=\columnwidth]{figs/colFullTS}
-%     \caption{The instructions executed per CPU clock cycle (IPC) as
-%       the \col program runs.  Each point is the average IPC in a
-%       100,000 instruction period. Figure~\ref{fig:col-ipc} is a
-%       closeup of the first part of this signal.  }
-%     \label{fig:col-ts}
-%   
-%   \end{figure}
+
 
 The SPEC CPU2006 benchmark suite \cite{spec} is a collection of
 complicated programs that are used in the computer-science community
@@ -916,11 +875,11 @@ this matrix is very interesting, as is clearly visible in Figure
 As the code moves though its different phases---diagonalizing the
 matrix, computing its transpose, multiplying, etc.---the processor
 utilization patterns change quite radically.  For the first
-$\sim$21,000 measurements (21,000 $\times$ 100,000 instructions),
+$\sim$21,000 (in units of $10^5$ instructions) measurements,
 roughly 1.8 instructions are executed per cycle, on the average, by
 the eight processing units on this chip.  After that, the IPC moves
 through a number of different oscillatory regimes, which we have
-color-coded in the figure in order to make textual cross-references
+color-coded in the figure (as well as separated by vertical dashed lines) in order to make textual cross-references
 easy to track.
 
 The wide range of behaviors in Figure~\ref{fig:svd-ts-colored}
@@ -2365,7 +2324,7 @@ the \svdtwo results, for the same reasons---and visibly so, in the red
 segment of Figure~\ref{fig:svd-ts-colored}, where the period and
 amplitude of the oscillations are decreasing.
 
-\svdone---the dark blue segment of
+\svdone---the dark blue (first) segment of
 Figure~\ref{fig:svd-ts-colored}---behaves very differently than the
 other seven systems in this study.  Though its weighted permutation
 entropy is very high ($0.957 \pm 0.016$), three of the four prediction
